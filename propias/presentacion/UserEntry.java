@@ -1,6 +1,7 @@
 package propias.presentacion;
 
 import java.awt.BorderLayout;
+import java.awt.event.MouseAdapter;
 import java.util.List;
 
 import javax.swing.Box;
@@ -15,7 +16,7 @@ import javax.swing.JTextField;
 
 
 /**
- * Set createUser view.
+ * Configure createUser view.The types can be: login and createUser.
  * 
  * @author Daniel Sanchez Martinez
  */
@@ -26,8 +27,8 @@ public abstract class UserEntry {
 	private JLabel[] label;
 	private JTextField name;
 	protected JPasswordField pf;
-	private JButton accept;
-	private JButton cancel;
+	protected JButton accept;
+	protected JButton cancel;
 	private JPanel[] panel;
 	protected JPanel labelPanel;
 	protected JPanel textPanel;
@@ -127,7 +128,23 @@ public abstract class UserEntry {
 	}
 	
 	/**
+	 * Add listeners to the button
+	 * @param mm
+	 * @param b
+	 */
+	protected void buttonListener(MouseAdapter mm, JButton b){
+		b.addMouseListener(mm);
+	}
+	
+	/**
+	 * Close view
+	 */
+	protected void closeView(){
+		frame.dispose();
+	}
+	
+	/**
 	 * @return Passwords to check
 	 */
-	public abstract Object getPassword();
+	public abstract List<String> getInfoUser();
 }

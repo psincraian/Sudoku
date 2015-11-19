@@ -18,7 +18,7 @@ import javax.swing.JPanel;
 import propias.presentacion.*;
 
 
-//import tests.ControllerPresentation; /*test*/
+//import propias.Driver.ControllerPresentation; /*test*/
 
 /**
  * Its duty is to controll board view.
