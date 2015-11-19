@@ -19,8 +19,9 @@ public class ControllerPresentation {
      */
     
     ControllerDomain cd;
+    ControllerUserEntry cu;
     String name;
-    boolean create;
+    boolean correct = false;
     
     public ControllerPresentation() {
         cd = new ControllerDomain();
@@ -34,21 +35,14 @@ public class ControllerPresentation {
         vi.show();
         Options op = vi.getOption();
         if (op == Options.IniciarSessio) {
-            UserEntry vl = new ViewLogin();
+              cu = new ControllerUserEntry(this, true);
             try {
-                name = vl.getName();
-                if (login(name,(String)vl.getPassword())) {
+                if (correct) {
                     cd.createStadistics();
                     cd.setRankingController(true);
-                    Menu(false);
-                }
-                else {
-                    vl = new ViewLogin();
-                    System.out.println(vl.getPassword());
                 }
             } 
             catch (Exception e) {
-                System.out.println("Exception in start");
             }
 
         }
@@ -57,8 +51,7 @@ public class ControllerPresentation {
             Menu(true);
         }
         else if (op == Options.RegistrarUsuari){
-            UserEntry cu = new ViewCreateUser();
-          
+            cu = new ControllerUserEntry(this, false);
         }
         else if (op == Options.Sortir) System.exit(0);
         
@@ -69,12 +62,15 @@ public class ControllerPresentation {
      * @param pass
      * @throws Exception
      */
-    private boolean login(String user, String pass)  {
-          boolean correct = cd.loginCorrectUser(user, pass);
-          if (correct) return true; 
-          return false;
+    public boolean checkInfoUser(List<String> credentials) {
+      this.name = credentials.get(0);
+      correct = false;
+      String result = cd.checkCredentials(credentials,correct);
+      cu.sendMessage(result);
+      return correct;
     }
-    
+      
+
     public void getBack() {
         if (name.equals("Convidat"))
             Menu(true);
@@ -101,21 +97,23 @@ public class ControllerPresentation {
         om = vm.obtenirOpcio();
       }
       if (om == OptionsMenu.PartidaRapida) {
-          create = false;
           VistaSeleccionarCaracteristiques sc = new VistaSeleccionarCaracteristiques();
           int[][] m = cd.createMatch(sc.obtenirCaracteristiques());
           if (!isCompetition()) play(m,false,false);
           else play(m,true,false);
       }
       if (om == OptionsMenu.CargarPartida) {
+          List<String> id = cd.getIDMatches();
           ViewLoadMatch vcp = new ViewLoadMatch();
-          String s =  vcp.getLoadMatch();
-          List<int[][]> m = cd.getSavedMatches(s);
-          play(m.get(0),true,true);
+          int s =  vcp.getLoadMatch(id);
+          if (s != 0) {
+            List<int[][]> m = cd.getSavedMatches(id.get(s));
+            play(m.get(0),true,true);
+          }
+          else Menu(false);
           
       }
       else if (om == OptionsMenu.CrearSudoku) {
-          create = true;
           VistaSeleccionarCaracteristiques sc = new VistaSeleccionarCaracteristiques();
           int mida = sc.obtenirMida();
           int m[][] = new int[mida][mida];
@@ -246,8 +244,9 @@ public class ControllerPresentation {
             return cd.getDifferentCells();
         } 
         catch (Exception e) {
+            return null;
         }
-        return null;
+        
     }
     /**
      * 
@@ -258,8 +257,9 @@ public class ControllerPresentation {
             return cd.getNextSol();
         } 
         catch (Exception e) {
+            return 0;
         }
-        return 0;
+        
     }
     /**
      * 
@@ -271,7 +271,8 @@ public class ControllerPresentation {
             return cd.getCellSol(s);
         } 
         catch (Exception e) {
+            return 0;
         }
-        return 0;
+        
     }
 }
