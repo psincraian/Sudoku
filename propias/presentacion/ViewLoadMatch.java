@@ -13,16 +13,15 @@ public class ViewLoadMatch {
 		       showLoadMatch(id);
 		       if (id.size() != 0){
 			       Scanner scanner = new Scanner(System.in);
-			       int op =1;
-			       while ( op > 0 && op < id.size()) {
-					       op = scanner.nextInt();
-			       }
+			       int op = 1;
+			       op = scanner.nextInt();	
 			       return op;
 		       }
 		       else return 0;
  	  }
 	
    	public void showLoadMatch(List<String> id) {
+   		
    		if (id.size() == 0) System.out.println("No hi ha partides guardades");
    		else {
    			System.out.println("Quina partida vols continuar jugant? ");
