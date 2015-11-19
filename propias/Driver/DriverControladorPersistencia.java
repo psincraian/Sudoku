@@ -5,6 +5,13 @@ import java.util.Scanner;
 import java.util.List;
 import java.util.ArrayList;
 
+/**
+* Clase per a comprovar el correcte funcionament de
+* la majoria de funcions del controlador de Persistencia.
+*
+* @author  Adrián Sánchez Albanell
+*
+*/
 public class DriverControladorPersistencia{
 
 	public static void main(String[] args) {
