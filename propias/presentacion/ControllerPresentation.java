@@ -63,7 +63,7 @@ public class ControllerPresentation {
      * @throws Exception
      */
     public boolean checkInfoUser(List<String> credentials) {
-      this.name = credentials.get(0);
+      name = credentials.get(0);
       correct = false;
       String result = cd.checkCredentials(credentials,correct);
       cu.sendMessage(result);
