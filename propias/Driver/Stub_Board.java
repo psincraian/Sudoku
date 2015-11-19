@@ -1,7 +1,11 @@
 package propias.Driver;
 
 import java.util.Scanner;
-
+/**
+ * 
+ * @author daniel sánchez martínez
+ *
+ */
 public class Stub_Board {
 
 	int[][] board;

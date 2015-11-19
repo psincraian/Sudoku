@@ -4,7 +4,11 @@ import java.util.Scanner;
 import propias.dominio.clases.SudokuVerification;
 import propias.dominio.clases.Board;
  
- /*@Author Daniel Sanchez Martinez*/
+/**
+ * 
+ * @author daniel sanchez martinez
+ *
+ */
 public class Driver_SudokuVerification {
  
      

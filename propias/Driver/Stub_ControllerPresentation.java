@@ -7,6 +7,11 @@ import java.util.Random;
 import java.util.Scanner;
 import propias.Driver.Stub_Board;
 
+/**
+ * 
+ * @author daniel sanchez martinez
+ *
+ */
 public class Stub_ControllerPresentation {
 	
 	int[][] board;

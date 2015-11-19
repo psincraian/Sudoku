@@ -4,7 +4,11 @@ import propias.presentacion.ControllerPresentationBoard;
 import propias.presentacion.ControllerPresentation;
 import propias.Driver.Stub_ControllerPresentation;
 
-/*@Author: Daniel Sanchez Martinez*/
+/**
+ * 
+ * @author daniel sanchez martinez
+ *
+ */
 public class Driver_controllerPresentationBoard {
 
 	public static void main(String[] args) {

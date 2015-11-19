@@ -7,8 +7,11 @@ import java.util.List;
  
 import propias.dominio.clases.ParamRanking;
 
- /*@Author Daniel Sanchez Martinez*/
-
+/**
+ * 
+ * @author daniel sanchez martinez
+ *
+ */
 public class Driver_ControllerRanking {
  
     public static void main(String[] args){

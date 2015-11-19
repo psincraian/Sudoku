@@ -3,7 +3,12 @@ package propias.Driver;
 import propias.presentacion.ViewRanking; 
 import java.util.ArrayList;
 import java.util.List;
- /*@author Daniel Sanchez Martinez*/
+ 
+/**
+ * 
+ * @author daniel sanchez martinez
+ *
+ */
 public class Driver_VistaRanking {
     public static void main (String[] args){
         List<String> name = new ArrayList<String>();
