@@ -31,23 +31,23 @@ public class ControllerDomain {
         cp = new ControllerPersistance();
     }
     
-    public String checkCredentials(List<String> credentials, boolean correct){
+        public String checkCredentials(List<String> credentials, boolean correct){
         String user = credentials.get(0);
         String pass1 = credentials.get(1);
         if (credentials.size() == 3) { //create user
             try {
                 String pass2 = credentials.get(2);
-                if (user == "") return "El usuario no puede ser vacio";
+                if (user.equals("")) return "El usuario no puede ser vacio";
                 boolean b = cp.existsUser(user);
                 if (b)  return "El usuario ya existe";  //Usuari ja existent
-                else if (pass1 == "" || pass2 == "") return "Las contraseñas no pueden ser vacias";
+                else if (pass1.equals("") || pass2.equals("")) return "Las contraseñas no pueden ser vacias";
                 int i;
                 for(i=0;i<pass1.length(); ++i) {
                     if (pass1.charAt(i) < '1' || (pass1.charAt(i) >'9' && pass1.charAt(i) < 'A') || (pass1.charAt(i) > 'Z' && pass1.charAt(i) < 'a') || pass1.charAt(i) > 'z'){
                         return "Las contraseñas solo pueden tener numeros y letras";
                     } 
                 }
-                if (pass1 != pass2) return "Las contraseñas no coinciden"; //Les contrasenyes no coincideixen
+                if (!pass1.equals(pass2)) return "Las contraseñas no coinciden"; //Les contrasenyes no coincideixen
                 else{
                     cp.newUser(user,pass1);
                     correct = true;
