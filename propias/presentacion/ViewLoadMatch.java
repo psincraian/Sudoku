@@ -6,33 +6,32 @@ import java.util.Iterator;
 import java.util.Scanner;
 
 public class ViewLoadMatch {
-	
-    public String getLoadMatch(){
-		       showLoadMatch();
-		       Scanner scanner = new Scanner(System.in);
-		       String op = null;
-		       while (op == null) {
-			          try {
-				             op = scanner.nextLine();
-			          } 
-			          catch (Exception e) {
-				             op = null;
-			          }
+	public ViewLoadMatch(){
+		
+	}
+    public int getLoadMatch(List<String> id){
+		       showLoadMatch(id);
+		       if (id.size() != 0){
+			       Scanner scanner = new Scanner(System.in);
+			       int op =1;
+			       while ( op > 0 && op < id.size()) {
+					       op = scanner.nextInt();
+			       }
+			       return op;
 		       }
-		       scanner.close();
-		       return op;
+		       else return 0;
  	  }
 	
-   	public void showLoadMatch() {
-   		System.out.println("Quina partida vols continuar jugant? ");
-                   ControllerPresentation c = new ControllerPresentation();
-                   List<String> matches = new ArrayList<String>();
-                   matches = c.getIDMatches();
-                   Iterator<String> iter = matches.iterator();
+   	public void showLoadMatch(List<String> id) {
+   		if (id.size() == 0) System.out.println("No hi ha partides guardades");
+   		else {
+   			System.out.println("Quina partida vols continuar jugant? ");
+                   Iterator<String> iter = id.iterator();
                    int i = 1;
-   		while(iter.hasNext())  {
-   			System.out.println(i + ". " + iter.next() + "\n");
-   			++i;
+            while(iter.hasNext())  {
+            	System.out.println(i + ". " + iter.next() + "\n");
+            	++i;
+            }
    		}
    	}
 	
