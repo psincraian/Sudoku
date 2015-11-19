@@ -193,8 +193,9 @@ public class ControllerDomain {
     	try {
 			return cp.getIdMatches();
 		} catch (Exception e) {
+			return null;
 		}
-    	return null;
+    	
     }
     /**
      * 
@@ -352,8 +353,9 @@ public class ControllerDomain {
 			p = new Position(row,column);
 			return SudokuHelps.getCellSolution(match.getSolution(), p);
 		} catch (Exception e) {
+			return 0;
 		}
-		return 0;
+		
     }
 
     /**
@@ -364,8 +366,9 @@ public class ControllerDomain {
         try {
 			return cp.getStadistics();
 		} catch (Exception e) {
+			return null;
 		}
-        return null;
+        
     }
     /**
      * 
