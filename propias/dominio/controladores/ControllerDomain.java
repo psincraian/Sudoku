@@ -293,7 +293,7 @@ public class ControllerDomain {
      * 
      */
     public boolean checkBoard(){
-    	return false;
+    	return compareSolution();
     }
     public void updateCell(String position, int value){
     	String[] nombres = position.split(" ");
