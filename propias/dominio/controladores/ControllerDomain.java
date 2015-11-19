@@ -69,7 +69,7 @@ public class ControllerDomain {
                     correct = true;
                     return "Login correcto";
                 }
-                else return "Nombre o password incorrecto";
+                else return "Nombre o contraseña incorrecto";
             } 
             catch (Exception e1) {
                 return null;
