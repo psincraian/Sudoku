@@ -31,51 +31,53 @@ public class ControllerDomain {
         cp = new ControllerPersistance();
     }
     
-    public boolean loginCorrectUser(String user, String pass) {        
-        String passWordOk = "";
-        try {
-			passWordOk = cp.getPasswordUser(user);
-		} catch (Exception e1) {
-			passWordOk = "";
-		}
-        
-        if (passWordOk.equals(pass)) {
-        	username = user;
-        	cp.userDBInit(username);
-        	return true;
-        } else
-			return false;
-    }
-    /**
-     * 
-     * @param user
-     * @param pass1
-     * @param pass2
-     * @return
-     */
-    public String createUser(String user, String pass1, String pass2) {
-        	try {
-        		if (user == "") return "L'usuari no pot ser buit";
+    public String checkCredentials(List<String> credentials, boolean correct){
+        String user = credentials.get(0);
+        String pass1 = credentials.get(1);
+        if (credentials.size() == 3) { //create user
+            try {
+                String pass2 = credentials.get(2);
+                if (user == "") return "El usuario no puede ser vacio";
                 boolean b = cp.existsUser(user);
-                if (b)  return "Lusuari ja existeix";  //Usuari ja existent
-                else if (pass1 == "" || pass2 == "") return "Les Contrasenyes no poden ser buides"; //Les contrasenyes no poden ser buides
+                if (b)  return "El usuario ya existe";  //Usuari ja existent
+                else if (pass1 == "" || pass2 == "") return "Las contraseñas no pueden ser vacias";
                 int i;
                 for(i=0;i<pass1.length(); ++i) {
                     if (pass1.charAt(i) < '1' || (pass1.charAt(i) >'9' && pass1.charAt(i) < 'A') || (pass1.charAt(i) > 'Z' && pass1.charAt(i) < 'a') || pass1.charAt(i) > 'z'){
-                        return "Les contrasenyes nomes tenir caracters alfanumerics";
+                        return "Las contraseñas solo pueden tener numeros y letras";
                     } 
                 }
-                if (pass1 != pass2) return "Les contrasenyes no coincideixen"; //Les contrasenyes no coincideixen
+                if (pass1 != pass2) return "Las contraseñas no coinciden"; //Les contrasenyes no coincideixen
                 else{
-                	cp.newUser(user,pass1);
-                	return "Usuari creat correctament"; //tot correcte
+                    cp.newUser(user,pass1);
+                    correct = true;
+                    return "Se ha creado el usuario"; //tot correcte
                 }
-			}
+            }
                 catch (Exception e) {
-			}
-        	return null;
-    }
+                    return null;
+            }
             
+        }
+        else { //login
+            String passWordOk = "";
+            try {
+                passWordOk = cp.getPasswordUser(user);
+                if (passWordOk.equals(pass1)) {
+                    username = user;
+                    cp.userDBInit(username);
+                    correct = true;
+                    return "Login correcto";
+                }
+                else return "Nombre o password incorrecto";
+            } 
+            catch (Exception e1) {
+                return null;
+            }
+            
+            
+        }   
+    }
 
     /**
      * 
