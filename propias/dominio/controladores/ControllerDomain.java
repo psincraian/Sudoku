@@ -145,9 +145,6 @@ public class ControllerDomain {
      * @return
      */
     public boolean compareSolution() {
-    	/*SudokuVerification s = new SudokuVerification();
-    	if (s.resolve(b)) return true;
-    	return false;*/
     	CreateBoard cr = new CreateBoard();
     	int[][] m = convertToMatrix(match.getSudoku());
     	return cr.verify(m);
