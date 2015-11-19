@@ -107,7 +107,7 @@ public class ControllerPresentation {
           ViewLoadMatch vcp = new ViewLoadMatch();
           int s =  vcp.getLoadMatch(id);
           if (s != 0) {
-            List<int[][]> m = cd.getSavedMatches(id.get(s));
+            List<int[][]> m = cd.getSavedMatches(id.get(s-1));
             play(m.get(0),true,true);
           }
           else Menu(false);
