@@ -364,7 +364,6 @@ public class ControllerDomain {
         try {
 			return cp.getStadistics();
 		} catch (Exception e) {
-			System.out.println("Error al recojer stadistics");
 		}
         return null;
     }
