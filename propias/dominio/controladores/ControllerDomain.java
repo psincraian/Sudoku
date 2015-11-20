@@ -41,21 +41,18 @@ public class ControllerDomain {
                 boolean b = cp.existsUser(user);
                 if (b)  return "El usuario ya existe";  //Usuari ja existent
                 else if (pass1.equals("") || pass2.equals("")) return "Las contraseñas no pueden ser vacias";
+                else if (!pass1.equals(pass2)) return "Las contraseñas no coinciden"; //Les contrasenyes no coincideixen
                 int i;
                 for(i=0;i<pass1.length(); ++i) {
                     if (pass1.charAt(i) < '1' || (pass1.charAt(i) >'9' && pass1.charAt(i) < 'A') || (pass1.charAt(i) > 'Z' && pass1.charAt(i) < 'a') || pass1.charAt(i) > 'z'){
                         return "Las contraseñas solo pueden tener numeros y letras";
                     } 
                 }
-                if (!pass1.equals(pass2)) return "Las contraseñas no coinciden"; //Les contrasenyes no coincideixen
-                else{
-                    cp.newUser(user,pass1);
-                    correct = true;
-                    return "Se ha creado el usuario"; //tot correcte
-                }
+                cp.newUser(user,pass1);
+                return "Se ha creado el usuario"; //tot correcte
             }
-                catch (Exception e) {
-                    return null;
+            catch (Exception e) {
+                return null;
             }
             
         }
@@ -66,7 +63,6 @@ public class ControllerDomain {
                 if (passWordOk.equals(pass1)) {
                     username = user;
                     cp.userDBInit(username);
-                    correct = true;
                     return "Login correcto";
                 }
                 else return "Nombre o contraseña incorrecto";
