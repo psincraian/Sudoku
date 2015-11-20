@@ -140,6 +140,7 @@ public abstract class UserEntry {
 	 * Close view
 	 */
 	protected void closeView(){
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.dispose();
 	}
 	
