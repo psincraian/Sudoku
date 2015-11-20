@@ -21,7 +21,7 @@ public class ControllerPresentation {
     ControllerDomain cd;
     ControllerUserEntry cu;
     String name;
-    boolean correct = false;
+    boolean correct;
     
     public ControllerPresentation() {
         cd = new ControllerDomain();
@@ -30,7 +30,7 @@ public class ControllerPresentation {
      * 
      */
     public void start() {
-
+        correct = false;
         ViewStart vi = new ViewStart();
         vi.show();
         Options op = vi.getOption();
@@ -64,8 +64,8 @@ public class ControllerPresentation {
      */
     public boolean checkInfoUser(List<String> credentials) {
       name = credentials.get(0);
-      correct = false;
-      String result = cd.checkCredentials(credentials,correct);
+      String result = cd.checkCredentials(credentials);
+      if (result.equals("Login correcto") || result.equals("Se ha creado el usuario")) correct = true;
       cu.sendMessage(result);
       return correct;
     }
