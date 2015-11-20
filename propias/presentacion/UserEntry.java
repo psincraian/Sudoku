@@ -78,7 +78,7 @@ public abstract class UserEntry {
 		panelButtons.add(accept);
 		panelButtons.add(cancel);
 		frame.add(panelButtons, BorderLayout.SOUTH);
-		frame.add(Box.createVerticalStrut(80), BorderLayout.SOUTH);
+		//panelButtons.add(Box.createVerticalStrut(80), BorderLayout.SOUTH);
 	}
 	/**
 	 * Initialize component's view
