@@ -43,20 +43,11 @@ public class ControllerUserEntry {
 		public void mouseClicked(MouseEvent e) {
 			JButton b = (JButton)e.getSource();
 			if(b.getText() == "Aceptar"){
-				boolean cheked;
-				if(eu instanceof ViewLogin){
-					if(cp.checkInfoUser(eu.getInfoUser()))
-						cp.getBack();
-					else
-						cp.start();
+				if(cp.checkInfoUser(eu.getInfoUser()))
+					cp.getBack();
+				else
+					cp.start();
 							
-				}
-				else {
-					if(cp.checkInfoUser(eu.getInfoUser()))
-						cp.getBack();
-					else
-						cp.start();
-				}
 			}
 			else{
 				eu.closeView();
