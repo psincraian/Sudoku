@@ -31,7 +31,7 @@ public class ControllerDomain {
         cp = new ControllerPersistance();
     }
     
-        public String checkCredentials(List<String> credentials, boolean correct){
+        public String checkCredentials(List<String> credentials){
         String user = credentials.get(0);
         String pass1 = credentials.get(1);
         if (credentials.size() == 3) { //create user
