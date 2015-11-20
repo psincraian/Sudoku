@@ -15,6 +15,7 @@ public class ViewLoadMatch {
 			       Scanner scanner = new Scanner(System.in);
 			       int op = 1;
 			       op = scanner.nextInt();	
+			       while(op <=0 || op > id.size())	op = scanner.nextInt();
 			       return op;
 		       }
 		       else return 0;
