@@ -234,7 +234,7 @@ public class ControllerDomain {
 	    		for(int i=0; i<l.size(); ++i){
 	    			List<String> p = l.get(i);
 	    			names.add(p.get(0));
-	    			val.add(Long.parseLong(p.get(1)));
+	    			val.add(0L);
 	    		}
 	    		List<ParamRanking> par = createParams(names, val,true);	
 	    		cr = new ControllerRanking(par,true);
