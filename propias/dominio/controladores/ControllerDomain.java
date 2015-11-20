@@ -59,13 +59,16 @@ public class ControllerDomain {
         else { //login
             String passWordOk = "";
             try {
-                passWordOk = cp.getPasswordUser(user);
-                if (passWordOk.equals(pass1)) {
-                    username = user;
-                    cp.userDBInit(username);
-                    return "Login correcto";
+                if(cp.existsUser(user)) {
+                    passWordOk = cp.getPasswordUser(user);
+                    if (passWordOk.equals(pass1)) {
+                        username = user;
+                        cp.userDBInit(username);
+                        return "Login correcto";
+                    }
+                    else return "Nombre o password incorrecto";
                 }
-                else return "Nombre o contraseña incorrecto";
+                else return "Nombre o password incorrecto";
             } 
             catch (Exception e1) {
                 return null;
