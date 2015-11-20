@@ -202,7 +202,7 @@ public class ControllerDomain {
     	if (global) {
     		for(int i = 0; i<names.size(); ++i){
     			String n = names.get(i);
-    			long v = values.get(i);
+    			Long v = values.get(i);
     			ParamRanking p = new ParamRanking(n,v);
     			l.add(p);
         	}
@@ -210,7 +210,7 @@ public class ControllerDomain {
     	else {
     		for(int i = 0; i< names.size(); ++i){
     			String n = names.get(i);
-    			long v = values.get(i);
+    			Long v = values.get(i);
     			ParamRanking p = new ParamRanking(n,v);
         		l.add(p);
         	}
@@ -228,7 +228,6 @@ public class ControllerDomain {
 	    		l = cp.getRanking("RankingGlobal");
 	    		List<String> names = new ArrayList<String>();
 	    		List<Long> val = new ArrayList<Long>();
-	    		
 	    		for(int i=0; i<l.size(); ++i){
 	    			List<String> p = l.get(i);
 	    			names.add(p.get(0));
@@ -246,7 +245,7 @@ public class ControllerDomain {
 	    			List<String> p = l.get(i);
 	    			names.add(p.get(0));
 	    			val.add(Long.parseLong(p.get(1)));
-	    		}/*jggliugybjniliyukfdt*/
+	    		}
 	    		List<ParamRanking> par = createParams(names, val,false);	
 	    	}
     	}
@@ -276,11 +275,10 @@ public class ControllerDomain {
     	int mida = l.size();
         if (mida >10) mida = 10;
     	for(int i=0; i<mida; ++i) {
-    		username.set(i,l.get(i).getName());
-    		values.set(i,l.get(i).getValue());
-    	}
-    	
-	    	 
+    		ParamRanking aux = l.get(i);
+    		username.add(aux.getName());
+    		values.add(aux.getValue());
+    	} 
     }
     /**
      * 
