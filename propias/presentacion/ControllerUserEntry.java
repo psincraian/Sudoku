@@ -43,10 +43,14 @@ public class ControllerUserEntry {
 		public void mouseClicked(MouseEvent e) {
 			JButton b = (JButton)e.getSource();
 			if(b.getText() == "Aceptar"){
-				if(cp.checkInfoUser(eu.getInfoUser()))
+				if(cp.checkInfoUser(eu.getInfoUser())){
+					eu.closeView();
 					cp.getBack();
-				else
+				}
+				else{
+					eu.closeView();
 					cp.start();
+				}
 							
 			}
 			else{
