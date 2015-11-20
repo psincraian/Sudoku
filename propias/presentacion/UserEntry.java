@@ -77,8 +77,8 @@ public abstract class UserEntry {
 		JPanel panelButtons = new JPanel();
 		panelButtons.add(accept);
 		panelButtons.add(cancel);
+		panelButtons.add(Box.createVerticalStrut(80), BorderLayout.SOUTH);
 		frame.add(panelButtons, BorderLayout.SOUTH);
-		//panelButtons.add(Box.createVerticalStrut(80), BorderLayout.SOUTH);
 	}
 	/**
 	 * Initialize component's view
