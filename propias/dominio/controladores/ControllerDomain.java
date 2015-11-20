@@ -25,13 +25,17 @@ public class ControllerDomain {
 	String username;
 	
 	/**
-	 * 
+	 * Constructora
 	 */
     public ControllerDomain(){
         cp = new ControllerPersistance();
     }
-    
-        public String checkCredentials(List<String> credentials){
+    /**
+     * 
+     * @param credentials Contiene la informacion del usuario
+     * @return Si el login o el crear usuario se ha relaizado correctamente
+     */
+    public String checkCredentials(List<String> credentials){
         String user = credentials.get(0);
         String pass1 = credentials.get(1);
         if (credentials.size() == 3) { //create user
@@ -48,11 +52,11 @@ public class ControllerDomain {
                         return "Las contraseñas solo pueden tener numeros y letras";
                     } 
                 }
-                cp.newUser(user,pass1);
+                //cp.newUser(user,pass1);
                 return "Se ha creado el usuario"; //tot correcte
             }
-            catch (Exception e) {
-                return null;
+                catch (Exception e) {
+                    return null;
             }
             
         }
@@ -77,11 +81,10 @@ public class ControllerDomain {
             
         }   
     }
-
     /**
      * 
-     * @param c
-     * @return
+     * @param c Contiene las caracteristicas de la nueva partia
+     * @return Una nueva partida con caracteristicas c
      */
     public int[][] createMatch(CaracteristiquesPartida c){
     	try {
@@ -94,19 +97,25 @@ public class ControllerDomain {
     		return null;
     	}
     }
-    
+    /**
+     * Crea una partida que ya tenia cargada el usuario
+     * @param size Indica el tamaño del tablero
+     */
     public void newMatch(int size){
 		match = new Match(username, size);
     }
-    
+    /**
+     * 
+     * @return Indica si la partida es entrenamiento o competicion
+     */
     public boolean isCompetition(){
         return (type == 2);
     }
     /**
      * 
-     * @param b
-     * @param mida
-     * @return
+     * @param b Tablero
+     * @param mida Tamaño del tablero
+     * @return Convierte un Tablero a Matriz
      */
     public int[][] convertToMatrix(Board b){
     	int mida = b.getSize();
@@ -120,9 +129,9 @@ public class ControllerDomain {
     }
     /**
      * 
-     * @param m
-     * @param mida
-     * @return
+     * @param m Matriz
+     * @param mida Indica el tamaño de la matriz
+     * @return Convierte una matriz a Tablero
      */
     public Board convertToBoard(int[][] m, int mida) {
     	
@@ -140,25 +149,38 @@ public class ControllerDomain {
 	}  
 		
     /**
-     * 
+     * Comprueba si el Tablero actual es valido y tiene solucion unica
      * @return
      */
     public boolean compareSolution() {
     	ControllerBoard cb = new ControllerBoard();
     	int[][] m = convertToMatrix(match.getSudoku());
     	return cb.verify(m);
-    	
     }
     /**
      * 
-     * @param id
-     * @return
+     * @param id Indica la partida a cargar
+     * @return Las partidas guardadas por el usuario
      */
     public List<int[][]> getSavedMatches(String id){
-    	return null;
+    	try{
+        List<int[][]> l = cp.getSavedMatch(id); // pos 0 = progres, pos 1 = enunciat, pos 2 = solucio
+        Board actual = convertToBoard(l.get(0), l.get(0).length);
+        Board solucio = convertToBoard(l.get(2), l.get(2).length);
+        match = new Match(username, new Sudoku(actual, solucio));
+        Board inici = convertToBoard(l.get(1), l.get(1).length);
+        enunciat = new Match(username, new Sudoku(inici, solucio));
+        return l;
+        }
+        catch(Exception e){
+            return null;
+        }
     }
+    /**
+     * Guarda el Tablero actual
+     */
     public void saveBoard(){
-        int[][] m = convertToMatrix(enunciat.getSudoku());
+        int[][] m = convertToMatrix(match.getSudoku());
         int[][] en = convertToMatrix(enunciat.getSudoku());
         int[][] sol = convertToMatrix(match.getSolution());
         List<int[][]> l = new ArrayList<int[][]>();
@@ -174,30 +196,30 @@ public class ControllerDomain {
     }
     /**
      * 
-     * @param i
-     * @param j
-     * @return
+     * @param i Coordenada de la fila
+     * @param j Coordenada de la columna
+     * @return pone a inicio la casilla con coordenada i,j
      */
     public int modify(int i, int j) {
     	return 0;
     }
     /**
      * 
-     * @return
+     * @return Los identificadores de cada partida
      */
     public List<String> getIDMatches(){
     	try {
 			return cp.getIdMatches();
 		} catch (Exception e) {
-			return null;
-		}
+		return null;
+        }
     	
     }
     /**
      * 
-     * @param names
-     * @param values
-     * @param global
+     * @param names Nombres de usuarios registrados
+     * @param values Valores de ranking por usuario
+     * @param global Indica si el ranking es el global o el de sudoku
      * @return
      */
     public static List<ParamRanking> createParams(List<String> names, List<Long>values, boolean global){
@@ -222,7 +244,7 @@ public class ControllerDomain {
     }
     /**
      * 
-     * @param global
+     * @param global Indica si el ranking es global o de sudoku
      */
     public void setRankingController(boolean global) {
     	try{
@@ -234,7 +256,11 @@ public class ControllerDomain {
 	    		for(int i=0; i<l.size(); ++i){
 	    			List<String> p = l.get(i);
 	    			names.add(p.get(0));
+                    //String aux = p.get(1);
+                    //val.add(Long.parseLong(aux));
 	    			val.add(0L);
+                    //System.out.println("pers " + p.get(0));
+                    //System.out.println("pers " + p.get(1));
 	    		}
 	    		List<ParamRanking> par = createParams(names, val,true);	
 	    		cr = new ControllerRanking(par,true);
@@ -246,6 +272,8 @@ public class ControllerDomain {
 	    		
 	    		for(int i=0; i<l.size(); ++i){
 	    			List<String> p = l.get(i);
+                    System.out.println("names" + p.get(0));
+                    System.out.println("vals" + p.get(1));
 	    			names.add(p.get(0));
 	    			val.add(Long.parseLong(p.get(1)));
 	    		}
@@ -253,8 +281,13 @@ public class ControllerDomain {
 	    	}
     	}
     	catch(Exception e){
+            e.printStackTrace();
     	}
     }
+    /**
+     * Actualiza el Ranking global o de sudoku
+     * @param global Indica si el ranking es global o de sudoku
+     */
     public void updateRanking(boolean global){
     	List<List<String>> l = new ArrayList<List<String>>();
     	List<String> aux = new ArrayList<String>();
@@ -270,11 +303,11 @@ public class ControllerDomain {
     }
     /**
      * 
-     * @param username
-     * @param values
+     * @param username Nombres de usuarios con ranking
+     * @param values Valores de puntuacion por usuario
      */
     public void getRanking(List<String> username, List<Long> values) {
-    	List<ParamRanking> l = cr.getRanking();
+        List<ParamRanking> l = cr.getRanking();
     	int mida = l.size();
         if (mida >10) mida = 10;
     	for(int i=0; i<mida; ++i) {
@@ -284,11 +317,16 @@ public class ControllerDomain {
     	} 
     }
     /**
-     * 
+     * Comprueba si el Tablero actual es correcto y con solucion unica
      */
     public boolean checkBoard(){
     	return compareSolution();
     }
+    /**
+     * Actualiza la celda con un nuevo valor
+     * @param position Indica las coordenadas de la casilla
+     * @param value Indica el valor a poner en la casilla
+     */
     public void updateCell(String position, int value){
     	String[] nombres = position.split(" ");
     	int row = Integer.parseInt(nombres[0]);
@@ -300,9 +338,9 @@ public class ControllerDomain {
 		}
     }
     /**
-     * 
-     * @param row
-     * @param col
+     * Obtiene los candidatos de la casilla con coordenadas row,col
+     * @param row Fila
+     * @param col Columna
      * @return
      */
     public List<Integer> getCandidates(int row, int col) {
@@ -313,7 +351,11 @@ public class ControllerDomain {
 	    	return null;
 		}
     }
-
+    /**
+     * Retorna una llista de Position amb les caselles diferents.
+	 * Si una casella es buida aquesta no es considera diferent
+     * @return retorna una llista de posicions amb les caselles diferents
+     */
     public List<String> getDifferentCells() {
     	List<Position> p = SudokuHelps.getDifferentCells(match.getSolution(), match.getSudoku());
     	int mida = p.size();
@@ -326,17 +368,17 @@ public class ControllerDomain {
     	return l;
     }
     /**
-     * 
-     * @return
+     *  
+     * @return Retorna la solució de la seguent casella no valida.
      */
     public int getNextSol() {
     	return  SudokuHelps.getNextSolution(match.getSolution(), match.getSudoku());
     }
     /**
      * 
-     * @param row
-     * @param col
-     * @return
+     * @param row Fila
+     * @param col Columna
+     * @return Retorna la solucion de la casilla con posicion pos
      */
     public int getCellSol(String pos){
     	String[] nombres = pos.split(" ");
@@ -347,32 +389,32 @@ public class ControllerDomain {
 			p = new Position(row,column);
 			return SudokuHelps.getCellSolution(match.getSolution(), p);
 		} catch (Exception e) {
-			return 0;
-		}
+		  return 0;
+        }
 		
     }
 
     /**
      * 
-     * @return
+     * @return Obtiene las estadisticas del usuario
      */
     public List<Long> getStadistics(){
         try {
 			return cp.getStadistics();
 		} catch (Exception e) {
-			return null;
-		}
+		  return null;
+        }
         
     }
     /**
-     * 
+     * Instancia las estadisticas 
      */
     public void createStadistics() {
     	s = new Stadistics(getStadistics());
     }
     /**
      * 
-     * @return
+     * @return Retorna el numero de partidas jugadas por el usuario
      */
     public long[] returnMatches() {
     	long[] a = new long[3];
@@ -383,7 +425,7 @@ public class ControllerDomain {
     }
     /**
      * 
-     * @return
+     * @return Retorna el tiempo total empleado por el usuario dependiendo de la dificultad
      */
     public long[] returnTime() {
     	long[] a = new long[3];
@@ -394,7 +436,7 @@ public class ControllerDomain {
     }
     /**
      * 
-     * @return
+     * @return Retorna el mejor tiempo empleado por un usuario dependiendo de la dificultad
      */
     public long[] returnBestTime() {
     	long[] a = new long[3];
