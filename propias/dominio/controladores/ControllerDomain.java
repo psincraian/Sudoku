@@ -147,7 +147,7 @@ public class ControllerDomain {
     public boolean compareSolution() {
     	ControllerBoard cb = new ControllerBoard();
     	int[][] m = convertToMatrix(match.getSudoku());
-    	return cr.verify(m);
+    	return cb.verify(m);
     	
     }
     /**
