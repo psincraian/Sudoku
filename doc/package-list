@@ -1,0 +1,8 @@
+
+common
+propias.Driver
+propias.dominio.clases
+propias.dominio.clases.dlx
+propias.dominio.controladores
+propias.persistencia
+propias.presentacion
