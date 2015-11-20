@@ -149,13 +149,19 @@ public class ControllerDomain {
     	return cb.verify(m);
     	
     }
-    /**
-     * 
-     * @param id
-     * @return
-     */
     public List<int[][]> getSavedMatches(String id){
-    	return null;
+    	try{
+        List<int[][]> l = cp.getSavedMatch(id); // pos 0 = progres, pos 1 = enunciat, pos 2 = solucio
+        Board actual = convertToBoard(l.get(0), l.get(0).length);
+        Board solucio = convertToBoard(l.get(2), l.get(2).length);
+        match = new Match(username, new Sudoku(actual, solucio));
+        Board inici = convertToBoard(l.get(1), l.get(1).length);
+        enunciat = new Match(username, new Sudoku(inici, solucio));
+        return l;
+        }
+        catch(Exception e){
+            return null;
+        }
     }
     public void saveBoard(){
         int[][] m = convertToMatrix(enunciat.getSudoku());
