@@ -134,18 +134,18 @@ public class ControllerDomain {
      * @return Convierte una matriz a Tablero
      */
     public Board convertToBoard(int[][] m, int mida) {
-    	
-		try {
-			Board b = new Board(mida);
+	try {
+		Board b = new Board(mida);
 	    	for (int i=0; i<mida; ++i){
 	    		for(int j=0; j<mida; ++j)
-						b.setCellValue(i, j, m[i][j]);
-					}
-                    return b; 
+				b.setCellValue(i, j, m[i][j]);
+		}
+                return b; 
         }      
         catch (Exception e) {
-		} 
-	       return null;
+		return null;	
+	} 
+	       
 	}  
 		
     /**
@@ -169,13 +169,13 @@ public class ControllerDomain {
      */
     public List<int[][]> getSavedMatches(String id){
     	try{
-        List<int[][]> l = cp.getSavedMatch(id); // pos 0 = progres, pos 1 = enunciat, pos 2 = solucio
-        Board actual = convertToBoard(l.get(0), l.get(0).length);
-        Board solucio = convertToBoard(l.get(2), l.get(2).length);
-        match = new Match(username, new Sudoku(actual, solucio));
-        Board inici = convertToBoard(l.get(1), l.get(1).length);
-        enunciat = new Match(username, new Sudoku(inici, solucio));
-        return l;
+	        List<int[][]> l = cp.getSavedMatch(id); // pos 0 = progres, pos 1 = enunciat, pos 2 = solucio
+	        Board actual = convertToBoard(l.get(0), l.get(0).length);
+	        Board solucio = convertToBoard(l.get(2), l.get(2).length);
+	        match = new Match(username, new Sudoku(actual, solucio));
+	        Board inici = convertToBoard(l.get(1), l.get(1).length);
+	        enunciat = new Match(username, new Sudoku(inici, solucio));
+	        return l;
         }
         catch(Exception e){
             return null;
@@ -214,11 +214,10 @@ public class ControllerDomain {
      */
     public List<String> getIDMatches(){
     	try {
-			return cp.getIdMatches();
-		} catch (Exception e) {
+		return cp.getIdMatches();
+	} catch (Exception e) {
 		return null;
         }
-    	
     }
     /**
      * 
@@ -337,10 +336,11 @@ public class ControllerDomain {
     	int row = Integer.parseInt(nombres[0]);
     	int column = Integer.parseInt(nombres[1]);
     	try {
-			match.setCell(new Position(row, column), value);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		match.setCell(new Position(row, column), value);
+	} 
+	catch (Exception e) {
+		e.printStackTrace();
+	}
     }
     /**
      * Obtiene los candidatos de la casilla con coordenadas row,col
@@ -349,12 +349,13 @@ public class ControllerDomain {
      * @return
      */
     public List<Integer> getCandidates(int row, int col) {
-		try {
-			List<Integer> candidates = SudokuHelps.getCandidates(new Position(row,col), match.getSudoku());
-			return candidates;
-		} catch (Exception e) {
-	    	return null;
-		}
+	try {
+		List<Integer> candidates = SudokuHelps.getCandidates(new Position(row,col), match.getSudoku());
+		return candidates;
+	} 
+	catch (Exception e) {
+    		return null;
+	}
     }
     /**
      * Retorna una llista de Position amb les caselles diferents.
