@@ -42,16 +42,12 @@ public class GenerateBoard extends setView{
 	 */
 	public GenerateBoard(int[][] board, int size) {
 		super();
-		try{
 			this.size = size;
 			//revalidate();
 			//repaint();
-			setVisible(true);
 			initialize(board);
 			pack();
-		}	catch(Exception e){
-				e.printStackTrace();
-			}
+			setVisible(true);
 	}
 
 	/**
@@ -145,7 +141,7 @@ public class GenerateBoard extends setView{
 		horizontalBox.add(Box.createHorizontalStrut(200));
 		for(int j = 0; j < size; ++j){
 			if(size == 9)
-				square[i][j] = new JPanel(new FlowLayout(FlowLayout.CENTER,15,15));
+				square[i][j] = new JPanel(new FlowLayout(FlowLayout.CENTER));
 			else
 				square[i][j] = new JPanel(new FlowLayout(FlowLayout.CENTER));
 			square[i][j].setPreferredSize(new Dimension(30,30));
