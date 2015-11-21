@@ -405,22 +405,15 @@ public class ControllerDomain {
     }
 
     /**
-     * 
-     * @return Obtiene las estadisticas del usuario
-     */
-    public List<Long> getStadistics(){
-        try {
-			return cp.getStadistics();
-		} catch (Exception e) {
-		  return null;
-        }
-        
-    }
-    /**
      * Instancia las estadisticas 
      */
     public void createStadistics() {
-    	s = new Stadistics(getStadistics());
+    	try{
+    		s = new Stadistics(cp.getStadistics());
+    	}
+    	catch(Exception e){
+    		System.out.println("Catched");
+    	}
     }
     /**
      * 
