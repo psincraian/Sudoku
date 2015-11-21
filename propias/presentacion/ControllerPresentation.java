@@ -214,12 +214,6 @@ public class ControllerPresentation {
               }
           }
       }
-      boolean solved = cd.compareSolution();
-      if (solved && competicio) {
-          cd.updateRanking(true);
-          cd.updateRanking(false);
-      }
-      
     }
     /**
      * 
