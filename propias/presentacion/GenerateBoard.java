@@ -42,16 +42,12 @@ public class GenerateBoard extends setView{
 	 */
 	public GenerateBoard(int[][] board, int size) {
 		super();
-		try{
 			this.size = size;
 			//revalidate();
 			//repaint();
-			setVisible(true);
 			initialize(board);
 			pack();
-		}	catch(Exception e){
-				e.printStackTrace();
-			}
+			setVisible(true);
 	}
 
 	/**

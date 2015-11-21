@@ -49,9 +49,9 @@ public abstract class UserEntry extends setView{
 		getContentPane().setSize(750,750);
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setVisible(true);
-		pack();
 		createView();
+		pack();
+		setVisible(true);
 	}
 	
 	/**
