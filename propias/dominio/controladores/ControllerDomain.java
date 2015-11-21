@@ -280,8 +280,6 @@ public class ControllerDomain {
 	    		
 	    		for(int i=0; i<l.size(); ++i){
 	    			List<String> p = l.get(i);
-                    System.out.println("names" + p.get(0));
-                    System.out.println("vals" + p.get(1));
 	    			names.add(p.get(0));
 	    			val.add(Long.parseLong(p.get(1)));
 	    		}
