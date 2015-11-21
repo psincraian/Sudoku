@@ -53,6 +53,8 @@ public class ControllerDomain {
                     } 
                 }
                 cp.newUser(user,pass1);
+                createStadistics();
+                setRankingController(true);
                 return "Se ha creado el usuario"; //tot correcte
             }
                 catch (Exception e) {
@@ -68,6 +70,8 @@ public class ControllerDomain {
                     if (passWordOk.equals(pass1)) {
                         username = user;
                         cp.userDBInit(username);
+                        createStadistics();
+                	setRankingController(true);
                         return "Login correcto";
                     }
                     else return "Nombre o password incorrecto";
