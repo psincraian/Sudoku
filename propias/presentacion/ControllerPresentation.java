@@ -56,10 +56,6 @@ public class ControllerPresentation {
       name = credentials.get(0);
       String result = cd.checkCredentials(credentials);
       if (result.equals("Login correcto") || result.equals("Se ha creado el usuario")) correct = true;
-      if (result.equals("Login correcto")){
-      	  cd.createStadistics();
-      	  cd.setRankingController(true);
-      }
       cu.sendMessage(result);
       return correct;
     }
