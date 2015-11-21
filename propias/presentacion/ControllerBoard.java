@@ -1,11 +1,5 @@
 package propias.presentacion;
 
-/**
-*	-Este controlador se encuentra en la carpeta presentación debido a que implementa 
-*los listeners de GenerateBoard, para poder jugar una partida y introducir un sudoku
-* manual por el usuario.
-*/
-
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
