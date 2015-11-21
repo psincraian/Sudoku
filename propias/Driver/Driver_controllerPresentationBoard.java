@@ -1,6 +1,6 @@
 package propias.Driver;
 
-import propias.presentacion.ControllerPresentationBoard;
+import propias.presentacion.ControllerBoard;
 import propias.presentacion.ControllerPresentation;
 import propias.Driver.Stub_ControllerPresentation;
 
