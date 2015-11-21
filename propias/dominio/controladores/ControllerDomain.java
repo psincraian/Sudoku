@@ -52,7 +52,7 @@ public class ControllerDomain {
                         return "Las contraseñas solo pueden tener numeros y letras";
                     } 
                 }
-                //cp.newUser(user,pass1);
+                cp.newUser(user,pass1);
                 return "Se ha creado el usuario"; //tot correcte
             }
                 catch (Exception e) {
