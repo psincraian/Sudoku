@@ -34,18 +34,8 @@ public class ControllerPresentation {
         ViewStart vi = new ViewStart();
         vi.show();
         Options op = vi.getOption();
-        if (op == Options.IniciarSessio) {
+        if (op == Options.IniciarSessio)
               cu = new ControllerUserEntry(this, true);
-            try {
-                if (correct) {
-                    cd.createStadistics();
-                    cd.setRankingController(true);
-                }
-            } 
-            catch (Exception e) {
-            }
-
-        }
         else if (op == Options.IniciarConvidat) {
             name = "Convidat";
             Menu(true);
@@ -66,6 +56,10 @@ public class ControllerPresentation {
       name = credentials.get(0);
       String result = cd.checkCredentials(credentials);
       if (result.equals("Login correcto") || result.equals("Se ha creado el usuario")) correct = true;
+      if (result.equals("Login correcto")){
+      	  cd.createStadistics();
+      	  cd.setRankingController(true);
+      }
       cu.sendMessage(result);
       return correct;
     }
