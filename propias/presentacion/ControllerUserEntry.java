@@ -5,7 +5,7 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.JButton;
 
-import propias.presentacion.ControllerPresentationBoard.MouseManage;
+import propias.presentacion.ControllerBoard.MouseManage;
 
 /**
  * Controll the User entry class. Sets the listeners for the buttons.
@@ -44,17 +44,17 @@ public class ControllerUserEntry {
 			JButton b = (JButton)e.getSource();
 			if(b.getText() == "Aceptar"){
 				if(cp.checkInfoUser(eu.getInfoUser())){
-					eu.closeView();
+					eu.disableView();
 					cp.getBack();
 				}
 				else{
-					eu.closeView();
+					eu.disableView();
 					cp.start();
 				}
 							
 			}
 			else{
-				eu.closeView();
+				eu.disableView();
 				cp.start();
 			}
 		}

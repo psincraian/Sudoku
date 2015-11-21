@@ -13,7 +13,7 @@ public class ViewLogin extends UserEntry{
 	public ViewLogin(){
 		super();
 		setTitle("Login d'usuari registrat");
-		frame.pack();
+		pack();
 	}
 	/**
 	 * Send password to be checked to the controllers.

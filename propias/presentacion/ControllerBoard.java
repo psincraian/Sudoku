@@ -1,11 +1,5 @@
 package propias.presentacion;
 
-/**
-*	-Este controlador se encuentra en la carpeta presentación debido a que implementa 
-*los listeners de GenerateBoard, para poder jugar una partida y introducir un sudoku
-* manual por el usuario.
-*/
-
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -25,7 +19,7 @@ import propias.presentacion.*;
  * 
  * @Author: Daniel Sanchez Martinez
  */
-public class ControllerPresentationBoard {
+public class ControllerBoard {
 	
 	MouseEvent lastCell = null;
 	ControllerPresentation cp;
@@ -40,7 +34,7 @@ public class ControllerPresentationBoard {
 	 * @param size
 	 * @param typeBoard
 	 */
-	public ControllerPresentationBoard(int[][] board, int size, int typeBoard, ControllerPresentation scp){
+	public ControllerBoard(int[][] board, int size, int typeBoard, ControllerPresentation scp){
 		this.cp = scp;
 		this.size = size;
 		if(typeBoard == 0)
@@ -146,7 +140,7 @@ public class ControllerPresentationBoard {
 	        			if(cp.checkBoard()){
 	        				cp.saveBoard();
 	        				vm.sendMessage("Se ha guardado el board actual");
-	        				vm.closeView();
+	        				vm.disableView();
 	        				cp.getBack();
 	        			}
 	        			else{
@@ -156,7 +150,7 @@ public class ControllerPresentationBoard {
 	        		else{
 	        			cp.saveBoard();
         				vm.sendMessage("Se ha guardado el board actual");
-        				vm.closeView();
+        				vm.disableView();
         				cp.getBack();
 	        		}
 	        	}
@@ -169,7 +163,7 @@ public class ControllerPresentationBoard {
 	        		}
 	        	}
 	        	else if(bPressed.getText() == "Volver"){
-    				vm.closeView();
+    				vm.disableView();
     				cp.getBack();
 	        	}
 			}

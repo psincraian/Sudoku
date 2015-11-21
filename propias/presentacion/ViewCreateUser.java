@@ -20,7 +20,7 @@ public class ViewCreateUser extends UserEntry{
 		super();
 		setTitle("Creació d'un nou usuari");
 		addPasswordField();
-		frame.pack();
+		pack();
 	}
 	/**
 	 *  Add a new entry at the view.(password verification)
