@@ -3,7 +3,7 @@ package propias.presentacion;
 /**
  * Set a type of board view
  * 
- * @author daniel
+ * @author daniel sanchez martinez
  */
 public class ViewCreateBoard extends GenerateBoard{
 	/**

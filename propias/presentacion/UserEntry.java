@@ -21,7 +21,7 @@ import javax.swing.JTextField;
  * @author Daniel Sanchez Martinez
  */
 
-public abstract class UserEntry {
+public abstract class UserEntry extends setView{
 	protected JFrame frame;
 	private String[] names = {"Nom: ","Contrasenya: "};
 	private JLabel[] label;
@@ -38,6 +38,7 @@ public abstract class UserEntry {
 	 * Create the application.
 	 */
 	public UserEntry() {
+		super();
 		initialize();
 	}
 
@@ -45,11 +46,11 @@ public abstract class UserEntry {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frame = new JFrame();
-		frame.setSize(750,750);
-		frame.setResizable(false);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setVisible(true);
+		getContentPane().setSize(750,750);
+		setResizable(false);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setVisible(true);
+		pack();
 		createView();
 	}
 	
@@ -66,19 +67,19 @@ public abstract class UserEntry {
 		textPanel.add(name);
 		textPanel.add(pf);
 		panel[0].add(textPanel);
-		frame.add(panel[0], BorderLayout.CENTER);
+		add(panel[0], BorderLayout.CENTER);
 		
-		frame.add(Box.createHorizontalStrut(100), BorderLayout.EAST);
+		getContentPane().add(Box.createHorizontalStrut(100), BorderLayout.EAST);
 		
 		panel[1].add(title);
 		panel[1].add(Box.createVerticalStrut(80));
-		frame.add(panel[1], BorderLayout.NORTH);
+		getContentPane().add(panel[1], BorderLayout.NORTH);
 
 		JPanel panelButtons = new JPanel();
 		panelButtons.add(accept);
 		panelButtons.add(cancel);
 		panelButtons.add(Box.createVerticalStrut(80), BorderLayout.SOUTH);
-		frame.add(panelButtons, BorderLayout.SOUTH);
+		getContentPane().add(panelButtons, BorderLayout.SOUTH);
 	}
 	/**
 	 * Initialize component's view
@@ -140,10 +141,16 @@ public abstract class UserEntry {
 	 * Close view
 	 */
 	protected void closeView(){
-		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		frame.dispose();
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		dispose();
 	}
 	
+	/**
+	 * Set not visible the view
+	 */
+	protected void disableView(){
+		setVisible(false);
+	}
 	/**
 	 * @return Passwords to check
 	 */

@@ -24,8 +24,7 @@ import javax.swing.border.LineBorder;
  * 
  * @author Daniel Sanchez Martinez
  */
-public class GenerateBoard {
-	private JFrame frame;
+public class GenerateBoard extends setView{
 	private JPanel panelS;
 	private JPanel panelC;
 	protected JButton[] button;
@@ -42,24 +41,27 @@ public class GenerateBoard {
 	 * Create the application.
 	 */
 	public GenerateBoard(int[][] board, int size) {
+		super();
 		try{
 			this.size = size;
+			//revalidate();
+			//repaint();
+			setVisible(true);
 			initialize(board);
-			frame.setVisible(true);
+			pack();
 		}	catch(Exception e){
-			e.printStackTrace();
-		}
+				e.printStackTrace();
+			}
 	}
 
 	/**
 	 * Create the view
 	 */
 	protected void initialize(int[][] board) {
-		frame = new JFrame("Sudoku");
-		frame.setSize(1000,800);
-		frame.setResizable(false);
-		frame.getContentPane().setBackground(Color.WHITE);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		getContentPane().setSize(1000,800);
+		setResizable(false);
+		getContentPane().setBackground(Color.WHITE);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		panelC = new JPanel();
 		panelS = new JPanel();
 		JPanel panelN = new JPanel();
@@ -68,7 +70,7 @@ public class GenerateBoard {
 		panelS.setBackground(Color.white);
 
 		/*North*/
-		frame.getContentPane().add(panelN, BorderLayout.NORTH);
+		getContentPane().add(panelN, BorderLayout.NORTH);
 		panelN.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		JLabel title = new JLabel("Partida Sudoku");
 		title.setHorizontalAlignment(SwingConstants.CENTER);
@@ -82,7 +84,7 @@ public class GenerateBoard {
 		panelN.add(horizontalStrut);
 		
 		/*Center*/
-		frame.getContentPane().add(panelC, BorderLayout.CENTER);
+		getContentPane().add(panelC, BorderLayout.CENTER);
 		panelC.setLayout(new BoxLayout(panelC,BoxLayout.Y_AXIS));
 
 		iniBoard(board);
@@ -93,7 +95,7 @@ public class GenerateBoard {
 		/*South*/
 		Component verticalStrut_ = Box.createVerticalStrut(130);
 		panelS.add(verticalStrut_);
-		frame.getContentPane().add(panelS, BorderLayout.SOUTH);
+		getContentPane().add(panelS, BorderLayout.SOUTH);
 		
 		/*East*/
 		extraButton[0].setToolTipText("Guardar board actual");
@@ -102,7 +104,7 @@ public class GenerateBoard {
 		verticalButton.add(extraButton[0]);
 		verticalButton.add(extraButton[1]);
 		verticalButton.add(extraButton[2]);
-		frame.getContentPane().add(verticalButton, BorderLayout.EAST);
+		getContentPane().add(verticalButton, BorderLayout.EAST);
 	}
 	/**
 	 * Initialize the view
@@ -217,13 +219,13 @@ public class GenerateBoard {
 	 * Set frame to visible or not visible
 	 */
 	protected void disableView(){
-		frame.setVisible(false);
+		setVisible(false);
 	}
 	/**
 	 * Close view
 	 */
 	protected void closeView(){
-		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		frame.dispose();
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		dispose();
 	}
 }

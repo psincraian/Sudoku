@@ -8,9 +8,11 @@ package propias.presentacion;
 public class ViewMatch extends GenerateBoard{
 	
 	/**
-	 * Contructor
+	 * Constructor
+	 * @param board
+	 * @param size
 	 */
-	public ViewMatch(int[][] board, int size) {
+	public ViewMatch(int[][] board, int size){
 		super(board,size);
 	}
 }
