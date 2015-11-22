@@ -9,7 +9,7 @@ import propias.Driver.Stub_ControllerPresentation;
  * @author daniel sanchez martinez
  *
  */
-public class Driver_controllerPresentationBoard {
+public class Driver_controllerViewBoard {
 
 	public static void main(String[] args) {
 		
