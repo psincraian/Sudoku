@@ -212,7 +212,9 @@ public class ControllerDomain {
      * @return pone a inicio la casilla con coordenada i,j
      */
     public int modify(int i, int j) {
-    	if (match[i][j] != 0) return match[i][j];
+    	Board aux = match.getSudoku();
+        int[][] auxi = convertToMatrix(aux);
+        if (auxi[i][j] != 0) return uxi[i][j];
         return 0;
     }
     /**
