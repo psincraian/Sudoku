@@ -111,7 +111,7 @@ public class ControllerPresentation {
               for(int j=0; j< mida; ++j) m[i][j] = 0;
           }
           cd.newMatch(mida);
-          ControllerBoard c = new ControllerBoard(m, m[0].length,1,this);
+          ControllerViewBoard c = new ControllerViewBoard(m, m[0].length,1,this);
       }
       else if (om == OptionsMenu.Ranking) {
           List<String> names = new ArrayList<String>();
@@ -210,7 +210,7 @@ public class ControllerPresentation {
      */
     private void play(int[][] m, boolean competicio, boolean save)  { 
 
-      ControllerBoard c = new ControllerBoard(m, m[0].length,0,this);
+      ControllerViewBoard c = new ControllerViewBoard(m, m[0].length,0,this);
       if (save) {
           for(int i= 0; i<m[0].length; ++i) {
               for(int j=0; j<m[0].length; ++j) {
