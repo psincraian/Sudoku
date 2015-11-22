@@ -6,7 +6,7 @@ import propias.persistencia.ControllerPersistance;
 
 /**
  * 
- * @author Brian
+ * @author Brian Martinez Alvarez
  *
  */
 public class ControllerDomain {
