@@ -12,15 +12,15 @@ import propias.persistencia.ControllerPersistance;
 public class ControllerDomain {
     ControllerPersistance cp;
     ControllerRanking cr;
-        Stadistics s;
+    Stadistics s;
     int size = 0;
     int dificult = 0;
-        int type = 0;
+    int type = 0;
     List<String> list;
     String id;
     Match match;
     Match enunciat;
-        Board create;
+    Board create;
     Board b;
     String username;
     
