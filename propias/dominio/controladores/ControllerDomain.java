@@ -94,10 +94,16 @@ public class ControllerDomain {
      */
     public int[][] createMatch(CaracteristiquesPartida c){
         try {
-            match = new Match(username, c);
+        	List<String> l = cp.getSudoku(c.getMida(), c.getDificultat());
+            id = l.get(0);
+            int[][] matrix = stringToMatrix(l.get(1));
+            Board aux = convertToBoard(matrix, matrix[0].length); //tablero inicial
+            int[][] matrix2 = stringToMatrix(l.get(2));
+            Board sol = convertToBoard(matrix2, matrix2[0].length); //solucion
+            match = new Match(username, new Sudoku(aux, sol));
             enunciat = match;
-            b = match.getSudoku();
-            return convertToMatrix(b);
+            b = aux;
+            return matrix;
         } catch (Exception e) {
             e.printStackTrace(); // mai arribarem
             return null;
