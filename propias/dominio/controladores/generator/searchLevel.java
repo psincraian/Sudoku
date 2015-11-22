@@ -49,7 +49,7 @@ public class searchLevel {
 
 	/**
 	*Donat el sudoku de la classe et dona el seu nivell.
-	*@return in el nivell: 0 facil, 1 mitja, 2 dificil.
+	*@return int el nivell: 0 facil, 1 mitja, 2 dificil.
 	*/
 	public int level(){
 		int maxHolesRC = 0;

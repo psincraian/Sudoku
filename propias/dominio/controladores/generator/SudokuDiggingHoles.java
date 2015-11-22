@@ -51,6 +51,11 @@ public class SudokuDiggingHoles {
 	int[] numsRow;
 	int[] numsCol;
 	
+	/**
+	 * Crea un nuevo SudokuDiggingHoles con sudoku igual
+	 * a board
+	 * @param board Board con el que inicializaremos sudoku.
+	 */
 	public SudokuDiggingHoles(Board board) throws Exception { 
 	    this.sudoku = new Board(board);
 	    size = sudoku.getSize();	
@@ -62,7 +67,14 @@ public class SudokuDiggingHoles {
 		numsRow = new int[size];
 		numsCol = new int[size];
 	}
-
+	
+	/**
+	 * Permite crear un sudoku de dificultat
+	 * facil, media o dificil
+	 * @param dificultat 0 para facil, 1 para media
+	 * y 2 para dificil.
+	 * @return Board sudoku de la dificultat elegida.
+	 */
 	public Board digHoles(int dificultat) throws Exception {
 		Random rand = new Random();			
 		if(dificultat == 0){
@@ -77,14 +89,20 @@ public class SudokuDiggingHoles {
 	    randomizeSudoku(rand.nextInt(10)*2000);
 	    return sudoku;
 	}
-
+	
+	/**
+	 * Genera un sudoku de dificultat facil.
+	 */
 	private void easyDigging() throws Exception {
 		Random rand = new Random();
 		numHoles = rand.nextInt((int)(MAX_HOLES_EASY*(size*size)) - 2*size) + 2*size + 1;
 		maxHolesFC = (int)(MAX_HOLES_RC_EASY*size);
 		RandomizingGlobal();
 	}
-
+	
+	/**
+	 * Genera un sudoku de dificultat media.
+	 */
 	private void mediumDigging() throws Exception {
 		Random rand = new Random();
 		numHoles = 
@@ -93,7 +111,10 @@ public class SudokuDiggingHoles {
 		maxHolesFC = (int)(MAX_HOLES_RC_MEDIUM*size);
 		Jumper();
 	}
-
+	
+	/**
+	 * Genera un sudoku de dificultat dificil.
+	 */
 	private void difficultDigging() throws Exception {
 		Random rand = new Random();
 		int evil = rand.nextInt(2);
@@ -117,6 +138,16 @@ public class SudokuDiggingHoles {
 		}
 	}
 	
+	/**
+	 * Prueva a hacer un agujero en
+	 * una casilla concreta. Si al hacerlo
+	 * el sudoku ya no tiene solucion unica, 
+	 * no lo hace.
+	 * @param i fila de la casilla.
+	 * @param j columna de la casilla.
+	 * @return boolean si se ha hecho o no 
+	 * el agujero,
+	 */
 	private boolean digHole(int i, int j) throws Exception {	    
 	    Board temp = new Board(sudoku);
 	   	temp.deleteCellValue(i, j);
@@ -129,7 +160,11 @@ public class SudokuDiggingHoles {
 	    }
 	    return false;
 	}
-		
+	
+	/**
+	 * Patron random para hacer agujeros en
+	 * el sudoku.
+	 */
 	private void RandomizingGlobal()  throws Exception {
 		Random rand = new Random();	
 		int p, i, j;		
@@ -147,6 +182,13 @@ public class SudokuDiggingHoles {
 		}
 	}
 	
+	/**
+	 * Patron para hacer agujeros
+	 * que hace agujeros "saltando"
+	 * casillas (una si, una no).
+	 * Este patron da sudokus de
+	 * dificultat media.
+	 */
 	private void Jumper() throws Exception {
 	    int j;
 	    int i = 0;	    
@@ -189,6 +231,15 @@ public class SudokuDiggingHoles {
 	    }	      
 	}
 	
+	/**
+	 * Patron para hacer agujeros
+	 * que recorre las filas en 
+	 * zig-zag (la primera de inicio
+	 * a fin, la segunda de fin a inicio, 
+	 * la tercera de inicio a fin.. y asi 
+	 * hasta que acaba).
+	 * Permite hacer sudokus dificiles.
+	 */
 	private void AlgorithmS() throws Exception {	    
 	    int j;
 	    int i = 0;
@@ -237,6 +288,15 @@ public class SudokuDiggingHoles {
 	    }
 	}
 	
+	/**
+	 * Patron que recorre el sudoku
+	 * de izquierda a derecha y de 
+	 * arriva a abajo pasando por 
+	 * todas las casillas.
+	 * Permite hacer sudokus de 
+	 * dificultat dificil o muy 
+	 * dificil.
+	 */
 	private void LeftRight() throws Exception {
 	    int j;
 	    int i = 0;
@@ -252,7 +312,15 @@ public class SudokuDiggingHoles {
 			if(numHoles <= 0) break;
 	    }	    
 	}
-
+	
+	/**
+	 * Metodo para hacer permutaciones
+	 * validas en el sudoku de forma
+	 * random un numero determinado
+	 * de veces.
+	 * @param permutations numero de permutaciones
+	 * que se haran.
+	 */
 	private void randomizeSudoku(int permutations) throws Exception {
 		Random rand = new Random();
 		int typeOfPermutation, b1, b2, e1, e2;
@@ -285,6 +353,13 @@ public class SudokuDiggingHoles {
 		}
 	}
 
+	/**
+	 * Intercambia dos filas.
+	 * @param b1 bloque de la primera fila.
+	 * @param b2 bloque de la segunda fila.
+	 * @param r1 identificador de la primera fila.
+	 * @param r2 identificador de la segunda fila.
+	 */
 	private void switchRows(int b1, int b2, int r1, int r2) throws Exception {
 		r1 = r1 + b1*sqrtSize;
 		r2 = r2 + b2*sqrtSize;
@@ -296,6 +371,13 @@ public class SudokuDiggingHoles {
 		}
 	}
 
+	/**
+	 * Intercambia dos columnas.
+	 * @param b1 bloque de la primera columna.
+	 * @param b2 bloque de la segunda columna.
+	 * @param c1 identificador de la primera columna.
+	 * @param c2 identificador de la segunda columna.
+	 */
 	private void switchColumns(int b1, int b2, int c1, int c2) throws Exception {
 		c1 = c1 + b1*sqrtSize;
 		c2 = c2 + b2*sqrtSize;
@@ -306,13 +388,23 @@ public class SudokuDiggingHoles {
 			sudoku.setCellValue(i, c2, tmp);
 		}
 	}
-
+	
+	/**
+	 * Intercambia dos filas de quadrantes.
+	 * @param b1 primer grupo de quadrantes.
+	 * @param b2 segundo grupo de quadrantes.
+	 */
 	private void switchQuadRows(int b1, int b2) throws Exception {
 		for(int i = 0; i < sqrtSize; ++i){
 			switchRows(b1, b2, i, i);
 		}
 	}
 	
+	/**
+	 * Intercambia dos columnas de quadrantes.
+	 * @param b1 primer grupo de quadrantes.
+	 * @param b2 segundo grupo de quadrantes.
+	 */
 	private void switchQuadColumns(int b1, int b2) throws Exception {
 		for(int j = 0; j < sqrtSize; ++j){
 			switchColumns(b1, b2, j, j);
