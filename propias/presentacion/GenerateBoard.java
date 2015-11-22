@@ -17,6 +17,8 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 
+import javafx.scene.shape.Line;
+
 /**
  * Generates a new view of board. the type's view is:
  * ViewMatch to create a new match
@@ -36,6 +38,7 @@ public class GenerateBoard extends setView{
 	Box verticalButton;
 	private int size;
 	protected JLabel prueba;
+	Line line;
 
 	/**
 	 * Create the application.
@@ -43,8 +46,6 @@ public class GenerateBoard extends setView{
 	public GenerateBoard(int[][] board, int size) {
 		super();
 			this.size = size;
-			//revalidate();
-			//repaint();
 			initialize(board);
 			pack();
 			setVisible(true);
@@ -117,6 +118,7 @@ public class GenerateBoard extends setView{
 		extraButton[1] = new JButton("Hint1");
 		extraButton[2] = new JButton("Hint2");
 		extraButton[3] = new JButton("Volver");
+		
 		for(int i = 0; i < size; ++i){
 			verticalBox.add(iniRow(i,board[i]));
 			button[i] = new JButton(Integer.toString(i+1));
@@ -146,7 +148,7 @@ public class GenerateBoard extends setView{
 				square[i][j] = new JPanel(new FlowLayout(FlowLayout.CENTER));
 			square[i][j].setPreferredSize(new Dimension(30,30));
 			square[i][j].setMinimumSize(new Dimension(30,30));
-			square[i][j].setMaximumSize(new Dimension(55,55));
+			square[i][j].setMaximumSize(new Dimension(30,30));
 			if(row[j] == 0){
 				if(size == 9)
 					label[i][j] = new JLabel("");

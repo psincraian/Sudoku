@@ -19,7 +19,7 @@ import propias.presentacion.*;
  * 
  * @Author: Daniel Sanchez Martinez
  */
-public class ControllerBoard {
+public class ControllerViewBoard {
 	
 	MouseEvent lastCell = null;
 	ControllerPresentation cp;
@@ -34,7 +34,7 @@ public class ControllerBoard {
 	 * @param size
 	 * @param typeBoard
 	 */
-	public ControllerBoard(int[][] board, int size, int typeBoard, ControllerPresentation scp){
+	public ControllerViewBoard(int[][] board, int size, int typeBoard, ControllerPresentation scp){
 		this.cp = scp;
 		this.size = size;
 		if(typeBoard == 0)

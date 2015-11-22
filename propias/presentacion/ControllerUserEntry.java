@@ -5,7 +5,7 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.JButton;
 
-import propias.presentacion.ControllerBoard.MouseManage;
+import propias.presentacion.ControllerViewBoard.MouseManage;
 
 /**
  * Controll the User entry class. Sets the listeners for the buttons.
