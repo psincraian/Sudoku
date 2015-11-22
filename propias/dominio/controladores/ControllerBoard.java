@@ -4,7 +4,7 @@ import propias.dominio.clases.SudokuVerification;
 import propias.dominio.clases.Board;
 /**
  * 
- * @author Brian
+ * @author Brian Martinez Alvarez
  *
  */
 public class ControllerBoard {
