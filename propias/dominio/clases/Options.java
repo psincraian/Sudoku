@@ -1,7 +1,7 @@
 package propias.dominio.clases;
 /**
  * 
- * @author Brian
+ * @author Brian Martinez Alvarez
  * 
  */
 public enum Options {
