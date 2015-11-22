@@ -21,7 +21,7 @@ import javax.swing.JTextField;
  * @author Daniel Sanchez Martinez
  */
 
-public abstract class UserEntry extends setView{
+public abstract class UserEntry extends SetView{
 	protected JFrame frame;
 	private String[] names = {"Nom: ","Contrasenya: "};
 	private JLabel[] label;

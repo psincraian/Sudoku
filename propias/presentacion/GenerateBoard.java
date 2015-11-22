@@ -26,7 +26,7 @@ import javafx.scene.shape.Line;
  * 
  * @author Daniel Sanchez Martinez
  */
-public class GenerateBoard extends setView{
+public class GenerateBoard extends SetView{
 	private JPanel panelS;
 	private JPanel panelC;
 	protected JButton[] button;
@@ -169,7 +169,11 @@ public class GenerateBoard extends setView{
 		horizontalBox.add(Box.createHorizontalStrut(200));
 		return horizontalBox;
 	}	
-	
+	/**
+	 * Paint the background of a panel. Depending on i and j positions.
+	 * @param i
+	 * @param j
+	 */
 	protected void drawSquare(int i, int j){
 		if(subsize == 3){
 			if(i < 3 || i > 5){
