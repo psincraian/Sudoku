@@ -10,42 +10,31 @@ import propias.dominio.clases.*;
 import propias.dominio.controladores.*;
 /**
  * 
- * @author Brian
+ * @author Brian Martinez Alvarez
  *
  */
 public class ControllerPresentation {
-    /**
-     * @contructor: ControllerDomain
-     */
-    
+	
     ControllerDomain cd;
     ControllerUserEntry cu;
     String name;
     boolean correct;
-    
+    /**
+     * Constructora
+     */
     public ControllerPresentation() {
         cd = new ControllerDomain();
     }
     /**
-     * 
+     * Inicia el joc
      */
     public void start() {
-        correct = false;
+    	correct = false;
         ViewStart vi = new ViewStart();
         vi.show();
         Options op = vi.getOption();
-        if (op == Options.IniciarSessio) {
-              cu = new ControllerUserEntry(this, true);
-            try {
-                if (correct) {
-                    cd.createStadistics();
-                    cd.setRankingController(true);
-                }
-            } 
-            catch (Exception e) {
-            }
-
-        }
+        if (op == Options.IniciarSessio)
+             cu = new ControllerUserEntry(this, true);
         else if (op == Options.IniciarConvidat) {
             name = "Convidat";
             Menu(true);
@@ -58,9 +47,8 @@ public class ControllerPresentation {
     }
     /**
      * 
-     * @param user
-     * @param pass
-     * @throws Exception
+     * @param credentials Credencials de l'usuari a registrar o loguejar
+     * @return si el logueig o la creacio d'usuari s'ha fet correctament
      */
     public boolean checkInfoUser(List<String> credentials) {
       name = credentials.get(0);
@@ -70,7 +58,9 @@ public class ControllerPresentation {
       return correct;
     }
       
-
+    /**
+     * Envia a l'usuari directament al menu principal
+     */
     public void getBack() {
         if (name.equals("Convidat"))
             Menu(true);
@@ -80,7 +70,7 @@ public class ControllerPresentation {
     
     /**
      * 
-     * @param convidat
+     * @param convidat Indica si l'usuari es usuari convidat
      */
     private void Menu(boolean convidat) {
       VistaMenu vm = new VistaMenu();
@@ -121,7 +111,7 @@ public class ControllerPresentation {
               for(int j=0; j< mida; ++j) m[i][j] = 0;
           }
           cd.newMatch(mida);
-          ControllerPresentationBoard c = new ControllerPresentationBoard(m, m[0].length,1,this);
+          ControllerViewBoard c = new ControllerViewBoard(m, m[0].length,1,this);
       }
       else if (om == OptionsMenu.Ranking) {
           List<String> names = new ArrayList<String>();
@@ -138,28 +128,43 @@ public class ControllerPresentation {
       }
       else if (om == OptionsMenu.Sortir) start();
     }
+    /**
+     * 
+     * @return si la partida actual es de competicio o d'entrenament
+     */
     public Boolean isCompetition(){
         return cd.isCompetition();
     }
+    /**
+     * 
+     * @return si el taulell actual compleix les regles del joc i te solucio unica
+     */
     public boolean checkBoard(){
         return cd.checkBoard();
     }
-
+    /**
+     * 
+     * @param position Coordenades d'una Cel·la
+     * @param value Valor a posar a la Cel·la
+     */
     public void updateCell(String position, int value){
         cd.updateCell(position, value);
     }
+    /**
+     * Guarda la partida actual
+     */
     public void saveBoard(){
         cd.saveBoard();
     }
     /**
      * 
-     * @return
+     * @return El numero posat per l'usuari. Un 0 li permet sortir
      */
     private int detect(){
         System.out.println("Prem el 0 y dona a enter per tornar a l'inici");
         Scanner scanner = new Scanner(System.in);
         int op = -1;
-        while (op == -1) {
+        while (op != 0) {
             try {
                 op = scanner.nextInt();
             } 
@@ -171,60 +176,58 @@ public class ControllerPresentation {
     }
     /**
      * 
-     * @return
+     * @return Retorna el numero de partides jugades per l'usuari
      */
     public long[] getMatches(){
         return cd.returnMatches();
     }
     /**
      * 
-     * @return
+     * @return El temps total jugat per l'usuari segons la dificultat
      */
     public long[] getTime(){
         return cd.returnTime();
     }
     /**
      * 
-     * @return
+     * @return El millor temps jugat per l'usuari segons la dificultat
      */
     public long[] getBestTime(){
         return cd.returnBestTime();
     }
     /**
      * 
-     * @return
+     * @return Retorna els identificadors de les partides guardades per l'usuari
      */
     public List<String> getIDMatches(){
         return cd.getIDMatches();
     }
     /**
      * 
-     * @param m
-     * @param competicio
+     * @param m taulell a jugar
+     * @param competicio Indica si la partida es competicio o entrenament
+     * @param save Indica si la partida es una partida nova o una partida carregada
      */
-    private void play(int[][] m, boolean competicio, boolean save)  { //save indica si la partida es una que ja existia
+    private void play(int[][] m, boolean competicio, boolean save)  { 
 
-      ControllerPresentationBoard c = new ControllerPresentationBoard(m, m[0].length,0,this);
+      ControllerViewBoard c = new ControllerViewBoard(m, m[0].length,0,this);
       if (save) {
           for(int i= 0; i<m[0].length; ++i) {
               for(int j=0; j<m[0].length; ++j) {
                   int res = cd.modify(i,j);
-                  int cood = (i*10) + j;
-                  if (res != 0) c.updateBoard(Integer.toString(cood),Integer.toString(res));
+                  String row = Integer.toString(i);
+                  String col = Integer.toString(j);
+                  String cood = row + " " + col; 
+                  if (res != 0) c.updateBoard(cood,Integer.toString(res));
               }
           }
-      }
-      boolean solved = cd.compareSolution();
-      if (solved && competicio) {
-          cd.updateRanking(true);
-          cd.updateRanking(false);
       }
       
     }
     /**
      * 
-     * @param s
-     * @return
+     * @param s Coordenades de una Cel·la
+     * @return els candidats possibles per aquella casella
      */
     public List<Integer> getCandidates(String s) {
         String[] nombres = s.split(" ");
@@ -237,41 +240,41 @@ public class ControllerPresentation {
     
     /**
      * 
-     * @return
+     * @return retorna una llista de posicions amb les caselles diferents
      */
     public List<String> getDifferentCells() {
         try {
             return cd.getDifferentCells();
         } 
         catch (Exception e) {
-            return null;
+        	return null;
         }
         
     }
     /**
      * 
-     * @return
+     * @return Retorna la solució de la seguent casella no valida.
      */
     public int getNextSol() {
         try {
             return cd.getNextSol();
         } 
         catch (Exception e) {
-            return 0;
+        	return 0;
         }
         
     }
     /**
      * 
-     * @param s
-     * @return
+     * @param s Coordenades de la casella
+     * @return Retorna la solucio de la casella amb posicio s
      */
     public int getCellResolved(String s) {
         try {
             return cd.getCellSol(s);
         } 
         catch (Exception e) {
-            return 0;
+        	return 0;
         }
         
     }

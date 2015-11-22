@@ -62,8 +62,9 @@ public class Stub_ControllerPresentation {
 		System.out.println("Guardado");
 	}
 	public void updateCell(String position, int value){
-		int x = Character.getNumericValue(position.charAt(0));
-		int y = Character.getNumericValue(position.charAt(1));
+		String[] pos = position.split(" ");
+		int x = Integer.parseInt(pos[0]);
+		int y = Integer.parseInt(pos[1]);
 		board[x][y] = value;
 		for(int i = 0; i < board.length; ++i){
 			for(int j = 0; j < board.length; ++j){

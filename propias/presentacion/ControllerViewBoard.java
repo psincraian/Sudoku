@@ -19,7 +19,7 @@ import propias.presentacion.*;
  * 
  * @Author: Daniel Sanchez Martinez
  */
-public class ControllerBoard {
+public class ControllerViewBoard {
 	
 	MouseEvent lastCell = null;
 	ControllerPresentation cp;
@@ -34,7 +34,7 @@ public class ControllerBoard {
 	 * @param size
 	 * @param typeBoard
 	 */
-	public ControllerBoard(int[][] board, int size, int typeBoard, ControllerPresentation scp){
+	public ControllerViewBoard(int[][] board, int size, int typeBoard, ControllerPresentation scp){
 		this.cp = scp;
 		this.size = size;
 		if(typeBoard == 0)
@@ -47,6 +47,7 @@ public class ControllerBoard {
 		this.vm.buttonListener(new MouseManage(), this.vm.extraButton[1]);
 		this.vm.buttonListener(new MouseManage(), this.vm.extraButton[2]);
 		this.vm.buttonListener(new MouseManage(), this.vm.extraButton[3]);
+		this.vm.buttonListener(new MouseManage(), this.vm.button[size]);
 
 		for(int i = 0; i < size; ++i){
 			this.vm.buttonListener(new MouseManage(), this.vm.button[i]);
@@ -101,8 +102,9 @@ public class ControllerBoard {
 				if(cell.isEnabled()){
 					if(lastCell != null && lastCell.getSource() instanceof JPanel){
 						JPanel aux = (JPanel)lastCell.getSource();
-						aux.setBackground(Color.white);
-						setCandidates(false);
+						String[] pos = aux.getName().split(" ");
+			        	vm.drawSquare(Integer.parseInt(pos[0]),Integer.parseInt(pos[1]));
+			        	setCandidates(false);
 					}
 					lastCell = e;
 					candidates = cp.getCandidates(cell.getName());
@@ -117,11 +119,20 @@ public class ControllerBoard {
 	        	JLabel label = (JLabel) cell.getComponent(0);
 		        	if(bPressed.getText() != "Hint1" && bPressed.getText() != "Hint2" && bPressed.getText() != "Guardar" && bPressed.getText() != 
 		        			"Volver"){
-			        	if(candidates.contains(Integer.parseInt(bPressed.getText()))) {
+			        	if(bPressed.getName() == "0"){
+			        		label.setText("");
+							cp.updateCell(cell.getName(),0);
+				        	setCandidates(false);
+				        	String[] pos = cell.getName().split(" ");
+				        	vm.drawSquare(Integer.parseInt(pos[0]),Integer.parseInt(pos[1]));
+				        	lastCell = e;
+			        	}
+			        	else if(candidates.contains(Integer.parseInt(bPressed.getText()))) {
 				        	label.setText(bPressed.getText());
 							cp.updateCell(cell.getName(),Integer.parseInt(bPressed.getText()));
 				        	setCandidates(false);
-				        	cell.setBackground(Color.white);
+				        	String[] pos = cell.getName().split(" ");
+				        	vm.drawSquare(Integer.parseInt(pos[0]),Integer.parseInt(pos[1]));
 				        	lastCell = e;
 			        	}
 		        	}
@@ -129,8 +140,8 @@ public class ControllerBoard {
 			        if(bPressed.getText() == "Hint1"){
 			       		int value = cp.getCellResolved(cell.getName());
 				       	label.setText(Integer.toString(value));
-				       	cell.setBackground(Color.white);
-			       	}
+				       	String[] pos = cell.getName().split(" ");
+			        	vm.drawSquare(Integer.parseInt(pos[0]),Integer.parseInt(pos[1]));			       	}
 		        }
 	        }
 			else if(e.getSource() instanceof JButton){

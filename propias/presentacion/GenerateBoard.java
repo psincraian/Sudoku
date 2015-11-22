@@ -17,6 +17,8 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 
+import javafx.scene.shape.Line;
+
 /**
  * Generates a new view of board. the type's view is:
  * ViewMatch to create a new match
@@ -24,7 +26,7 @@ import javax.swing.border.LineBorder;
  * 
  * @author Daniel Sanchez Martinez
  */
-public class GenerateBoard extends setView{
+public class GenerateBoard extends SetView{
 	private JPanel panelS;
 	private JPanel panelC;
 	protected JButton[] button;
@@ -36,15 +38,17 @@ public class GenerateBoard extends setView{
 	Box verticalButton;
 	private int size;
 	protected JLabel prueba;
-
+	private int subsize;
 	/**
 	 * Create the application.
 	 */
 	public GenerateBoard(int[][] board, int size) {
 		super();
 			this.size = size;
-			//revalidate();
-			//repaint();
+			if(size % 3 == 0)
+				subsize = 3;
+			else
+				subsize = 4;
 			initialize(board);
 			pack();
 			setVisible(true);
@@ -100,6 +104,7 @@ public class GenerateBoard extends setView{
 		verticalButton.add(extraButton[0]);
 		verticalButton.add(extraButton[1]);
 		verticalButton.add(extraButton[2]);
+		verticalButton.add(button[size]);
 		getContentPane().add(verticalButton, BorderLayout.EAST);
 	}
 	/**
@@ -110,16 +115,19 @@ public class GenerateBoard extends setView{
 		verticalBox = Box.createVerticalBox();
 		square = new JPanel[size][size];
 		label = new JLabel[size][size];
-		button = new JButton[size];
+		button = new JButton[size+1];
 		verticalButton = Box.createVerticalBox();
 		extraButton = new JButton[4];
 		extraButton[0] = new JButton("Guardar");
 		extraButton[1] = new JButton("Hint1");
 		extraButton[2] = new JButton("Hint2");
 		extraButton[3] = new JButton("Volver");
+		button[size] = new JButton("Borrar");
+		button[size].setName("0");
 		for(int i = 0; i < size; ++i){
 			verticalBox.add(iniRow(i,board[i]));
 			button[i] = new JButton(Integer.toString(i+1));
+			//button[i].setName(Integer.toString(i+1));
 			button[i].setEnabled(false);
 			button[i].setPreferredSize(new Dimension(30,30));
 			button[i].setMinimumSize(new Dimension(30,30));
@@ -140,22 +148,16 @@ public class GenerateBoard extends setView{
 		horizontalBox = Box.createHorizontalBox();
 		horizontalBox.add(Box.createHorizontalStrut(200));
 		for(int j = 0; j < size; ++j){
-			if(size == 9)
-				square[i][j] = new JPanel(new FlowLayout(FlowLayout.CENTER));
-			else
-				square[i][j] = new JPanel(new FlowLayout(FlowLayout.CENTER));
+			square[i][j] = new JPanel(new FlowLayout(FlowLayout.CENTER));
 			square[i][j].setPreferredSize(new Dimension(30,30));
 			square[i][j].setMinimumSize(new Dimension(30,30));
 			square[i][j].setMaximumSize(new Dimension(55,55));
-			if(row[j] == 0){
-				if(size == 9)
+			drawSquare(i,j);
+			if(row[j] == 0)
 					label[i][j] = new JLabel("");
-				else
-					label[i][j] = new JLabel("");
-			}
 			else{
 				label[i][j] = new JLabel(Integer.toString(row[j]));
-				square[i][j].setBackground(new Color(173,173,173));
+				label[i][j].setForeground(new Color(204,102,0));
 				square[i][j].setEnabled(false);
 			}
 			square[i][j].setBorder(new LineBorder(new Color(0, 0, 0),2));
@@ -167,6 +169,42 @@ public class GenerateBoard extends setView{
 		horizontalBox.add(Box.createHorizontalStrut(200));
 		return horizontalBox;
 	}	
+	/**
+	 * Paint the background of a panel. Depending on i and j positions.
+	 * @param i
+	 * @param j
+	 */
+	protected void drawSquare(int i, int j){
+		if(subsize == 3){
+			if(i < 3 || i > 5){
+				if(j < 3 || j > 5)
+					square[i][j].setBackground(new Color(200,200,200));
+				else 
+					square[i][j].setBackground(Color.WHITE);
+			}
+			else{
+				if(j < 3 || j > 5)
+					square[i][j].setBackground(Color.WHITE);
+				else 
+					square[i][j].setBackground(new Color(200,200,200));
+			}
+		}
+		else{
+			if(i < 4 || (i > 7 && i < 12)){
+				if(j < 4 || (j > 7 && j < 12))
+					square[i][j].setBackground(new Color(200,200,200));
+				else 
+					square[i][j].setBackground(Color.WHITE);
+			}
+			else{
+				if(j < 4 || (j > 7 && j < 12))
+					square[i][j].setBackground(Color.WHITE);
+				else 
+					square[i][j].setBackground(new Color(200,200,200));
+			}
+		}
+	}
+	
 	/**
 	 * Add listeners to the button
 	 * @param mm
