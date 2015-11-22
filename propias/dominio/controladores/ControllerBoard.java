@@ -4,17 +4,20 @@ import propias.dominio.clases.SudokuVerification;
 import propias.dominio.clases.Board;
 /**
  * 
- * @author Brian Martinez Alvarez
+ * @author Brian
  *
  */
 public class ControllerBoard {
 	/**
-	 * 
-	 * @param m
+	 * Constructora
 	 */
 	public ControllerBoard() {
-		
 	}
+	/**
+	 * 
+	 * @param m Matrix a convertir
+	 * @return Retorna el taulell de la Matriu m
+	 */
 	Board convertMatrixToBoard(int[][] m){
 		Board b = null;
 		try {
@@ -33,8 +36,8 @@ public class ControllerBoard {
 	}
 	/**
 	 * 
-	 * @param m
-	 * @return
+	 * @param m Matriu a comprobar
+	 * @return Si la matriu te solucio, aquesta es unica i compleix les regles del joc
 	 */
 	public boolean verify(int[][] m){
 		Board b = convertMatrixToBoard(m);
