@@ -218,7 +218,7 @@ public class ControllerPresentation {
                   String row = Integer.toString(i);
                   String col = Integer.toString(j);
                   String cood = row + " " + col; 
-                  if (res != 0) c.updateBoard(Integer.toString(cood),Integer.toString(res));
+                  if (res != 0) c.updateBoard(cood,Integer.toString(res));
               }
           }
       }
