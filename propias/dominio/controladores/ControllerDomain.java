@@ -212,7 +212,8 @@ public class ControllerDomain {
      * @return pone a inicio la casilla con coordenada i,j
      */
     public int modify(int i, int j) {
-    	return 0;
+    	if (match[i][j] != 0) return match[i][j];
+        return 0;
     }
     /**
      * 
