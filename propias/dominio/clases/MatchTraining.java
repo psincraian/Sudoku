@@ -2,6 +2,7 @@ package propias.dominio.clases;
 
 import java.util.List;
 import propias.dominio.clases.Position;
+import propias.dominio.controladores.generator.SudokuHelps;
 
 /** author: Petru Rares */
 public class MatchTraining extends Match {

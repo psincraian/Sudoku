@@ -1,4 +1,4 @@
-package propias.dominio.clases;
+package propias.dominio.controladores.generator;
 
 import java.util.ArrayList;
 import java.util.Collections;

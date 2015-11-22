@@ -1,7 +1,9 @@
-package propias.dominio.clases;
+package propias.dominio.controladores.generator;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import propias.dominio.clases.Board;
 import propias.dominio.clases.Position;
 
 /**

@@ -1,7 +1,7 @@
-package propias.dominio.clases;
+package propias.dominio.controladores.generator;
 
-import propias.dominio.clases.dlx.dlx;
 import propias.dominio.clases.Board;
+import propias.dominio.controladores.generator.dlx.dlx;
 
 /**
  * 

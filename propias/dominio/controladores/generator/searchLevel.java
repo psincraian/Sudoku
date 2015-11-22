@@ -1,4 +1,4 @@
-package propias.dominio.clases;
+package propias.dominio.controladores.generator;
 
 import java.lang.Integer;
 import java.lang.Math;

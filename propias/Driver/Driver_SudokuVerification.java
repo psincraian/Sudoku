@@ -1,8 +1,9 @@
 package propias.Driver;
  
 import java.util.Scanner;
-import propias.dominio.clases.SudokuVerification;
+
 import propias.dominio.clases.Board;
+import propias.dominio.controladores.generator.SudokuVerification;
  
 /**
  * 

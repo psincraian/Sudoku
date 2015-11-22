@@ -1,4 +1,4 @@
-package propias.dominio.clases.dlx;
+package propias.dominio.controladores.generator.dlx;
 
 /**
  * 

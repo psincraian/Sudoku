@@ -1,9 +1,8 @@
 package propias.dominio.clases;
 
-import propias.dominio.clases.Position;
-import propias.dominio.clases.SudokuDiggingHoles;
-import propias.dominio.clases.SudokuGenerator;
-import propias.dominio.clases.SudokuSolver;
+import propias.dominio.controladores.generator.SudokuDiggingHoles;
+import propias.dominio.controladores.generator.SudokuGenerator;
+import propias.dominio.controladores.generator.SudokuSolver;
 
 
 /**

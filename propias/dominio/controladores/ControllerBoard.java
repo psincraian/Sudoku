@@ -1,6 +1,6 @@
 package propias.dominio.controladores;
-import propias.dominio.clases.SudokuSolver;
-import propias.dominio.clases.SudokuVerification;
+import propias.dominio.controladores.generator.SudokuSolver;
+import propias.dominio.controladores.generator.SudokuVerification;
 import propias.dominio.clases.Board;
 /**
  * 

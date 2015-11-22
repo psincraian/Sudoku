@@ -2,6 +2,7 @@ package propias.dominio.controladores;
 
 import java.util.*;
 import propias.dominio.clases.*;
+import propias.dominio.controladores.generator.SudokuHelps;
 import propias.persistencia.ControllerPersistance;
 
 /**
