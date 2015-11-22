@@ -12,15 +12,15 @@ import propias.persistencia.ControllerPersistance;
 public class ControllerDomain {
 	ControllerPersistance cp;
 	ControllerRanking cr;
-    Stadistics s;
+    	Stadistics s;
 	int size = 0;
 	int dificult = 0;
-    int type = 0;
+    	int type = 0;
 	List<String> list;
 	String id;
 	Match match;
 	Match enunciat;
-    Board create;
+    	Board create;
 	Board b;
 	String username;
 	
@@ -53,6 +53,8 @@ public class ControllerDomain {
                     } 
                 }
                 cp.newUser(user,pass1);
+                username = name;
+                cp.userDBInit(username);
                 createStadistics();
                 setRankingController(true);
                 return "Se ha creado el usuario"; //tot correcte
