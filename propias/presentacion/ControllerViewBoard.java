@@ -102,8 +102,9 @@ public class ControllerViewBoard {
 				if(cell.isEnabled()){
 					if(lastCell != null && lastCell.getSource() instanceof JPanel){
 						JPanel aux = (JPanel)lastCell.getSource();
-						aux.setBackground(Color.white);
-						setCandidates(false);
+						String[] pos = aux.getName().split(" ");
+			        	vm.drawSquare(Integer.parseInt(pos[0]),Integer.parseInt(pos[1]));
+			        	setCandidates(false);
 					}
 					lastCell = e;
 					candidates = cp.getCandidates(cell.getName());
@@ -139,8 +140,8 @@ public class ControllerViewBoard {
 			        if(bPressed.getText() == "Hint1"){
 			       		int value = cp.getCellResolved(cell.getName());
 				       	label.setText(Integer.toString(value));
-				       	cell.setBackground(Color.white);
-			       	}
+				       	String[] pos = cell.getName().split(" ");
+			        	vm.drawSquare(Integer.parseInt(pos[0]),Integer.parseInt(pos[1]));			       	}
 		        }
 	        }
 			else if(e.getSource() instanceof JButton){
