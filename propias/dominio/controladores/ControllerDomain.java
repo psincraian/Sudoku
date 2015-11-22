@@ -110,6 +110,26 @@ public class ControllerDomain {
         }
     }
     /**
+    * @param s String a convertir en int[][].
+  	* @return int[][] representant el sudoku.
+  	*/
+	public int[][] stringToMatrix(String s) throws Exception {
+		int size = (int) Math.sqrt(s.length());
+		int[][] board = new int[size][size];
+		for(int i = 0; i < size*size; i++){
+		    char c = s.charAt(i);
+		    int row = i / size;
+		    int col = i % size;
+		    if(c != '.' && c >= '1' && c <= '9'){
+		        board[row][col] = c - '0';
+		    }
+	        else if (c != '.'){
+		        board[row][col] = c - 'A' + 10;
+	        }
+		}		
+	    return board;
+	}
+    /**
      * Crea una partida que ya tenia cargada el usuario
      * @param size Indica el tamaño del tablero
      */
