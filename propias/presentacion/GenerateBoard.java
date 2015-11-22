@@ -104,6 +104,7 @@ public class GenerateBoard extends setView{
 		verticalButton.add(extraButton[0]);
 		verticalButton.add(extraButton[1]);
 		verticalButton.add(extraButton[2]);
+		verticalButton.add(button[size]);
 		getContentPane().add(verticalButton, BorderLayout.EAST);
 	}
 	/**
@@ -114,16 +115,19 @@ public class GenerateBoard extends setView{
 		verticalBox = Box.createVerticalBox();
 		square = new JPanel[size][size];
 		label = new JLabel[size][size];
-		button = new JButton[size];
+		button = new JButton[size+1];
 		verticalButton = Box.createVerticalBox();
 		extraButton = new JButton[4];
 		extraButton[0] = new JButton("Guardar");
 		extraButton[1] = new JButton("Hint1");
 		extraButton[2] = new JButton("Hint2");
 		extraButton[3] = new JButton("Volver");
+		button[size] = new JButton("Borrar");
+		button[size].setName("0");
 		for(int i = 0; i < size; ++i){
 			verticalBox.add(iniRow(i,board[i]));
 			button[i] = new JButton(Integer.toString(i+1));
+			//button[i].setName(Integer.toString(i+1));
 			button[i].setEnabled(false);
 			button[i].setPreferredSize(new Dimension(30,30));
 			button[i].setMinimumSize(new Dimension(30,30));
