@@ -53,7 +53,7 @@ public class ControllerDomain {
                     } 
                 }
                 cp.newUser(user,pass1);
-                username = name;
+                username = user;
                 cp.userDBInit(username);
                 createStadistics();
                 setRankingController(true);
