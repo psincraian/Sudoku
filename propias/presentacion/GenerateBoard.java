@@ -38,14 +38,17 @@ public class GenerateBoard extends setView{
 	Box verticalButton;
 	private int size;
 	protected JLabel prueba;
-	Line line;
-
+	private int subsize;
 	/**
 	 * Create the application.
 	 */
 	public GenerateBoard(int[][] board, int size) {
 		super();
 			this.size = size;
+			if(size % 3 == 0)
+				subsize = 3;
+			else
+				subsize = 4;
 			initialize(board);
 			pack();
 			setVisible(true);
@@ -118,7 +121,6 @@ public class GenerateBoard extends setView{
 		extraButton[1] = new JButton("Hint1");
 		extraButton[2] = new JButton("Hint2");
 		extraButton[3] = new JButton("Volver");
-		
 		for(int i = 0; i < size; ++i){
 			verticalBox.add(iniRow(i,board[i]));
 			button[i] = new JButton(Integer.toString(i+1));
@@ -142,22 +144,16 @@ public class GenerateBoard extends setView{
 		horizontalBox = Box.createHorizontalBox();
 		horizontalBox.add(Box.createHorizontalStrut(200));
 		for(int j = 0; j < size; ++j){
-			if(size == 9)
-				square[i][j] = new JPanel(new FlowLayout(FlowLayout.CENTER));
-			else
-				square[i][j] = new JPanel(new FlowLayout(FlowLayout.CENTER));
+			square[i][j] = new JPanel(new FlowLayout(FlowLayout.CENTER));
 			square[i][j].setPreferredSize(new Dimension(30,30));
 			square[i][j].setMinimumSize(new Dimension(30,30));
-			square[i][j].setMaximumSize(new Dimension(30,30));
-			if(row[j] == 0){
-				if(size == 9)
+			square[i][j].setMaximumSize(new Dimension(55,55));
+			drawSquare(i,j);
+			if(row[j] == 0)
 					label[i][j] = new JLabel("");
-				else
-					label[i][j] = new JLabel("");
-			}
 			else{
 				label[i][j] = new JLabel(Integer.toString(row[j]));
-				square[i][j].setBackground(new Color(173,173,173));
+				label[i][j].setForeground(new Color(204,102,0));
 				square[i][j].setEnabled(false);
 			}
 			square[i][j].setBorder(new LineBorder(new Color(0, 0, 0),2));
@@ -169,6 +165,38 @@ public class GenerateBoard extends setView{
 		horizontalBox.add(Box.createHorizontalStrut(200));
 		return horizontalBox;
 	}	
+	
+	protected void drawSquare(int i, int j){
+		if(subsize == 3){
+			if(i < 3 || i > 5){
+				if(j < 3 || j > 5)
+					square[i][j].setBackground(new Color(200,200,200));
+				else 
+					square[i][j].setBackground(Color.WHITE);
+			}
+			else{
+				if(j < 3 || j > 5)
+					square[i][j].setBackground(Color.WHITE);
+				else 
+					square[i][j].setBackground(new Color(200,200,200));
+			}
+		}
+		else{
+			if(i < 4 || (i > 7 && i < 12)){
+				if(j < 4 || (j > 7 && j < 12))
+					square[i][j].setBackground(new Color(200,200,200));
+				else 
+					square[i][j].setBackground(Color.WHITE);
+			}
+			else{
+				if(j < 4 || (j > 7 && j < 12))
+					square[i][j].setBackground(Color.WHITE);
+				else 
+					square[i][j].setBackground(new Color(200,200,200));
+			}
+		}
+	}
+	
 	/**
 	 * Add listeners to the button
 	 * @param mm

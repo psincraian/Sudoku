@@ -121,7 +121,8 @@ public class ControllerViewBoard {
 				        	label.setText(bPressed.getText());
 							cp.updateCell(cell.getName(),Integer.parseInt(bPressed.getText()));
 				        	setCandidates(false);
-				        	cell.setBackground(Color.white);
+				        	String[] pos = cell.getName().split(" ");
+				        	vm.drawSquare(Integer.parseInt(pos[0]),Integer.parseInt(pos[1]));
 				        	lastCell = e;
 			        	}
 		        	}
