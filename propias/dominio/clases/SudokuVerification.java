@@ -4,6 +4,7 @@ import propias.dominio.clases.Board;
 
 /**
  * Sudoku verification
+ * 
  * @author Daniel Sanchez Martinez
  */
 public class SudokuVerification {

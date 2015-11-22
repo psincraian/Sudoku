@@ -4,6 +4,7 @@ import java.util.*;
 
 /**
  * Show ranking view.
+ * 
  * @author Daniel Sanchez Martinez
  */
 public class ViewRanking {

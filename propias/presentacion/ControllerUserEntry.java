@@ -9,6 +9,7 @@ import propias.presentacion.ControllerViewBoard.MouseManage;
 
 /**
  * Controll the User entry class. Sets the listeners for the buttons.
+ * 
  * @author daniel sánchez martínez
  */
 public class ControllerUserEntry {
