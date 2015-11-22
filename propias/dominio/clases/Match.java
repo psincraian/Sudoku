@@ -3,6 +3,7 @@ package propias.dominio.clases;
 import propias.dominio.clases.Position;
 import propias.dominio.clases.SudokuDiggingHoles;
 import propias.dominio.clases.SudokuGenerator;
+import propias.dominio.clases.SudokuSolver;
 
 /**
  * 
@@ -36,7 +37,9 @@ public class Match {
 		Board solution = generator.generateBoard();
 		SudokuDiggingHoles holes = new SudokuDiggingHoles(solution);
 		Board sudoku = holes.digHoles(caracteristiques.dificultat);
-		this.sudoku = new Sudoku(sudoku, solution);
+		SudokuSolver sol = new SudokuSolver(sudoku);
+		Board solved = new Board(sol.solve());
+		this.sudoku = new Sudoku(sudoku, solved);
 	}
 	
 	/** Retorna una partida amb el usuari username i Sudoku sudoku
