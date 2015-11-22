@@ -215,7 +215,9 @@ public class ControllerPresentation {
           for(int i= 0; i<m[0].length; ++i) {
               for(int j=0; j<m[0].length; ++j) {
                   int res = cd.modify(i,j);
-                  int cood = (i*10) + j;
+                  String row = Integer.toString(i);
+                  String col = Integer.toString(j);
+                  String cood = row + " " + col; 
                   if (res != 0) c.updateBoard(Integer.toString(cood),Integer.toString(res));
               }
           }
