@@ -6,7 +6,8 @@ import java.util.List;
 import propias.dominio.clases.Board;
 import propias.dominio.clases.Position;
 
-/**
+/** Aquesta classe proporciona les ajudes bàsiques.
+ * 
  * @author Petru Rares Sincraian
  * 
  */
@@ -81,12 +82,18 @@ public class SudokuHelps {
 	 * 
 	 * @param solution la solució del sudoku
 	 * @param position la posició de la solució que es vol retornar
-	 * @return la solució
+	 * @return la solució de la cella
 	 */
 	public static int getCellSolution(Board solution, Position position) {
 		return solution.getCell(position.getRow(), position.getColumn()).getValue();
 	}
 	
+	/** Borra dels candidates els nombres de la mateixa fila que apareixen en el board
+	 * 
+	 * @param row La fila especificada
+	 * @param board El taulell amb amb els nombres
+	 * @param candidates Els candidats
+	 */
 	private static void deleteRowCandidate(int row, Board board, List<Integer> candidates) {
 		for (int i = 0; i < board.getSize(); ++i) {
 			int number = board.getCellValue(row, i);
@@ -95,6 +102,12 @@ public class SudokuHelps {
 		}
 	}
 	
+	/** Borra dels candidates els nombres de la mateixa columna que apareixen en el board
+	 * 
+	 * @param column La columna especificada
+	 * @param board El taulell amb amb els nombres
+	 * @param candidates Els candidats
+	 */
 	private static void deleteColumnCancidates(int column, Board board, List<Integer> candidates) {
 		for (int i = 0; i < board.getSize(); ++i) {
 			int number = board.getCellValue(i, column);
@@ -103,6 +116,14 @@ public class SudokuHelps {
 		}
 	}
 	
+	/** Borra dels candidates els nombres que partanyen al mateix bloc que la casella
+	 * amb fila row i columna col.
+	 * 
+	 * @param row La fila
+	 * @param column La columna 
+	 * @param board El taulell amb amb els nombres
+	 * @param candidates Els candidats
+	 */
 	private static void deleteBlockCandidates(int row, int column, Board board, List<Integer> candidates) {
 		int blockSize = (int) Math.sqrt(board.getSize());
 		int firstRow = getFirstRowOrColumn(row, blockSize);
@@ -117,6 +138,12 @@ public class SudokuHelps {
 		}
 	}
 	
+	/** Retorna la primera columna o fila del bloc de la posició especificada
+	 * 
+	 * @param position La fila o columna
+	 * @param boardSize La mida del taulell
+	 * @return La primera fila o columna del bloc
+	 */
 	private static int getFirstRowOrColumn(int position, int boardSize) {
 		return position - position%boardSize;
 	}

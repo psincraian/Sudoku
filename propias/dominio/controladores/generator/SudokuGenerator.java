@@ -5,7 +5,8 @@ import java.util.Collections;
 import java.util.List;
 import propias.dominio.clases.Board;
 
-/**
+/** Classe generador de taulells de Sudokus plens. Aquesta classe genera un 
+ * taulell de la mida especificada totalment ple i vàlid.
  * 
  * @author Petru Rares Sincraian
  *
