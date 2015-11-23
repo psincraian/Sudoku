@@ -129,9 +129,9 @@ public class GenerateBoard extends SetView{
 			button[i] = new JButton(Integer.toString(i+1));
 			//button[i].setName(Integer.toString(i+1));
 			button[i].setEnabled(false);
-			button[i].setPreferredSize(new Dimension(30,30));
-			button[i].setMinimumSize(new Dimension(30,30));
-			button[i].setMaximumSize(new Dimension(30,30));
+			button[i].setPreferredSize(new Dimension(50,50));
+			button[i].setMinimumSize(new Dimension(50,50));
+			button[i].setMaximumSize(new Dimension(50,50));
 			panelS.add(button[i]);
 		}
 		panelC.add(Box.createVerticalGlue());
