@@ -1,0 +1,62 @@
+package propias.dominio.clases;
+
+/**
+ * 
+ * @author Petru Rares Sincraian
+ *
+ * Es una classe auxiliar per definir les dades bàsiques d'una {@link Match}
+ */
+public class CaracteristiquesPartida {	
+
+	int mida;
+	int dificultat;
+	int tipus;
+	
+	/** Modifica la mida del objecte
+	 * 
+	 * @param mida La nova mida
+	 */
+	public void setMida(int mida) {
+		this.mida = mida;
+	}
+
+	/** Modifica la dificultat del objecte
+	 * 
+	 * @param dificultat La nova dificultat
+	 */
+	public void setDificultat(int dificultat) {
+		this.dificultat = dificultat;
+	}
+
+	/** Modifica el tipus de la partida del Objecte
+	 * 
+	 * @param tipus El nou tipus
+	 */
+	public void setTipusPartida(int tipus) {
+		this.tipus = tipus;
+	}
+	
+	/** Obte la mida del objecte
+	 * 
+	 * @return La mida del objecte
+	 */
+	public int getMida() {
+		return mida;
+	}
+	
+	/** Obte la dificultat del objecte
+	 * 
+	 * @return La dificultat del objecte
+	 */
+	public int getDificultat() {
+		return dificultat;
+	}
+	
+	/** Obte el tipus de la partida
+	 * 
+	 * @return El tipus de la partida del objecte
+	 */
+	public int getTipusPartida() {
+		return tipus;
+	}
+}
