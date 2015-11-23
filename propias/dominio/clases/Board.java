@@ -3,8 +3,8 @@ package propias.dominio.clases;
 import propias.dominio.clases.Cell;
 import propias.dominio.clases.CellType;
 
-/**
- * 
+/** La classe Board es el taulell del sudoku. Esta compost per un conjunt de 
+ * {@link Cell}
  * @author Petru Rares Sincraian
  *
  */
@@ -78,12 +78,13 @@ public class Board {
 		return size;
 	}
 	
-	/** Retorna l'enter de la posició 
+	/** Retorna el valor de la {@link Cell} que hi ha a la posició indicada
 	 * 
-	 * @param x
-	 * @param y
-	 * @return
-	 * @throws ArrayIndexOutOfBoundsException
+	 * @param x La fila
+	 * @param y La columna
+	 * @return El valor de la {@link Cell}, 0 si no es una {@link Cell} valida.
+	 * @throws ArrayIndexOutOfBoundsException Retorna {@link ArrayIndexOutOfBoundsException}
+	 * si la posició no esta dintre del teulell 
 	 */
 	public int getCellValue(int x, int y) throws ArrayIndexOutOfBoundsException {
 		if (isInBoard(x, y)) {
@@ -92,6 +93,14 @@ public class Board {
 			throw new ArrayIndexOutOfBoundsException();
 	}
 	
+	/** Retorna la {@link Cell} que hi ha a la posició indicada
+	 * 
+	 * @param x La fila
+	 * @param y La columna
+	 * @return la {@link Cell} que hi ha en board[x][y]
+	 * @throws ArrayIndexOutOfBoundsException Retorna {@link ArrayIndexOutOfBoundsException}
+	 * si la posició no esta dintre del teulell 
+	 */
 	public Cell getCell(int x, int y) throws ArrayIndexOutOfBoundsException {
 		if (isInBoard(x, y)) {
 			return board[x][y];
@@ -99,6 +108,15 @@ public class Board {
 			throw new ArrayIndexOutOfBoundsException();
 	}
 	
+	/** Canvia el valor de la {@link Cell} que hi ha a la posició indicada
+	 * 
+	 * @param x La fila
+	 * @param y La columna
+	 * @param value El nou valor
+	 * @throws Exception Retorna {@link ArrayIndexOutOfBoundsException}
+	 * si la posició no esta dintre del teulell i una {@link Exception} amb 
+	 * el codi {@link Cell#ERROR_VALUE_NOT_VALID} si el valor no es valid
+	 */
 	public void setCellValue(int x, int y, int value) throws Exception {
 		if (isInBoard(x, y)) {
 			board[x][y].setValue(value);
@@ -106,19 +124,52 @@ public class Board {
 			throw new ArrayIndexOutOfBoundsException();
 	}
 	
-	public void deleteCellValue(int x, int y) throws Exception {
+	/** Esborra el valor de la {@link Cell} que hi ha a la posició indicada
+	 * 
+	 * @param x La fila
+	 * @param y La columna
+	 * @throws ArrayIndexOutOfBoundsException Retorna {@link ArrayIndexOutOfBoundsException}
+	 * si la posició no esta dintre del teulell 
+	 */
+	public void deleteCellValue(int x, int y) throws ArrayIndexOutOfBoundsException {
 		if (isInBoard(x, y)) {
-			board[x][y].setValue(0);
+			try {
+				board[x][y].setValue(0);
+			} catch (Exception e) {
+				e.printStackTrace();
+				// no tindriem que arribar mai
+			}
 		} else
 			throw new ArrayIndexOutOfBoundsException();
 		
 	}
 	
+	/** Canvia el tipus de la {@link Cell} que hi ha a la posició indicada
+	 * 
+	 * @param x La fila
+	 * @param y La columna
+	 * @param type El nou tipus de la {@link Cell}
+	 * @throws ArrayIndexOutOfBoundsException Retorna {@link ArrayIndexOutOfBoundsException}
+	 * si la posició no esta dintre del teulell 
+	 */
 	public void setCellType(int x, int y, CellType type) throws ArrayIndexOutOfBoundsException {
 	    if (isInBoard(x, y)) {
 			board[x][y].setType(type);
 		} else
 			throw new ArrayIndexOutOfBoundsException();	    
+	}
+	
+	/** Retorna el tipus de la {@link Cell} que hi ha a la posició indicada
+	 * 
+	 * @param x La fila
+	 * @param y La columna
+	 * @return El tipus de la {@link Cell} que hi ha en board[x][y]
+	 * @throws ArrayIndexOutOfBoundsException Retorna {@link ArrayIndexOutOfBoundsException}
+	 * si la posició no esta dintre del teulell 
+	 */
+	public CellType getCellType(int x, int y) throws ArrayIndexOutOfBoundsException {
+		if (!isInBoard(x, y)) throw new ArrayIndexOutOfBoundsException();	    
+	    return board[x][y].getType();
 	}
 
 	/* AIXO S'HAURA DE BORRAR! ESTA EN CATALA! */
@@ -150,14 +201,21 @@ public class Board {
 		} else
 			throw new ArrayIndexOutOfBoundsException();	    
 	}
-	public CellType getCellType(int x, int y) throws ArrayIndexOutOfBoundsException {
-		if (!isInBoard(x, y)) throw new ArrayIndexOutOfBoundsException();	    
-	    return board[x][y].getType();
-	}
+
+	
+	/** Indica si la posició està en el taulell
+	 * 
+	 * @param x La fila
+	 * @param y La columna
+	 * @return Retorna true si la posició esta en el taulell, false en cas contrari
+	 */
 	private boolean isInBoard(int x, int y) {
 		return x >= 0 && x < size && y >= 0 && y < size;
 	}
 	
+	/** Inicialitza el board a un conjunt de celes buides
+	 * 
+	 */
 	private void initializeBoard() {
 		for (int i = 0; i < size; ++i) {
 			for (int j = 0; j < size; ++j)
