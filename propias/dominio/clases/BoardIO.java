@@ -3,6 +3,10 @@ package propias.dominio.clases;
 import java.util.Scanner;
 import propias.dominio.clases.Board;
 
+/** Classe auxiliar que serveix per llegir o escriure un {@link Board} de
+ * l'entrada per defecte.
+ *
+ */
 public class BoardIO {
 
 	//@Adr
@@ -22,14 +26,23 @@ public class BoardIO {
 		scn.close();
 	}
 	
-	// @author Petru
+	/** Crea un {@link Board} a partir de l'entrada per defecte. 
+	 * 
+	 * Primer es llegeix la mida del taulell i després les dades. Les dades
+	 * estan separades per espai.
+	 * 
+	 * @author Petru Rares Sincraian
+	 * 
+	 * @return Retorna un {@link Board} a partir de les dades de l'entrada
+	 * @throws Exception Retorna {@link Exception} amb {@link Cell#ERROR_VALUE_NOT_VALID}
+	 * si el valor no es valid.
+	 */
 	public static Board read() throws Exception {
 		Scanner s = new Scanner(System.in);
 		System.out.println("Mida del taulell:" );
 		int size = s.nextInt();
 		Board board = new Board(size);
 		
-		//s.useDelimiter(separator);
 		System.out.println("Taulell: ");
 		for(int i = 0; i < size; ++i) {
 			for(int j = 0; j < size; ++j) {
@@ -42,10 +55,17 @@ public class BoardIO {
 		return board;
 	}
 	
-	// @author Petru
-	// Al input hi ha un string del estil:
-	// 7.4.....2...8.1...3.........5.6..1..2...4...........5....37.....9....6...8.....9.
-	// o si es de 16x16 conte els caracters ABCDEFG
+	/** Crea un {@link Board} a partir de l'entrada per defecte. 
+	 * 
+	 * Les dades tenen el seguent format: 1...24..12. On un punt indica un valor
+	 * buit i el valor pot anar de 1 a F depenent de la mida del sudoku
+	 * 
+	 * @author Petru Rares Sincraian
+	 * 
+	 * @return Retorna un {@link Board} a partir de les dades de l'entrada
+	 * @throws Exception Retorna {@link Exception} amb {@link Cell#ERROR_VALUE_NOT_VALID}
+	 * si el valor no es valid.
+	 */
 	public static Board readFromString() throws Exception {
 		Scanner scanner = new Scanner(System.in);
 		String s = scanner.nextLine();
@@ -66,7 +86,12 @@ public class BoardIO {
 	    return board;
 	}
 	
-	// @author Petru
+	/** Imprimeix els valors del {@link Board} amb espais 
+	 * 
+	 * @author Petru Rares Sincraian
+	 * 
+	 * @param board El board que es vol imprimir
+	 */
 	public static void printBoardStringLine(Board board) {
 		for(int i = 0; i < board.getSize(); ++i) {
 			for(int j = 0; j < board.getSize(); ++j) {
@@ -75,27 +100,39 @@ public class BoardIO {
 		}
 	}
 	
-	// @author Petru
+	/** Imprimeix els valors del {@link Board} formatejat. S'imprimeix de 
+	 * manera semplant a un Sudoku.
+	 * 
+	 * @author Petru Rares Sincraian
+	 * 
+	 * @param board El board que es vol imprimir
+	 */
 	public static void printBoardFormated(Board board) {
 		int quadrantSize = (int) Math.sqrt(board.getSize());
 		int count = 0;
 		for (int i = 0; i < board.getSize(); ++i) {
 			printRow(board, i);
 			if (++count == quadrantSize) {
-				printRowSeparator(board);
+				printRowSeparator(board.getSize());
 				count = 0;
 			}
 		}
 	}
 	
-	// @author Petru
-	private static void printRowSeparator(Board board) {		
-		int quadrantSize = (int) Math.sqrt(board.getSize());
+	/** Imprimeix un separador de fila. El separador de fila té el seguent format
+	 * - - - - | On '|' indica la finalització d'un bloc
+	 * 
+	 * @author Petru Rares Sincraian
+	 * 
+	 * @param size Es la mida del board
+	 */
+	private static void printRowSeparator(int size) {		
+		int quadrantSize = (int) Math.sqrt(size);
 		int count = 0;
-		for (int i = 0; i < board.getSize(); ++i) {
-			formatPrintCell(board, "-");
+		for (int i = 0; i < size; ++i) {
+			formatPrintCell(size, "-");
 			if (++count == quadrantSize) {
-				formatPrintCell(board, "|");
+				formatPrintCell(size, "|");
 				count = 0;
 			}
 		}
@@ -103,24 +140,34 @@ public class BoardIO {
 		System.out.println();
 	}
 	
-	// @author Petru
+	/** Imprimeix la fila indicada del board
+	 * 
+	 * @author Petru Rares Sincraian
+	 * 
+	 * @param board El {@link Board que es vol imprimir}
+	 * @param row La fila del {@link Board} que es vol imprimir
+	 */
 	private static void printRow(Board board, int row) {
 		int quadrantSize = (int) Math.sqrt(board.getSize());
 		int count = 0;
 		for (int i = 0; i < board.getSize(); ++i) {
 			String value = Integer.toString(board.getCasella(row, i));
-			formatPrintCell(board, value);
+			formatPrintCell(board.getSize(), value);
 			if (++count == quadrantSize) {
-				formatPrintCell(board, "|");
+				formatPrintCell(board.getSize(), "|");
 				count = 0;
 			}
 		}
 		System.out.println();
 	}
 	
-	// @author Petru
-	private static void formatPrintCell(Board board, String c) {
-		if (board.getSize() < 9 || c.length() == 2)
+	/** Imprimeix el valor d'una cel·la de manera que totes ocupin el mateix
+	 * 
+	 * @param size Es la mida del board
+	 * @param c Es el caracter que es vol imprimir
+	 */
+	private static void formatPrintCell(int size, String c) {
+		if (size < 9 || c.length() == 2)
 			System.out.print(" " + c);
 		else
 			System.out.print(" " + c + " ");
