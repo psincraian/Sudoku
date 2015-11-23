@@ -3,7 +3,8 @@ package propias.dominio.controladores.generator;
 import propias.dominio.clases.Board;
 import propias.dominio.controladores.generator.dlx.dlx;
 
-/**
+/** Un solucionador de Sudokus. Donat un sudoku la classe et mostra la solució
+ * d'aquest i si la solució es unica o no.
  * 
  * @author Petru Rares Sincraian
  *
