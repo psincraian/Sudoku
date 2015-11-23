@@ -3,7 +3,7 @@ package propias.dominio.clases;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
+/** La classe UsuariGeneral ofereix la implementació bàsica d'usuari.
  * 
  * @author Petru Rares Sincraian
  *
@@ -13,6 +13,10 @@ public abstract class UsuariGeneral {
 	private static String nom;
 	List<Integer> llistaSudokus;
 	
+	/** La constructora per defecte. Crea un usuari amb el nom especificat. 
+	 * 
+	 * @param nom El nom del usuari
+	 */
 	public UsuariGeneral(String nom) {
 		this.nom = nom;
 		llistaSudokus = new ArrayList<Integer>();
@@ -26,6 +30,10 @@ public abstract class UsuariGeneral {
 		return llistaSudokus;
 	}
 	
+	/** retorna el nom del usuari 
+	 * 
+	 * @return El nom del usuari
+	 */
 	public String consultarNom() {
 		return nom;
 	}
