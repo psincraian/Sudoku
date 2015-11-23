@@ -23,7 +23,7 @@ import propias.dominio.clases.Board;
 *@autor Adrián Sánchez Albanell.
 *
 */
-public class searchLevel {
+public class CntrlSearchLevel {
 
 	private double MAX_HOLES_EASY = 6./9;
 	private double MAX_HOLES_MEDIUM = 60./81;
@@ -41,7 +41,7 @@ public class searchLevel {
 	*Creadora d'un searchLevel donant-li un board.
 	*@param board representacio d'un sudoku.
 	*/
-	public searchLevel(Board board) throws Exception { 
+	public CntrlSearchLevel(Board board) throws Exception { 
 	    this.sudoku = new Board(board);
 	    size = sudoku.getSize();
 	    sqrtSize = (int)Math.sqrt(size);

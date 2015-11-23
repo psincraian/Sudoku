@@ -11,7 +11,7 @@ import propias.dominio.clases.Position;
  * @author Petru Rares Sincraian
  * 
  */
-public class SudokuHelps {
+public class CntrlSudokuHelps {
 	
 	/** Retorna els possibles candidats de la posició position de board
 	 * 

@@ -1,6 +1,6 @@
 package propias.dominio.controladores;
-import propias.dominio.controladores.generator.SudokuSolver;
-import propias.dominio.controladores.generator.SudokuVerification;
+import propias.dominio.controladores.generator.CntrlSudokuSolver;
+import propias.dominio.controladores.generator.CntrlSudokuVerification;
 import propias.dominio.clases.Board;
 /**
  * 
@@ -41,9 +41,9 @@ public class ControllerBoard {
 	 */
 	public boolean verify(int[][] m){
 		Board b = convertMatrixToBoard(m);
-		SudokuVerification s = new SudokuVerification();
+		CntrlSudokuVerification s = new CntrlSudokuVerification();
 		boolean solved = s.resolve(b);
-		SudokuSolver sol = new SudokuSolver(b);
+		CntrlSudokuSolver sol = new CntrlSudokuSolver(b);
 		sol.needUnique();
 		sol.solve();
 		boolean unique = sol.isUnique();

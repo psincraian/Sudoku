@@ -2,7 +2,7 @@ package propias.dominio.controladores;
 
 import java.util.*;
 import propias.dominio.clases.*;
-import propias.dominio.controladores.generator.SudokuHelps;
+import propias.dominio.controladores.generator.CntrlSudokuHelps;
 import propias.persistencia.ControllerPersistance;
 
 /**
@@ -384,7 +384,7 @@ public class ControllerDomain {
      */
     public List<Integer> getCandidates(int row, int col) {
     try {
-        List<Integer> candidates = SudokuHelps.getCandidates(new Position(row,col), match.getSudoku());
+        List<Integer> candidates = CntrlSudokuHelps.getCandidates(new Position(row,col), match.getSudoku());
         return candidates;
     } 
     catch (Exception e) {
@@ -397,7 +397,7 @@ public class ControllerDomain {
      * @return retorna una llista de posicions amb les caselles diferents
      */
     public List<String> getDifferentCells() {
-        List<Position> p = SudokuHelps.getDifferentCells(match.getSolution(), match.getSudoku());
+        List<Position> p = CntrlSudokuHelps.getDifferentCells(match.getSolution(), match.getSudoku());
         int mida = p.size();
         List<String> l = new ArrayList<String>();
         for(int i=0; i<mida; ++i){
@@ -414,7 +414,7 @@ public class ControllerDomain {
      * @return Retorna la solució de la seguent casella no valida.
      */
     public int getNextSol() {
-        return  SudokuHelps.getNextSolution(match.getSolution(), match.getSudoku());
+        return  CntrlSudokuHelps.getNextSolution(match.getSolution(), match.getSudoku());
     }
     /**
      * 
@@ -429,7 +429,7 @@ public class ControllerDomain {
         Position p;
         try {
             p = new Position(row,column);
-            return SudokuHelps.getCellSolution(match.getSolution(), p);
+            return CntrlSudokuHelps.getCellSolution(match.getSolution(), p);
         } catch (Exception e) {
           return 0;
         }

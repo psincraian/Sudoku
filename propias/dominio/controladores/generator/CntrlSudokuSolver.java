@@ -9,7 +9,7 @@ import propias.dominio.controladores.generator.dlx.dlx;
  * @author Petru Rares Sincraian
  *
  */
-public class SudokuSolver {
+public class CntrlSudokuSolver {
 	
 	private dlx solver;
 	private boolean isUnique;
@@ -18,12 +18,12 @@ public class SudokuSolver {
 	 * 
 	 * @param board El board al que volem buscar solució
 	 */
-	public SudokuSolver(Board board) {
+	public CntrlSudokuSolver(Board board) {
 		solver = new dlx(board);
 	}
 	
 	/** Ens indica si volem saber si la solució es única. S'ha de cridar abans
-	 * de {@link SudokuSolver#isUnique()}
+	 * de {@link CntrlSudokuSolver#isUnique()}
 	 * 
 	 */
 	public void needUnique() {
@@ -40,8 +40,8 @@ public class SudokuSolver {
 		return solver.getSolution();
 	}
 	
-	/** Ens indica si la solució es unica. S'ha de cridar {@link SudokuSolver#isUnique()}
-	 * abans que {@link SudokuSolver#solve()} per obtenir el comportament desitjat.
+	/** Ens indica si la solució es unica. S'ha de cridar {@link CntrlSudokuSolver#isUnique()}
+	 * abans que {@link CntrlSudokuSolver#solve()} per obtenir el comportament desitjat.
 	 * 
 	 * @return Retorna true si la solució es unica. False en cas contrari.
 	 */

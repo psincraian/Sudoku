@@ -2,7 +2,7 @@ package propias.dominio.clases;
 
 import java.util.List;
 import propias.dominio.clases.Position;
-import propias.dominio.controladores.generator.SudokuHelps;
+import propias.dominio.controladores.generator.CntrlSudokuHelps;
 
 /** La classe {@link MatchTraining} es una sublasse de {@link Match}. A part de totes
  * les caracteristiques de {@link Match} també proporciona varies ajudes auxiliars
@@ -28,7 +28,7 @@ public class MatchTraining extends Match {
 	 * @return Retorna una llista de candidats
 	 */
 	public List<Integer> getCellCandidates(Position position) {
-		return SudokuHelps.getCandidates(position, getSudoku());
+		return CntrlSudokuHelps.getCandidates(position, getSudoku());
 	}
 	
 	/** Retorna la solució de la posició especificada
@@ -37,6 +37,6 @@ public class MatchTraining extends Match {
 	 * @return El únic valor que pot anar en aquella casella.
 	 */
 	public Integer getCellSolution(Position position) {
-		return SudokuHelps.getCellSolution(getSolution(), position);
+		return CntrlSudokuHelps.getCellSolution(getSolution(), position);
 	}
 }

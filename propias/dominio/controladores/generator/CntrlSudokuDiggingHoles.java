@@ -31,7 +31,7 @@ import propias.dominio.clases.CellType;
 *
 * @author  Adrián Sánchez Albanell
 */
-public class SudokuDiggingHoles {
+public class CntrlSudokuDiggingHoles {
 
 	private double MAX_HOLES_EASY = 6./9;
 	private double MAX_HOLES_MEDIUM = 60./81;
@@ -56,7 +56,7 @@ public class SudokuDiggingHoles {
 	 * a board
 	 * @param board Board con el que inicializaremos sudoku.
 	 */
-	public SudokuDiggingHoles(Board board) throws Exception { 
+	public CntrlSudokuDiggingHoles(Board board) throws Exception { 
 	    this.sudoku = new Board(board);
 	    size = sudoku.getSize();	
 	    sqrtSize = (int)Math.sqrt(size);
@@ -151,7 +151,7 @@ public class SudokuDiggingHoles {
 	private boolean digHole(int i, int j) throws Exception {	    
 	    Board temp = new Board(sudoku);
 	   	temp.deleteCellValue(i, j);
-	    SudokuSolver solv = new SudokuSolver(temp);
+	    CntrlSudokuSolver solv = new CntrlSudokuSolver(temp);
 	    solv.needUnique();
 	    solv.solve();
 	    if(solv.isUnique()){

@@ -11,7 +11,7 @@ import propias.dominio.clases.Board;
  * @author Petru Rares Sincraian
  *
  */
-public class SudokuGenerator {
+public class CntrlSudokuGenerator {
 	private boolean rows[][];
 	private boolean columns[][];
 	private boolean blocks[][];
@@ -25,7 +25,7 @@ public class SudokuGenerator {
 	 * @throws NegativeArraySizeException Llenca NegativeArraySizeException si
 	 * size es menor que 0
 	 */
-	public SudokuGenerator(int size) throws NegativeArraySizeException {
+	public CntrlSudokuGenerator(int size) throws NegativeArraySizeException {
 		this.size = size;
 		rows = returnTrueMatrix(size);
 		columns = returnTrueMatrix(size);

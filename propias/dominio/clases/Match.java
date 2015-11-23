@@ -1,8 +1,8 @@
 package propias.dominio.clases;
 
-import propias.dominio.controladores.generator.SudokuDiggingHoles;
-import propias.dominio.controladores.generator.SudokuGenerator;
-import propias.dominio.controladores.generator.SudokuSolver;
+import propias.dominio.controladores.generator.CntrlSudokuDiggingHoles;
+import propias.dominio.controladores.generator.CntrlSudokuGenerator;
+import propias.dominio.controladores.generator.CntrlSudokuSolver;
 
 
 /** Classe partida. La classe partida ve definida per un nom d'usuari i un Sudoku concret.
@@ -33,13 +33,13 @@ public class Match {
 	 * 
 	 */
 	private void createSudoku(CaracteristiquesPartida caracteristiques) {
-		SudokuGenerator generator = new SudokuGenerator(caracteristiques.getMida());
+		CntrlSudokuGenerator generator = new CntrlSudokuGenerator(caracteristiques.getMida());
 		Board solution = generator.generateBoard();
-		SudokuDiggingHoles holes;
+		CntrlSudokuDiggingHoles holes;
 		try {
-			holes = new SudokuDiggingHoles(solution);
+			holes = new CntrlSudokuDiggingHoles(solution);
 			Board sudoku = holes.digHoles(caracteristiques.dificultat);
-			SudokuSolver sol = new SudokuSolver(sudoku);
+			CntrlSudokuSolver sol = new CntrlSudokuSolver(sudoku);
 			Board solved = new Board(sol.solve());
 			this.sudoku = new Sudoku(sudoku, solved);
 		} catch (Exception e) {

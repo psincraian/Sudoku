@@ -7,7 +7,7 @@ import propias.dominio.clases.Board;
  * 
  * @author Daniel Sanchez Martinez
  */
-public class SudokuVerification {
+public class CntrlSudokuVerification {
 	/**
 	 * Check if a given sudoku is correct. No same number in row, column and quadrant
 	 * @param b

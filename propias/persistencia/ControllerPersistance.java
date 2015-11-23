@@ -323,10 +323,9 @@ public class ControllerPersistance {
 	}
 
 	/**
-   	* Retorna l'identificador de les partides guardades de
-   	* l'usuari carregat al controlador.
-  	* @return List<String> retorna els identificadors de
-  	* les partides.
+   	* Guarda una partida de l'usuari.
+   	* @param idSudoku id del sudoku a guardar.
+   	* @param match partida.
   	*/
 	public void saveMatch(String idSudoku, List<int[][]> match) throws Exception {
 		File f = new File(autoPath + "/data/Users/" + user + "/Partidas/" + idSudoku);
