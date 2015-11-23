@@ -7,7 +7,7 @@ import java.time.Instant;
  * les caracteristiques de {@link Match} també proporciona el temps que s'ha estat
  * l'usuari jugant la partida.
  * 
- * @author petrusqui
+ * @author Petru Rares Sincraian
  *
  */
 public class MatchCompetition extends Match {
