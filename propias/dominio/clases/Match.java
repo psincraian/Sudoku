@@ -5,41 +5,47 @@ import propias.dominio.controladores.generator.SudokuGenerator;
 import propias.dominio.controladores.generator.SudokuSolver;
 
 
-/**
- * 
+/** Classe partida. La classe partida ve definida per un nom d'usuari i un Sudoku concret.
+ * Proporciona metodes per poder obtenir el nom d'usuari, el sudoku, canviar valors del
+ * sudoku, obtenir la solucio, etc.
+ *  
  * @author Petru Rares Sincraian
  *
  */
 public class Match {
 	
-	private final static String ERROR_LOCKED_CELL = "Casella bloquejada";
+	public final static String ERROR_LOCKED_CELL = "Casella bloquejada";
 	
 	private String username;
 	private Sudoku sudoku;
 	
-	/** Retorna una partida amb el usuari username i Sudoku sudoku
+	/** Retorna una partida amb el usuari username i un sudoku generat.
 	 * 
 	 * @param username El nom del usuari
-	 * @param sudoku El sudoku. 
-	 * @throws Exception 
+	 * @param caracteristiques Les caracteristiques del Sudoku. 
 	 */
-	public Match(String username, CaracteristiquesPartida caracteristiques) throws Exception {
+	public Match(String username, CaracteristiquesPartida caracteristiques) {
 		this.username = username;
 		createSudoku(caracteristiques);
 	}
 	
-	/** Crea un Sudoku
-	 * @throws Exception 
+	/** Crea un Sudoku amb les caracteristiques proporcionades
 	 * 
 	 */
-	private void createSudoku(CaracteristiquesPartida caracteristiques) throws Exception {
+	private void createSudoku(CaracteristiquesPartida caracteristiques) {
 		SudokuGenerator generator = new SudokuGenerator(caracteristiques.getMida());
 		Board solution = generator.generateBoard();
-		SudokuDiggingHoles holes = new SudokuDiggingHoles(solution);
-		Board sudoku = holes.digHoles(caracteristiques.dificultat);
-		SudokuSolver sol = new SudokuSolver(sudoku);
-		Board solved = new Board(sol.solve());
-		this.sudoku = new Sudoku(sudoku, solved);
+		SudokuDiggingHoles holes;
+		try {
+			holes = new SudokuDiggingHoles(solution);
+			Board sudoku = holes.digHoles(caracteristiques.dificultat);
+			SudokuSolver sol = new SudokuSolver(sudoku);
+			Board solved = new Board(sol.solve());
+			this.sudoku = new Sudoku(sudoku, solved);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	/** Retorna una partida amb el usuari username i Sudoku sudoku
@@ -132,7 +138,7 @@ public class Match {
 	/** Esborra la casella de la posició especificada
 	 * 
 	 * @param position la posicio que es vol borrar
-	 * @throws retorna @see {@link ArrayIndexOutOfBoundsException} si la posicio
+	 * @throws Exception retorna {@link ArrayIndexOutOfBoundsException} si la posicio
 	 * no es valida
 	 */
 	public void deleteCell(Position position) throws Exception {
