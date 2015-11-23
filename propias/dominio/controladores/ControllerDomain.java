@@ -202,6 +202,7 @@ public class ControllerDomain {
      */
     public List<int[][]> getSavedMatches(String id){
         try{
+            this.id = id;
             List<int[][]> l = cp.getSavedMatch(id); // pos 0 = progres, pos 1 = enunciat, pos 2 = solucio
             Board actual = convertToBoard(l.get(0), l.get(0).length);
             Board solucio = convertToBoard(l.get(2), l.get(2).length);
