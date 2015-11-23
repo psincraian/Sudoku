@@ -6,6 +6,7 @@ import java.util.List;
 /**
 * 
 * set the login view. Gives the possibility to play sudokus as an user of the system.
+* 
 * @author  Daniel Sánchez Martinez
 */
 public class ViewLogin extends UserEntry{
