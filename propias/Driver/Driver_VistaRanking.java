@@ -17,8 +17,7 @@ public class Driver_VistaRanking {
         name.add("David");
         values.add((long)134);
         values.add((long)120);
-        ViewRanking vr = new ViewRanking();
-        vr.mostrarRanquing(name, values);
+        ViewRanking vr = new ViewRanking(name,values);
     }
  
 }
