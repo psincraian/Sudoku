@@ -50,8 +50,6 @@ public class GenerateBoard extends SetView{
 			else
 				subsize = 4;
 			initialize(board);
-			pack();
-			setVisible(true);
 	}
 
 	/**
@@ -59,39 +57,19 @@ public class GenerateBoard extends SetView{
 	 */
 	protected void initialize(int[][] board) {
 		getContentPane().setSize(1000,800);
-		setResizable(false);
+		//setResizable(false);
 		getContentPane().setBackground(Color.WHITE);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		panelC = new JPanel();
 		panelS = new JPanel();
-		JPanel panelN = new JPanel();
 		panelC.setBackground(Color.white);
-		panelN.setBackground(Color.white);
 		panelS.setBackground(Color.white);
 
-		/*North*/
-		getContentPane().add(panelN, BorderLayout.NORTH);
-		panelN.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-		JLabel title = new JLabel("Partida Sudoku");
-		title.setHorizontalAlignment(SwingConstants.CENTER);
-		panelN.add(title);
-		prueba = new JLabel();
-		panelN.add(prueba);
-		
-		Component verticalStrut = Box.createVerticalStrut(80);
-		Component horizontalStrut = Box.createHorizontalStrut(100);
-		panelN.add(verticalStrut);
-		panelN.add(horizontalStrut);
-		
 		/*Center*/
 		getContentPane().add(panelC, BorderLayout.CENTER);
 		panelC.setLayout(new BoxLayout(panelC,BoxLayout.Y_AXIS));
 
 		iniBoard(board);
-		
-		extraButton[3].setToolTipText("Vuelve a la pagina principal, sin guardar tablero actual");
-		panelN.add(extraButton[3]);
-		
+				
 		/*South*/
 		Component verticalStrut_ = Box.createVerticalStrut(130);
 		panelS.add(verticalStrut_);
@@ -101,6 +79,8 @@ public class GenerateBoard extends SetView{
 		extraButton[0].setToolTipText("Guardar board actual");
 		extraButton[1].setToolTipText("Solucionar casilla seleccionada");
 		extraButton[2].setToolTipText("Revisar progreso actual board");
+		extraButton[3].setToolTipText("Vuelve a la pagina principal, sin guardar tablero actual");
+		verticalButton.add(extraButton[3]);
 		verticalButton.add(extraButton[0]);
 		verticalButton.add(extraButton[1]);
 		verticalButton.add(extraButton[2]);

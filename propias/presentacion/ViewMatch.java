@@ -1,5 +1,16 @@
 package propias.presentacion;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Calendar;
+import java.util.Date;
+
+import javax.swing.BorderFactory;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.Timer;
+import javax.swing.border.Border;
+
 /**
  * Type of the view board: ViewMatch
  * 
@@ -7,6 +18,14 @@ package propias.presentacion;
  */
 public class ViewMatch extends GenerateBoard{
 	
+	Timer time;
+	JLabel timeL;
+	int[] hour = {0,0};
+	int[] minute = {0,0};
+	int[] second = {0,0};
+	String[] s;
+	String[] m;
+	String[] h;
 	/**
 	 * Constructor
 	 * @param board
@@ -14,5 +33,48 @@ public class ViewMatch extends GenerateBoard{
 	 */
 	public ViewMatch(int[][] board, int size){
 		super(board,size);
+		setTitle("Partida Sudoku");
+		timeL = new JLabel();
+		JPanel timeP = new JPanel();
+		timeP.setBorder(BorderFactory.createRaisedBevelBorder());
+		timeP.add(timeL);
+		panelN.add(timeP);
+		initializeTime();
+		pack();
+		setVisible(true);
+	}
+	
+	public void initializeTime(){
+		time = new Timer(1000, new timerListener());
+		time.start();		
+	}
+	
+	class timerListener implements ActionListener{
+		public void actionPerformed(ActionEvent e){
+			++second[0];
+			if(second[0] == 10){
+				second[0] = 0;
+				++second[1];
+				if(second[1] == 6){
+					second[0] = 0;
+					second[1] = 0;
+					++minute[0];
+					if(minute[0] == 10){
+						minute[0] = 0;
+						++minute[1];
+						if(minute[1] == 6){
+							minute[0] = 0;
+							minute[1] = 0;
+							++hour[0];
+							if(hour[0] == 10){
+								hour[0] = 0;
+								++hour[1];
+							}
+						}
+					}
+				}
+			}			
+			timeL.setText(String.valueOf(hour[1])+String.valueOf(hour[0])+":"+String.valueOf(minute[1])+String.valueOf(minute[0])+":"+String.valueOf(second[1])+String.valueOf(second[0]));
+		}
 	}
 }

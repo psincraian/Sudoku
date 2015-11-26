@@ -15,11 +15,10 @@ import javax.swing.JTabbedPane;
  * 
  * @author Daniel Sanchez Martinez
  */
-public class ViewRanking {
+public class ViewRanking extends SetView{
 	
 	JPanel nameP;
 	JPanel valueP;
-	JFrame frame;
 	JLabel[] nameL;
 	JLabel[] valueL;
 	List<String> name;
@@ -27,14 +26,14 @@ public class ViewRanking {
 	JTabbedPane difficulty;
 	
 	public ViewRanking(List<String> name, List<Long> value){
+		super();
 		this.name=name;
 		this.value=value;
-		frame = new JFrame("sudoku");
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setSize(500, 500);
+		getContentPane().setSize(500, 500);
+		setTitle("Ranking");
 		initialize();
-		frame.pack();
-		frame.setVisible(true);
+		pack();
+		setVisible(true);
 	}
 	
 	public void initialize(){
@@ -49,29 +48,23 @@ public class ViewRanking {
 		difficulty.addTab("Nivell facil", easy);
 
 		JPanel medium = new JPanel();
-		medium.add(nameP);
-		medium.add(Box.createHorizontalStrut(20));
-		medium.add(valueP);
 		difficulty.addTab("Nivell mitja", medium);
 		
 		JPanel d = new JPanel();
-		d.add(nameP);
-		d.add(Box.createHorizontalStrut(20));
-		d.add(valueP);
 		difficulty.addTab("Nivell dificil", d);
-		frame.add(difficulty, BorderLayout.CENTER);
+		add(difficulty, BorderLayout.CENTER);
 		
 		/*North*/
-		frame.add(Box.createVerticalStrut(100),BorderLayout.NORTH);
+		add(Box.createVerticalStrut(100),BorderLayout.NORTH);
 		
 		/*South*/
-		frame.add(Box.createVerticalStrut(100),BorderLayout.SOUTH);
+		add(Box.createVerticalStrut(100),BorderLayout.SOUTH);
 		
 		/*East*/
-		frame.add(Box.createHorizontalStrut(100),BorderLayout.EAST);
+		add(Box.createHorizontalStrut(100),BorderLayout.EAST);
 		
 		/*West*/
-		frame.add(Box.createHorizontalStrut(100),BorderLayout.WEST);
+		add(Box.createHorizontalStrut(100),BorderLayout.WEST);
 	}
 	
 	public void setRanking(){

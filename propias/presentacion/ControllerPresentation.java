@@ -117,8 +117,7 @@ public class ControllerPresentation {
           List<String> names = new ArrayList<String>();
           List<Long> values = new ArrayList<Long>();
           cd.getRanking(names,values);
-          ViewRanking v = new ViewRanking();
-          v.mostrarRanquing(names,values);
+          ViewRanking v = new ViewRanking(names, values);
           if ( detect() == 0) Menu(false);
       }
       else if (om == OptionsMenu.Perfil) {

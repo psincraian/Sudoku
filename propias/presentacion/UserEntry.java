@@ -1,6 +1,7 @@
 package propias.presentacion;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.util.List;
 
@@ -32,7 +33,6 @@ public abstract class UserEntry extends SetView{
 	private JPanel[] panel;
 	protected JPanel labelPanel;
 	protected JPanel textPanel;
-	protected JLabel title;
 
 	/**
 	 * Create the application.
@@ -48,10 +48,7 @@ public abstract class UserEntry extends SetView{
 	private void initialize() {
 		getContentPane().setSize(750,750);
 		setResizable(false);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		createView();
-		pack();
-		setVisible(true);
 	}
 	
 	/**
@@ -60,6 +57,9 @@ public abstract class UserEntry extends SetView{
 	private void createView(){
 		iniNames();
 		
+		panel[0].setBackground(Color.WHITE);
+		labelPanel.setBackground(Color.white);
+		textPanel.setBackground(Color.white);
 		labelPanel.add(label[0]);
 		labelPanel.add(Box.createVerticalStrut(10));
 		labelPanel.add(label[1]);
@@ -70,15 +70,12 @@ public abstract class UserEntry extends SetView{
 		add(panel[0], BorderLayout.CENTER);
 		
 		getContentPane().add(Box.createHorizontalStrut(100), BorderLayout.EAST);
-		
-		panel[1].add(title);
-		panel[1].add(Box.createVerticalStrut(80));
-		getContentPane().add(panel[1], BorderLayout.NORTH);
 
 		JPanel panelButtons = new JPanel();
 		panelButtons.add(accept);
 		panelButtons.add(cancel);
 		panelButtons.add(Box.createVerticalStrut(80), BorderLayout.SOUTH);
+		panelButtons.setBackground(Color.white);
 		getContentPane().add(panelButtons, BorderLayout.SOUTH);
 	}
 	/**
@@ -88,7 +85,6 @@ public abstract class UserEntry extends SetView{
 		label = new JLabel[2];
 		pf = new JPasswordField();
 		panel = new JPanel[2];
-		title = new JLabel("");
 		labelPanel = new JPanel();
 		textPanel = new JPanel();
 		labelPanel.setLayout(new BoxLayout(labelPanel, BoxLayout.Y_AXIS));
@@ -110,14 +106,6 @@ public abstract class UserEntry extends SetView{
 	 */
 	public String getName(){
 		return name.getText();
-	}
-	
-	/**
-	 * Set the view's title
-	 * @param text
-	 */
-	public void setTitle(String text){
-		title.setText(text);
 	}
 	
 	/**
