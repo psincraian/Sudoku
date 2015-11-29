@@ -11,6 +11,7 @@ public class CaracteristiquesPartida {
 	int mida;
 	int dificultat;
 	int tipus;
+	int givenNumbers;
 	
 	/** Modifica la mida del objecte
 	 * 
@@ -26,6 +27,14 @@ public class CaracteristiquesPartida {
 	 */
 	public void setDificultat(int dificultat) {
 		this.dificultat = dificultat;
+	}
+	
+	/** Modifica els nombre de nombres del objecte
+	 * 
+	 * @param numbers El nou valor
+	 */
+	public void setGivenNumbers(int numbers) {
+		this.givenNumbers=  numbers;
 	}
 
 	/** Modifica el tipus de la partida del Objecte
@@ -58,5 +67,13 @@ public class CaracteristiquesPartida {
 	 */
 	public int getTipusPartida() {
 		return tipus;
+	}
+	
+	/** Retorna el nombre de caselles buides
+	 * 
+	 * @return Un enter amb el nombre de caseles buides
+	 */
+	public int getGivenNumbers() {
+		return givenNumbers;
 	}
 }
