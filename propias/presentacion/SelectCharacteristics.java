@@ -49,6 +49,7 @@ public class SelectCharacteristics extends JPanel {
 		characteristics = new CaracteristiquesPartida();
 		characteristics.setDificultat(1);
 		characteristics.setTipusPartida(0);
+		characteristics.setMida(9);
 		createView();
 	}
 

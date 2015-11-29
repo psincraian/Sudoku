@@ -22,11 +22,12 @@ class GUI implements SelectCharacteristics.GetParametersListener {
 	public void createGUI() {
 		JFrame frame = new JFrame();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-		JComponent newContentPane = new SelectCharacteristics(this);
+		
+		JPanel newContentPane = new SelectCharacteristics(this);
 		newContentPane.setOpaque(true);
-		frame.setContentPane(newContentPane);
-
+        frame.getContentPane().setLayout(new java.awt.GridBagLayout());
+		frame.getContentPane().add(newContentPane, new java.awt.GridBagConstraints());
+        frame.pack();
 		frame.setVisible(true);
 	}
 	
