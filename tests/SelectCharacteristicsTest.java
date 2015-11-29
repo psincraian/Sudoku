@@ -10,14 +10,14 @@ class SelectCharacteristicsTest {
 	public static void main(String[] args) {
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-				GUI gui = new GUI();
+				SelectCharacteristicsGUI gui = new SelectCharacteristicsGUI();
 				gui.createGUI();
 			}
 		});
 	}
 }
 
-class GUI implements SelectCharacteristics.GetParametersListener {
+class SelectCharacteristicsGUI implements SelectCharacteristics.GetParametersListener {
 	
 	public void createGUI() {
 		JFrame frame = new JFrame();

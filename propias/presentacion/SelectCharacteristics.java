@@ -42,7 +42,7 @@ public class SelectCharacteristics extends JPanel {
 		try {
 			listener = (GetParametersListener) container;
 		} catch (Exception e) {
-			System.out.println("S'ha d'implementar el listener!!!");
+			System.out.println("S'ha d'implementar la interface!");
 			e.printStackTrace();
 		}
 		
