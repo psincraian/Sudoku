@@ -1,6 +1,7 @@
 package propias.presentacion;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.util.*;
 
 import javax.swing.Box;
@@ -31,6 +32,9 @@ public class ViewRanking extends SetView{
 		this.value=value;
 		getContentPane().setSize(500, 500);
 		setTitle("Ranking");
+		setMinimumSize(380,285);
+		setPreferredSize(976,728);
+		setMaximumSize(1000,750);
 		initialize();
 		pack();
 		setVisible(true);
@@ -41,30 +45,35 @@ public class ViewRanking extends SetView{
 		setRanking();
 		
 		/*Center*/
-		JPanel easy = new JPanel();
-		easy.add(nameP);
-		easy.add(Box.createHorizontalStrut(20));
-		easy.add(valueP);
-		difficulty.addTab("Nivell facil", easy);
+		Box verticalBox = Box.createVerticalBox();
+		verticalBox.add(Box.createGlue());
+		JPanel rank = new JPanel();
+		rank.add(nameP);
+		rank.add(Box.createHorizontalStrut(20));
+		rank.add(valueP);
+		rank.setBackground(Color.white);
+		verticalBox.add(rank);
+		add(verticalBox, BorderLayout.CENTER);
+		//difficulty.addTab("Nivell facil", easy);
 
-		JPanel medium = new JPanel();
+		/*JPanel medium = new JPanel();
 		difficulty.addTab("Nivell mitja", medium);
 		
 		JPanel d = new JPanel();
 		difficulty.addTab("Nivell dificil", d);
-		add(difficulty, BorderLayout.CENTER);
+		add(difficulty, BorderLayout.CENTER);*/
 		
 		/*North*/
-		add(Box.createVerticalStrut(100),BorderLayout.NORTH);
+		//add(Box.createVerticalStrut(100),BorderLayout.NORTH);
 		
 		/*South*/
-		add(Box.createVerticalStrut(100),BorderLayout.SOUTH);
+		add(Box.createGlue(),BorderLayout.SOUTH);
 		
 		/*East*/
-		add(Box.createHorizontalStrut(100),BorderLayout.EAST);
+		add(Box.createGlue(),BorderLayout.EAST);
 		
 		/*West*/
-		add(Box.createHorizontalStrut(100),BorderLayout.WEST);
+		add(Box.createGlue(),BorderLayout.WEST);
 	}
 	
 	public void setRanking(){
@@ -74,7 +83,9 @@ public class ViewRanking extends SetView{
 		valueP = new JPanel();
 		nameP.setLayout(new BoxLayout(nameP,BoxLayout.Y_AXIS));
 		valueP.setLayout(new BoxLayout(valueP,BoxLayout.Y_AXIS));
-		difficulty = new JTabbedPane();
+		nameP.setBackground(Color.white);
+		valueP.setBackground(Color.white);
+		//difficulty = new JTabbedPane();
 		
 		for(int i = 0; i < name.size(); ++i){
 			nameL[i] = new JLabel(name.get(i));

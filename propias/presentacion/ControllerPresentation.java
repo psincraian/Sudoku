@@ -118,7 +118,7 @@ public class ControllerPresentation {
           List<Long> values = new ArrayList<Long>();
           cd.getRanking(names,values);
           ViewRanking v = new ViewRanking(names, values);
-          if ( detect() == 0) Menu(false);
+          //if ( detect() == 0) Menu(false);
       }
       else if (om == OptionsMenu.Perfil) {
           ViewProfile v = new ViewProfile(getMatches(), getTime(), getBestTime());

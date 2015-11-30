@@ -39,15 +39,19 @@ public abstract class UserEntry extends SetView{
 	 */
 	public UserEntry() {
 		super();
+		setMaximumSize(1000,750);
+		setPreferredSize(976,728);
+		setMinimumSize(380,285);
 		initialize();
+		pack();
+		setVisible(true);
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		getContentPane().setSize(750,750);
-		setResizable(false);
+		//getContentPane().setSize(750,750);
 		createView();
 	}
 	
@@ -57,6 +61,8 @@ public abstract class UserEntry extends SetView{
 	private void createView(){
 		iniNames();
 		
+		Box vertical = Box.createVerticalBox();
+		vertical.add(Box.createVerticalGlue());
 		panel[0].setBackground(Color.WHITE);
 		labelPanel.setBackground(Color.white);
 		textPanel.setBackground(Color.white);
@@ -65,9 +71,12 @@ public abstract class UserEntry extends SetView{
 		labelPanel.add(label[1]);
 		panel[0].add(labelPanel);
 		textPanel.add(name);
+		textPanel.add(Box.createVerticalStrut(10));
 		textPanel.add(pf);
 		panel[0].add(textPanel);
-		add(panel[0], BorderLayout.CENTER);
+		vertical.add(panel[0]);
+		vertical.add(Box.createVerticalGlue());
+		add(vertical, BorderLayout.CENTER);
 		
 		getContentPane().add(Box.createHorizontalStrut(100), BorderLayout.EAST);
 

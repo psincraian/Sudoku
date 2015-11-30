@@ -44,21 +44,21 @@ public class GenerateBoard extends SetView{
 	 */
 	public GenerateBoard(int[][] board, int size) {
 		super();
-			this.size = size;
-			if(size % 3 == 0)
-				subsize = 3;
-			else
-				subsize = 4;
-			initialize(board);
+		setMaximumSize(1000,750);
+		setPreferredSize(976,728);
+		setMinimumSize(976,728);
+		this.size = size;
+		if(size % 3 == 0)
+			subsize = 3;
+		else
+			subsize = 4;
+		initialize(board);
 	}
 
 	/**
 	 * Create the view
 	 */
 	protected void initialize(int[][] board) {
-		getContentPane().setSize(1000,800);
-		//setResizable(false);
-		getContentPane().setBackground(Color.WHITE);
 		panelC = new JPanel();
 		panelS = new JPanel();
 		panelC.setBackground(Color.white);
@@ -92,7 +92,7 @@ public class GenerateBoard extends SetView{
 	 * @param board
 	 */
 	private void iniBoard(int[][] board){
-		verticalBox = Box.createVerticalBox();
+		verticalBox = Box.createVerticalBox();		
 		square = new JPanel[size][size];
 		label = new JLabel[size][size];
 		button = new JButton[size+1];
@@ -228,6 +228,7 @@ public class GenerateBoard extends SetView{
 		JLabel l = new JLabel();
 		l = (JLabel)p.getComponent(0);
 		l.setText(text);
+		p.setEnabled(true);
 	}
 	/**
 	 * Set frame to visible or not visible

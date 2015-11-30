@@ -18,16 +18,15 @@ public class ViewCreateUser extends UserEntry{
 	 */
 	public ViewCreateUser() {
 		super();
-		setTitle("CreaciÃ³ d'un nou usuari");
+		setTitle("Creació d'un nou usuari");
 		addPasswordField();
-		pack();
-		setVisible(true);
 	}
 	/**
 	 *  Add a new entry at the view.(password verification)
 	 */
 	public void addPasswordField(){
 		pass2 = new JPasswordField(10);
+		textPanel.add(Box.createVerticalStrut(10));
 		textPanel.add(pass2);
 		JLabel lPass2 = new JLabel("Repeteix contrasenya: ");
 		labelPanel.add(Box.createVerticalStrut(10));

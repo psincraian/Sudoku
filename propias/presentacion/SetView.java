@@ -3,6 +3,7 @@ package propias.presentacion;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 
 import javax.swing.Box;
@@ -20,27 +21,48 @@ import javax.swing.SwingConstants;
 
 public class SetView extends JFrame{
 	
-	protected JPanel panelN;
+	Component verticalStrut;
+	JPanel panelN;
+	
 	/**
 	 * constructor
 	 */
 	public SetView(){
 		super("Sudoku");
-		setBackground(Color.WHITE);
+		getContentPane().setBackground(Color.WHITE);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 	
 	public void setTitle(String t){
 		panelN = new JPanel();
-		panelN.setBackground(Color.white);
+		panelN.setBackground(Color.WHITE);
 		panelN.setLayout(new FlowLayout(FlowLayout.CENTER));
 		JLabel title = new JLabel(t);
 		title.setHorizontalAlignment(SwingConstants.CENTER);
-		Component verticalStrut = Box.createVerticalStrut(60);
+		verticalStrut = Box.createVerticalStrut(60);
 		Component horizontalStrut = Box.createHorizontalStrut(20);
 		panelN.add(verticalStrut);
 		panelN.add(title);
 		panelN.add(horizontalStrut);
 		getContentPane().add(panelN, BorderLayout.NORTH);
+		setMaximumSize(1000,750);
+		setPreferredSize(976,728);
+	}
+	
+	public void setMaximumSize(int x, int y){
+		setMaximumSize(new Dimension(x,y));
+	}
+	
+	public void setMinimumSize(int x, int y){
+		setMinimumSize(new Dimension(x,y));
+	}
+	
+	public void setPreferredSize(int x, int y){
+		setPreferredSize(new Dimension(x,y));
+	}
+	
+	public void setVerticalStrut(int y){
+		verticalStrut = Box.createVerticalStrut(y);
+		panelN.add(verticalStrut);
 	}
 }
