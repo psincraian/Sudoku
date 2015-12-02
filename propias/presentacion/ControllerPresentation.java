@@ -30,7 +30,7 @@ public class ControllerPresentation {
      */
     public void start() {
     	correct = false;
-        ControllerStart cs = new ControllerStart(this);
+        new ControllerStart(this);
     }
     /**
      * Inicia el login
