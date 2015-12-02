@@ -1,62 +1,81 @@
 package propias.presentacion;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
-import propias.dominio.clases.Options;
+import javax.swing.*;
 /**
  * 
  * @author Brian Martinez Alvarez
  *
  */
-public class ViewStart {
-	
-	
-	
-	private List<Options> options;
+public class ViewStart extends SetView {
+	public JButton button1;
+	JButton button2;
+	JButton button3;
+	JButton button4;
 	/**
-	 * Constructora
+	 * Creadora
 	 */
-	public ViewStart() {
-		options = new ArrayList<Options>();
-		
-		for (Options op : Options.values())
-			options.add(op);
+	public ViewStart(){
+		super();
+		setTitle("Inici");
+		startGUI();
 	}
 	/**
-	 * Mostra les opcions d'inici
+	 * instancia tots els metodes
 	 */
-	public void show() {
-		int i = 1;
-		for (Options op : options)
-			System.out.println(Integer.toString(i++) + ". " + op);
+	public void startGUI() {
+		instanceGUI();
+		configureGUI();
+		addToGUI();
+		pack();
+		setVisible(true);
 	}
 	/**
-	 * Inhabilita una opcio
-	 * @param op
+	 * Instancia els elements de la vista
 	 */
-	public void desable(Options op) {
-		options.remove(op);
+	private void instanceGUI() {
+		button1 = new JButton("Iniciar Sessio");
+		button2 = new JButton("Iniciar Convidat");	
+		button3 = new JButton("Registrar Usuari");
+		button4 = new JButton("Sortir");
+	}
+	/**
+	 * Configura la vista
+	 */
+	private void configureGUI() {
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		dispose();
+	}
+	/**
+	 * inclou a la vista els components
+	 */
+	private void addToGUI() {
+		Box vertical = Box.createVerticalBox();
+		vertical.add(Box.createVerticalGlue());
+		JPanel panelButtons = new JPanel();
+		panelButtons.add(button1);
+		panelButtons.add(button2);
+		panelButtons.add(button3);
+		panelButtons.add(button4);
+		panelButtons.setBackground(Color.WHITE);
+		panelButtons.setLayout(new GridLayout(4,0));
+		getContentPane().add(panelButtons, BorderLayout.CENTER);
 	}
 	/**
 	 * 
-	 * @return La opcio desitjada
+	 * @param ma Comproba si el boto s'ha premut
+	 * @param button Boto a premer
 	 */
-	public Options getOption() {
-		Scanner scanner = new Scanner(System.in);
-		
-		int opcioEscollida = scanner.nextInt();
-		while (optionNoValid(opcioEscollida))
-			opcioEscollida = scanner.nextInt();
-		
-		return options.get(opcioEscollida -1);
+	public void listenersGUI(MouseAdapter ma, JButton button){
+		button.addMouseListener(ma);
 	}
 	/**
-	 * 
-	 * @param i Posicio escollida
-	 * @return Si la posicio escollida es valida
+	 * Deixa la vista com a no visible
 	 */
-	private boolean optionNoValid(int i) {
-		return i < 1 || i > options.size();
+	public void disableView(){
+		setVisible(false);
 	}
 }
