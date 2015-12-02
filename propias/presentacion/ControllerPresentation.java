@@ -30,20 +30,32 @@ public class ControllerPresentation {
      */
     public void start() {
     	correct = false;
-        ViewStart vi = new ViewStart();
-        vi.show();
-        Options op = vi.getOption();
-        if (op == Options.IniciarSessio)
-             cu = new ControllerUserEntry(this, true);
-        else if (op == Options.IniciarConvidat) {
-            name = "Convidat";
-            Menu(true);
-        }
-        else if (op == Options.RegistrarUsuari){
-            cu = new ControllerUserEntry(this, false);
-        }
-        else if (op == Options.Sortir) System.exit(0);
-        
+        ControllerStart cs = new ControllerStart(this);
+    }
+    /**
+     * Inicia el login
+     */
+    public void startUser(){
+    	cu = new ControllerUserEntry(this,true);
+    }
+    /**
+     * Inicia com a usuari Convidat
+     */
+    public void startGuest(){
+    	name = "Convidat";
+        Menu(true);
+    }
+    /**
+     * Inicia la creacio d'un nou usuari
+     */
+    public void startNewUser(){
+    	cu = new ControllerUserEntry(this, false);
+    }
+    /**
+     * Surt de l'aplicacio
+     */
+    public void exitApplication(){
+    	System.exit(0);
     }
     /**
      * 
