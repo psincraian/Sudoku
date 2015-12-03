@@ -22,10 +22,10 @@ public class ControllerStart {
 	public ControllerStart(ControllerPresentation cp){
 		this.cp = cp; 
 		vi = new ViewStart();
-		vi.listenersGUI(new MouseManage(), vi.button1);
-		vi.listenersGUI(new MouseManage(), vi.button2);
-		vi.listenersGUI(new MouseManage(), vi.button3);
-		vi.listenersGUI(new MouseManage(), vi.button4);
+		vi.listeners(new MouseManage(), vi.button1);
+		vi.listeners(new MouseManage(), vi.button2);
+		vi.listeners(new MouseManage(), vi.button3);
+		vi.listeners(new MouseManage(), vi.button4);
 		
 	}
 	/**
