@@ -69,7 +69,7 @@ public class ViewStart extends SetView {
 	 * @param ma Comproba si el boto s'ha premut
 	 * @param button Boto a premer
 	 */
-	public void listenersGUI(MouseAdapter ma, JButton button){
+	public void listeners(MouseAdapter ma, JButton button){
 		button.addMouseListener(ma);
 	}
 	/**
