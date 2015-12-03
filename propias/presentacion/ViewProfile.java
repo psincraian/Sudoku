@@ -1,39 +1,150 @@
 package propias.presentacion;
+
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.event.MouseAdapter;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
 /**
  * 
+ * 
  * @author Brian Martinez Alvarez
- *
  */
-public class ViewProfile {
-	long[] m;
-	long[] t;
-	long[] bt;
+public class ViewProfile extends SetView{
+	JPanel title;
+	JPanel data;
+	JPanel buttons;
+	JLabel em;
+	JLabel mm;
+	JLabel hm;
+	JLabel et;
+	JLabel mt;
+	JLabel ht;
+	JLabel bet;
+	JLabel bmt;
+	JLabel bht;
+	JLabel space;
+	JLabel[] dataMatches;
+	JLabel[] dataTime;
+	JLabel[] dataBestTime;
+	long[] matches;
+	long[] time;
+	long[] bestTime;
+	public JButton buttonReturn;
 	/**
-	 * Creadora
-	 * @param a Numero de partides jugades
-	 * @param b Temps total empleat segons dificultat
-	 * @param c Millor temps segons dificultat
+	 * Constructora
+	 * @param matches Partides jugades
+	 * @param time Temps total jugat
+	 * @param bestTime Millor temps del jugador
 	 */
-	public ViewProfile(long[] a, long[] b, long[] c){
-		m = a;
-		t = b;
-		bt = c;
+	public ViewProfile(long[] matches, long[] time, long[] bestTime){
+		super();
+		this.matches = matches;
+		this.time = time;
+		this.bestTime = bestTime;
+		setTitle("Perfil d'usuari");
+		start_GUI();
+		pack();
+		setVisible(true);
 	}
 	/**
-	 * Mostra el perfil del jugador
+	 * Inicia la vista
 	 */
-	public void showProfile(){
-		System.out.println("PARTIDES JUGADES");
-		System.out.println("Partides Facils Jugades: " + m[0]);
-		System.out.println("Partides Mitjanes Jugades: " + m[1]);
-		System.out.println("Partides Dificils Jugades: " + m[2] + "\n");
-		System.out.println("TEMPS TOTAL");
-		System.out.println("Temps Partides Facils: " + t[0]);
-		System.out.println("Temps Partides Mitjanes: " + t[1]);
-		System.out.println("Temps Partides Dificils: " + t[2] + "\n");
-		System.out.println("TEMPS TOTAL");
-		System.out.println("Millor Temps Partides Facils: " + bt[0]);
-		System.out.println("Millor Temps Partides Mitjanes: " + bt[1]);
-		System.out.println("Millor Temps Partides Dificils: " + bt[2] + "\n");
+	public void start_GUI(){
+		initVariables();
+		Box b = Box.createVerticalBox();
+		b.add(Box.createGlue());
+		JPanel profile = new JPanel();
+		profile.add(title);
+		profile.add(Box.createHorizontalStrut(20));
+		profile.add(data);
+		profile.setBackground(Color.white);
+		b.add(profile);
+		add(b, BorderLayout.CENTER);
+		add(Box.createGlue(),BorderLayout.SOUTH);
+		add(Box.createGlue(),BorderLayout.EAST);
+		add(Box.createGlue(),BorderLayout.WEST);
+		JPanel buttons = new JPanel();
+		buttons.add(buttonReturn);
+		buttons.add(Box.createVerticalStrut(80), BorderLayout.SOUTH);
+		buttons.setBackground(Color.white);
+		getContentPane().add(buttons, BorderLayout.SOUTH);	
 	}
+	/**
+	 * Inicia les variables necessaries
+	 */
+	public void initVariables(){
+		title = new JPanel();
+		data = new JPanel();
+		dataMatches = new JLabel[matches.length];
+		dataTime = new JLabel[time.length];
+		dataBestTime = new JLabel[bestTime.length];
+		title.setLayout(new BoxLayout(title,BoxLayout.Y_AXIS));
+		data.setLayout(new BoxLayout(data,BoxLayout.Y_AXIS));
+		title.setBackground(Color.white);
+		title.setBackground(Color.white);
+		initData();
+		em = new JLabel("Partides Facils: ");
+		title.add(em);
+		data.add(dataMatches[0]);
+	    mm = new JLabel("Partides Mitjanes: ");
+	    title.add(mm);
+		data.add(dataMatches[1]);
+	    hm = new JLabel("Partides Dificils: ");
+	    title.add(hm);
+		data.add(dataMatches[2]);
+	    et = new JLabel("Temps Partides Facils: ");
+	    title.add(et);
+		data.add(dataTime[0]);
+	    mt = new JLabel("Temps Partides Mitjanes: ");
+	    title.add(mt);
+		data.add(dataTime[1]);
+	    ht = new JLabel("Temps Partides Dificils: ");
+	    title.add(ht);
+		data.add(dataTime[2]);
+	    bet = new JLabel("Millor Temps Partides Facils: ");
+	    title.add(bet);
+		data.add(dataBestTime[0]);
+	    bmt = new JLabel("Millor Temps Partides Mitjanes: ");
+	    title.add(bmt);
+		data.add(dataBestTime[1]);
+	    bht = new JLabel("Millor Temps Partides Dificils: ");
+	    title.add(bht);
+		data.add(dataBestTime[2]);
+		buttonReturn = new JButton("Tornar");
+		buttons = new JPanel();
+		buttons.add(buttonReturn);
+		buttons.add(Box.createVerticalStrut(80), BorderLayout.SOUTH);
+		buttons.setBackground(Color.white);
+		getContentPane().add(buttons, BorderLayout.SOUTH);
+	}
+	/**
+	 * Inicia les dades del jugador(partides, temps i millor temps)
+	 */
+	public void initData(){
+		for(int i=0; i<3; ++i){
+			dataMatches[i] = new JLabel(String.valueOf(matches[i]));
+			dataTime[i] = new JLabel(String.valueOf(time[i]));
+			dataBestTime[i] = new JLabel(String.valueOf(bestTime[i]));
+		}
+	}
+	/**
+	 * Controla el boto
+	 * @param ma
+	 * @param button
+	 */
+	public void listeners(MouseAdapter ma, JButton button){
+		button.addMouseListener(ma);
+	}
+	/**
+	 * Amaga la vista
+	 */
+	public void disableView(){
+		setVisible(false);
+	}
+	
 }
