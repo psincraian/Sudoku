@@ -17,15 +17,15 @@ import javax.swing.JPanel;
 public class ViewLoadMatch extends SetView{
 	List<String> id;
 	List<JButton> buttonList = new ArrayList<JButton>();
+	JPanel buttons;
+	JButton buttonReturn;
 	public ViewLoadMatch(List<String> id){
 		super();
 		setTitle("Carregar Partida");
 		this.id = id;
 		startGUI();
 	}
-	/**
-	 * Start vista
-	 */
+	
 	public void startGUI() {
 		configureGUI();
 		addToGUI();
@@ -54,6 +54,13 @@ public class ViewLoadMatch extends SetView{
 		panelButtons.setBackground(Color.WHITE);
 		panelButtons.setLayout(new GridLayout(id.size(),0));
 		getContentPane().add(panelButtons, BorderLayout.CENTER);
+		buttonReturn = new JButton("Tornar");
+		buttons = new JPanel();
+		buttons.add(buttonReturn);
+		buttons.add(Box.createVerticalStrut(80), BorderLayout.SOUTH);
+		buttons.setBackground(Color.white);
+		getContentPane().add(buttons, BorderLayout.SOUTH);
+		
 	}
 	/**
 	 * 
