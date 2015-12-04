@@ -140,18 +140,19 @@ public class ControllerPresentation {
     	    view = 3; // load match
     	    List<String> id = cd.getIDMatches();
     	    this.id = id;
-  			if (id.size() == 0) {
-  				JOptionPane.showMessageDialog(null, "No hi ha partides guardades");
-  				vl.disableView();
-  				getBack();
-  			}
-  			else{
-  				vl = new ViewLoadMatch(id);
-  				for(int i=0; i<id.size(); ++i){
-  					vl.listeners(new MouseManage(), vl.buttonList.get(i));
-  				}
-  				vl.listener(new MouseManage());
-  			}
+    	    vl = new ViewLoadMatch(id);
+	    if (id.size() == 0) {
+  		JOptionPane.showMessageDialog(null, "No hi ha partides guardades");
+  		vl.disableView();
+  		getBack();
+	    }
+	    else{
+	  		
+  		for(int i=0; i<id.size(); ++i){
+  			vl.listeners(new MouseManage(), vl.buttonList.get(i));
+  		}
+  		vl.listener(new MouseManage());
+	  	}
 	  }
           
       else if (om == OptionsMenu.CrearSudoku) {
