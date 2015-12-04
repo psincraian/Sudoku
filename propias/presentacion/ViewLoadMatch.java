@@ -65,7 +65,15 @@ public class ViewLoadMatch extends SetView{
 	/**
 	 * 
 	 * @param ma Comproba si el boto s'ha premut
-	 * @param button Boto a premer
+	 * 
+	 */
+	public void listener(MouseAdapter ma){
+		buttonReturn.addMouseListener(ma);
+	}
+	/**
+	 * 
+	 * @param ma Comproba si el boto button s'ha premut
+	 * @param button
 	 */
 	public void listeners(MouseAdapter ma, JButton button){
 		button.addMouseListener(ma);
