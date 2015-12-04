@@ -141,11 +141,9 @@ public class ControllerViewBoard {
 			       		int value = cp.getCellResolved(cell.getName());
 				       	label.setText(Integer.toString(value));
 				       	String[] pos = cell.getName().split(" ");
-			        	vm.drawSquare(Integer.parseInt(pos[0]),Integer.parseInt(pos[1]));			       	}
+			        	vm.drawSquare(Integer.parseInt(pos[0]),Integer.parseInt(pos[1]));		
+			        }
 		        }
-	        }
-			else if(e.getSource() instanceof JButton){
-	        	JButton bPressed = (JButton) e.getSource();
 	        	if(bPressed.getText() == "Guardar"){
 	        		if(vm instanceof ViewCreateBoard){
 	        			if(cp.checkBoard()){
@@ -165,17 +163,20 @@ public class ControllerViewBoard {
         				cp.getBack();
 	        		}
 	        	}
-	        	else if(vm instanceof ViewMatch && bPressed.getText() == "Hint2"){
+	        	else if(bPressed.getText() == "Volver"){
+    				vm.disableView();
+    				cp.getBack();
+	        	}
+	        }
+			else if(e.getSource() instanceof JButton){
+				JButton bPressed = (JButton) e.getSource();
+				if(vm instanceof ViewMatch && bPressed.getText() == "Hint2"){
 	        		List<String> currentProgress = cp.getDifferentCells();
 	        		for(String wrongCell : currentProgress){
 	        			JPanel p = new JPanel();
 	        			p = findCell(wrongCell);
 	        			p.setBackground(Color.RED);
 	        		}
-	        	}
-	        	else if(bPressed.getText() == "Volver"){
-    				vm.disableView();
-    				cp.getBack();
 	        	}
 			}
 		}
