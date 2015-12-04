@@ -2,6 +2,7 @@ package propias.presentacion;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.event.MouseAdapter;
 import java.util.*;
 
 import javax.swing.Box;
@@ -90,10 +91,14 @@ public class ViewRanking extends SetView{
 			nameP.add(nameL[i]);
 			valueP.add(valueL[i]);
 		}
-		
 	}
+	
 	public void disableView(){
 		setVisible(false);
+	}
+	
+	public void listener(MouseAdapter ma){
+		button.addMouseListener(ma);
 	}
 }
 
