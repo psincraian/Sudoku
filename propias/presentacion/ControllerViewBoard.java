@@ -112,39 +112,21 @@ public class ControllerViewBoard {
 		        	cell.setBackground(new Color(120,220,220));
 				}
 			}
-			else if(lastCell != null && !(lastCell.getSource() instanceof JButton))
-	        {
-	        	JPanel cell = (JPanel)lastCell.getSource();
-	        	JButton bPressed = (JButton) e.getSource();
-	        	JLabel label = (JLabel) cell.getComponent(0);
-		        	if(bPressed.getText() != "Hint1" && bPressed.getText() != "Hint2" && bPressed.getText() != "Guardar" && bPressed.getText() != 
-		        			"Volver"){
-			        	if(bPressed.getName() == "0"){
-			        		label.setText("");
-							cp.updateCell(cell.getName(),0);
-				        	setCandidates(false);
-				        	String[] pos = cell.getName().split(" ");
-				        	vm.drawSquare(Integer.parseInt(pos[0]),Integer.parseInt(pos[1]));
-				        	lastCell = e;
-			        	}
-			        	else if(candidates.contains(Integer.parseInt(bPressed.getText()))) {
-				        	label.setText(bPressed.getText());
-							cp.updateCell(cell.getName(),Integer.parseInt(bPressed.getText()));
-				        	setCandidates(false);
-				        	String[] pos = cell.getName().split(" ");
-				        	vm.drawSquare(Integer.parseInt(pos[0]),Integer.parseInt(pos[1]));
-				        	lastCell = e;
-			        	}
-		        	}
-	        	if(vm instanceof ViewMatch){
-			        if(bPressed.getText() == "Hint1"){
-			       		int value = cp.getCellResolved(cell.getName());
-				       	label.setText(Integer.toString(value));
-				       	String[] pos = cell.getName().split(" ");
-			        	vm.drawSquare(Integer.parseInt(pos[0]),Integer.parseInt(pos[1]));		
-			        }
-		        }
-	        	if(bPressed.getText() == "Guardar"){
+			else if(e.getSource() instanceof JButton){
+				JButton bPressed = (JButton) e.getSource();
+				if(vm instanceof ViewMatch && bPressed.getText() == "Hint2"){
+	        		List<String> currentProgress = cp.getDifferentCells();
+	        		for(String wrongCell : currentProgress){
+	        			JPanel p = new JPanel();
+	        			p = findCell(wrongCell);
+	        			p.setBackground(Color.RED);
+	        		}
+	        	}
+				else if(bPressed.getText() == "Volver"){
+    				vm.disableView();
+    				cp.getBack();
+	        	}
+				if(bPressed.getText() == "Guardar"){
 	        		if(vm instanceof ViewCreateBoard){
 	        			if(cp.checkBoard()){
 	        				cp.saveBoard();
@@ -163,21 +145,38 @@ public class ControllerViewBoard {
         				cp.getBack();
 	        		}
 	        	}
-	        	else if(bPressed.getText() == "Volver"){
-    				vm.disableView();
-    				cp.getBack();
-	        	}
-	        }
-			else if(e.getSource() instanceof JButton){
-				JButton bPressed = (JButton) e.getSource();
-				if(vm instanceof ViewMatch && bPressed.getText() == "Hint2"){
-	        		List<String> currentProgress = cp.getDifferentCells();
-	        		for(String wrongCell : currentProgress){
-	        			JPanel p = new JPanel();
-	        			p = findCell(wrongCell);
-	        			p.setBackground(Color.RED);
-	        		}
-	        	}
+				else if(lastCell != null && !(lastCell.getSource() instanceof JButton))
+		        {
+		        	JPanel cell = (JPanel)lastCell.getSource();
+		        	JLabel label = (JLabel) cell.getComponent(0);
+			        	if(bPressed.getText() != "Hint1" && bPressed.getText() != "Hint2" && bPressed.getText() != "Guardar" && bPressed.getText() != 
+			        			"Volver"){
+				        	if(bPressed.getName() == "0"){
+				        		label.setText("");
+								cp.updateCell(cell.getName(),0);
+					        	setCandidates(false);
+					        	String[] pos = cell.getName().split(" ");
+					        	vm.drawSquare(Integer.parseInt(pos[0]),Integer.parseInt(pos[1]));
+					        	lastCell = e;
+				        	}
+				        	else if(candidates.contains(Integer.parseInt(bPressed.getText()))) {
+					        	label.setText(bPressed.getText());
+								cp.updateCell(cell.getName(),Integer.parseInt(bPressed.getText()));
+					        	setCandidates(false);
+					        	String[] pos = cell.getName().split(" ");
+					        	vm.drawSquare(Integer.parseInt(pos[0]),Integer.parseInt(pos[1]));
+					        	lastCell = e;
+				        	}
+			        	}
+		        	if(vm instanceof ViewMatch){
+				        if(bPressed.getText() == "Hint1"){
+				       		int value = cp.getCellResolved(cell.getName());
+					       	label.setText(Integer.toString(value));
+					       	String[] pos = cell.getName().split(" ");
+				        	vm.drawSquare(Integer.parseInt(pos[0]),Integer.parseInt(pos[1]));		
+				        }
+			        }
+		        }
 			}
 		}
 	}
