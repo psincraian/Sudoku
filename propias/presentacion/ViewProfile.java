@@ -132,8 +132,8 @@ public class ViewProfile extends SetView{
 	 * @param ma
 	 * @param button
 	 */
-	public void listeners(MouseAdapter ma, JButton button){
-		button.addMouseListener(ma);
+	public void listener(MouseAdapter ma){
+		buttonReturn.addMouseListener(ma);
 	}
 	/**
 	 * Amaga la vista
