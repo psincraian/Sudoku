@@ -242,7 +242,9 @@ public class ControllerDomain {
     public int modify(int i, int j) {
         Board aux = match.getSudoku();
         int[][] auxi = convertToMatrix(aux);
-        if (auxi[i][j] != 0) return auxi[i][j];
+        Board aux2 = enunciat.getSudoku();
+        int[][] auxi2 = convertToMatrix(aux2);
+        if (auxi[i][j] != 0 && auxi2[i][j] == 0) return auxi[i][j];
         return 0;
     }
     /**
