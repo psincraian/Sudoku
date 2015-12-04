@@ -68,8 +68,6 @@ public class ViewProfile extends SetView{
 		add(Box.createGlue(),BorderLayout.SOUTH);
 		add(Box.createGlue(),BorderLayout.EAST);
 		add(Box.createGlue(),BorderLayout.WEST);
-		JPanel buttons = new JPanel();
-		buttons.add(buttonReturn);
 		buttons.add(Box.createVerticalStrut(80), BorderLayout.SOUTH);
 		buttons.setBackground(Color.white);
 		getContentPane().add(buttons, BorderLayout.SOUTH);	
@@ -118,9 +116,6 @@ public class ViewProfile extends SetView{
 		buttonReturn = new JButton("Tornar");
 		buttons = new JPanel();
 		buttons.add(buttonReturn);
-		buttons.add(Box.createVerticalStrut(80), BorderLayout.SOUTH);
-		buttons.setBackground(Color.white);
-		getContentPane().add(buttons, BorderLayout.SOUTH);
 	}
 	/**
 	 * Inicia les dades del jugador(partides, temps i millor temps)
