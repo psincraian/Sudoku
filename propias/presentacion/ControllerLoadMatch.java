@@ -43,9 +43,11 @@ public class ControllerLoadMatch {
 	public class MouseManage extends MouseAdapter {
 		public void mouseClicked(MouseEvent e) {
 			JButton button = (JButton)e.getSource();
-			if(button.getText() == id.get(0)){
+			for(int i=0; i< id.size(); ++i){
+				if(button.getText() == id.get(i)){
 					vl.disableView();
-					cp.loadMatch(id.get(0));
+					cp.loadMatch(id.get(i));
+				}
 			}
 		}
 							
