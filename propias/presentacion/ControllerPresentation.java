@@ -127,9 +127,7 @@ public class ControllerPresentation {
           //if ( detect() == 0) Menu(false);
       }
       else if (om == OptionsMenu.Perfil) {
-          ViewProfile v = new ViewProfile(getMatches(), getTime(), getBestTime());
-          v.showProfile();
-          if ( detect() == 0) Menu(false);
+          new ControllerProfile(this, getMatches(), getTime(), getBestTime());
       }
       else if (om == OptionsMenu.Sortir) start();
     }
