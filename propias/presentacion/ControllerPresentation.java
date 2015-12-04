@@ -84,7 +84,7 @@ public class ControllerPresentation {
      * 
      * @param convidat Indica si l'usuari es usuari convidat
      */
-    private void Menu(boolean convidat) {
+    public void Menu(boolean convidat) {
       VistaMenu vm = new VistaMenu();
       OptionsMenu om; 
       if (convidat) {
