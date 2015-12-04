@@ -27,7 +27,6 @@ public class ViewLoadMatch extends SetView{
 	 * Start vista
 	 */
 	public void startGUI() {
-		instanceGUI();
 		configureGUI();
 		addToGUI();
 		pack();
