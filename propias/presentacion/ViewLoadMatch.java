@@ -23,15 +23,15 @@ public class ViewLoadMatch extends SetView{
 		this.id = id;
 		startGUI();
 	}
-	
+	/**
+	 * Start vista
+	 */
 	public void startGUI() {
 		instanceGUI();
 		configureGUI();
 		addToGUI();
 		pack();
 		setVisible(true);
-	}
-	private void instanceGUI() {
 	}
 	/**
 	 * Configura la vista
