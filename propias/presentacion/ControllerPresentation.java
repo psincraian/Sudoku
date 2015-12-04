@@ -1,13 +1,15 @@
 package propias.presentacion;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.*;
+
 import javax.swing.JButton;
-import javax.swing.JPasswordField;
-import propias.presentacion.*;
+import javax.swing.JOptionPane;
+
 import propias.dominio.clases.*;
 import propias.dominio.controladores.*;
+import propias.presentacion.ControllerLoadMatch.MouseManage;
 /**
  * 
  * @author Brian Martinez Alvarez
@@ -19,6 +21,11 @@ public class ControllerPresentation {
     ControllerUserEntry cu;
     String name;
     boolean correct;
+    ViewRanking vr;
+    ViewProfile vp;
+    ViewLoadMatch vl;
+    List<String> id;
+    int view = 0;
     /**
      * Constructora
      */
@@ -51,6 +58,31 @@ public class ControllerPresentation {
     public void startNewUser(){
     	cu = new ControllerUserEntry(this, false);
     }
+    /**
+     * 
+     * Comproba el boto premut
+     *
+     */
+    public class MouseManage extends MouseAdapter {
+		public void mouseClicked(MouseEvent e) {
+			JButton button = (JButton)e.getSource();
+			if (button.getText() == "Tornar") {
+				if (view == 1) vp.disableView();
+				else if (view == 2) vr.disableView();
+				else if (view == 3) vl.disableView();
+				getBack();
+			}
+			else {
+				for(int i=0; i< id.size(); ++i){
+					if(button.getText() == id.get(i)){
+						vl.disableView();
+						loadMatch(id.get(i));
+					}
+				}
+			}
+		}
+							
+	}
     /**
      * Surt de l'aplicacio
      */
@@ -105,10 +137,23 @@ public class ControllerPresentation {
           else play(m,true,false);
       }
       if (om == OptionsMenu.CargarPartida) {
-          List<String> id = cd.getIDMatches();
-          new ControllerLoadMatch(this, id);
+    	    view = 3; // load match
+    	    List<String> id = cd.getIDMatches();
+    	    this.id = id;
+  			if (id.size() == 0) {
+  				JOptionPane.showMessageDialog(null, "No hi ha partides guardades");
+  				vl.disableView();
+  				getBack();
+  			}
+  			else{
+  				vl = new ViewLoadMatch(id);
+  				for(int i=0; i<id.size(); ++i){
+  					vl.listeners(new MouseManage(), vl.buttonList.get(i));
+  				}
+  				vl.listener(new MouseManage());
+  			}
+	  }
           
-      }
       else if (om == OptionsMenu.CrearSudoku) {
           VistaSeleccionarCaracteristiques sc = new VistaSeleccionarCaracteristiques();
           int mida = sc.obtenirMida();
@@ -117,20 +162,24 @@ public class ControllerPresentation {
               for(int j=0; j< mida; ++j) m[i][j] = 0;
           }
           cd.newMatch(mida);
-          ControllerViewBoard c = new ControllerViewBoard(m, m[0].length,1,this);
+          new ControllerViewBoard(m, m[0].length,1,this);
       }
       else if (om == OptionsMenu.Ranking) {
-          List<String> names = new ArrayList<String>();
+    	  view = 2; // ranking
+    	  List<String> names = new ArrayList<String>();
           List<Long> values = new ArrayList<Long>();
           cd.getRanking(names,values);
-          ViewRanking v = new ViewRanking(names, values);
-          //if ( detect() == 0) Menu(false);
+          vr = new ViewRanking(names, values);
+          vr.listener(new MouseManage());
       }
       else if (om == OptionsMenu.Perfil) {
-          new ControllerProfile(this, getMatches(), getTime(), getBestTime());
+    	  view = 1; // perfil
+    	  vp = new ViewProfile(getMatches(), getTime(), getBestTime());
+    	  vp.listener(new MouseManage());
       }
       else if (om == OptionsMenu.Sortir) start();
     }
+    
     /**
      * Selecciona la partida a carregar
      * @param match
