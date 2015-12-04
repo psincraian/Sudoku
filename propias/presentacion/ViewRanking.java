@@ -6,6 +6,7 @@ import java.util.*;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -25,6 +26,7 @@ public class ViewRanking extends SetView{
 	List<String> name;
 	List<Long> value;
 	JTabbedPane difficulty;
+	JButton button;
 	
 	public ViewRanking(List<String> name, List<Long> value){
 		super();
@@ -54,23 +56,18 @@ public class ViewRanking extends SetView{
 		rank.setBackground(Color.white);
 		verticalBox.add(rank);
 		add(verticalBox, BorderLayout.CENTER);
-		//difficulty.addTab("Nivell facil", easy);
-
-		/*JPanel medium = new JPanel();
-		difficulty.addTab("Nivell mitja", medium);
-		
-		JPanel d = new JPanel();
-		difficulty.addTab("Nivell dificil", d);
-		add(difficulty, BorderLayout.CENTER);*/
-		
-		/*North*/
-		//add(Box.createVerticalStrut(100),BorderLayout.NORTH);
-		
+				
 		/*South*/
 		add(Box.createGlue(),BorderLayout.SOUTH);
 		
 		/*East*/
-		add(Box.createGlue(),BorderLayout.EAST);
+		button = new JButton("Tornar");
+		JPanel east = new JPanel();
+		east.setBackground(Color.white);
+		east.add(button);
+		add(east, BorderLayout.EAST);
+
+		//add(Box.createGlue(),BorderLayout.EAST);
 		
 		/*West*/
 		add(Box.createGlue(),BorderLayout.WEST);
@@ -94,6 +91,9 @@ public class ViewRanking extends SetView{
 			valueP.add(valueL[i]);
 		}
 		
+	}
+	public void disableView(){
+		setVisible(false);
 	}
 }
 
