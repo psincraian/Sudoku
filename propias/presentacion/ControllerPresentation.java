@@ -106,13 +106,7 @@ public class ControllerPresentation {
       }
       if (om == OptionsMenu.CargarPartida) {
           List<String> id = cd.getIDMatches();
-          ViewLoadMatch vcp = new ViewLoadMatch();
-          int s =  vcp.getLoadMatch(id);
-          if (s != 0) {
-            List<int[][]> m = cd.getSavedMatches(id.get(s-1));
-            play(m.get(0),true,true);
-          }
-          else Menu(false);
+          new ControllerLoadMatch(this, id);
           
       }
       else if (om == OptionsMenu.CrearSudoku) {
@@ -138,6 +132,14 @@ public class ControllerPresentation {
           if ( detect() == 0) Menu(false);
       }
       else if (om == OptionsMenu.Sortir) start();
+    }
+    /**
+     * Selecciona la partida a carregar
+     * @param match
+     */
+    public void loadMatch(String match){
+    	List<int[][]> m = cd.getSavedMatches(match);
+        play(m.get(1),true,true);
     }
     /**
      * 
@@ -166,24 +168,6 @@ public class ControllerPresentation {
      */
     public void saveBoard(){
         cd.saveBoard();
-    }
-    /**
-     * 
-     * @return El numero posat per l'usuari. Un 0 li permet sortir
-     */
-    private int detect(){
-        System.out.println("Prem el 0 y dona a enter per tornar a l'inici");
-        Scanner scanner = new Scanner(System.in);
-        int op = -1;
-        while (op != 0) {
-            try {
-                op = scanner.nextInt();
-            } 
-            catch (Exception e) {
-                op = -1;
-            }
-        }
-        return op;
     }
     /**
      * 
