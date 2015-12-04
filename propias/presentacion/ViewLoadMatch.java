@@ -28,8 +28,10 @@ public class ViewLoadMatch extends SetView{
 	
 	public void startGUI() {
 		configureGUI();
-		addToGUI();
-		pack();
+		if (id.size() >0) {
+			addToGUI();
+			pack();
+		}
 		setVisible(true);
 	}
 	/**
