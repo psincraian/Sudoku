@@ -19,6 +19,7 @@ public class ControllerPresentation {
 	
     ControllerDomain cd;
     ControllerUserEntry cu;
+    ControllerViewBoard c;
     String name;
     boolean correct;
     ViewRanking vr;
@@ -163,7 +164,7 @@ public class ControllerPresentation {
               for(int j=0; j< mida; ++j) m[i][j] = 0;
           }
           cd.newMatch(mida);
-          new ControllerViewBoard(m, m[0].length,1,this);
+          c = new ControllerViewBoard(m, m[0].length,1,this);
       }
       else if (om == OptionsMenu.Ranking) {
     	  view = 2; // ranking
@@ -188,6 +189,56 @@ public class ControllerPresentation {
     public void loadMatch(String match){
     	List<int[][]> m = cd.getSavedMatches(match);
         play(m.get(1),true,true);
+    }
+    public void setBoardFast(String s){
+    	int mida;
+    	if (s.length() <= 81) mida = 81;
+    	else mida = 256;
+    	int i = 0, j = 0;
+    	String posx;
+    	String posy;
+    	String pos;
+    	for (int position=0; position < mida; ++position){
+    		if (mida == 81){
+	    			if (j == 9){
+						j = 0;
+						++i;
+					}
+	    			
+	    			if (position < s.length() && s.charAt(position) >= '0' && s.charAt(position) <= '9') {
+	    				posx = String.valueOf(i);
+	    				posy = String.valueOf(j);
+	    				pos = posx + " " + posy;
+	    				c.updateBoard(pos,String.valueOf(s.charAt(position)));
+	    			}
+    		}
+    		else if (mida == 256){
+	    			if (j == 16){
+						j = 0;
+						++i;
+					}
+					if ( position < s.length() && ((s.charAt(position) >= '0' && s.charAt(position) <= '9') || (s.charAt(position) >= 'A' &&
+							s.charAt(position) <= 'G')) ) {
+						posx = String.valueOf(i);
+						posy = String.valueOf(j);
+						pos = posx + " " + posy;
+						String value = charHexa(s.charAt(position));
+						c.updateBoard(pos,value);
+					}
+    		}
+    		++j;
+    	}
+    }
+    public String charHexa(char a){
+    	if (a >='0' && a <= '9') return String.valueOf(a);
+    	else if (a == 'A') return String.valueOf(10);
+    	else if (a == 'B') return String.valueOf(11);
+    	else if (a == 'C') return String.valueOf(12);
+    	else if (a == 'D') return String.valueOf(13);
+    	else if (a == 'E') return String.valueOf(14);
+    	else if (a == 'F') return String.valueOf(15);
+    	else if (a == 'G') return String.valueOf(16);
+    	else return String.valueOf(0);
     }
     /**
      * 

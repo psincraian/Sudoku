@@ -36,21 +36,21 @@ public class ControllerDomain {
      * @param credentials Contiene la informacion del usuario
      * @return Si el login o el crear usuario se ha relaizado correctamente
      */
-    public String checkCredentials(List<String> credentials){
+     public String checkCredentials(List<String> credentials){
         String user = credentials.get(0);
         String pass1 = credentials.get(1);
         if (credentials.size() == 3) { //create user
             try {
                 String pass2 = credentials.get(2);
-                if (user.equals("")) return "El usuario no puede ser vacio";
+                if (user.equals("")) return "L'usuari no pot ser buit";
                 boolean b = cp.existsUser(user);
-                if (b)  return "El usuario ya existe";  //Usuari ja existent
-                else if (pass1.equals("") || pass2.equals("")) return "Las contraseñas no pueden ser vacias";
-                else if (!pass1.equals(pass2)) return "Las contraseñas no coinciden"; //Les contrasenyes no coincideixen
+                if (b)  return "L'usuari ja existeix";  //Usuari ja existent
+                else if (pass1.equals("") || pass2.equals("")) return "Les contrasenyes no poden ser buides";
+                else if (!pass1.equals(pass2)) return "Les contrasenyes no coincideixen"; //Les contrasenyes no coincideixen
                 int i;
                 for(i=0;i<pass1.length(); ++i) {
                     if (pass1.charAt(i) < '1' || (pass1.charAt(i) >'9' && pass1.charAt(i) < 'A') || (pass1.charAt(i) > 'Z' && pass1.charAt(i) < 'a') || pass1.charAt(i) > 'z'){
-                        return "Las contraseñas solo pueden tener numeros y letras";
+                        return "Les contrasenyes nomes poden tenir lletres i numeros";
                     } 
                 }
                 cp.newUser(user,pass1);
@@ -68,18 +68,18 @@ public class ControllerDomain {
         else { //login
             String passWordOk = "";
             try {
-                if(cp.existsUser(user)) {
+                if(!user.equals("") && cp.existsUser(user)) {
                     passWordOk = cp.getPasswordUser(user);
                     if (passWordOk.equals(pass1)) {
                         username = user;
                         cp.userDBInit(username);
                         createStadistics();
                     setRankingController(true);
-                        return "Login correcto";
+                        return "Login correcte";
                     }
-                    else return "Nombre o password incorrecto";
+                    else return "Nom o contrasenya incorrectes";
                 }
-                else return "Nombre o password incorrecto";
+                else return "Nom o contrasenya incorrectes";
             } 
             catch (Exception e1) {
                 return null;

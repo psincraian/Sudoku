@@ -147,7 +147,7 @@ public class ControllerViewBoard {
 	        		}
 	        	}
 				else if(bPressed.getText() == "Actualitzar"){
-					//cp.setBoardFast(nums.getText();
+					cp.setBoardFast(vm.nums.getText());
 				}
 				else if(lastCell != null && !(lastCell.getSource() instanceof JButton))
 		        {
