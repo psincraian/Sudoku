@@ -68,7 +68,7 @@ public class ControllerDomain {
         else { //login
             String passWordOk = "";
             try {
-                if(cp.existsUser(user)) {
+                if(!user.equals("") && cp.existsUser(user)) {
                     passWordOk = cp.getPasswordUser(user);
                     if (passWordOk.equals(pass1)) {
                         username = user;
