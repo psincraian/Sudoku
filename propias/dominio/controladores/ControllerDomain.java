@@ -36,7 +36,7 @@ public class ControllerDomain {
      * @param credentials Contiene la informacion del usuario
      * @return Si el login o el crear usuario se ha relaizado correctamente
      */
-     public String checkCredentials(List<String> credentials){
+    public String checkCredentials(List<String> credentials){
         String user = credentials.get(0);
         String pass1 = credentials.get(1);
         if (credentials.size() == 3) { //create user
@@ -58,7 +58,7 @@ public class ControllerDomain {
                 cp.userDBInit(username);
                 createStadistics();
                 setRankingController(true);
-                return "Se ha creado el usuario"; //tot correcte
+                return "S'ha creat l'usuari"; //tot correcte
             }
                 catch (Exception e) {
                     return null;
@@ -136,6 +136,32 @@ public class ControllerDomain {
      */
     public void newMatch(int size){
         match = new Match(username, size);
+    }
+    public String setBoardFast(String s, int position, int i, int j, int mida){
+    	if (mida == 81){
+			if (position < s.length() && s.charAt(position) >= '0' && s.charAt(position) <= '9') {
+				return String.valueOf(s.charAt(position));
+			}
+    	}
+    	else if (mida == 256){
+			if ( position < s.length() && ((s.charAt(position) >= '0' && s.charAt(position) <= '9') || (s.charAt(position) >= 'A' &&
+					s.charAt(position) <= 'G')) ) {
+				String value = charHexa(s.charAt(position));
+				return value;
+			}
+    	}
+    	return ".";
+    }
+    public String charHexa(char a){
+    	if (a >='0' && a <= '9') return String.valueOf(a);
+    	else if (a == 'A') return String.valueOf(10);
+    	else if (a == 'B') return String.valueOf(11);
+    	else if (a == 'C') return String.valueOf(12);
+    	else if (a == 'D') return String.valueOf(13);
+    	else if (a == 'E') return String.valueOf(14);
+    	else if (a == 'F') return String.valueOf(15);
+    	else if (a == 'G') return String.valueOf(16);
+    	else return String.valueOf(0);
     }
     /**
      * 
@@ -318,7 +344,8 @@ public class ControllerDomain {
                     names.add(p.get(0));
                     val.add(Long.parseLong(p.get(1)));
                 }
-                List<ParamRanking> par = createParams(names, val,false);    
+                List<ParamRanking> par = createParams(names, val,false);
+                cr = new ControllerRanking(par,false);
             }
         }
         catch(Exception e){
@@ -378,6 +405,10 @@ public class ControllerDomain {
     catch (Exception e) {
         e.printStackTrace();
     }
+    }
+    
+    public void setBoardFast(String s) {
+    	
     }
     /**
      * Obtiene los candidatos de la casilla con coordenadas row,col
