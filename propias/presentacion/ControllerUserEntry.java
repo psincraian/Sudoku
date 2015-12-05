@@ -70,7 +70,6 @@ public class ControllerUserEntry {
 	public void addKeyBinding(){
 		eu.panelButtons.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0, false), "ENTER pressed");
 	    eu.panelButtons.getActionMap().put("ENTER pressed", new AbstractAction() {
-	        @Override
 	        public void actionPerformed(ActionEvent ae) {
 	        	if(cp.checkInfoUser(eu.getInfoUser())){
 					eu.disableView();
