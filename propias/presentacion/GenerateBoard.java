@@ -44,9 +44,9 @@ public class GenerateBoard extends SetView{
 	 */
 	public GenerateBoard(int[][] board, int size) {
 		super();
-		setMaximumSize(1000,750);
-		setPreferredSize(976,728);
-		setMinimumSize(976,728);
+		//setMaximumSize(1000,750);
+		//setPreferredSize(976,728);
+		//setMinimumSize(976,728);
 		this.size = size;
 		if(size % 3 == 0)
 			subsize = 3;
@@ -80,6 +80,7 @@ public class GenerateBoard extends SetView{
 		extraButton[1].setToolTipText("Solucionar casilla seleccionada");
 		extraButton[2].setToolTipText("Revisar progreso actual board");
 		extraButton[3].setToolTipText("Vuelve a la pagina principal, sin guardar tablero actual");
+		button[size].setToolTipText("Desmarca o borra casilla seleccionada");
 		verticalButton.add(extraButton[3]);
 		verticalButton.add(extraButton[0]);
 		verticalButton.add(extraButton[1]);
@@ -92,7 +93,6 @@ public class GenerateBoard extends SetView{
 	 * @param board
 	 */
 	private void iniBoard(int[][] board){
-		verticalBox = Box.createVerticalBox();		
 		square = new JPanel[size][size];
 		label = new JLabel[size][size];
 		button = new JButton[size+1];
@@ -105,18 +105,17 @@ public class GenerateBoard extends SetView{
 		button[size] = new JButton("Borrar");
 		button[size].setName("0");
 		for(int i = 0; i < size; ++i){
-			verticalBox.add(iniRow(i,board[i]));
+			panelC.add(iniRow(i,board[i]));
 			button[i] = new JButton(Integer.toString(i+1));
-			//button[i].setName(Integer.toString(i+1));
 			button[i].setEnabled(false);
 			button[i].setPreferredSize(new Dimension(50,50));
 			button[i].setMinimumSize(new Dimension(50,50));
 			button[i].setMaximumSize(new Dimension(50,50));
 			panelS.add(button[i]);
 		}
-		panelC.add(Box.createVerticalGlue());
-		panelC.add(verticalBox);
-		panelC.add(Box.createVerticalGlue());
+		panelC.setMinimumSize(new Dimension(size*30,size*30));
+		panelC.setPreferredSize(new Dimension(size*30,size*30));
+		panelC.setMaximumSize(new Dimension(size*30,size*30));
 	}
 	/**
 	 * Initialize some components
@@ -126,12 +125,20 @@ public class GenerateBoard extends SetView{
 	 */
 	private Box iniRow(int i,int[] row){
 		horizontalBox = Box.createHorizontalBox();
-		horizontalBox.add(Box.createHorizontalStrut(200));
+		//horizontalBox.add(Box.createHorizontalStrut(200));
 		for(int j = 0; j < size; ++j){
-			square[i][j] = new JPanel(new FlowLayout(FlowLayout.CENTER));
-			square[i][j].setPreferredSize(new Dimension(30,30));
-			square[i][j].setMinimumSize(new Dimension(30,30));
-			square[i][j].setMaximumSize(new Dimension(55,55));
+			if(subsize == 3){
+				square[i][j] = new JPanel(new FlowLayout(FlowLayout.CENTER,15,15));
+				square[i][j].setPreferredSize(new Dimension(50,50));
+				square[i][j].setMinimumSize(new Dimension(50,50));
+				square[i][j].setMaximumSize(new Dimension(50,50));
+			}
+			else{
+				square[i][j] = new JPanel(new FlowLayout());
+				square[i][j].setPreferredSize(new Dimension(30,30));
+				square[i][j].setMinimumSize(new Dimension(30,30));
+				square[i][j].setMaximumSize(new Dimension(30,30));
+			}
 			drawSquare(i,j);
 			if(row[j] == 0)
 					label[i][j] = new JLabel("");
@@ -139,14 +146,14 @@ public class GenerateBoard extends SetView{
 				label[i][j] = new JLabel(Integer.toString(row[j]));
 				label[i][j].setForeground(new Color(204,102,0));
 				square[i][j].setEnabled(false);
-			}
+			}			
 			square[i][j].setBorder(new LineBorder(new Color(0, 0, 0),2));
 			square[i][j].add(label[i][j]);
 			String name = Integer.toString(i) + " " + Integer.toString(j);
 			square[i][j].setName(name);
 			horizontalBox.add(square[i][j]);
 		}
-		horizontalBox.add(Box.createHorizontalStrut(200));
+		//horizontalBox.add(Box.createHorizontalStrut(200));
 		return horizontalBox;
 	}	
 	/**

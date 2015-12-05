@@ -41,7 +41,7 @@ public class ControllerViewBoard {
 			this.vm = new ViewMatch(board,size);
 		else{
 			this.vm = new ViewCreateBoard(board,size);
-			((ViewCreateBoard)vm).disableHintButton();
+			//((ViewCreateBoard)vm).disableHintButton();
 		}
 		this.vm.buttonListener(new MouseManage(), this.vm.extraButton[0]);
 		this.vm.buttonListener(new MouseManage(), this.vm.extraButton[1]);

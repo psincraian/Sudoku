@@ -16,14 +16,15 @@ public class ViewCreateBoard extends GenerateBoard{
 		setTitle("Creació d'un nou Sudoku");
 		pack();
 		setVisible(true);
+		disableHintButton();
 	}
 	/**
-	 * For this view, hint's button aren't necessary
+	 * For this view hints buttons aren't necessary
 	 */
 	public void  disableHintButton(){
 		extraButton[1].setEnabled(false);
 		extraButton[2].setEnabled(false);
-		extraButton[1].setToolTipText(extraButton[1].getName()+"-No disponible");
-		extraButton[2].setToolTipText(extraButton[2].getName()+"-No disponible");
+		extraButton[1].setToolTipText(extraButton[1].getText()+"-No disponible");
+		extraButton[2].setToolTipText(extraButton[2].getText()+"-No disponible");
 	}
 }
