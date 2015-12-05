@@ -1,13 +1,18 @@
 package propias.presentacion;
 
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
 import java.util.Calendar;
 import java.util.Date;
 
 import javax.swing.BorderFactory;
+import javax.swing.Box;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.Timer;
 import javax.swing.border.Border;
 
@@ -34,6 +39,7 @@ public class ViewMatch extends GenerateBoard{
 	public ViewMatch(int[][] board, int size){
 		super(board,size);
 		setTitle("Partida Sudoku");
+		enableCustomProperties();
 		timeL = new JLabel();
 		JPanel timeP = new JPanel();
 		timeP.setBorder(BorderFactory.createRaisedBevelBorder());
@@ -42,6 +48,19 @@ public class ViewMatch extends GenerateBoard{
 		initializeTime();
 		pack();
 		setVisible(true);
+	}
+	
+	public void enableCustomProperties(){
+		extraButton[1] = new JButton("Hint1");
+		extraButton[2] = new JButton("Hint2");
+		extraButton[1].setToolTipText("Solucionar casella seleccionada");
+		extraButton[2].setToolTipText("Revisar progrés actual del sudoku");
+		verticalButton.add(extraButton[1]);
+		verticalButton.add(extraButton[2]);
+	}
+	
+	protected void buttonListener(MouseAdapter mm, JButton b){
+	b.addMouseListener(mm);
 	}
 	
 	public void initializeTime(){

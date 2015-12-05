@@ -37,17 +37,18 @@ public class ControllerViewBoard {
 	public ControllerViewBoard(int[][] board, int size, int typeBoard, ControllerPresentation scp){
 		this.cp = scp;
 		this.size = size;
-		if(typeBoard == 0)
+		if(typeBoard == 0){
 			this.vm = new ViewMatch(board,size);
+			vm.buttonListener(new MouseManage(), vm.extraButton[1]);
+			vm.buttonListener(new MouseManage(), vm.extraButton[2]);
+		}
 		else{
 			this.vm = new ViewCreateBoard(board,size);
-			//((ViewCreateBoard)vm).disableHintButton();
+			vm.buttonListener(new MouseManage(), vm.actEntry);
 		}
-		this.vm.buttonListener(new MouseManage(), this.vm.extraButton[0]);
-		this.vm.buttonListener(new MouseManage(), this.vm.extraButton[1]);
-		this.vm.buttonListener(new MouseManage(), this.vm.extraButton[2]);
-		this.vm.buttonListener(new MouseManage(), this.vm.extraButton[3]);
-		this.vm.buttonListener(new MouseManage(), this.vm.button[size]);
+		vm.buttonListener(new MouseManage(), vm.extraButton[0]);
+		vm.buttonListener(new MouseManage(), vm.extraButton[3]);
+		vm.buttonListener(new MouseManage(), vm.button[size]);
 
 		for(int i = 0; i < size; ++i){
 			this.vm.buttonListener(new MouseManage(), this.vm.button[i]);
@@ -114,7 +115,7 @@ public class ControllerViewBoard {
 			}
 			else if(e.getSource() instanceof JButton){
 				JButton bPressed = (JButton) e.getSource();
-				if(vm instanceof ViewMatch && bPressed.getText() == "Hint2"){
+				if(bPressed.getText() == "Hint2"){
 	        		List<String> currentProgress = cp.getDifferentCells();
 	        		for(String wrongCell : currentProgress){
 	        			JPanel p = new JPanel();
@@ -126,7 +127,7 @@ public class ControllerViewBoard {
     				vm.disableView();
     				cp.getBack();
 	        	}
-				if(bPressed.getText() == "Guardar"){
+				else if(bPressed.getText() == "Guardar"){
 	        		if(vm instanceof ViewCreateBoard){
 	        			if(cp.checkBoard()){
 	        				cp.saveBoard();
@@ -145,6 +146,9 @@ public class ControllerViewBoard {
         				cp.getBack();
 	        		}
 	        	}
+				else if(bPressed.getText() == "Actualitzar"){
+					//cp.setBoardFast(nums.getText();
+				}
 				else if(lastCell != null && !(lastCell.getSource() instanceof JButton))
 		        {
 		        	JPanel cell = (JPanel)lastCell.getSource();
@@ -168,14 +172,14 @@ public class ControllerViewBoard {
 					        	lastCell = e;
 				        	}
 			        	}
-		        	if(vm instanceof ViewMatch){
+		        	//if(vm instanceof ViewMatch){
 				        if(bPressed.getText() == "Hint1"){
 				       		int value = cp.getCellResolved(cell.getName());
 					       	label.setText(Integer.toString(value));
 					       	String[] pos = cell.getName().split(" ");
 				        	vm.drawSquare(Integer.parseInt(pos[0]),Integer.parseInt(pos[1]));		
 				        }
-			        }
+			       // }
 		        }
 			}
 		}

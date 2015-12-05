@@ -1,5 +1,14 @@
 package propias.presentacion;
 
+import java.awt.Dimension;
+import java.awt.event.MouseAdapter;
+
+import javax.swing.Box;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+
 /**
  * Set a type of board view
  * 
@@ -16,15 +25,27 @@ public class ViewCreateBoard extends GenerateBoard{
 		setTitle("Creació d'un nou Sudoku");
 		pack();
 		setVisible(true);
-		disableHintButton();
+		enableCustomProperties();
 	}
 	/**
 	 * For this view hints buttons aren't necessary
 	 */
-	public void  disableHintButton(){
-		extraButton[1].setEnabled(false);
-		extraButton[2].setEnabled(false);
-		extraButton[1].setToolTipText(extraButton[1].getText()+"-No disponible");
-		extraButton[2].setToolTipText(extraButton[2].getText()+"-No disponible");
+	public void  enableCustomProperties(){
+		entryFast = new JLabel("Entrada ràpida");
+		entryFast.setToolTipText("S'haurà d'introduir '.' i números de 1 al 9");
+		nums = new JTextField();
+		actEntry = new JButton("Actualitzar");
+		nums.setPreferredSize(new Dimension(100,20));
+		nums.setMaximumSize(new Dimension(100,20));
+		nums.setMinimumSize(new Dimension(100,20));
+		nums.setAlignmentX(LEFT_ALIGNMENT);
+		verticalButton.add(Box.createVerticalStrut(15));
+		verticalButton.add(entryFast);
+		verticalButton.add(nums);
+		verticalButton.add(actEntry);
+	}
+	
+	protected void buttonListener(MouseAdapter mm, JButton b){
+		b.addMouseListener(mm);
 	}
 }

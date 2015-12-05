@@ -14,6 +14,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 
@@ -26,7 +27,7 @@ import javafx.scene.shape.Line;
  * 
  * @author Daniel Sanchez Martinez
  */
-public class GenerateBoard extends SetView{
+public abstract class GenerateBoard extends SetView{
 	private JPanel panelS;
 	private JPanel panelC;
 	protected JButton[] button;
@@ -39,6 +40,10 @@ public class GenerateBoard extends SetView{
 	private int size;
 	protected JLabel prueba;
 	private int subsize;
+	JLabel entryFast;
+	JTextField nums;
+	JButton actEntry;
+	
 	/**
 	 * Create the application.
 	 */
@@ -77,14 +82,10 @@ public class GenerateBoard extends SetView{
 		
 		/*East*/
 		extraButton[0].setToolTipText("Guardar board actual");
-		extraButton[1].setToolTipText("Solucionar casella seleccionada");
-		extraButton[2].setToolTipText("Revisar progrés actual del sudoku");
 		extraButton[3].setToolTipText("Torna a la pàgina principal, sense guardar taulell actual");
 		button[size].setToolTipText("Desmarca o esborra casella seleccionada");
 		verticalButton.add(extraButton[3]);
 		verticalButton.add(extraButton[0]);
-		verticalButton.add(extraButton[1]);
-		verticalButton.add(extraButton[2]);
 		verticalButton.add(button[size]);
 		getContentPane().add(verticalButton, BorderLayout.EAST);
 	}
@@ -99,8 +100,6 @@ public class GenerateBoard extends SetView{
 		verticalButton = Box.createVerticalBox();
 		extraButton = new JButton[4];
 		extraButton[0] = new JButton("Guardar");
-		extraButton[1] = new JButton("Hint1");
-		extraButton[2] = new JButton("Hint2");
 		extraButton[3] = new JButton("Tornar");
 		button[size] = new JButton("Borrar");
 		button[size].setName("0");
@@ -125,7 +124,6 @@ public class GenerateBoard extends SetView{
 	 */
 	private Box iniRow(int i,int[] row){
 		horizontalBox = Box.createHorizontalBox();
-		//horizontalBox.add(Box.createHorizontalStrut(200));
 		for(int j = 0; j < size; ++j){
 			if(subsize == 3){
 				square[i][j] = new JPanel(new FlowLayout(FlowLayout.CENTER,15,15));
@@ -153,7 +151,6 @@ public class GenerateBoard extends SetView{
 			square[i][j].setName(name);
 			horizontalBox.add(square[i][j]);
 		}
-		//horizontalBox.add(Box.createHorizontalStrut(200));
 		return horizontalBox;
 	}	
 	/**
@@ -197,9 +194,7 @@ public class GenerateBoard extends SetView{
 	 * @param mm
 	 * @param b
 	 */
-	protected void buttonListener(MouseAdapter mm, JButton b){
-		b.addMouseListener(mm);
-	}
+	protected abstract void buttonListener(MouseAdapter mm, JButton b);
 	
 	/**
 	 * Add listeners to the panel
@@ -250,4 +245,6 @@ public class GenerateBoard extends SetView{
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		dispose();
 	}
+	
+	protected abstract void enableCustomProperties();
 }
