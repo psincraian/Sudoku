@@ -1434,7 +1434,7 @@ public class CntrlSearchLevel {
 	public boolean isARealMedium(){
 		clearIsolatedCells();
 		easy();
-		if(found) return false;
+		if(found()) return false;
 		medium();
 		if(found()) return true;
 		return false;
@@ -1447,7 +1447,7 @@ public class CntrlSearchLevel {
 	public boolean isARealDifficult(){
 		clearIsolatedCells();
 		easy();
-		if(found) return false;
+		if(found()) return false;
 		medium();
 		if(found()) return false;
 		return true;
