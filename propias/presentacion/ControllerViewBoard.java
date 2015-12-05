@@ -122,7 +122,7 @@ public class ControllerViewBoard {
 	        			p.setBackground(Color.RED);
 	        		}
 	        	}
-				else if(bPressed.getText() == "Volver"){
+				else if(bPressed.getText() == "Tornar"){
     				vm.disableView();
     				cp.getBack();
 	        	}
@@ -130,17 +130,17 @@ public class ControllerViewBoard {
 	        		if(vm instanceof ViewCreateBoard){
 	        			if(cp.checkBoard()){
 	        				cp.saveBoard();
-	        				vm.sendMessage("Se ha guardado el board actual");
+	        				vm.sendMessage("S'ha guardat el sudoku");
 	        				vm.disableView();
 	        				cp.getBack();
 	        			}
 	        			else{
-	        				vm.sendMessage("No se ha podido guardar, no se encuentra solución única");
+	        				vm.sendMessage("No s'ha pogut guardar, no te solución única");
 	        			}
 	        		}
 	        		else{
 	        			cp.saveBoard();
-        				vm.sendMessage("Se ha guardado el board actual");
+        				vm.sendMessage("S'ha guardat el sudoku");
         				vm.disableView();
         				cp.getBack();
 	        		}
@@ -150,7 +150,7 @@ public class ControllerViewBoard {
 		        	JPanel cell = (JPanel)lastCell.getSource();
 		        	JLabel label = (JLabel) cell.getComponent(0);
 			        	if(bPressed.getText() != "Hint1" && bPressed.getText() != "Hint2" && bPressed.getText() != "Guardar" && bPressed.getText() != 
-			        			"Volver"){
+			        			"Tornar"){
 				        	if(bPressed.getName() == "0"){
 				        		label.setText("");
 								cp.updateCell(cell.getName(),0);

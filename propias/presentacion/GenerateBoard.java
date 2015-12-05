@@ -77,10 +77,10 @@ public class GenerateBoard extends SetView{
 		
 		/*East*/
 		extraButton[0].setToolTipText("Guardar board actual");
-		extraButton[1].setToolTipText("Solucionar casilla seleccionada");
-		extraButton[2].setToolTipText("Revisar progreso actual board");
-		extraButton[3].setToolTipText("Vuelve a la pagina principal, sin guardar tablero actual");
-		button[size].setToolTipText("Desmarca o borra casilla seleccionada");
+		extraButton[1].setToolTipText("Solucionar casella seleccionada");
+		extraButton[2].setToolTipText("Revisar progrés actual del sudoku");
+		extraButton[3].setToolTipText("Torna a la pàgina principal, sense guardar taulell actual");
+		button[size].setToolTipText("Desmarca o esborra casella seleccionada");
 		verticalButton.add(extraButton[3]);
 		verticalButton.add(extraButton[0]);
 		verticalButton.add(extraButton[1]);
@@ -101,7 +101,7 @@ public class GenerateBoard extends SetView{
 		extraButton[0] = new JButton("Guardar");
 		extraButton[1] = new JButton("Hint1");
 		extraButton[2] = new JButton("Hint2");
-		extraButton[3] = new JButton("Volver");
+		extraButton[3] = new JButton("Tornar");
 		button[size] = new JButton("Borrar");
 		button[size].setName("0");
 		for(int i = 0; i < size; ++i){

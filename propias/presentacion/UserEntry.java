@@ -2,18 +2,23 @@ package propias.presentacion;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.util.List;
 
+import javax.swing.AbstractAction;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+import javax.swing.KeyStroke;
 
 
 /**
@@ -22,7 +27,7 @@ import javax.swing.JTextField;
  * @author Daniel Sanchez Martinez
  */
 
-public abstract class UserEntry extends SetView{
+public abstract class UserEntry extends SetView {
 	protected JFrame frame;
 	private String[] names = {"Nom: ","Contrasenya: "};
 	private JLabel[] label;
@@ -33,12 +38,15 @@ public abstract class UserEntry extends SetView{
 	private JPanel[] panel;
 	protected JPanel labelPanel;
 	protected JPanel textPanel;
+	protected JPanel panelButtons;
 
 	/**
 	 * Create the application.
 	 */
 	public UserEntry() {
 		super();
+		setFocusable(true);
+		requestFocusInWindow();
 		setMaximumSize(1000,750);
 		setPreferredSize(976,728);
 		setMinimumSize(380,285);
@@ -80,7 +88,7 @@ public abstract class UserEntry extends SetView{
 		
 		getContentPane().add(Box.createHorizontalStrut(100), BorderLayout.EAST);
 
-		JPanel panelButtons = new JPanel();
+		panelButtons = new JPanel();
 		panelButtons.add(accept);
 		panelButtons.add(cancel);
 		panelButtons.add(Box.createVerticalStrut(80), BorderLayout.SOUTH);
@@ -148,6 +156,7 @@ public abstract class UserEntry extends SetView{
 	protected void disableView(){
 		setVisible(false);
 	}
+	
 	/**
 	 * @return Passwords to check
 	 */

@@ -9,7 +9,7 @@ import javax.swing.JOptionPane;
 
 import propias.dominio.clases.*;
 import propias.dominio.controladores.*;
-import propias.presentacion.ControllerLoadMatch.MouseManage;
+//import propias.presentacion.ControllerLoadMatch.MouseManage;
 /**
  * 
  * @author Brian Martinez Alvarez
