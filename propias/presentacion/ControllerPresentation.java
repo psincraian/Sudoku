@@ -27,6 +27,7 @@ public class ControllerPresentation {
     ViewLoadMatch vl;
     List<String> id;
     int view = 0;
+    int mida = 0;
     /**
      * Constructora
      */
@@ -98,7 +99,7 @@ public class ControllerPresentation {
     public boolean checkInfoUser(List<String> credentials) {
       name = credentials.get(0);
       String result = cd.checkCredentials(credentials);
-      if (result.equals("Login correcto") || result.equals("Se ha creado el usuario")) correct = true;
+      if (result.equals("Login correcte") || result.equals("S'ha creat l'usuari")) correct = true;
       cu.sendMessage(result);
       return correct;
     }
@@ -159,6 +160,7 @@ public class ControllerPresentation {
       else if (om == OptionsMenu.CrearSudoku) {
           VistaSeleccionarCaracteristiques sc = new VistaSeleccionarCaracteristiques();
           int mida = sc.obtenirMida();
+          this.mida = mida;
           int m[][] = new int[mida][mida];
           for(int i=0; i< mida; ++i){
               for(int j=0; j< mida; ++j) m[i][j] = 0;
@@ -191,41 +193,24 @@ public class ControllerPresentation {
         play(m.get(1),true,true);
     }
     public void setBoardFast(String s){
-    	int mida;
+    	int mida = 0;
     	if (s.length() <= 81) mida = 81;
-    	else mida = 256;
+    	else if (s.length() > 81 && s.length()<=256 && this.mida == 16) mida = 256;
+    	else c.sendMessage("Has posat massa valors");
     	int i = 0, j = 0;
     	String posx;
     	String posy;
     	String pos;
     	for (int position=0; position < mida; ++position){
-    		if (mida == 81){
-	    			if (j == 9){
-						j = 0;
-						++i;
-					}
-	    			
-	    			if (position < s.length() && s.charAt(position) >= '0' && s.charAt(position) <= '9') {
-	    				posx = String.valueOf(i);
-	    				posy = String.valueOf(j);
-	    				pos = posx + " " + posy;
-	    				c.updateBoard(pos,String.valueOf(s.charAt(position)));
-	    			}
-    		}
-    		else if (mida == 256){
-	    			if (j == 16){
-						j = 0;
-						++i;
-					}
-					if ( position < s.length() && ((s.charAt(position) >= '0' && s.charAt(position) <= '9') || (s.charAt(position) >= 'A' &&
-							s.charAt(position) <= 'G')) ) {
-						posx = String.valueOf(i);
-						posy = String.valueOf(j);
-						pos = posx + " " + posy;
-						String value = charHexa(s.charAt(position));
-						c.updateBoard(pos,value);
-					}
-    		}
+    		if ((mida == 81 && j == 9) ||(mida == 256 && j == 16)){
+				j = 0;
+				++i;
+			}
+    		String res = cd.setBoardFast(s, position, i, j,mida);
+    		posx = String.valueOf(i);
+			posy = String.valueOf(j);
+			pos = posx + " " + posy;
+			if (res != ".") c.updateBoard(pos,res);
     		++j;
     	}
     }
