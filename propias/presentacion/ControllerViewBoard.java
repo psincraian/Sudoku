@@ -93,6 +93,10 @@ public class ControllerViewBoard {
 			vm.setEnableButton(cond,candidates.get(i));
 	}
 	
+	public void sendMessage(String message){
+		vm.sendMessage(message);
+	}
+	
 	/**
 	 * Implements mouseClicked function of MouseAdapter 
 	 */
