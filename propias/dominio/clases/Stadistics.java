@@ -12,8 +12,20 @@ public class Stadistics implements java.io.Serializable {
     public long bestTimeEasyMatches;
     public long bestTimeMediumMatches;
     public long bestTimeHardMatches;
-
-    
+ 
+    public Stadistics(){
+        
+        numEasyMatches = 0;
+        numMediumMatchess = 0;
+        numHardMatchess = 0;
+        timeEasyMatchess = 0;
+        timeMediumMatchess = 0;
+        timeHardMatches;
+        bestTimeEasyMatchess = 0;
+        bestTimeMediumMatchess = 0;
+        bestTimeHardMatchess = 0;
+        
+    }
     public Stadistics(List<Long> l) {
 
         this.numEasyMatches = l.get(0);
