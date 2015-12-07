@@ -9,7 +9,6 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import propias.presentacion.*;
 
 
 //import propias.Driver.ControllerPresentation; /*test*/
@@ -157,33 +156,30 @@ public class ControllerViewBoard {
 		        {
 		        	JPanel cell = (JPanel)lastCell.getSource();
 		        	JLabel label = (JLabel) cell.getComponent(0);
-			        	if(bPressed.getText() != "Hint1" && bPressed.getText() != "Hint2" && bPressed.getText() != "Guardar" && bPressed.getText() != 
-			        			"Tornar"){
-				        	if(bPressed.getName() == "0"){
-				        		label.setText("");
-								cp.updateCell(cell.getName(),0);
-					        	setCandidates(false);
-					        	String[] pos = cell.getName().split(" ");
-					        	vm.drawSquare(Integer.parseInt(pos[0]),Integer.parseInt(pos[1]));
-					        	lastCell = e;
-				        	}
-				        	else if(candidates.contains(Integer.parseInt(bPressed.getText()))) {
-					        	label.setText(bPressed.getText());
-								cp.updateCell(cell.getName(),Integer.parseInt(bPressed.getText()));
-					        	setCandidates(false);
-					        	String[] pos = cell.getName().split(" ");
-					        	vm.drawSquare(Integer.parseInt(pos[0]),Integer.parseInt(pos[1]));
-					        	lastCell = e;
-				        	}
+			        if(bPressed.getText() != "Hint1"){
+			        	if(bPressed.getName() == "0"){
+			        		label.setText("");
+							cp.updateCell(cell.getName(),0);
+				        	setCandidates(false);
+				        	String[] pos = cell.getName().split(" ");
+				        	vm.drawSquare(Integer.parseInt(pos[0]),Integer.parseInt(pos[1]));
+				        	lastCell = e;
 			        	}
-		        	//if(vm instanceof ViewMatch){
-				        if(bPressed.getText() == "Hint1"){
-				       		int value = cp.getCellResolved(cell.getName());
-					       	label.setText(Integer.toString(value));
-					       	String[] pos = cell.getName().split(" ");
-				        	vm.drawSquare(Integer.parseInt(pos[0]),Integer.parseInt(pos[1]));		
-				        }
-			       // }
+			        	else if(candidates.contains(Integer.parseInt(bPressed.getText()))) {
+				        	label.setText(bPressed.getText());
+							cp.updateCell(cell.getName(),Integer.parseInt(bPressed.getText()));
+				        	setCandidates(false);
+				        	String[] pos = cell.getName().split(" ");
+				        	vm.drawSquare(Integer.parseInt(pos[0]),Integer.parseInt(pos[1]));
+				        	lastCell = e;
+			        	}
+		        	}
+			        else if(bPressed.getText() == "Hint1"){
+			       		int value = cp.getCellResolved(cell.getName());
+				       	label.setText(Integer.toString(value));
+				       	String[] pos = cell.getName().split(" ");
+			        	vm.drawSquare(Integer.parseInt(pos[0]),Integer.parseInt(pos[1]));		
+			        }
 		        }
 			}
 		}
