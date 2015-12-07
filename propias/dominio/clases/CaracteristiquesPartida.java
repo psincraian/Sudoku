@@ -8,10 +8,10 @@ package propias.dominio.clases;
  */
 public class CaracteristiquesPartida {	
 
-	int mida;
-	int dificultat;
-	int tipus;
-	int givenNumbers;
+	public int mida;
+	public int dificultat;
+	public int tipus;
+	public int givenNumbers;
 	
 	/** Modifica la mida del objecte
 	 * 
