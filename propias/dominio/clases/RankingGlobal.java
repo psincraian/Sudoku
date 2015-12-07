@@ -17,17 +17,11 @@ public class RankingGlobal extends Ranking{
 	public RankingGlobal(List<ParamRanking> ranking){
 		super(ranking);
 	}
-	
-	/**
-	 * Search an user in ranking
-	 * @param name
-	 * @return an int. If found returns the index, if not return -1
-	 */
-	public int positionRanking(String name){
-		for(ParamRanking pr : ranking){
-			if(pr.getName() == name)
-				return ranking.indexOf(pr);
-		}
-		return -1;
+
+	@Override
+	public void modRanking(ParamRanking pr, int index) {
+		pr.setValue(pr.getValue() + ranking.get(index).getValue());
+		ranking.set(index, pr);
+		Collections.sort(ranking);		
 	}
 }

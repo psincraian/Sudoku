@@ -37,9 +37,7 @@ public class ControllerRanking {
 	 * @return Position of a name in ranking
 	 */
 	public int positionRanking(String name){
-		if(ranking instanceof RankingGlobal)
-			return ((RankingGlobal)ranking).positionRanking(name);
-		return -1;
+			return ranking.positionRanking(name);
 	}
 	
 	/**

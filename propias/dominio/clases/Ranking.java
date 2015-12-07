@@ -32,6 +32,19 @@ public abstract class Ranking implements java.io.Serializable {
 	}
 
 	/**
+	 * Search an id(user/sudoku) in ranking
+	 * @param id
+	 * @return an int. If found returns the index, if not return -1
+	 */
+	public int positionRanking(String id){
+		for(ParamRanking pr : ranking){
+			if(pr.getName() == id)
+				return ranking.indexOf(pr);
+		}
+		return -1;
+	}
+	
+	/**
 	 * Check if the user is in ranking
 	 * @param pr
 	 * @return
@@ -57,10 +70,5 @@ public abstract class Ranking implements java.io.Serializable {
 	 * @param pr
 	 * @param index
 	 */
-	public void modRanking(ParamRanking pr, int index){
-		//System.out.println("Actual: "+ranking.get(index).getValue()+" Nuevo: "+pr.getValue());
-		pr.setValue(pr.getValue() + ranking.get(index).getValue());
-		ranking.set(index, pr);
-		Collections.sort(ranking);
-	}
+	public abstract void modRanking(ParamRanking pr, int index);
 }

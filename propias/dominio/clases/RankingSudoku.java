@@ -16,4 +16,11 @@ public class RankingSudoku extends Ranking{
 	public RankingSudoku(List<ParamRanking> ranking){
 		super(ranking);
 	}
+
+	@Override
+	public void modRanking(ParamRanking pr, int index) {
+		if(ranking.get(index).getValue() > pr.getValue()){
+			ranking.get(index).setValue(pr.getValue());
+		}
+	}
 }
