@@ -5,7 +5,7 @@ package propias.dominio.clases;
  * @author Petru Rares Sincraian
  *
  */
-public enum TipusPartida {
+public enum TipusPartida implements java.io.Serializable {
 		Entrenament,
 		Competicio;
 }
