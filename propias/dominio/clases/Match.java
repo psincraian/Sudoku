@@ -12,7 +12,7 @@ import propias.dominio.controladores.generator.CntrlSudokuSolver;
  * @author Petru Rares Sincraian
  *
  */
-public class Match {
+public class Match implements java.io.Serializable {
 	
 	public final static String ERROR_LOCKED_CELL = "Casella bloquejada";
 	
