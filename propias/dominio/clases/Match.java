@@ -19,35 +19,6 @@ public class Match implements java.io.Serializable {
 	private String username;
 	private Sudoku sudoku;
 	
-	/** Retorna una partida amb el usuari username i un sudoku generat.
-	 * 
-	 * @param username El nom del usuari
-	 * @param caracteristiques Les caracteristiques del Sudoku. 
-	 */
-	public Match(String username, CaracteristiquesPartida caracteristiques) {
-		this.username = username;
-		createSudoku(caracteristiques);
-	}
-	
-	/** Crea un Sudoku amb les caracteristiques proporcionades
-	 * 
-	 */
-	private void createSudoku(CaracteristiquesPartida caracteristiques) {
-		CntrlSudokuGenerator generator = new CntrlSudokuGenerator(caracteristiques.getMida());
-		Board solution = generator.generateBoard();
-		CntrlSudokuDiggingHoles holes;
-		try {
-			holes = new CntrlSudokuDiggingHoles(solution);
-			Board sudoku = holes.digHoles(caracteristiques.dificultat);
-			CntrlSudokuSolver sol = new CntrlSudokuSolver(sudoku);
-			Board solved = new Board(sol.solve());
-			this.sudoku = new Sudoku(sudoku, solved);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	
 	/** Retorna una partida amb el usuari username i Sudoku sudoku
 	 * 
 	 * @param username El nom del usuari
@@ -58,9 +29,8 @@ public class Match implements java.io.Serializable {
 		this.sudoku = sudoku;
 	}
 	
-	public Match(String username2, int size) {
-		// TODO Auto-generated constructor stub
-		this.username = username2;
+	public Match(String username, int size) {
+		this.username = username;
 		this.sudoku = new Sudoku(new Board(size),new Board(size));
 	}
 
@@ -133,6 +103,18 @@ public class Match implements java.io.Serializable {
 			throw new Exception(ERROR_LOCKED_CELL);
 		
 		sudoku.setCell(position, value);
+	}
+	
+	/**
+	* Retorna el valor d'una vasella en la posicio position
+	* @param posigion la posicio de la casella.
+	* @return int valor de la casella en la posicio donada.
+	* @throws Exception si el valor de la posicio no es correcte.
+	* @author Adran Sanchez Albanell
+	*/
+	public int getCellValue(Position position) throws Exception{
+		Cell cell = sudoku.getSudoku().getCell(position.getRow(), position.getColumn());
+		return cell.getValue();
 	}
 	
 	/** Esborra la casella de la posició especificada

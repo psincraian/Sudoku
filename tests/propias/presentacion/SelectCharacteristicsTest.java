@@ -1,4 +1,4 @@
-package tests;
+package tests.propias.presentacion;
 
 import javax.swing.*;
 
