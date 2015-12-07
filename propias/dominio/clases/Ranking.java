@@ -58,9 +58,9 @@ public abstract class Ranking implements java.io.Serializable {
 	 * @param index
 	 */
 	public void modRanking(ParamRanking pr, int index){
-		System.out.println("Actual: "+ranking.get(index).getValue()+" Nuevo: "+pr.getValue());
+		//System.out.println("Actual: "+ranking.get(index).getValue()+" Nuevo: "+pr.getValue());
 		pr.setValue(pr.getValue() + ranking.get(index).getValue());
 		ranking.set(index, pr);
 		Collections.sort(ranking);
-	}	
+	}
 }

@@ -47,7 +47,7 @@ public class ControllerRanking {
 	 */
 	public void modRanking(ParamRanking pr) {
 		int index = ranking.isIn(pr);
-		if(index == -1)
+		if(index == -1 || ranking instanceof RankingSudoku)
 			ranking.addParam(pr);
 		else{
 			ranking.modRanking(pr, index);
