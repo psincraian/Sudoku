@@ -1,7 +1,7 @@
 package propias.dominio.clases;
 import java.util.*;
 
-public class Stadistics {
+public class Stadistics implements java.io.Serializable {
  
     public long numEasyMatches;
     public long numMediumMatches;
