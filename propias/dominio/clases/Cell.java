@@ -7,7 +7,7 @@ import propias.dominio.clases.CellType;
  * @author Petru Rares Sincraian
  *
  */
-public class Cell {
+public class Cell implements java.io.Serializable {
 	
 	public final String ERROR_VALUE_NOT_VALID = "Valor no valid";
 	
