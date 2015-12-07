@@ -53,9 +53,7 @@ public class SelectCharacteristics extends JPanel {
 		createView();
 	}
 
-	private void createView() {
-		modifyPanelProperties();
-		
+	private void createView() {		
 		JPanel panelMatch = new JPanel();
 		JPanel panelDifficulty = new JPanel();
 		JPanel panelSize = new JPanel();
@@ -98,12 +96,14 @@ public class SelectCharacteristics extends JPanel {
 			.addComponent(saveButton)
 			.addGap(12, 12, 12))
 		);
+		
+		modifyPanelProperties();
 	}
 
 	private void modifyPanelProperties() {
 		setBorder(null);
+        setMinimumSize(getPreferredSize());
 		setMaximumSize(getMinimumSize());
-        	setMinimumSize(getPreferredSize());
 		setName(TITLE);
 	}
 
