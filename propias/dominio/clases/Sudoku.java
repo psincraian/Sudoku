@@ -1,6 +1,7 @@
 package propias.dominio.clases;
 
 import java.sql.Time;
+import java.util.ArrayList;
 
 import propias.dominio.clases.Position;
 
@@ -10,11 +11,11 @@ import propias.dominio.clases.Position;
  *
  */
 public class Sudoku implements java.io.Serializable {
-
+	
 	private Board sudoku;	
 	private Board solution;
 	private int level;
-	//private RanquingSudoku ranking;
+	private RankingSudoku ranking;
 	
 	/** Retorna Sudoku amb un enunciat i una solució
 	 * 
@@ -25,7 +26,7 @@ public class Sudoku implements java.io.Serializable {
 	public Sudoku(Board sudoku, Board solution) {
 		this.sudoku = sudoku;
 		this.solution = solution;
-		//ranking = new RanquingSudoku();
+		ranking = new RankingSudoku(new ArrayList<ParamRanking>());
 	}
 	
 	/** Retorna el sudoku
@@ -74,8 +75,28 @@ public class Sudoku implements java.io.Serializable {
 		return level;
 	}
 	
-	// TODO: implementar
-	public void updateRanking(Time time) {
+	/** Actualitza el ranking amb les noves dades passades com a parametre
+	 * 
+	 * @param username El nom d'usuari del nou score
+	 * @param score La puntuació aconseguida per l'usuari
+	 */
+	public void updateRanking(String username, int score) {
+		ParamRanking param = new ParamRanking(username, score);
 		
+		int index = ranking.isIn(param);
+		if (index != -1) {
+			if (param.compareTo(ranking.getRanking().get(index)) == 1)
+				ranking.modRanking(param, index);
+		}
+		
+		ranking.addParam(param);
+	}
+	
+	/** Retorna el ranking d'aquest sudoku
+	 * 
+	 * @return Retorna el Ranking
+	 */
+	public RankingSudoku getRanking() {
+		return ranking;
 	}
 }
