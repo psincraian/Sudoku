@@ -44,8 +44,8 @@ public class MatchCompetition extends Match {
 	 * 
 	 * @return Retorna la duració de la partida.
 	 */
-	public Duration getMatchTime() {
+	public long getMatchTime() {
 		endTime = Instant.now();
-		return Duration.between(startTime, endTime);
+		return Duration.between(startTime, endTime).getSeconds();
 	}
 }
