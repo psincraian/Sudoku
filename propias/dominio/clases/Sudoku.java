@@ -9,7 +9,7 @@ import propias.dominio.clases.Position;
  * @author Petru Rares Sincraian
  *
  */
-public class Sudoku {
+public class Sudoku implements java.io.Serializable {
 
 	private Board sudoku;	
 	private Board solution;

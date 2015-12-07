@@ -42,10 +42,10 @@ public class MatchCompetition extends Match {
 	 * primer s'ha de cridar al metode {@link MatchCompetition#startTime()} i
 	 * després al mètode {@link MatchCompetition#endTime()}
 	 * 
-	 * @return Retorna la duració de la partida.
+	 * @return Retorna la duració de la partida en segons
 	 */
-	public Duration getMatchTime() {
+	public long getMatchTime() {
 		endTime = Instant.now();
-		return Duration.between(startTime, endTime);
+		return Duration.between(startTime, endTime).getSeconds();
 	}
 }

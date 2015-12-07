@@ -9,7 +9,7 @@ import java.util.*;
  *
  * @author Daniel Sanchez Martinez
  */
-public abstract class Ranking {
+public abstract class Ranking implements java.io.Serializable {
 	/**
 	 * Constructor
 	 */

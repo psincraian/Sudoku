@@ -18,7 +18,7 @@ public class ViewCreateUser extends UserEntry{
 	 */
 	public ViewCreateUser() {
 		super();
-		setTitle("Creació d'un nou usuari");
+		setTitle("Creacio d'un nou usuari");
 		addPasswordField();
 	}
 	/**
