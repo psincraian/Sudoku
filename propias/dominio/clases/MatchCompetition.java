@@ -55,7 +55,8 @@ public class MatchCompetition extends Match {
 	
 	/** Obte la puntuació de la partida. La puntuació mínima és un 0. La puntuació
 	 * depen de la partida. 
-	 * @return
+	 * 
+	 * @return Retorna la puntuació de la partida
 	 */
 	public int score() {
 		int points = 0;
