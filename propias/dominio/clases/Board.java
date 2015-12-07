@@ -8,7 +8,7 @@ import propias.dominio.clases.CellType;
  * @author Petru Rares Sincraian
  *
  */
-public class Board {
+public class Board implements java.io.Serializable {
 	
 	private int size;
 	private Cell board[][];
