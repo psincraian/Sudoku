@@ -40,7 +40,8 @@ public class ControllerViewBoard {
 			this.vm = new ViewMatch(board,size);
 			vm.buttonListener(new MouseManage(), vm.extraButton[1]);
 			vm.buttonListener(new MouseManage(), vm.extraButton[2]);
-			vm.extraButton[0].setEnabled(false);
+			if(guest)
+				vm.extraButton[0].setEnabled(false);
 		}
 		else{
 			this.vm = new ViewCreateBoard(board,size);
@@ -131,8 +132,8 @@ public class ControllerViewBoard {
     				vm.disableView();
     				cp.getBack();
 	        	}
-				else if(bPressed.getText() == "Guardar"){
-	        		if(vm instanceof ViewCreateBoard){
+				else if(bPressed.getText() == "Guardar" && vm.extraButton[0].isEnabled()){
+					if(vm instanceof ViewCreateBoard){
 	        			if(cp.checkBoard()){
 	        				cp.saveBoard();
 	        				vm.sendMessage("S'ha guardat el sudoku");
