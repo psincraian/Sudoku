@@ -41,6 +41,7 @@ public class ControllerPresentation implements GetParametersListener, SelectChar
     List<String> id; //ids de partides guardades
     int view = 0; // tipus de vista(perfil, ranking, load match)
     int mida = 0; //mida taulell
+    //public static ControllerPresentation controller;
     /**
      * Constructora
      */
@@ -216,9 +217,9 @@ public class ControllerPresentation implements GetParametersListener, SelectChar
         play(m.get(1),true,true);
     }
     /*public static synchronized ControllerPresentation getInstance(){
-    	if (ControllerPresentation == null)
-    		ControllerPresentation = new ControllerPresentation();
-    	return ControllerPresentation;
+    	if (controller == null)
+    		controller = new ControllerPresentation();
+    	return controller;
     }*/
     @Override
     public void getParameters(CaracteristiquesPartida caracteristiques){
