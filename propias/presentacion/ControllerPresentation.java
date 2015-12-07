@@ -19,12 +19,14 @@ import javax.swing.SwingConstants;
 
 import propias.dominio.clases.*;
 import propias.dominio.controladores.*;
+import propias.presentacion.SelectSize.GetParametersListener;
+
 /**
  * 
  * @author Brian Martinez Alvarez
  *
  */
-public class ControllerPresentation implements SelectCharacteristics.GetParametersListener  {
+public class ControllerPresentation implements GetParametersListener, SelectCharacteristics.GetParametersListener {
 	JFrame frame;
     ControllerDomain cd;
     ControllerUserEntry cu;
