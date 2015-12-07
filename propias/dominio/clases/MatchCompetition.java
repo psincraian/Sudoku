@@ -12,6 +12,10 @@ import java.time.Instant;
  */
 public class MatchCompetition extends Match {
 
+	private static final int POINTS_PER_EASY_SUDOKU = 10;
+	private static final int POINTS_PER_MEDIUM_SUDOKU = 20;
+	private static final int POITNS_PER_HARD_SUDOKU = 30;
+	
 	private Instant startTime;
 	private Instant endTime;
 	
@@ -47,5 +51,28 @@ public class MatchCompetition extends Match {
 	public long getMatchTime() {
 		endTime = Instant.now();
 		return Duration.between(startTime, endTime).getSeconds();
+	}
+	
+	/** Obte la puntuació de la partida. La puntuació mínima és un 0. La puntuació
+	 * depen de la partida. 
+	 * @return
+	 */
+	public int score() {
+		int points = 0;
+		
+		switch (getSudokuLevel()) {
+		case 0:
+			points += POINTS_PER_EASY_SUDOKU;
+			break;
+		case 1:
+			points += POINTS_PER_MEDIUM_SUDOKU;
+			break;
+		case 2:
+			points += POITNS_PER_HARD_SUDOKU;
+			break;
+		default: break;
+		}
+		
+		return points;
 	}
 }
