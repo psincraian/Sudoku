@@ -8,7 +8,7 @@ import java.util.List;
  * @author Petru Rares Sincraian
  *
  */
-public abstract class UsuariGeneral {
+public abstract class UsuariGeneral implements java.io.Serializable {
 	
 	private static String nom;
 	List<Integer> llistaSudokus;
