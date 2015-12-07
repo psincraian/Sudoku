@@ -6,7 +6,7 @@ package propias.dominio.clases;
  * 
  * Indica les dificultats que pot prendre un Sudoku	
  */
-public enum Dificultat {
+public enum Dificultat implements java.io.Serializable {
 	Facil,
 	Mitja,
 	Dificil;
