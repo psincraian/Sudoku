@@ -1,11 +1,21 @@
 package propias.presentacion;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.*;
 
+import javax.swing.Box;
 import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
 import propias.dominio.clases.*;
 import propias.dominio.controladores.*;
@@ -14,26 +24,36 @@ import propias.dominio.controladores.*;
  * @author Brian Martinez Alvarez
  *
  */
-public class ControllerPresentation {
-	
+public class ControllerPresentation implements SelectCharacteristics.GetParametersListener  {
+	JFrame frame;
     ControllerDomain cd;
     ControllerUserEntry cu;
     ControllerViewBoard c;
     CaracteristiquesPartida cp;
-    String name;
+    String name; // nom de l'usuari
     boolean correct;
+    boolean createSudoku; // true: crear un sudoku, false: partidaRapida
     ViewRanking vr;
     ViewProfile vp;
     ViewLoadMatch vl;
-    List<String> id;
-    int view = 0;
-    int mida = 0;
+    List<String> id; //ids de partides guardades
+    int view = 0; // tipus de vista(perfil, ranking, load match)
+    int mida = 0; //mida taulell
     /**
      * Constructora
      */
     public ControllerPresentation() {
         cd = new ControllerDomain();
+        createGUI();
     }
+    public void createGUI() {
+		frame = new JFrame("Sudoku");
+		frame.setBackground(Color.WHITE);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.getContentPane().setLayout(new java.awt.GridBagLayout());
+        frame.pack();
+		frame.setVisible(true);
+	}
     /**
      * Inicia el joc
      */
@@ -133,9 +153,13 @@ public class ControllerPresentation {
         om = vm.obtenirOpcio();
       }
       if (om == OptionsMenu.PartidaRapida) {
-          int[][] m = cd.createMatch(cp);
-          if (!isCompetition()) play(m,false,false);
-          else play(m,true,false);
+    	  createSudoku = false;
+    	  JPanel newContentPane = new SelectCharacteristics(this);
+  		  newContentPane.setOpaque(true);
+          frame.getContentPane().setLayout(new java.awt.GridBagLayout());
+  		  frame.getContentPane().add(newContentPane, new java.awt.GridBagConstraints());
+          frame.pack();
+  		  frame.setVisible(true);
       }
       if (om == OptionsMenu.CargarPartida) {
     	    view = 3; // load match
@@ -157,15 +181,13 @@ public class ControllerPresentation {
 	  }
           
       else if (om == OptionsMenu.CrearSudoku) {
-          VistaSeleccionarCaracteristiques sc = new VistaSeleccionarCaracteristiques();
-          int mida = sc.obtenirMida();
-          this.mida = mida;
-          int m[][] = new int[mida][mida];
-          for(int i=0; i< mida; ++i){
-              for(int j=0; j< mida; ++j) m[i][j] = 0;
-          }
-          cd.newMatch(mida);
-          c = new ControllerViewBoard(m, m[0].length,1,this,false);
+    	  createSudoku = true;
+          JPanel newContentPane = new SelectSize(this);
+  		  newContentPane.setOpaque(true);
+          frame.getContentPane().setLayout(new java.awt.GridBagLayout());
+  		  frame.getContentPane().add(newContentPane, new java.awt.GridBagConstraints());
+          frame.pack();
+  		  frame.setVisible(true);
       }
       else if (om == OptionsMenu.Ranking) {
     	  view = 2; // ranking
@@ -196,11 +218,29 @@ public class ControllerPresentation {
     		ControllerPresentation = new ControllerPresentation();
     	return ControllerPresentation;
     }*/
+    @Override
     public void getParameters(CaracteristiquesPartida caracteristiques){
     	cp = new CaracteristiquesPartida();
-    	cp.dificultat = caracteristiques.getDificultat();
     	cp.mida = caracteristiques.getMida();
-    	cp.tipus = caracteristiques.getTipusPartida();
+    	if(createSudoku) System.out.println("crear sudoku");
+    	else System.out.println("partida");
+    	if (createSudoku){
+	    	int mida = cp.getMida();
+	        this.mida = mida;
+	        int m[][] = new int[mida][mida];
+	        for(int i=0; i< mida; ++i){
+	            for(int j=0; j< mida; ++j) m[i][j] = 0;
+	        }
+	        cd.newMatch(mida);
+	        c = new ControllerViewBoard(m, m[0].length,1,this,false);
+    	}
+    	else {
+    		cp.dificultat = caracteristiques.getDificultat();
+	    	cp.tipus = caracteristiques.getTipusPartida();
+    		int[][] m = cd.createMatch(cp);
+            if (!isCompetition()) play(m,false,false);
+            else play(m,true,false);
+    	}
     }
     public void setBoardFast(String s){
     	int mida = 0;
@@ -367,4 +407,44 @@ public class ControllerPresentation {
         }
         
     }
+    Component verticalStrut;
+	JPanel panelN;
+	
+	/**
+	 * constructor
+	 */
+	
+	
+	public void setTitle(String t){
+		panelN = new JPanel();
+		panelN.setBackground(Color.WHITE);
+		panelN.setLayout(new FlowLayout(FlowLayout.CENTER));
+		JLabel title = new JLabel(t);
+		title.setHorizontalAlignment(SwingConstants.CENTER);
+		verticalStrut = Box.createVerticalStrut(60);
+		Component horizontalStrut = Box.createHorizontalStrut(20);
+		panelN.add(verticalStrut);
+		panelN.add(title);
+		panelN.add(horizontalStrut);
+		frame.add(panelN, BorderLayout.NORTH);
+		setMaximumSize(1000,750);
+		setPreferredSize(976,728);
+	}
+	
+	public void setMaximumSize(int x, int y){
+		frame.setMaximumSize(new Dimension(x,y));
+	}
+	
+	public void setMinimumSize(int x, int y){
+		frame.setMinimumSize(new Dimension(x,y));
+	}
+	
+	public void setPreferredSize(int x, int y){
+		frame.setPreferredSize(new Dimension(x,y));
+	}
+	
+	public void setVerticalStrut(int y){
+		verticalStrut = Box.createVerticalStrut(y);
+		panelN.add(verticalStrut);
+	}
 }
