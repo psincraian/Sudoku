@@ -16,11 +16,12 @@ public class ControllerRanking {
 	 * @param rank
 	 * @param typeRanking
 	 */
-	public ControllerRanking(List<ParamRanking> rank, boolean typeRanking){
-		if(typeRanking)
+	public ControllerRanking(Ranking rank){
+		/*if(typeRanking)
 			 this.ranking = new RankingGlobal(rank);
 		else
-			this.ranking = new RankingSudoku(rank);
+			this.ranking = new RankingSudoku(rank);*/
+		this.ranking = rank;
 	}
 	
 	/**
