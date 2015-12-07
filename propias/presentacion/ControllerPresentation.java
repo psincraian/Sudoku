@@ -9,7 +9,6 @@ import javax.swing.JOptionPane;
 
 import propias.dominio.clases.*;
 import propias.dominio.controladores.*;
-//import propias.presentacion.ControllerLoadMatch.MouseManage;
 /**
  * 
  * @author Brian Martinez Alvarez
@@ -20,6 +19,7 @@ public class ControllerPresentation {
     ControllerDomain cd;
     ControllerUserEntry cu;
     ControllerViewBoard c;
+    CaracteristiquesPartida cp;
     String name;
     boolean correct;
     ViewRanking vr;
@@ -133,8 +133,7 @@ public class ControllerPresentation {
         om = vm.obtenirOpcio();
       }
       if (om == OptionsMenu.PartidaRapida) {
-          VistaSeleccionarCaracteristiques sc = new VistaSeleccionarCaracteristiques();
-          int[][] m = cd.createMatch(sc.obtenirCaracteristiques());
+          int[][] m = cd.createMatch(cp);
           if (!isCompetition()) play(m,false,false);
           else play(m,true,false);
       }
@@ -166,7 +165,7 @@ public class ControllerPresentation {
               for(int j=0; j< mida; ++j) m[i][j] = 0;
           }
           cd.newMatch(mida);
-          c = new ControllerViewBoard(m, m[0].length,1,this);
+          c = new ControllerViewBoard(m, m[0].length,1,this,false);
       }
       else if (om == OptionsMenu.Ranking) {
     	  view = 2; // ranking
@@ -191,6 +190,17 @@ public class ControllerPresentation {
     public void loadMatch(String match){
     	List<int[][]> m = cd.getSavedMatches(match);
         play(m.get(1),true,true);
+    }
+    /*public static synchronized ControllerPresentation getInstance(){
+    	if (ControllerPresentation == null)
+    		ControllerPresentation = new ControllerPresentation();
+    	return ControllerPresentation;
+    }*/
+    public void getParameters(CaracteristiquesPartida caracteristiques){
+    	cp = new CaracteristiquesPartida();
+    	cp.dificultat = caracteristiques.getDificultat();
+    	cp.mida = caracteristiques.getMida();
+    	cp.tipus = caracteristiques.getTipusPartida();
     }
     public void setBoardFast(String s){
     	int mida = 0;
@@ -288,8 +298,8 @@ public class ControllerPresentation {
      * @param save Indica si la partida es una partida nova o una partida carregada
      */
     private void play(int[][] m, boolean competicio, boolean save)  { 
-
-      ControllerViewBoard c = new ControllerViewBoard(m, m[0].length,0,this);
+      if (name.equals("Convidat")) c = new ControllerViewBoard(m, m[0].length,0,this,true);
+      else c = new ControllerViewBoard(m, m[0].length,0,this,false);
       if (save) {
           for(int i= 0; i<m[0].length; ++i) {
               for(int j=0; j<m[0].length; ++j) {
