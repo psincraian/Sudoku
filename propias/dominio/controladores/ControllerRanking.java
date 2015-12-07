@@ -36,9 +36,9 @@ public class ControllerRanking {
 	 * @param name
 	 * @return Position of a name in ranking
 	 */
-	public int positionRanking(String name){
+	/*public int positionRanking(String name){
 			return ranking.positionRanking(name);
-	}
+	}*/
 	
 	/**
 	 * Modify ranking with a new parameter
@@ -46,7 +46,7 @@ public class ControllerRanking {
 	 */
 	public void modRanking(ParamRanking pr) {
 		int index = ranking.isIn(pr);
-		if(index == -1 || ranking instanceof RankingSudoku)
+		if(index == -1)
 			ranking.addParam(pr);
 		else{
 			ranking.modRanking(pr, index);

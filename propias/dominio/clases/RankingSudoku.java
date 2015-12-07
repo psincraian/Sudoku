@@ -21,6 +21,7 @@ public class RankingSudoku extends Ranking{
 	public void modRanking(ParamRanking pr, int index) {
 		if(ranking.get(index).getValue() > pr.getValue()){
 			ranking.get(index).setValue(pr.getValue());
+			Collections.sort(ranking);
 		}
 	}
 }
