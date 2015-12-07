@@ -33,13 +33,14 @@ public class ControllerViewBoard {
 	 * @param size
 	 * @param typeBoard
 	 */
-	public ControllerViewBoard(int[][] board, int size, int typeBoard, ControllerPresentation scp){
+	public ControllerViewBoard(int[][] board, int size, int typeBoard, ControllerPresentation scp, boolean guest){
 		this.cp = scp;
 		this.size = size;
 		if(typeBoard == 0){
 			this.vm = new ViewMatch(board,size);
 			vm.buttonListener(new MouseManage(), vm.extraButton[1]);
 			vm.buttonListener(new MouseManage(), vm.extraButton[2]);
+			vm.extraButton[0].setEnabled(false);
 		}
 		else{
 			this.vm = new ViewCreateBoard(board,size);
