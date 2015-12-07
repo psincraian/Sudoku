@@ -6,7 +6,7 @@ package propias.dominio.clases;
  * 
  * Indica els possibles tipus de la cella
  */
-public enum CellType {
+public enum CellType implements java.io.Serializable {
 	Locked,
 	Unlocked,
 	Empty
