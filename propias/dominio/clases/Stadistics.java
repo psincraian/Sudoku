@@ -20,7 +20,7 @@ public class Stadistics implements java.io.Serializable {
         numHardMatchess = 0;
         timeEasyMatchess = 0;
         timeMediumMatchess = 0;
-        timeHardMatches;
+        timeHardMatches = 0;
         bestTimeEasyMatchess = 0;
         bestTimeMediumMatchess = 0;
         bestTimeHardMatchess = 0;
