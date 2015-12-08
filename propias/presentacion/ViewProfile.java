@@ -84,7 +84,7 @@ public class ViewProfile extends SetView{
 		title.setLayout(new BoxLayout(title,BoxLayout.Y_AXIS));
 		data.setLayout(new BoxLayout(data,BoxLayout.Y_AXIS));
 		title.setBackground(Color.white);
-		title.setBackground(Color.white);
+		data.setBackground(Color.white);
 		initData();
 		em = new JLabel("Partides Facils: ");
 		title.add(em);
@@ -114,6 +114,7 @@ public class ViewProfile extends SetView{
 	    title.add(bht);
 		data.add(dataBestTime[2]);
 		buttonReturn = new JButton("Tornar");
+		buttonReturn.setToolTipText("Tornar al Menu Principal");
 		buttons = new JPanel();
 		buttons.add(buttonReturn);
 	}
