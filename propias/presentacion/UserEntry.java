@@ -30,7 +30,6 @@ import javax.swing.KeyStroke;
  */
 
 public abstract class UserEntry extends SetView {
-	protected JFrame frame;
 	private String[] names = {"Nom: ","Contrasenya: "};
 	private JLabel[] label;
 	private JTextField name;
@@ -53,6 +52,7 @@ public abstract class UserEntry extends SetView {
 		setPreferredSize(976,728);
 		setMinimumSize(380,285);
 		initialize();
+		pack();
 		setVisible(true);
 	}
 
@@ -87,14 +87,14 @@ public abstract class UserEntry extends SetView {
 		vertical.add(Box.createVerticalGlue());
 		add(vertical, BorderLayout.CENTER);
 		
-		add(Box.createHorizontalStrut(100), BorderLayout.EAST);
+		getContentPane().add(Box.createHorizontalStrut(100), BorderLayout.EAST);
 
 		panelButtons = new JPanel();
 		panelButtons.add(accept);
 		panelButtons.add(cancel);
 		panelButtons.add(Box.createVerticalStrut(80), BorderLayout.SOUTH);
 		panelButtons.setBackground(Color.white);
-		add(panelButtons, BorderLayout.SOUTH);
+		getContentPane().add(panelButtons, BorderLayout.SOUTH);
 	}
 	/**
 	 * Initialize component's view
