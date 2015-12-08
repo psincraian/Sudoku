@@ -2,9 +2,11 @@ package propias.presentacion;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.event.MouseAdapter;
 import java.util.*;
 
+import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -33,7 +35,6 @@ public class ViewRanking extends SetView{
 		super();
 		this.name=name;
 		this.value=value;
-		getContentPane().setSize(500, 500);
 		setTitle("Ranking");
 		setMinimumSize(380,285);
 		setPreferredSize(976,728);
@@ -51,27 +52,24 @@ public class ViewRanking extends SetView{
 		Box verticalBox = Box.createVerticalBox();
 		verticalBox.add(Box.createGlue());
 		JPanel rank = new JPanel();
+		rank.setPreferredSize(new Dimension(200,40*nameL.length));
+		rank.setMinimumSize(new Dimension(200,40*nameL.length));
+		rank.setMaximumSize(new Dimension(200,40*nameL.length));
+		rank.setBorder(BorderFactory.createRaisedBevelBorder());
 		rank.add(nameP);
 		rank.add(Box.createHorizontalStrut(20));
 		rank.add(valueP);
 		rank.setBackground(Color.white);
 		verticalBox.add(rank);
+		verticalBox.add(Box.createGlue());
 		add(verticalBox, BorderLayout.CENTER);
-				
-		/*South*/
-		add(Box.createGlue(),BorderLayout.SOUTH);
-		
+						
 		/*East*/
 		button = new JButton("Tornar");
 		JPanel east = new JPanel();
 		east.setBackground(Color.white);
 		east.add(button);
-		add(east, BorderLayout.EAST);
-
-		//add(Box.createGlue(),BorderLayout.EAST);
-		
-		/*West*/
-		add(Box.createGlue(),BorderLayout.WEST);
+		add(east, BorderLayout.EAST);		
 	}
 	
 	public void setRanking(){

@@ -20,6 +20,7 @@ public class ViewCreateUser extends UserEntry{
 		super();
 		setTitle("Creacio d'un nou usuari");
 		addPasswordField();
+		setPanelSize(300,3);
 	}
 	/**
 	 *  Add a new entry at the view.(password verification)

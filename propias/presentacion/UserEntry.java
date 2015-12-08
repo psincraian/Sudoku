@@ -2,12 +2,14 @@ package propias.presentacion;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.util.List;
 
 import javax.swing.AbstractAction;
+import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -35,7 +37,7 @@ public abstract class UserEntry extends SetView {
 	protected JPasswordField pf;
 	protected JButton accept;
 	protected JButton cancel;
-	private JPanel[] panel;
+	private JPanel panel;
 	protected JPanel labelPanel;
 	protected JPanel textPanel;
 	protected JPanel panelButtons;
@@ -59,7 +61,6 @@ public abstract class UserEntry extends SetView {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		//getContentPane().setSize(750,750);
 		createView();
 	}
 	
@@ -71,18 +72,19 @@ public abstract class UserEntry extends SetView {
 		
 		Box vertical = Box.createVerticalBox();
 		vertical.add(Box.createVerticalGlue());
-		panel[0].setBackground(Color.WHITE);
+		panel.setBackground(Color.WHITE);
 		labelPanel.setBackground(Color.white);
 		textPanel.setBackground(Color.white);
 		labelPanel.add(label[0]);
 		labelPanel.add(Box.createVerticalStrut(10));
 		labelPanel.add(label[1]);
-		panel[0].add(labelPanel);
+		panel.add(labelPanel);
 		textPanel.add(name);
 		textPanel.add(Box.createVerticalStrut(10));
 		textPanel.add(pf);
-		panel[0].add(textPanel);
-		vertical.add(panel[0]);
+		panel.add(textPanel);
+		panel.setBorder(BorderFactory.createRaisedBevelBorder());
+		vertical.add(panel);
 		vertical.add(Box.createVerticalGlue());
 		add(vertical, BorderLayout.CENTER);
 		
@@ -101,7 +103,7 @@ public abstract class UserEntry extends SetView {
 	private void iniNames() {
 		label = new JLabel[2];
 		pf = new JPasswordField();
-		panel = new JPanel[2];
+		panel = new JPanel();
 		labelPanel = new JPanel();
 		textPanel = new JPanel();
 		labelPanel.setLayout(new BoxLayout(labelPanel, BoxLayout.Y_AXIS));
@@ -109,7 +111,6 @@ public abstract class UserEntry extends SetView {
 
 		for(int i = 0; i < names.length; ++i){
 			label[i] = new JLabel(names[i]);
-			panel[i] = new JPanel();
 		}
 		name = new JTextField(10);
 		pf = new JPasswordField(10);
@@ -157,6 +158,11 @@ public abstract class UserEntry extends SetView {
 		setVisible(false);
 	}
 	
+	protected void setPanelSize(int width, int nElem){
+		panel.setPreferredSize(new Dimension(width,nElem*40));
+		panel.setMinimumSize(new Dimension(width,nElem*40));
+		panel.setMaximumSize(new Dimension(width,nElem*40));
+	}
 	/**
 	 * @return Passwords to check
 	 */

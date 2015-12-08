@@ -44,7 +44,7 @@ public class SetView extends JFrame{
 		panelN.setLayout(new FlowLayout(FlowLayout.CENTER));
 		JLabel title = new JLabel(t);
 		title.setHorizontalAlignment(SwingConstants.CENTER);
-		verticalStrut = Box.createVerticalStrut(60);
+		verticalStrut = Box.createVerticalStrut(50);
 		Component horizontalStrut = Box.createHorizontalStrut(20);
 		panelN.add(verticalStrut);
 		panelN.add(title);

@@ -1,5 +1,6 @@
 package propias.presentacion;
 
+import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +15,7 @@ public class ViewLogin extends UserEntry{
 	public ViewLogin(){
 		super();
 		setTitle("Login d'usuari registrat");
+		setPanelSize(250,2);
 	}
 	/**
 	 * Send password to be checked to the controllers.
