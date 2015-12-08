@@ -36,9 +36,9 @@ public abstract class Ranking implements java.io.Serializable {
 	 * @param pr
 	 * @return
 	 */
-	protected int isIn(ParamRanking pr){
+	public int isIn(String id){
 		for(ParamRanking prAux : ranking){
-			if(prAux.getName().equals(pr.getName()))
+			if(prAux.getName().equals(id))
 				return ranking.indexOf(prAux);
 		}
 		return -1;

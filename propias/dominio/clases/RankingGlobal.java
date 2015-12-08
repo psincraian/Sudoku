@@ -20,7 +20,7 @@ public class RankingGlobal extends Ranking{
 
 	@Override
 	public void modRanking(ParamRanking pr) {
-		int index = isIn(pr);
+		int index = isIn(pr.getName());
 		if(index == -1)
 			addParam(pr);
 		else{

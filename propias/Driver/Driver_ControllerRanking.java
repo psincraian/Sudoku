@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
  
 import propias.dominio.clases.ParamRanking;
+import propias.dominio.clases.Ranking;
+import propias.dominio.clases.RankingGlobal;
 
 /**
  * 
@@ -18,18 +20,20 @@ public class Driver_ControllerRanking {
         ParamRanking pr = new ParamRanking("Daniel", 100);
         List<ParamRanking> lista = new ArrayList<ParamRanking>();
         lista.add(pr);
-        ControllerRanking cont = new ControllerRanking(lista,true);
-        System.out.println("Posicion: " + cont.positionRanking("Daniel"));
-        lista = cont.getRanking();
+        Ranking rank = new RankingGlobal(lista);
+        System.out.println("Posicion: " + rank.isIn("Daniel") + "\n");
+        lista = rank.getRanking();
         for(int i = 0; i < lista.size(); ++i)
             System.out.println("Usuario: "+ lista.get(i).getName() + " Valor: "+ lista.get(i).getValue());
+        System.out.println("\n");
         ParamRanking pr2 = new ParamRanking("David", 50);
-        cont.modRanking(pr2);
+        rank.modRanking(pr2);
         for(int i = 0; i < lista.size(); ++i)
             System.out.println("Usuario: "+ lista.get(i).getName() + " Valor: "+ lista.get(i).getValue());
+        System.out.println("\n");
         pr = new ParamRanking("Daniel",30);
-        cont.modRanking(pr);
-        lista = cont.getRanking();
+        rank.modRanking(pr);
+        lista = rank.getRanking();
         for(int i = 0; i < lista.size(); ++i)
             System.out.println("Usuario: "+ lista.get(i).getName() + " Valor: "+ lista.get(i).getValue());
     }
