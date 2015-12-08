@@ -1394,7 +1394,7 @@ public class CntrlSearchLevel {
 	* @int nivell: 0-facil,
 	* 1-mitja, 2 dificil.
 	*/
-	public int searchLvl(){
+	public int searchLevel(){
 		clearIsolatedCells();
 		easy();
 		if(found()) return 0;
