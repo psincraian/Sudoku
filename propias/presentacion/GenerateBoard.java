@@ -58,7 +58,6 @@ public abstract class GenerateBoard extends SetView{
 		else
 			subsize = 4;
 		initialize(board);
-		pack();
 	}
 
 	/**

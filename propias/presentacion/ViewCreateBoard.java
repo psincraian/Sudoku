@@ -25,6 +25,8 @@ public class ViewCreateBoard extends GenerateBoard{
 		setTitle("Creació d'un nou Sudoku");
 		setVisible(true);
 		enableCustomProperties();
+		pack();
+
 	}
 	/**
 	 * For this view hints buttons aren't necessary
