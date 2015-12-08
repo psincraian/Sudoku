@@ -57,6 +57,7 @@ public class ViewLoadMatch extends SetView{
 		panelButtons.setLayout(new GridLayout(id.size(),0));
 		getContentPane().add(panelButtons, BorderLayout.CENTER);
 		buttonReturn = new JButton("Tornar");
+		buttonReturn.setToolTipText("Tornar al Menu Principal");
 		buttons = new JPanel();
 		buttons.add(buttonReturn);
 		buttons.add(Box.createVerticalStrut(80), BorderLayout.SOUTH);
