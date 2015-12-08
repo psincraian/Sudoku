@@ -30,7 +30,7 @@ public class ViewStart extends SetView {
 		instanceGUI();
 		configureGUI();
 		addToGUI();
-		pack();
+		//pack();
 		setVisible(true);
 	}
 	/**
@@ -46,8 +46,8 @@ public class ViewStart extends SetView {
 	 * Configura la vista
 	 */
 	private void configureGUI() {
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		dispose();
+		//setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		//dispose();
 	}
 	/**
 	 * inclou a la vista els components
@@ -62,7 +62,7 @@ public class ViewStart extends SetView {
 		panelButtons.add(button4);
 		panelButtons.setBackground(Color.WHITE);
 		panelButtons.setLayout(new GridLayout(4,0));
-		getContentPane().add(panelButtons, BorderLayout.CENTER);
+		add(panelButtons, BorderLayout.CENTER);
 	}
 	/**
 	 * 
