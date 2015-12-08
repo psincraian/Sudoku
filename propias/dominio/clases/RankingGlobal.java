@@ -19,9 +19,14 @@ public class RankingGlobal extends Ranking{
 	}
 
 	@Override
-	public void modRanking(ParamRanking pr, int index) {
-		pr.setValue(pr.getValue() + ranking.get(index).getValue());
-		ranking.set(index, pr);
-		Collections.sort(ranking);		
+	public void modRanking(ParamRanking pr) {
+		int index = isIn(pr);
+		if(index == -1)
+			addParam(pr);
+		else{
+			pr.setValue(pr.getValue() + ranking.get(index).getValue());
+			ranking.set(index, pr);
+			Collections.sort(ranking);	
+		}
 	}
 }

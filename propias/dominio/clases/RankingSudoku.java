@@ -18,10 +18,13 @@ public class RankingSudoku extends Ranking{
 	}
 
 	@Override
-	public void modRanking(ParamRanking pr, int index) {
-		if(ranking.get(index).getValue() > pr.getValue()){
-			ranking.get(index).setValue(pr.getValue());
-			Collections.sort(ranking);
+	public void modRanking(ParamRanking pr) {
+		int index = isIn(pr);
+		if(index == -1)
+			addParam(pr);
+		else if(ranking.get(index).getValue() > pr.getValue()){
+				ranking.get(index).setValue(pr.getValue());
+				Collections.sort(ranking);
 		}
 	}
 }
