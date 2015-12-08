@@ -30,7 +30,7 @@ public class ViewLoadMatch extends SetView{
 		configureGUI();
 		if (id.size() >0) {
 			addToGUI();
-			pack();
+			//pack();
 		}
 		setVisible(true);
 	}
@@ -38,8 +38,8 @@ public class ViewLoadMatch extends SetView{
 	 * Configura la vista
 	 */
 	private void configureGUI() {
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		dispose();
+		//setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		//dispose();
 	}
 	/**
 	 * inclou a la vista els components
@@ -55,14 +55,14 @@ public class ViewLoadMatch extends SetView{
 		}
 		panelButtons.setBackground(Color.WHITE);
 		panelButtons.setLayout(new GridLayout(id.size(),0));
-		getContentPane().add(panelButtons, BorderLayout.CENTER);
+		add(panelButtons, BorderLayout.CENTER);
 		buttonReturn = new JButton("Tornar");
 		buttonReturn.setToolTipText("Tornar al Menu Principal");
 		buttons = new JPanel();
 		buttons.add(buttonReturn);
 		buttons.add(Box.createVerticalStrut(80), BorderLayout.SOUTH);
 		buttons.setBackground(Color.white);
-		getContentPane().add(buttons, BorderLayout.SOUTH);
+		add(buttons, BorderLayout.SOUTH);
 		
 	}
 	/**
