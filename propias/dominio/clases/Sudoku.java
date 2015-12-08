@@ -83,10 +83,10 @@ public class Sudoku implements java.io.Serializable {
 	public void updateRanking(String username, int score) {
 		ParamRanking param = new ParamRanking(username, score);
 		
-		int index = ranking.isIn(param);
+		int index = ranking.isIn(username);
 		if (index != -1) {
 			if (param.compareTo(ranking.getRanking().get(index)) == 1)
-				ranking.modRanking(param, index);
+				ranking.modRanking(param);
 		}
 		
 		ranking.addParam(param);
