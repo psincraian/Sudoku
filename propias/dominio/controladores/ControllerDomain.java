@@ -13,6 +13,8 @@ import propias.persistencia.ControllerPersistance;
 public class ControllerDomain {
     ControllerPersistance cp;
     ControllerRanking cr;
+    RankingGlobal rg;
+    RankingSudoku rs;
     Stadistics s;
     int size = 0;
     int dificult = 0;
@@ -21,7 +23,6 @@ public class ControllerDomain {
     String id;
     Match match;
     Match enunciat;
-    Board create;
     Board b;
     String username;
     
@@ -57,7 +58,7 @@ public class ControllerDomain {
                 username = user;
                 cp.userDBInit(username);
                 createStadistics();
-                setRankingController(true);
+                initRanking(true);
                 return "S'ha creat l'usuari"; //tot correcte
             }
                 catch (Exception e) {
@@ -74,7 +75,7 @@ public class ControllerDomain {
                         username = user;
                         cp.userDBInit(username);
                         createStadistics();
-                    setRankingController(true);
+                        initRanking(true);
                         return "Login correcte";
                     }
                     else return "Nom o contrasenya incorrectes";
@@ -97,11 +98,16 @@ public class ControllerDomain {
         try {
         	List<String> l = cp.getSudoku(c.getMida(), c.getDificultat());
             id = l.get(0);
+            this.size = c.getMida();
+            this.dificult = c.getDificultat();
+            this.type = c.getTipusPartida();
+            
             int[][] matrix = stringToMatrix(l.get(1));
             Board aux = convertToBoard(matrix, matrix[0].length); //tablero inicial
             int[][] matrix2 = stringToMatrix(l.get(2));
             Board sol = convertToBoard(matrix2, matrix2[0].length); //solucion
-            match = new Match(username, new Sudoku(aux, sol));
+            if(type == 0) match = new MatchTraining(username, new Sudoku(aux, sol));
+            else match = new MatchCompetition(username, new Sudoku(aux,sol));
             enunciat = match;
             b = aux;
             return matrix;
@@ -168,7 +174,7 @@ public class ControllerDomain {
      * @return Indica si la partida es entrenamiento o competicion
      */
     public boolean isCompetition(){
-        return (type == 2);
+        return (type == 1);
     }
     /**
      * 
@@ -315,7 +321,7 @@ public class ControllerDomain {
      * 
      * @param global Indica si el ranking es global o de sudoku
      */
-    public void setRankingController(boolean global) {
+    public void initRanking(boolean global) {
         try{
             List<List<String>> l;
             if (global) {
@@ -332,7 +338,7 @@ public class ControllerDomain {
                     //System.out.println("pers " + p.get(1));
                 }
                 List<ParamRanking> par = createParams(names, val,true); 
-                cr = new ControllerRanking(par,true);
+                rg = new RankingGlobal(par);
             }
             else {
                 l = cp.getRanking(id);
@@ -345,7 +351,7 @@ public class ControllerDomain {
                     val.add(Long.parseLong(p.get(1)));
                 }
                 List<ParamRanking> par = createParams(names, val,false);
-                cr = new ControllerRanking(par,false);
+                rs = new RankingSudoku(par);
             }
         }
         catch(Exception e){
@@ -357,16 +363,22 @@ public class ControllerDomain {
      * @param global Indica si el ranking es global o de sudoku
      */
     public void updateRanking(boolean global){
-        List<List<String>> l = new ArrayList<List<String>>();
-        List<String> aux = new ArrayList<String>();
+        //List<List<String>> l = new ArrayList<List<String>>();
+        //List<String> aux = new ArrayList<String>();
         if(global){
-            List<ParamRanking> c = cr.getRanking();
+            /*List<ParamRanking> c = rg.getRanking();
             for(int i=0; i< c.size(); ++i){
                 ParamRanking p = c.get(i);
                 aux.add(p.getName());
                 aux.add(Long.toString(p.getValue()));
                 l.add(aux);
-            }
+            }*/
+        	//COGER VALORES DE MATCH COMPETITION Y PASARSELOS(NAME, VALUE)
+        	// update en persistencia
+        }
+        else{
+        	//COGER VALORES DE MATCH COMPETITION Y PASARSELOS(NAME, VALUE)
+        	//update en persistencia
         }
     }
     /**
