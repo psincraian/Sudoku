@@ -31,7 +31,6 @@ public class ControllerPresentation implements GetParametersListener, SelectChar
     ControllerDomain cd;
     ControllerUserEntry cu;
     ControllerViewBoard c;
-    CaracteristiquesPartida cp;
     String name; // nom de l'usuari
     boolean correct;
     boolean createSudoku; // true: crear un sudoku, false: partidaRapida
@@ -223,12 +222,8 @@ public class ControllerPresentation implements GetParametersListener, SelectChar
     }*/
     @Override
     public void getParameters(CaracteristiquesPartida caracteristiques){
-    	cp = new CaracteristiquesPartida();
-    	cp.mida = caracteristiques.getMida();
-    	if(createSudoku) System.out.println("crear sudoku");
-    	else System.out.println("partida");
     	if (createSudoku){
-	    	int mida = cp.getMida();
+	    	int mida = caracteristiques.getMida();
 	        this.mida = mida;
 	        int m[][] = new int[mida][mida];
 	        for(int i=0; i< mida; ++i){
@@ -238,9 +233,7 @@ public class ControllerPresentation implements GetParametersListener, SelectChar
 	        c = new ControllerViewBoard(m, m[0].length,1,this,false);
     	}
     	else {
-    		cp.dificultat = caracteristiques.getDificultat();
-	    	cp.tipus = caracteristiques.getTipusPartida();
-    		int[][] m = cd.createMatch(cp);
+    		int[][] m = cd.createMatch(caracteristiques);
             if (!isCompetition()) play(m,false,false);
             else play(m,true,false);
     	}
