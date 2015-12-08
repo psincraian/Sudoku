@@ -52,8 +52,7 @@ public class ControllerPresentation implements GetParametersListener, SelectChar
 		frame = new JFrame("Sudoku");
 		frame.setBackground(Color.WHITE);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.getContentPane().setLayout(new java.awt.GridBagLayout());
-        frame.pack();
+        	frame.pack();
 		frame.setVisible(true);
 	}
     /**
