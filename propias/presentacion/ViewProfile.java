@@ -48,7 +48,7 @@ public class ViewProfile extends SetView{
 		this.bestTime = bestTime;
 		setTitle("Perfil d'usuari");
 		start_GUI();
-		pack();
+		//pack();
 		setVisible(true);
 	}
 	/**
@@ -70,7 +70,7 @@ public class ViewProfile extends SetView{
 		add(Box.createGlue(),BorderLayout.WEST);
 		buttons.add(Box.createVerticalStrut(80), BorderLayout.SOUTH);
 		buttons.setBackground(Color.white);
-		getContentPane().add(buttons, BorderLayout.SOUTH);	
+		add(buttons, BorderLayout.SOUTH);	
 	}
 	/**
 	 * Inicia les variables necessaries
@@ -144,3 +144,4 @@ public class ViewProfile extends SetView{
 	}
 	
 }
+
