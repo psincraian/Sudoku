@@ -2,6 +2,7 @@ package propias.dominio.controladores;
 
 import java.util.*;
 import propias.dominio.clases.*;
+import propias.dominio.controladores.generator.CntrlSearchLevel;
 import propias.dominio.controladores.generator.CntrlSudokuHelps;
 import propias.persistencia.ControllerPersistance;
 
@@ -262,21 +263,38 @@ public class ControllerDomain {
     }
     /**
      * Guarda el Tablero actual
+     * @param newSudoku Indica si el sudoku a guardar es nou o una partida en progres
      */
-    public void saveBoard(){
-        int[][] m = convertToMatrix(match.getSudoku());
-        int[][] en = convertToMatrix(enunciat.getSudoku());
-        int[][] sol = convertToMatrix(match.getSolution());
-        List<int[][]> l = new ArrayList<int[][]>();
-        try{
-            l.add(m);
-            l.add(en);
-            l.add(sol);
-            cp.saveMatch(id, l);
+    public void saveBoard(boolean newSudoku){
+        if (!newSudoku){
+	    	int[][] m = convertToMatrix(match.getSudoku());
+	        int[][] en = convertToMatrix(enunciat.getSudoku());
+	        int[][] sol = convertToMatrix(match.getSolution());
+	        List<int[][]> l = new ArrayList<int[][]>();
+	        try{
+	            l.add(m);
+	            l.add(en);
+	            l.add(sol);
+	            cp.saveMatch(id, l);
+	        }
+	        catch(Exception e){
+	            
+	        }
         }
-        catch(Exception e){
-            
+        else {
+	        CntrlSearchLevel cs = new CntrlSearchLevel();
+	        try {
+				cs.init(match.getSudoku());
+				int dificultat = cs.searchLevel();
+				new Sudoku(match.getSudoku(), match.getSolution(), dificultat+1);
+				int[][] m = convertToMatrix(match.getSudoku());
+				int[][] sol = convertToMatrix(match.getSolution());
+				cp.introduceSudoku(m, sol, dificultat);
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
         }
+        
     }
     /**
      * Modifica una casella d'un taulell amb progres per tal de retornar la partida
