@@ -17,7 +17,7 @@ import propias.dominio.clases.RankingGlobal;
 public class Driver_ControllerRanking {
  
     public static void main(String[] args){
-        ParamRanking pr = new ParamRanking("Daniel", 100);
+        ParamRanking pr = new ParamRanking("Daniel", 10);
         List<ParamRanking> lista = new ArrayList<ParamRanking>();
         lista.add(pr);
         Ranking rank = new RankingGlobal(lista);
@@ -32,6 +32,8 @@ public class Driver_ControllerRanking {
             System.out.println("Usuario: "+ lista.get(i).getName() + " Valor: "+ lista.get(i).getValue());
         System.out.println("\n");
         pr = new ParamRanking("Daniel",30);
+        rank.modRanking(pr);
+        pr = new ParamRanking("Oscar",45);
         rank.modRanking(pr);
         lista = rank.getRanking();
         for(int i = 0; i < lista.size(); ++i)
