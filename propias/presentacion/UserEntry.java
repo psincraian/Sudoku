@@ -53,7 +53,6 @@ public abstract class UserEntry extends SetView {
 		setPreferredSize(976,728);
 		setMinimumSize(380,285);
 		initialize();
-		pack();
 		setVisible(true);
 	}
 
@@ -88,14 +87,14 @@ public abstract class UserEntry extends SetView {
 		vertical.add(Box.createVerticalGlue());
 		add(vertical, BorderLayout.CENTER);
 		
-		getContentPane().add(Box.createHorizontalStrut(100), BorderLayout.EAST);
+		add(Box.createHorizontalStrut(100), BorderLayout.EAST);
 
 		panelButtons = new JPanel();
 		panelButtons.add(accept);
 		panelButtons.add(cancel);
 		panelButtons.add(Box.createVerticalStrut(80), BorderLayout.SOUTH);
 		panelButtons.setBackground(Color.white);
-		getContentPane().add(panelButtons, BorderLayout.SOUTH);
+		add(panelButtons, BorderLayout.SOUTH);
 	}
 	/**
 	 * Initialize component's view
@@ -141,14 +140,6 @@ public abstract class UserEntry extends SetView {
 	 */
 	protected void buttonListener(MouseAdapter mm, JButton b){
 		b.addMouseListener(mm);
-	}
-	
-	/**
-	 * Close view
-	 */
-	protected void closeView(){
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		dispose();
 	}
 	
 	/**

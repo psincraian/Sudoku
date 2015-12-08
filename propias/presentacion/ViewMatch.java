@@ -46,7 +46,6 @@ public class ViewMatch extends GenerateBoard{
 		timeP.add(timeL);
 		panelN.add(timeP);
 		initializeTime();
-		pack();
 		setVisible(true);
 	}
 	

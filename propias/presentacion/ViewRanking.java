@@ -40,7 +40,6 @@ public class ViewRanking extends SetView{
 		setPreferredSize(976,728);
 		setMaximumSize(1000,750);
 		initialize();
-		pack();
 		setVisible(true);
 	}
 	

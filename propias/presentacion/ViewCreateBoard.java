@@ -23,7 +23,6 @@ public class ViewCreateBoard extends GenerateBoard{
 	public ViewCreateBoard(int[][] board, int size){
 		super(board,size);
 		setTitle("Creació d'un nou Sudoku");
-		pack();
 		setVisible(true);
 		enableCustomProperties();
 	}
