@@ -295,7 +295,7 @@ public class ControllerPresentation implements GetParametersListener, SelectChar
      * Guarda la partida actual
      */
     public void saveBoard(){
-        cd.saveBoard();
+        cd.saveBoard(createSudoku);
     }
     /**
      * 
