@@ -24,7 +24,7 @@ import javax.swing.SwingConstants;
  *
  */
 
-public class SetView extends JPanel{
+public class SetView extends JFrame{
 	
 	Component verticalStrut;
 	JPanel panelN;
@@ -33,9 +33,9 @@ public class SetView extends JPanel{
 	 * constructor
 	 */
 	public SetView(){
-		super();
-		setLayout(new BorderLayout());
-		setBackground(Color.WHITE);
+		super("Sudoku");
+		getContentPane().setBackground(Color.WHITE);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 	
 	public void setTitle(String t){
@@ -44,12 +44,12 @@ public class SetView extends JPanel{
 		panelN.setLayout(new FlowLayout(FlowLayout.CENTER));
 		JLabel title = new JLabel(t);
 		title.setHorizontalAlignment(SwingConstants.CENTER);
-		verticalStrut = Box.createVerticalStrut(50);
+		verticalStrut = Box.createVerticalStrut(60);
 		Component horizontalStrut = Box.createHorizontalStrut(20);
 		panelN.add(verticalStrut);
 		panelN.add(title);
 		panelN.add(horizontalStrut);
-		add(panelN, BorderLayout.NORTH);
+		getContentPane().add(panelN, BorderLayout.NORTH);
 		setMaximumSize(1000,750);
 		setPreferredSize(976,728);
 	}
@@ -64,5 +64,10 @@ public class SetView extends JPanel{
 	
 	public void setPreferredSize(int x, int y){
 		setPreferredSize(new Dimension(x,y));
+	}
+	
+	public void setVerticalStrut(int y){
+		verticalStrut = Box.createVerticalStrut(y);
+		panelN.add(verticalStrut);
 	}
 }
