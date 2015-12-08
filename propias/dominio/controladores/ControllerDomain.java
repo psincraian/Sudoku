@@ -12,7 +12,6 @@ import propias.persistencia.ControllerPersistance;
  */
 public class ControllerDomain {
     ControllerPersistance cp;
-    ControllerRanking cr;
     RankingGlobal rg;
     RankingSudoku rs;
     Stadistics s;
@@ -33,7 +32,7 @@ public class ControllerDomain {
         cp = new ControllerPersistance();
     }
     /**
-     * 
+     * Comproba les credencials d'un usuari
      * @param credentials Contiene la informacion del usuario
      * @return Si el login o el crear usuario se ha relaizado correctamente
      */
@@ -90,7 +89,7 @@ public class ControllerDomain {
         }   
     }
     /**
-     * 
+     * Crea una partida a partir d'unes caracteristiques posades per l'usuari
      * @param c Contiene las caracteristicas de la nueva partia
      * @return Una nueva partida con caracteristicas c
      */
@@ -117,6 +116,7 @@ public class ControllerDomain {
         }
     }
     /**
+ 	* Converteix un string a una matriu
     * @param s String a convertir en int[][].
   	* @return int[][] representant el sudoku.
   	*/
@@ -136,14 +136,22 @@ public class ControllerDomain {
 		}		
 	    return board;
 	}
-    /**
-     * Crea una partida que ya tenia cargada el usuario
+    /** 
+     * Crea una partida nova que sera creada per l'usuari
      * @param size Indica el tamaño del tablero
      */
     public void newMatch(int size){
         match = new Match(username, size);
     }
-    public String setBoardFast(String s, int position, int i, int j, int mida){
+    /**
+     * Permet crear un nou taulell rapidament a partir d'una cadena de caracters que conte
+     * tots els valors de les caselles. Caselles buides es representen amb un punt.
+     * @param s Contingut de totes les caselles
+     * @param position posicio de la casella
+     * @param mida mida del taulell
+     * @return valor de la casella a posar
+     */
+    public String setBoardFast(String s, int position, int mida){
     	if (mida == 81){
 			if (position < s.length() && s.charAt(position) >= '0' && s.charAt(position) <= '9') {
 				return String.valueOf(s.charAt(position));
@@ -158,6 +166,11 @@ public class ControllerDomain {
     	}
     	return ".";
     }
+    /**
+     * Converteix un caracter al seu valor decimal
+     * @param a Caracter a convertir a decimal
+     * @return el valor en decimal del caracter a
+     */
     public String charHexa(char a){
     	if (a >='0' && a <= '9') return String.valueOf(a);
     	else if (a == 'A') return String.valueOf(10);
@@ -170,17 +183,17 @@ public class ControllerDomain {
     	else return String.valueOf(0);
     }
     /**
-     * 
+     * Indica si la partida que es jugara es de competicio o entrenament
      * @return Indica si la partida es entrenamiento o competicion
      */
     public boolean isCompetition(){
         return (type == 1);
     }
     /**
-     * 
-     * @param b Tablero
-     * @param mida Tamaño del tablero
-     * @return Convierte un Tablero a Matriz
+     * Converteix un tauell a una matriu
+     * @param taulell
+     * @param mida del tauell
+     * @return matriu del tauell
      */
     public int[][] convertToMatrix(Board b){
         int mida = b.getSize();
@@ -193,20 +206,20 @@ public class ControllerDomain {
         return m;
     }
     /**
-     * 
-     * @param m Matriz
-     * @param mida Indica el tamaño de la matriz
-     * @return Convierte una matriz a Tablero
+     * Converteix una matriu a un taulell
+     * @param m Matriu taulell
+     * @param mida Mida del tauell
+     * @return tauell de la matriu m
      */
     public Board convertToBoard(int[][] m, int mida) {
     try {
         Board b = new Board(mida);
-            for (int i=0; i<mida; ++i){
+        for (int i=0; i<mida; ++i){
                 for(int j=0; j<mida; ++j)
                 b.setCellValue(i, j, m[i][j]);
         }
-                return b; 
-        }      
+        return b; 
+    }      
         catch (Exception e) {
         return null;    
     } 
@@ -214,8 +227,8 @@ public class ControllerDomain {
     }  
         
     /**
-     * Comprueba si el Tablero actual es valido y tiene solucion unica
-     * @return
+     * Comproba si el taulell actual es valid i te solucio unica
+     * @return true: s'ha creat un sudoku correcte, false: altrament
      */
     public boolean compareSolution() {
         ControllerBoard cb = new ControllerBoard();
@@ -228,9 +241,9 @@ public class ControllerDomain {
         return correct;
     }
     /**
-     * 
+     * Retorna el taulell que l'usuari vol carregar
      * @param id Indica la partida a cargar
-     * @return Las partidas guardadas por el usuario
+     * @return Las partida guardada per l'usuari
      */
     public List<int[][]> getSavedMatches(String id){
         try{
@@ -266,7 +279,8 @@ public class ControllerDomain {
         }
     }
     /**
-     * 
+     * Modifica una casella d'un taulell amb progres per tal de retornar la partida
+     * on estava l'usuari
      * @param i Coordenada de la fila
      * @param j Coordenada de la columna
      * @return pone a inicio la casilla con coordenada i,j
@@ -387,7 +401,7 @@ public class ControllerDomain {
      * @param values Valores de puntuacion por usuario
      */
     public void getRanking(List<String> username, List<Long> values) {
-        List<ParamRanking> l = cr.getRanking();
+        List<ParamRanking> l = rg.getRanking();
         int mida = l.size();
         if (mida >10) mida = 10;
         for(int i=0; i<mida; ++i) {
