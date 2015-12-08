@@ -52,7 +52,6 @@ public class ControllerPresentation implements GetParametersListener, SelectChar
 		frame = new JFrame("Sudoku");
 		frame.setBackground(Color.WHITE);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.getContentPane().setLayout(new java.awt.GridBagLayout());
         frame.pack();
 		frame.setVisible(true);
 	}
@@ -168,18 +167,17 @@ public class ControllerPresentation implements GetParametersListener, SelectChar
     	    List<String> id = cd.getIDMatches();
     	    this.id = id;
     	    vl = new ViewLoadMatch(id);
-	    if (id.size() == 0) {
-  		JOptionPane.showMessageDialog(null, "No hi ha partides guardades");
-  		vl.disableView();
-  		getBack();
-	    }
-	    else{
-	  		
-  		for(int i=0; i<id.size(); ++i){
-  			vl.listeners(new MouseManage(), vl.buttonList.get(i));
-  		}
-  		vl.listener(new MouseManage());
-	  	}
+		    if (id.size() == 0) {
+		  		JOptionPane.showMessageDialog(null, "No hi ha partides guardades");
+		  		vl.disableView();
+		  		getBack();
+		    }
+		    else{
+		    	for(int i=0; i<id.size(); ++i){
+		    		vl.listeners(new MouseManage(), vl.buttonList.get(i));
+		    	}
+	  		vl.listener(new MouseManage());
+		  	}
 	  }
           
       else if (om == OptionsMenu.CrearSudoku) {
@@ -252,7 +250,7 @@ public class ControllerPresentation implements GetParametersListener, SelectChar
 				j = 0;
 				++i;
 			}
-    		String res = cd.setBoardFast(s, position, i, j,mida);
+    		String res = cd.setBoardFast(s, position, mida);
     		posx = String.valueOf(i);
 			posy = String.valueOf(j);
 			pos = posx + " " + posy;
