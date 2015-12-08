@@ -29,6 +29,21 @@ public class Sudoku implements java.io.Serializable {
 		ranking = new RankingSudoku(new ArrayList<ParamRanking>());
 	}
 	
+		/** Retorna Sudoku amb un enunciat i una solució
+	 * 
+	 * @param sudoku L'enunciat. Ha de ser un Sudoku valid. Només ha de tenir
+	 * una única solució.
+	 * @param solution La solució del sudoku. Ha de ser un sudoku valid.
+	 * @param level El nivell del sudoku. S'ha de correspondre amb el
+	 * sudoku donat.
+	 */
+	public Sudoku(Board sudoku, Board solution, int level) {
+		this.sudoku = sudoku;
+		this.solution = solution;
+		this.level = level;
+		ranking = new RankingSudoku(new ArrayList<ParamRanking>());
+	}
+	
 	/** Retorna el sudoku
 	 * 
 	 * @return retorna el sudoku modificable
@@ -73,6 +88,14 @@ public class Sudoku implements java.io.Serializable {
 	 */
 	public int returnLevel() {
 		return level;
+	}
+	
+	/** Permet donar el nivell al Sudoku
+	 * 
+	 * @rparam level el nou nivell del sudoku.
+	 */
+	public void setLevel(int level) {
+		this.level = level;
 	}
 	
 	/** Actualitza el ranking amb les noves dades passades com a parametre
