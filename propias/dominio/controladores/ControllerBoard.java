@@ -25,7 +25,7 @@ public class ControllerBoard {
 		} catch (Exception e1) {
 		}
     	for (int i=0; i<m[0].length; ++i){
-    		for(int j=0; j<m[0].length; ++i) {
+    		for(int j=0; j<m[0].length; ++j) {
     			try {
 					b.setCellValue(i, j, m[i][j]);
 				} catch (Exception e) {
