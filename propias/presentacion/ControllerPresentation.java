@@ -60,7 +60,7 @@ public class ControllerPresentation implements GetParametersListener, SelectChar
      */
     public void start() {
     	correct = false;
-        new ControllerStart(this);
+        new ControllerStart(this,frame);
     }
     /**
      * Inicia el login
@@ -250,7 +250,7 @@ public class ControllerPresentation implements GetParametersListener, SelectChar
 				j = 0;
 				++i;
 			}
-    		String res = cd.setBoardFast(s, position, mida);
+    		String res = cd.setBoardFast(s, position, mida,i,j);
     		posx = String.valueOf(i);
 			posy = String.valueOf(j);
 			pos = posx + " " + posy;
