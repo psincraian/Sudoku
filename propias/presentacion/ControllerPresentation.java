@@ -52,6 +52,8 @@ public class ControllerPresentation implements GetParametersListener, SelectChar
 		frame = new JFrame("Sudoku");
 		frame.setBackground(Color.WHITE);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.pack();
+		frame.setVisible(true);
 	}
     /**
      * Inicia el joc
@@ -59,16 +61,12 @@ public class ControllerPresentation implements GetParametersListener, SelectChar
     public void start() {
     	correct = false;
         new ControllerStart(this,frame);
-        frame.pack();
-		frame.setVisible(true);
     }
     /**
      * Inicia el login
      */
     public void startUser(){
     	cu = new ControllerUserEntry(this,true,frame);
-        frame.pack();
-		frame.setVisible(true);
     }
     /**
      * Inicia com a usuari Convidat
@@ -82,8 +80,6 @@ public class ControllerPresentation implements GetParametersListener, SelectChar
      */
     public void startNewUser(){
     	cu = new ControllerUserEntry(this, false,frame);
-        frame.pack();
-		frame.setVisible(true);
     }
     /**
      * 
@@ -171,6 +167,7 @@ public class ControllerPresentation implements GetParametersListener, SelectChar
     	    List<String> id = cd.getIDMatches();
     	    this.id = id;
     	    vl = new ViewLoadMatch(id);
+    	    frame.getContentPane().add(vl);
 		    if (id.size() == 0) {
 		  		JOptionPane.showMessageDialog(null, "No hi ha partides guardades");
 		  		vl.disableView();
@@ -199,17 +196,11 @@ public class ControllerPresentation implements GetParametersListener, SelectChar
           List<Long> values = new ArrayList<Long>();
           cd.getRanking(names,values);
           vr = new ViewRanking(names, values);
-          frame.getContentPane().add(vr);
-          frame.pack();
-  		  frame.setVisible(true);
           vr.listener(new MouseManage());
       }
       else if (om == OptionsMenu.Perfil) {
     	  view = 1; // perfil
     	  vp = new ViewProfile(getMatches(), getTime(), getBestTime());
-    	  frame.getContentPane().add(vp);
-          frame.pack();
-  		  frame.setVisible(true);
     	  vp.listener(new MouseManage());
       }
       else if (om == OptionsMenu.Sortir) start();
@@ -220,8 +211,8 @@ public class ControllerPresentation implements GetParametersListener, SelectChar
      * @param match
      */
     public void loadMatch(String match){
-    	List<int[][]> m = cd.getSavedMatches(match);
-        play(m.get(1),true,true);
+    	int[][] m = cd.getSavedMatch(match);
+        play(m,true,true);
     }
     /*public static synchronized ControllerPresentation getInstance(){
     	if (controller == null)
@@ -239,8 +230,6 @@ public class ControllerPresentation implements GetParametersListener, SelectChar
 	        }
 	        cd.newMatch(mida);
 	        c = new ControllerViewBoard(m, m[0].length,1,this,false,frame);
-	        frame.pack();
-			frame.setVisible(true);
     	}
     	else {
     		int[][] m = cd.createMatch(caracteristiques);
@@ -262,7 +251,7 @@ public class ControllerPresentation implements GetParametersListener, SelectChar
 				j = 0;
 				++i;
 			}
-    		String res = cd.setBoardFast(s, position, mida);
+    		String res = cd.setBoardFast(s, position, mida,i,j);
     		posx = String.valueOf(i);
 			posy = String.valueOf(j);
 			pos = posx + " " + posy;
@@ -357,8 +346,7 @@ public class ControllerPresentation implements GetParametersListener, SelectChar
               }
           }
       }
-      frame.pack();
-      frame.setVisible(true);
+      
     }
     /**
      * 
