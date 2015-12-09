@@ -52,8 +52,6 @@ public class ControllerPresentation implements GetParametersListener, SelectChar
 		frame = new JFrame("Sudoku");
 		frame.setBackground(Color.WHITE);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.pack();
-		frame.setVisible(true);
 	}
     /**
      * Inicia el joc
@@ -61,12 +59,16 @@ public class ControllerPresentation implements GetParametersListener, SelectChar
     public void start() {
     	correct = false;
         new ControllerStart(this,frame);
+        frame.pack();
+		frame.setVisible(true);
     }
     /**
      * Inicia el login
      */
     public void startUser(){
     	cu = new ControllerUserEntry(this,true,frame);
+        frame.pack();
+		frame.setVisible(true);
     }
     /**
      * Inicia com a usuari Convidat
@@ -80,6 +82,8 @@ public class ControllerPresentation implements GetParametersListener, SelectChar
      */
     public void startNewUser(){
     	cu = new ControllerUserEntry(this, false,frame);
+        frame.pack();
+		frame.setVisible(true);
     }
     /**
      * 
@@ -229,6 +233,8 @@ public class ControllerPresentation implements GetParametersListener, SelectChar
 	        }
 	        cd.newMatch(mida);
 	        c = new ControllerViewBoard(m, m[0].length,1,this,false,frame);
+	        frame.pack();
+			frame.setVisible(true);
     	}
     	else {
     		int[][] m = cd.createMatch(caracteristiques);
@@ -345,7 +351,8 @@ public class ControllerPresentation implements GetParametersListener, SelectChar
               }
           }
       }
-      
+      frame.pack();
+      frame.setVisible(true);
     }
     /**
      * 
