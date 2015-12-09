@@ -199,11 +199,17 @@ public class ControllerPresentation implements GetParametersListener, SelectChar
           List<Long> values = new ArrayList<Long>();
           cd.getRanking(names,values);
           vr = new ViewRanking(names, values);
+          frame.getContentPane().add(vr);
+          frame.pack();
+  		  frame.setVisible(true);
           vr.listener(new MouseManage());
       }
       else if (om == OptionsMenu.Perfil) {
     	  view = 1; // perfil
     	  vp = new ViewProfile(getMatches(), getTime(), getBestTime());
+    	  frame.getContentPane().add(vp);
+          frame.pack();
+  		  frame.setVisible(true);
     	  vp.listener(new MouseManage());
       }
       else if (om == OptionsMenu.Sortir) start();
