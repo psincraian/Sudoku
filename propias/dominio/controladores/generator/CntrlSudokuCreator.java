@@ -69,8 +69,23 @@ public class CntrlSudokuCreator {
 	    else{			
 			difficultDigging();			
 	    }
-	    randomizeSudoku(rand.nextInt(10)*2000);
+	    randomizeSudoku(rand.nextInt(10)*2000);	 
+	    setTypeCells();   
 	    return new Sudoku(sudoku, solution);
+	}
+
+	/**
+	* Metode per donar el tipus
+	* que correspon a cada casella.
+	*/
+	private void setTypeCells(){
+		for(int i = 0; i < size; ++i){
+			for(int j = 0; j < size; ++j){
+				if(sudoku.getCellValue(i, j) == 0) sudoku.setCellType(i, j, CellType.Unlocked);
+				else sudoku.setCellType(i, j, CellType.Locked);
+				solution.setCellType(i, j, CellType.Locked);
+			}
+		}
 	}
 	
 	/**
@@ -86,7 +101,6 @@ public class CntrlSudokuCreator {
 			if(easyDiggingHole(i, j)){
 				--givens;
 			}
-			System.out.println((givens > minGivens) + " " + givens + " " + minGivens);
 		}
 	}
 	
@@ -120,13 +134,9 @@ public class CntrlSudokuCreator {
 				}
 			}
 			else{
-				System.out.println("MEDIUM " + givens + " " + minGivens);
 				CntrlSudokuSolver solv = new CntrlSudokuSolver(sudoku);
 	    		solv.needUnique();
 	    		solv.solve();
-	    		if(solv.isUnique()){
-	    			System.out.println("ye");
-	    		}
 			}
 		}while(!trobat);
 	}
