@@ -33,7 +33,7 @@ public class SetView extends JPanel{
 	 * constructor
 	 */
 	public SetView(){
-		super();
+		super(new BorderLayout());
 		/*getContentPane().*/setBackground(Color.WHITE);
 		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
