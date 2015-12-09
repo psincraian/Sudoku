@@ -250,7 +250,7 @@ public class ControllerPresentation implements GetParametersListener, SelectChar
 				j = 0;
 				++i;
 			}
-    		String res = cd.setBoardFast(s, position, mida,i,j);
+    		String res = cd.setBoardFast(s, position, mida);
     		posx = String.valueOf(i);
 			posy = String.valueOf(j);
 			pos = posx + " " + posy;
