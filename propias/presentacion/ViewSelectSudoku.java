@@ -47,9 +47,11 @@ public class ViewSelectSudoku extends SetView{
 		for(int i = 0; i < buttons.length; ++i){
 			if(i % 3 == 0){
 				panel.add(horizontal);
+				panel.add(Box.createRigidArea(new Dimension(15,15)));
 				horizontal = Box.createHorizontalBox();
 			}
 			horizontal.add(buttons[i]);
+			horizontal.add(Box.createRigidArea(new Dimension(15,15)));
 		}
 		panel.setMaximumSize(new Dimension(250,(buttons.length/3)*35));
 		panel.setPreferredSize(new Dimension(250,(buttons.length/3)*35));
@@ -59,8 +61,6 @@ public class ViewSelectSudoku extends SetView{
 		vertical.add(Box.createVerticalGlue());
 		add(vertical, BorderLayout.CENTER);
 		
-		add(Box.createHorizontalStrut(100), BorderLayout.EAST);
-
 	}
 	/**
 	 * Initialize component's view
