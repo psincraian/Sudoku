@@ -19,9 +19,10 @@ public class ControllerStart {
 	 * 
 	 * @param cp Instance of controllerPresentation
 	 */
-	public ControllerStart(ControllerPresentation cp){
+	public ControllerStart(ControllerPresentation cp, JFrame frame){
 		this.cp = cp; 
 		vi = new ViewStart();
+		frame.getContentPane().add(vi);
 		vi.listeners(new MouseManage(), vi.button1);
 		vi.listeners(new MouseManage(), vi.button2);
 		vi.listeners(new MouseManage(), vi.button3);
