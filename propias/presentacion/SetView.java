@@ -65,9 +65,4 @@ public class SetView extends JFrame{
 	public void setPreferredSize(int x, int y){
 		setPreferredSize(new Dimension(x,y));
 	}
-	
-	public void setVerticalStrut(int y){
-		verticalStrut = Box.createVerticalStrut(y);
-		panelN.add(verticalStrut);
-	}
 }

@@ -30,6 +30,7 @@ public class ViewSelectSudoku extends SetView{
 		this.id = id;
 		createView();
 		setVisible(true);
+		pack();
 	}
 	
 	/**
@@ -38,19 +39,21 @@ public class ViewSelectSudoku extends SetView{
 	private void createView(){
 		iniNames();
 		
+		setTitle("Seleccio d'un sudoku de la base de dades");
 		Box vertical = Box.createVerticalBox();
 		vertical.add(Box.createVerticalGlue());
 		panel.setBackground(Color.WHITE);
-		//panel.add();
 		Box horizontal = Box.createHorizontalBox();
 		for(int i = 0; i < buttons.length; ++i){
-			if(i % 3 != 0)
-				horizontal.add(buttons[i]);
-			else{
+			if(i % 3 == 0){
 				panel.add(horizontal);
 				horizontal = Box.createHorizontalBox();
 			}
+			horizontal.add(buttons[i]);
 		}
+		panel.setMaximumSize(new Dimension(250,(buttons.length/3)*35));
+		panel.setPreferredSize(new Dimension(250,(buttons.length/3)*35));
+		panel.setMinimumSize(new Dimension(250,(buttons.length/3)*35));
 		panel.setBorder(BorderFactory.createRaisedBevelBorder());
 		vertical.add(panel);
 		vertical.add(Box.createVerticalGlue());
