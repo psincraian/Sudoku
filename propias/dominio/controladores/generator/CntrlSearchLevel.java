@@ -1453,14 +1453,22 @@ public class CntrlSearchLevel {
 		return true;
 	}
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	//Altres metodes:
 
-
-
-
-
-
-
-
+	/**
+	* Metode que retorna
+	* el Board actual amb els
+	* nombres que hagi trobat.
+	*/
+	public Board actualBoard() throws Exception {
+		Board act = new Board(size);
+		for(int p = 0; p < positions; ++p){
+			act.setCellValue(posICell(p), posJCell(p), decodeNum(numsPosCell.get(p)));
+		}
+		return act;
+	}
 
 
 }
