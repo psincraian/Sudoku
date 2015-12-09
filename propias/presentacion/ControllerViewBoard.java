@@ -6,6 +6,7 @@ import java.awt.event.MouseEvent;
 import java.util.List;
 
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -14,9 +15,12 @@ import javax.swing.JPanel;
 //import propias.Driver.ControllerPresentation; /*test*/
 
 /**
- * Its duty is to controll board view.
+ * 
+ * S'encarrega de controlar la clase GenerateBoard, configura els listeners
+ * de tots els botons i sobre el taulell.
  * 
  * @Author: Daniel Sanchez Martinez
+ * 
  */
 public class ControllerViewBoard {
 	
@@ -26,14 +30,17 @@ public class ControllerViewBoard {
 	List<Integer> candidates;
 	int size;
 	/**
-	 * Constructor. Initialize a view, depending of typeBoard. If typeBoard is 0, 
-	 * initialize a ViewMatch to play. If typeBoard is 1, initializes a ViewCreateBoard
-	 * to create a sudoku with holes given by user 
-	 * @param board
-	 * @param size
-	 * @param typeBoard
+	 * 
+	 * Constructor que s'encarrga de gestionar la vista seleccionada.
+	 * 
+	 * @param board : Es tracta del sudoku sense resoldre amb forats per tal
+	 * de que l'usuari el resolgui.
+	 * @param size : Representa la mida del sudoku. Potser 9 o 16.
+	 * @param typeBoard : Representa el tipus de vista. Si typeBoard(1) la vista serà 
+	 * la de creació d'un nou suoku per part de l'usuari
+	 * 
 	 */
-	public ControllerViewBoard(int[][] board, int size, int typeBoard, ControllerPresentation scp, boolean guest){
+	public ControllerViewBoard(int[][] board, int size, int typeBoard, ControllerPresentation scp, boolean guest, JFrame frame){
 		this.cp = scp;
 		this.size = size;
 		if(typeBoard == 0){
@@ -47,6 +54,7 @@ public class ControllerViewBoard {
 			this.vm = new ViewCreateBoard(board,size);
 			vm.buttonListener(new MouseManage(), vm.actEntry);
 		}
+		frame.getContentPane().add(vm);
 		vm.buttonListener(new MouseManage(), vm.extraButton[0]);
 		vm.buttonListener(new MouseManage(), vm.extraButton[3]);
 		vm.buttonListener(new MouseManage(), vm.button[size]);
@@ -59,18 +67,26 @@ public class ControllerViewBoard {
 		}
 	}
 	/**
-	 * In case the sudoku is started, it's necessary to update it
-	 * such as it was saved
-	 * @param position
-	 * @param value
+	 * 
+	 * En el cas que estiguem jugant una partida ja començada per l'usuari
+	 * cal actualitzar el taulell amb les modificacions fetes per l'usuari
+	 * tal com va acabar(sense contar les caselles ocupades al començar 
+	 * inicialment la partida)
+	 * 
+	 * @param position : Casella a modificar
+	 * @param value : Valor a mostrar
+	 * 
 	 */
 	public void updateBoard(String position, String value){
 		vm.setCell(findCell(position),value);
 	}
 	/**
-	 * Find a cell on board given a position
-	 * @param position
-	 * @return  cell
+	 * 
+	 * Troba una casella en el taulell donada una posició
+	 * 
+	 * @param position : La posició a ser trobada.
+	 * @return  cell : Retorna la casella.
+	 * 
 	 */
 	public JPanel findCell(String position){
 		boolean found = false;
@@ -86,20 +102,32 @@ public class ControllerViewBoard {
 		return p;
 	}
 	/**
-	 * Set enable the buttons depending on the candidates
-	 * @param cond
+	 * 
+	 * Habilita els botons(de l'1 al 9) depenen si son candidats o no.
+	 * 
+	 * @param cond : Depenen de cond, el boto estarà habilidat o no.
+	 * 
 	 */
 	public void setCandidates(boolean cond){
 		for(int i = 0; i < candidates.size();++i)
 			vm.setEnableButton(cond,candidates.get(i));
 	}
-	
+	/**
+	 * 
+	 * Genera un missatge per tal de ser mostrat a l'usuari.
+	 * 
+	 * @param message El missatge en questió.
+	 * 
+	 */
 	public void sendMessage(String message){
 		vm.sendMessage(message);
 	}
 	
 	/**
-	 * Implements mouseClicked function of MouseAdapter 
+	 * 
+	 * Implementa la funció mouseClicked de la clase MouseAdapter, per tal de 
+	 * poder gestionar els listeners de la vista.
+	 *  
 	 */
 	public class MouseManage extends MouseAdapter {
 		public void mouseClicked(MouseEvent e) {

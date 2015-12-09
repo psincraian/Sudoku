@@ -30,7 +30,7 @@ public class ViewSelectSudoku extends SetView{
 		this.id = id;
 		createView();
 		setVisible(true);
-		pack();
+		//pack();
 	}
 	
 	/**

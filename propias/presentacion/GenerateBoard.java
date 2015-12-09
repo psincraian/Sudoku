@@ -70,7 +70,7 @@ public abstract class GenerateBoard extends SetView{
 		panelS.setBackground(Color.white);
 
 		/*Center*/
-		getContentPane().add(panelC, BorderLayout.CENTER);
+		/*getContentPane().*/add(panelC, BorderLayout.CENTER);
 		panelC.setLayout(new BoxLayout(panelC,BoxLayout.Y_AXIS));
 
 		iniBoard(board);
@@ -78,7 +78,7 @@ public abstract class GenerateBoard extends SetView{
 		/*South*/
 		Component verticalStrut_ = Box.createVerticalStrut(130);
 		panelS.add(verticalStrut_);
-		getContentPane().add(panelS, BorderLayout.SOUTH);
+		/*getContentPane().*/add(panelS, BorderLayout.SOUTH);
 		
 		/*East*/
 		extraButton[0].setToolTipText("Guardar board actual");
@@ -87,7 +87,7 @@ public abstract class GenerateBoard extends SetView{
 		verticalButton.add(extraButton[3]);
 		verticalButton.add(extraButton[0]);
 		verticalButton.add(button[size]);
-		getContentPane().add(verticalButton, BorderLayout.EAST);
+		/*getContentPane().*/add(verticalButton, BorderLayout.EAST);
 	}
 	/**
 	 * Initialize the view

@@ -25,7 +25,7 @@ public class ViewCreateBoard extends GenerateBoard{
 		setTitle("Creació d'un nou Sudoku");
 		setVisible(true);
 		enableCustomProperties();
-		pack();
+		//pack();
 
 	}
 	/**

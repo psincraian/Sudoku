@@ -66,7 +66,7 @@ public class ControllerPresentation implements GetParametersListener, SelectChar
      * Inicia el login
      */
     public void startUser(){
-    	cu = new ControllerUserEntry(this,true);
+    	cu = new ControllerUserEntry(this,true,frame);
     }
     /**
      * Inicia com a usuari Convidat
@@ -79,7 +79,7 @@ public class ControllerPresentation implements GetParametersListener, SelectChar
      * Inicia la creacio d'un nou usuari
      */
     public void startNewUser(){
-    	cu = new ControllerUserEntry(this, false);
+    	cu = new ControllerUserEntry(this, false,frame);
     }
     /**
      * 
@@ -228,7 +228,7 @@ public class ControllerPresentation implements GetParametersListener, SelectChar
 	            for(int j=0; j< mida; ++j) m[i][j] = 0;
 	        }
 	        cd.newMatch(mida);
-	        c = new ControllerViewBoard(m, m[0].length,1,this,false);
+	        c = new ControllerViewBoard(m, m[0].length,1,this,false,frame);
     	}
     	else {
     		int[][] m = cd.createMatch(caracteristiques);
@@ -332,8 +332,8 @@ public class ControllerPresentation implements GetParametersListener, SelectChar
      * @param save Indica si la partida es una partida nova o una partida carregada
      */
     private void play(int[][] m, boolean competicio, boolean save)  { 
-      if (name.equals("Convidat")) c = new ControllerViewBoard(m, m[0].length,0,this,true);
-      else c = new ControllerViewBoard(m, m[0].length,0,this,false);
+      if (name.equals("Convidat")) c = new ControllerViewBoard(m, m[0].length,0,this,true,frame);
+      else c = new ControllerViewBoard(m, m[0].length,0,this,false,frame);
       if (save) {
           for(int i= 0; i<m[0].length; ++i) {
               for(int j=0; j<m[0].length; ++j) {

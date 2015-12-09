@@ -52,7 +52,7 @@ public abstract class UserEntry extends SetView {
 		setPreferredSize(976,728);
 		setMinimumSize(380,285);
 		initialize();
-		pack();
+		//pack();
 		setVisible(true);
 	}
 
@@ -87,14 +87,14 @@ public abstract class UserEntry extends SetView {
 		vertical.add(Box.createVerticalGlue());
 		add(vertical, BorderLayout.CENTER);
 		
-		getContentPane().add(Box.createHorizontalStrut(100), BorderLayout.EAST);
+		/*getContentPane().*/add(Box.createHorizontalStrut(100), BorderLayout.EAST);
 
 		panelButtons = new JPanel();
 		panelButtons.add(accept);
 		panelButtons.add(cancel);
 		panelButtons.add(Box.createVerticalStrut(80), BorderLayout.SOUTH);
 		panelButtons.setBackground(Color.white);
-		getContentPane().add(panelButtons, BorderLayout.SOUTH);
+		/*getContentPane().*/add(panelButtons, BorderLayout.SOUTH);
 	}
 	/**
 	 * Initialize component's view
