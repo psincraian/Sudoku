@@ -43,11 +43,12 @@ public class ControllerBoard {
 		Board b = convertMatrixToBoard(m);
 		CntrlSudokuVerification s = new CntrlSudokuVerification();
 		boolean solved = s.resolve(b);
-		CntrlSudokuSolver sol = new CntrlSudokuSolver(b);
-		sol.needUnique();
-		sol.solve();
-		boolean unique = sol.isUnique();
-		if (unique && solved) return true;
+		if(solved){
+			CntrlSudokuSolver sol = new CntrlSudokuSolver(b);
+			sol.needUnique();
+			sol.solve();
+			return sol.isUnique();			
+		}	
 		return false;
 	}
 }
