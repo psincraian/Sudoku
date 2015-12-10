@@ -31,7 +31,6 @@ public class ControllerPresentation implements GetParametersListener, SelectChar
     ControllerDomain cd;
     ControllerUserEntry cu;
     ControllerViewBoard c;
-    ControllerLoadMatch clm;
     String name; // nom de l'usuari
     boolean correct;
     boolean createSudoku; // true: crear un sudoku, false: partidaRapida
@@ -121,7 +120,6 @@ public class ControllerPresentation implements GetParametersListener, SelectChar
     public boolean checkInfoUser(List<String> credentials) {
       name = credentials.get(0);
       String result = cd.checkCredentials(credentials);
-      System.out.println(result);
       if (result.equals("Login correcte") || result.equals("S'ha creat l'usuari")) correct = true;
       cu.sendMessage(result);
       return correct;
@@ -168,10 +166,9 @@ public class ControllerPresentation implements GetParametersListener, SelectChar
     	    view = 3; // load match
     	    List<String> id = cd.getIDMatches();
     	    this.id = id;
-    	    //vl = new ViewLoadMatch(id);
-    	    clm = new ControllerLoadMatch(this, id, frame);
-    	    //frame.getContentPane().add(vl);
-		    /*if (id.size() == 0) {
+    	    vl = new ViewLoadMatch(id);
+    	    frame.getContentPane().add(vl);
+		    if (id.size() == 0) {
 		  		JOptionPane.showMessageDialog(null, "No hi ha partides guardades");
 		  		vl.disableView();
 		  		getBack();
@@ -181,7 +178,7 @@ public class ControllerPresentation implements GetParametersListener, SelectChar
 		    		vl.listeners(new MouseManage(), vl.buttonList.get(i));
 		    	}
 	  		vl.listener(new MouseManage());
-		  	}*/
+		  	}
 	  }
           
       else if (om == OptionsMenu.CrearSudoku) {
@@ -235,10 +232,19 @@ public class ControllerPresentation implements GetParametersListener, SelectChar
 	        c = new ControllerViewBoard(m, m[0].length,1,this,false,frame);
     	}
     	else {
-    		int[][] m = cd.createMatch(caracteristiques);
+    		int[][] m;
+    		if(!caracteristiques.newSudoku) {
+    			//List<String> ident = cd.getIDSudokus(caracteristiques);
+    			//paso los ident a la vista, mostrar los id y llama a selectsudoku
+    			selectSudoku("e1");
+    		}
+    		m = cd.createMatch(caracteristiques);
             if (!isCompetition()) play(m,false,false);
             else play(m,true,false);
     	}
+    }
+    public void selectSudoku(String id){
+    	cd.selectSudoku(id);
     }
     public void setBoardFast(String s){
     	int mida = 0;
