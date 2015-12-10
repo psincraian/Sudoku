@@ -121,6 +121,7 @@ public class ControllerPresentation implements GetParametersListener, SelectChar
     public boolean checkInfoUser(List<String> credentials) {
       name = credentials.get(0);
       String result = cd.checkCredentials(credentials);
+      System.out.println(result);
       if (result.equals("Login correcte") || result.equals("S'ha creat l'usuari")) correct = true;
       cu.sendMessage(result);
       return correct;
@@ -168,8 +169,8 @@ public class ControllerPresentation implements GetParametersListener, SelectChar
     	    List<String> id = cd.getIDMatches();
     	    this.id = id;
     	    //vl = new ViewLoadMatch(id);
-    	    clm = new ControllerLoadMatch(this, id);
-    	    frame.getContentPane().add(vl);
+    	    clm = new ControllerLoadMatch(this, id, frame);
+    	    //frame.getContentPane().add(vl);
 		    /*if (id.size() == 0) {
 		  		JOptionPane.showMessageDialog(null, "No hi ha partides guardades");
 		  		vl.disableView();
