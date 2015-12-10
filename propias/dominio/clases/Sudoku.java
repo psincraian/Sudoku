@@ -84,7 +84,7 @@ public class Sudoku implements java.io.Serializable {
 	
 	/** Retorna el nivell del Sudoku
 	 * 
-	 * @return es un enter entre 1 i 3.
+	 * @return es un enter entre 0 i 2.
 	 */
 	public int returnLevel() {
 		return level;
