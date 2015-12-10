@@ -41,6 +41,8 @@ public class CreateUser {
 	 * 
 	 */
 	public boolean isEqual(){
+		if(pass1 == null || pass2 == null)
+			return false;
 		return pass1 == pass2;
 	}
 	
