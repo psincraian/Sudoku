@@ -31,6 +31,7 @@ public class ControllerPresentation implements GetParametersListener, SelectChar
     ControllerDomain cd;
     ControllerUserEntry cu;
     ControllerViewBoard c;
+    ControllerLoadMatch clm;
     String name; // nom de l'usuari
     boolean correct;
     boolean createSudoku; // true: crear un sudoku, false: partidaRapida
@@ -134,7 +135,6 @@ public class ControllerPresentation implements GetParametersListener, SelectChar
         else
             Menu(false);
     }
-    
     /**
      * 
      * @param convidat Indica si l'usuari es usuari convidat
@@ -163,12 +163,14 @@ public class ControllerPresentation implements GetParametersListener, SelectChar
   		  frame.setVisible(true);
       }
       if (om == OptionsMenu.CargarPartida) {
+    	    createSudoku = false;
     	    view = 3; // load match
     	    List<String> id = cd.getIDMatches();
     	    this.id = id;
-    	    vl = new ViewLoadMatch(id);
+    	    //vl = new ViewLoadMatch(id);
+    	    clm = new ControllerLoadMatch(this, id);
     	    frame.getContentPane().add(vl);
-		    if (id.size() == 0) {
+		    /*if (id.size() == 0) {
 		  		JOptionPane.showMessageDialog(null, "No hi ha partides guardades");
 		  		vl.disableView();
 		  		getBack();
@@ -178,7 +180,7 @@ public class ControllerPresentation implements GetParametersListener, SelectChar
 		    		vl.listeners(new MouseManage(), vl.buttonList.get(i));
 		    	}
 	  		vl.listener(new MouseManage());
-		  	}
+		  	}*/
 	  }
           
       else if (om == OptionsMenu.CrearSudoku) {
@@ -228,7 +230,7 @@ public class ControllerPresentation implements GetParametersListener, SelectChar
 	        for(int i=0; i< mida; ++i){
 	            for(int j=0; j< mida; ++j) m[i][j] = 0;
 	        }
-	        cd.newMatch(mida);
+	        cd.newSudoku(mida);
 	        c = new ControllerViewBoard(m, m[0].length,1,this,false,frame);
     	}
     	else {
@@ -291,6 +293,9 @@ public class ControllerPresentation implements GetParametersListener, SelectChar
      */
     public void updateCell(String position, int value){
         cd.updateCell(position, value);
+        if(!createSudoku && cd.takePointsBoard() != 0){
+        	c.sendMessage("Felicitats, has omplert el sudoku. Ranking del Sudoku: " + cd.takePointsBoard());
+        }
     }
     /**
      * Guarda la partida actual
