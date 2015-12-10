@@ -42,9 +42,9 @@ public class CntrlSearchLevel {
 	//Metodes init:
 
 	/**
-	* Metodo para inicializar
-	* la matriz de posiciones
-	* por fila.
+	* Metode per inicialitzar
+	* la matriu de posicions
+	* per cada fila.
 	*/
 	private void initRowPositions(){
 		List<Integer> row = new ArrayList<Integer>();
@@ -59,9 +59,9 @@ public class CntrlSearchLevel {
 	}
 
 	/**
-	* Metodo para inicializar
-	* la matriz de posiciones
-	* por columna.
+	* Metode per inicialitzar
+	* la matriu de posicions
+	* per cada columna.
 	*/
 	private void initColPositions(){
 		List<Integer> col = new ArrayList<Integer>();
@@ -75,9 +75,9 @@ public class CntrlSearchLevel {
 	}
 
 	/**
-	* Metodo para inicializar
-	* la matriz de posiciones
-	* por quadrante.
+	* Metode per inicialitzar
+	* la matriu de posicions
+	* per cada quadrant.
 	*/
 	private void initBlockPositions(){
 		List<Integer> block = new ArrayList<Integer>();
@@ -98,9 +98,9 @@ public class CntrlSearchLevel {
 	}
 
 	/**
-	* Metodo para inicializar
-	* la lista de numeros posibles
-	* de cada casilla.
+	* Metode per inicialitzar
+	* la llista de nombres possibles
+	* de cada casella.
 	* @param board Board inicial.
 	*/
 	private void initNumsPos(Board board) throws Exception {
