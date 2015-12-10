@@ -40,10 +40,19 @@ public class CreateUser {
 	 * @return Comprova si els dos passwords son correctes
 	 * 
 	 */
-	public boolean isEqual(){
+	public int isEqual(){
+		for(int i = 0; i < pass1.length(); ++i) {
+			Character c = pass1.charAt(i);
+            if (c < '1' || (c >'9' && c < 'A') || (c > 'Z' && c < 'a') || c > 'z'){
+                return 0;
+            } 
+        }
 		if(pass1 == null || pass2 == null)
-			return false;
-		return pass1 == pass2;
+			return 1;
+		else if(pass1 == pass2)
+			return -1;
+		else
+			return 2;
 	}
 	
 	public Usuari createUser(){
