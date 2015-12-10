@@ -12,9 +12,9 @@ import java.time.Instant;
  */
 public class MatchCompetition extends Match {
 
-	private static final int POINTS_PER_EASY_SUDOKU = 10;
-	private static final int POINTS_PER_MEDIUM_SUDOKU = 20;
-	private static final int POITNS_PER_HARD_SUDOKU = 30;
+	private final int POINTS_PER_EASY_SUDOKU = 10;
+	private final int POINTS_PER_MEDIUM_SUDOKU = 20;
+	private final int POITNS_PER_HARD_SUDOKU = 30;
 	
 	private Instant startTime;
 	private Instant endTime;
