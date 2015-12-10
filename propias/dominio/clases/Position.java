@@ -9,7 +9,7 @@ package propias.dominio.clases;
  */
 public class Position {
 	
-	public static final String ERROR_VALUE_NEGATIVE = "Row or column is negative";
+	public final String ERROR_VALUE_NEGATIVE = "Row or column is negative";
 	
 	private int row;
 	private int column;
