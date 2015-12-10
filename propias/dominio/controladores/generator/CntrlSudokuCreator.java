@@ -133,11 +133,6 @@ public class CntrlSudokuCreator {
 					pos.add(a);
 				}
 			}
-			else{
-				CntrlSudokuSolver solv = new CntrlSudokuSolver(sudoku);
-	    		solv.needUnique();
-	    		solv.solve();
-			}
 		}while(!trobat);
 	}
 	
@@ -194,8 +189,8 @@ public class CntrlSudokuCreator {
 	   		solv.solve();
 	   		if(solv.isUnique()){
 				sudoku.deleteCellValue(i, j);
-	    		return true;
-	    	}
+	    			return true;
+	    		}
 		}		
 		return false;
 	}
@@ -221,8 +216,8 @@ public class CntrlSudokuCreator {
 	   		solv.solve();
 	   		if(solv.isUnique()){
 				sudoku.deleteCellValue(i, j);
-	    		return true;
-	    	}
+	    			return true;
+	    		}
 		}
 		return false;
 	}
