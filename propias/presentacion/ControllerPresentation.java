@@ -295,6 +295,7 @@ public class ControllerPresentation implements GetParametersListener, SelectChar
         cd.updateCell(position, value);
         if(!createSudoku && cd.takePointsBoard() != 0){
         	c.sendMessage("Felicitats, has omplert el sudoku. Ranking del Sudoku: " + cd.takePointsBoard());
+        	getBack();
         }
     }
     /**
