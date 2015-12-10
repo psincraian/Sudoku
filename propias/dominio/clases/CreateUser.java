@@ -3,7 +3,7 @@ package propias.dominio.clases;
 /**
  * 
  * Clase que s'encarrega de crear un nou usuari
- * quan sobre la vista de creació d'un nou usuari 
+ * quan sobre la vista de creaciÃ³ d'un nou usuari 
  * 
  * @author Daniel Sanchez Martinez
  * 
@@ -47,7 +47,7 @@ public class CreateUser {
                 return 0;
             } 
         }
-		if(pass1 == null || pass2 == null)
+		if(pass1 == "" || pass2 == "")
 			return 1;
 		else if(pass1 == pass2)
 			return -1;
