@@ -14,7 +14,7 @@ import propias.dominio.controladores.generator.CntrlSudokuSolver;
  */
 public class Match implements java.io.Serializable {
 	
-	public final static String ERROR_LOCKED_CELL = "Casella bloquejada";
+	public final String ERROR_LOCKED_CELL = "Casella bloquejada";
 	
 	private String username;
 	private Sudoku sudoku;
