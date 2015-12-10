@@ -24,4 +24,7 @@ public class Usuari extends UsuariGeneral {
 	public String getPassword() {
 		return password;
 	}
+	public void setPassword(String password){
+		this.password = password;
+	}
 }
