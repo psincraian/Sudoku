@@ -1,10 +1,12 @@
 package propias.dominio.controladores;
 
 import java.util.*;
+
 import propias.dominio.clases.*;
 import propias.dominio.controladores.generator.CntrlSearchLevel;
+import propias.dominio.controladores.generator.CntrlSudokuCreator;
+import propias.dominio.controladores.generator.CntrlSudokuGenerator;
 import propias.dominio.controladores.generator.CntrlSudokuHelps;
-import propias.persistencia.ControllerPersistance;
 
 /**
  * 
@@ -12,25 +14,25 @@ import propias.persistencia.ControllerPersistance;
  *
  */
 public class ControllerDomain {
-    ControllerPersistance cp;
+    ControllerCasting cc;
     RankingGlobal rg;
-    RankingSudoku rs;
-    Stadistics s;
+    Stadistics stad;
     int size = 0;
     int dificult = 0;
     int type = 0;
-    List<String> list;
     String id;
     Match match;
-    Match enunciat;
-    Board b;
-    String username;
+    Sudoku sudoku;
+    Usuari user;
+    boolean createSudoku; //indica si s'esta creant un nou sudoku o no
+    int cont; //indica les caselles posades per l'usuari al jugar una partida
+    int points; // punts de la partida
     
     /**
      * Constructora
      */
     public ControllerDomain(){
-        cp = new ControllerPersistance();
+        cc = new ControllerCasting();
     }
     /**
      * Comproba les credencials d'un usuari
@@ -43,23 +45,23 @@ public class ControllerDomain {
         if (credentials.size() == 3) { //create user
             try {
                 String pass2 = credentials.get(2);
-                if (user.equals("")) return "L'usuari no pot ser buit";
-                boolean b = cp.existsUser(user);
+                CreateUser c = new CreateUser(user,pass1,pass2);
+                if (c.isEqual() == -3) return "L'usuari no pot ser buit";
+                boolean b = cc.existsUser(user);
                 if (b)  return "L'usuari ja existeix";  //Usuari ja existent
-                else if (pass1.equals("") || pass2.equals("")) return "Les contrasenyes no poden ser buides";
-                else if (!pass1.equals(pass2)) return "Les contrasenyes no coincideixen"; //Les contrasenyes no coincideixen
-                int i;
-                for(i=0;i<pass1.length(); ++i) {
-                    if (pass1.charAt(i) < '1' || (pass1.charAt(i) >'9' && pass1.charAt(i) < 'A') || (pass1.charAt(i) > 'Z' && pass1.charAt(i) < 'a') || pass1.charAt(i) > 'z'){
-                        return "Les contrasenyes nomes poden tenir lletres i numeros";
-                    } 
+                else if(c.isEqual() == 1) return "Les contrasenyes no poden ser buides";
+                else if(c.isEqual() == 2) return "Les contrasenyes no coincideixen"; //Les contrasenyes no coincideixen
+                else if(c.isEqual() == 0)  return "Les contrasenyes nomes poden tenir lletres i numeros";
+                else {
+                	this.user = new Usuari(user);
+                	this.user.setPassword(pass1);
+                	cc.createUser(this.user);
+                	cc.userDBInit(this.user.consultarNom());
+                    createStadistics();
+                    initRanking();
+                	return "S'ha creat l'usuari";
                 }
-                cp.newUser(user,pass1);
-                username = user;
-                cp.userDBInit(username);
-                createStadistics();
-                initRanking(true);
-                return "S'ha creat l'usuari"; //tot correcte
+                
             }
                 catch (Exception e) {
                     return null;
@@ -69,13 +71,14 @@ public class ControllerDomain {
         else { //login
             String passWordOk = "";
             try {
-                if(!user.equals("") && cp.existsUser(user)) {
-                    passWordOk = cp.getPasswordUser(user);
+                if(!user.equals("") && cc.existsUser(user)) {
+                	Usuari u = cc.getUser(user);
+                    passWordOk = u.getPassword();
                     if (passWordOk.equals(pass1)) {
-                        username = user;
-                        cp.userDBInit(username);
+                    	this.user = new Usuari(user);
+                        cc.userDBInit(this.user.consultarNom());
                         createStadistics();
-                        initRanking(true);
+                        initRanking();
                         return "Login correcte";
                     }
                     else return "Nom o contrasenya incorrectes";
@@ -96,25 +99,49 @@ public class ControllerDomain {
      */
     public int[][] createMatch(CaracteristiquesPartida c){
         try {
-        	List<String> l = cp.getSudoku(c.getMida(), c.getDificultat());
-            id = l.get(0);
-            this.size = c.getMida();
-            this.dificult = c.getDificultat();
-            this.type = c.getTipusPartida();
+        	if (!c.newSudoku) {
+        		cont = 0;
+        	    Sudoku s = cc.getSudoku(c.getMida(), c.getDificultat(), id);
+        	    this.size = c.getMida();
+            	this.dificult = c.getDificultat();
+            	this.type = c.getTipusPartida();
+            	if(type == 0) match = new MatchTraining(this.user.consultarNom(), s);
+                else match = new MatchCompetition(this.user.consultarNom(), s);
+            	int[][] matrix = convertToMatrix(s.getSudoku());
+            	return matrix;
+        	}
+			else{
+				cont = 0;
+        		CntrlSudokuCreator cs = new CntrlSudokuCreator();
+        		CntrlSudokuGenerator csg = new CntrlSudokuGenerator(c.getMida());
+        		Sudoku s = cs.create(c.getDificultat(), csg.generateBoard());
+        	    String id = cc.introduceSudoku(s);
+        	    this.id = id;
+        	    s = cc.getSudoku(c.getMida(), c.getDificultat(), id);
+        	    this.size = c.getMida();
+            	this.dificult = c.getDificultat();
+            	this.type = c.getTipusPartida();
+            	if(type == 0) match = new MatchTraining(this.user.consultarNom(), s);
+                else match = new MatchCompetition(this.user.consultarNom(), s);
+            	int[][] matrix = convertToMatrix(s.getSudoku());
+            	return matrix;
+    		}	
             
-            int[][] matrix = stringToMatrix(l.get(1));
-            Board aux = convertToBoard(matrix, matrix[0].length); //tablero inicial
-            int[][] matrix2 = stringToMatrix(l.get(2));
-            Board sol = convertToBoard(matrix2, matrix2[0].length); //solucion
-            if(type == 0) match = new MatchTraining(username, new Sudoku(aux, sol));
-            else match = new MatchCompetition(username, new Sudoku(aux,sol));
-            enunciat = match;
-            b = aux;
-            return matrix;
         } catch (Exception e) {
             e.printStackTrace(); // mai arribarem
             return null;
         }
+    }
+    public List<String> getIDSudokus(CaracteristiquesPartida c){
+    	try {
+			return cc.getIDSudokus(c.getMida(), c.getDificultat());
+		} catch (Exception e) {
+			return null;
+		}
+    }
+    public void selectSudoku(String id){
+		this.id = id;
+	  
     }
     /**
  	* Converteix un string a una matriu
@@ -142,7 +169,14 @@ public class ControllerDomain {
      * @param size Indica el tamaño del tablero
      */
     public void newMatch(int size){
-        match = new Match(username, size);
+    	createSudoku = false;
+        match = new Match(this.user.consultarNom(), size);
+    }
+    public void newSudoku(int size){
+    	createSudoku = true;
+    	Board first = new Board(size);
+    	Board second = new Board(size);
+    	sudoku = new Sudoku(first,second);
     }
     /**
      * Permet crear un nou taulell rapidament a partir d'una cadena de caracters que conte
@@ -152,17 +186,34 @@ public class ControllerDomain {
      * @param mida mida del taulell
      * @return valor de la casella a posar
      */
-    public String setBoardFast(String s, int position, int mida){
+    public String setBoardFast(String s, int position, int mida,int i,int j){
     	if (mida == 81){
 			if (position < s.length() && s.charAt(position) >= '0' && s.charAt(position) <= '9') {
-				return String.valueOf(s.charAt(position));
+				try {
+					Position p = new Position();
+					p.setRow(i);
+					p.setColumn(j);
+					sudoku.setCell(p, Character.getNumericValue(s.charAt(position)));
+					return String.valueOf(s.charAt(position));
+				} catch (Exception e) {
+				}
+				
 			}
     	}
     	else if (mida == 256){
 			if ( position < s.length() && ((s.charAt(position) >= '0' && s.charAt(position) <= '9') || (s.charAt(position) >= 'A' &&
 					s.charAt(position) <= 'G')) ) {
 				String value = charHexa(s.charAt(position));
-				return value;
+				try {
+					Position p = new Position();
+					p.setRow(i);
+					p.setColumn(j);
+					sudoku.setCell(p, Character.getNumericValue(s.charAt(position)));
+					return value;
+				} catch (Exception e) {
+
+				}
+				
 			}
     	}
     	return ".";
@@ -205,26 +256,6 @@ public class ControllerDomain {
             }
         }
         return m;
-    }
-    /**
-     * Converteix una matriu a un taulell
-     * @param m Matriu taulell
-     * @param mida Mida del tauell
-     * @return tauell de la matriu m
-     */
-    public Board convertToBoard(int[][] m, int mida) {
-    try {
-        Board b = new Board(mida);
-        for (int i=0; i<mida; ++i){
-                for(int j=0; j<mida; ++j)
-                b.setCellValue(i, j, m[i][j]);
-        }
-        return b; 
-    }      
-        catch (Exception e) {
-        return null;    
-    } 
-           
     }  
         
     /**
@@ -246,16 +277,20 @@ public class ControllerDomain {
      * @param id Indica la partida a cargar
      * @return Las partida guardada per l'usuari
      */
-    public List<int[][]> getSavedMatches(String id){
+    public int[][] getSavedMatch(String id){
         try{
+        	cont = 0;
+        	createSudoku = false;
             this.id = id;
-            List<int[][]> l = cp.getSavedMatch(id); // pos 0 = progres, pos 1 = enunciat, pos 2 = solucio
-            Board actual = convertToBoard(l.get(0), l.get(0).length);
-            Board solucio = convertToBoard(l.get(2), l.get(2).length);
-            match = new Match(username, new Sudoku(actual, solucio));
-            Board inici = convertToBoard(l.get(1), l.get(1).length);
-            enunciat = new Match(username, new Sudoku(inici, solucio));
-            return l;
+            match = cc.getSavedMatch(id);
+            dificult = match.getSudokuLevel()-1;
+            size = match.getSudokuSize();
+            int [][] enunciat = convertToMatrix(match.getSudoku());
+            for(int i=0; i<enunciat.length; ++i){
+            	for(int j=0; j<enunciat.length; ++j)
+            		if(enunciat[i][j] != 0) ++cont; 
+            }
+            return enunciat;
         }
         catch(Exception e){
             return null;
@@ -266,30 +301,25 @@ public class ControllerDomain {
      * @param newSudoku Indica si el sudoku a guardar es nou o una partida en progres
      */
     public void saveBoard(boolean newSudoku){
-        if (!newSudoku){
-	    	int[][] m = convertToMatrix(match.getSudoku());
-	        int[][] en = convertToMatrix(enunciat.getSudoku());
-	        int[][] sol = convertToMatrix(match.getSolution());
-	        List<int[][]> l = new ArrayList<int[][]>();
+        if (!newSudoku){ // es una partida amb progres
 	        try{
-	            l.add(m);
-	            l.add(en);
-	            l.add(sol);
-	            cp.saveMatch(id, l);
+	            //cc.saveMatch(match,id);
 	        }
 	        catch(Exception e){
-	            
 	        }
         }
-        else {
+        else { // es un nou sudoku
+        	for(int i=0; i< match.getSudokuSize(); ++i){
+        		for(int j=0; j< match.getSudokuSize(); ++j){
+        			if(match.getSudoku().getCellValue(i, j) != 0) match.getSudoku().setCellType(i, j, CellType.Locked);
+        		}
+        	}
 	        CntrlSearchLevel cs = new CntrlSearchLevel();
 	        try {
 				cs.init(match.getSudoku());
 				int dificultat = cs.searchLevel();
-				new Sudoku(match.getSudoku(), match.getSolution(), dificultat+1);
-				int[][] m = convertToMatrix(match.getSudoku());
-				int[][] sol = convertToMatrix(match.getSolution());
-				cp.introduceSudoku(m, sol, dificultat);
+				Sudoku s = new Sudoku(match.getSudoku(), match.getSolution(), dificultat+1);
+				cc.introduceSudoku(s);
 			} catch (Exception e1) {
 				e1.printStackTrace();
 			}
@@ -306,9 +336,7 @@ public class ControllerDomain {
     public int modify(int i, int j) {
         Board aux = match.getSudoku();
         int[][] auxi = convertToMatrix(aux);
-        Board aux2 = enunciat.getSudoku();
-        int[][] auxi2 = convertToMatrix(aux2);
-        if (auxi[i][j] != 0 && auxi2[i][j] == 0) return auxi[i][j];
+        if (auxi[i][j] != 0 && aux.getCellType(i, j) != CellType.Locked) return auxi[i][j];
         return 0;
     }
     /**
@@ -317,74 +345,18 @@ public class ControllerDomain {
      */
     public List<String> getIDMatches(){
         try {
-        return cp.getIdMatches();
+        return cc.getIdMatches();
     } catch (Exception e) {
         return null;
         }
     }
     /**
      * 
-     * @param names Nombres de usuarios registrados
-     * @param values Valores de ranking por usuario
-     * @param global Indica si el ranking es el global o el de sudoku
-     * @return
-     */
-    public static List<ParamRanking> createParams(List<String> names, List<Long>values, boolean global){
-        List<ParamRanking> l = new ArrayList<ParamRanking>();
-        if (global) {
-            for(int i = 0; i<names.size(); ++i){
-                String n = names.get(i);
-                Long v = values.get(i);
-                ParamRanking p = new ParamRanking(n,v);
-                l.add(p);
-            }
-        }
-        else {
-            for(int i = 0; i< names.size(); ++i){
-                String n = names.get(i);
-                Long v = values.get(i);
-                ParamRanking p = new ParamRanking(n,v);
-                l.add(p);
-            }
-        }
-        return l;
-    }
-    /**
-     * 
      * @param global Indica si el ranking es global o de sudoku
      */
-    public void initRanking(boolean global) {
+    public void initRanking() {
         try{
-            List<List<String>> l;
-            if (global) {
-                l = cp.getRanking("RankingGlobal");
-                List<String> names = new ArrayList<String>();
-                List<Long> val = new ArrayList<Long>();
-                for(int i=0; i<l.size(); ++i){
-                    List<String> p = l.get(i);
-                    names.add(p.get(0));
-                    //String aux = p.get(1);
-                    //val.add(Long.parseLong(aux));
-                    val.add(0L);
-                    //System.out.println("pers " + p.get(0));
-                    //System.out.println("pers " + p.get(1));
-                }
-                List<ParamRanking> par = createParams(names, val,true); 
-                rg = new RankingGlobal(par);
-            }
-            else {
-                l = cp.getRanking(id);
-                List<String> names = new ArrayList<String>();
-                List<Long> val = new ArrayList<Long>();
-                
-                for(int i=0; i<l.size(); ++i){
-                    List<String> p = l.get(i);
-                    names.add(p.get(0));
-                    val.add(Long.parseLong(p.get(1)));
-                }
-                List<ParamRanking> par = createParams(names, val,false);
-                rs = new RankingSudoku(par);
-            }
+            rg = cc.getRankingGlobal();
         }
         catch(Exception e){
             e.printStackTrace();
@@ -444,13 +416,27 @@ public class ControllerDomain {
         int row = Integer.parseInt(nombres[0]);
         int column = Integer.parseInt(nombres[1]);
         try {
-        match.setCell(new Position(row, column), value);
-    } 
-    catch (Exception e) {
+	        match.setCell(new Position(row, column), value);
+	        if(!createSudoku){ //nomes es comproba si esta ben resolt si no s'esta creant un sudoku
+		        if (cont < size) ++cont;
+		        else { // ha completado la partida correctamente
+		        	Sudoku s = new Sudoku(match.getSudoku(), match.getSolution());
+		        	int score = match.score();
+		        	s.updateRanking(this.user.consultarNom(), score);
+		        	stad.addTime(match.getMatchTime(), dificult); //actualizo tiempo estadisticas
+		        	stad.afegirNumPartides(1, dificult); //actualizo numer partidas de estadisticas
+		        	rg.modRanking(new ParamRanking(this.user.consultarNom(), match.getMatchTime())); //actualizo ranking global
+		        	points = score;
+		        }
+	        }
+        } 
+        catch (Exception e) {
         e.printStackTrace();
+        }
     }
+    public int takePointsBoard(){
+    	return points;
     }
-    
     public void setBoardFast(String s) {
     	
     }
@@ -519,7 +505,7 @@ public class ControllerDomain {
      */
     public void createStadistics() {
         try{
-            s = new Stadistics(cp.getStadistics());
+            stad = cc.getStadistics();
         }
         catch(Exception e){
             System.out.println("Catched");
@@ -531,9 +517,9 @@ public class ControllerDomain {
      */
     public long[] returnMatches() {
         long[] a = new long[3];
-        a[0] = s.numEasyMatches;
-        a[1] = s.numMediumMatches;
-        a[2] = s.numHardMatches;
+        a[0] = stad.numEasyMatches;
+        a[1] = stad.numMediumMatches;
+        a[2] = stad.numHardMatches;
         return a;
     }
     /**
@@ -542,9 +528,9 @@ public class ControllerDomain {
      */
     public long[] returnTime() {
         long[] a = new long[3];
-        a[0] = s.timeEasyMatches;
-        a[1] = s.timeMediumMatches;
-        a[2] = s.timeHardMatches;
+        a[0] = stad.timeEasyMatches;
+        a[1] = stad.timeMediumMatches;
+        a[2] = stad.timeHardMatches;
         return a;
     }
     /**
@@ -553,9 +539,9 @@ public class ControllerDomain {
      */
     public long[] returnBestTime() {
         long[] a = new long[3];
-        a[0] = s.bestTimeEasyMatches;
-        a[1] = s.bestTimeMediumMatches;
-        a[2] = s.bestTimeHardMatches;
+        a[0] = stad.bestTimeEasyMatches;
+        a[1] = stad.bestTimeMediumMatches;
+        a[2] = stad.bestTimeHardMatches;
         return a;
     }
     
