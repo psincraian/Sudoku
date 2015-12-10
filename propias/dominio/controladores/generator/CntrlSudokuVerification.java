@@ -3,15 +3,24 @@ package propias.dominio.controladores.generator;
 import propias.dominio.clases.Board;
 
 /**
- * Sudoku verification
+ * 
+ * Verificador d'un sudoku. Verifica si un sudoku compleix que
+ * un nombre no pot estar repetit dos cops a la mateixa fila, columna
+ * quadrant
  * 
  * @author Daniel Sanchez Martinez
  */
 public class CntrlSudokuVerification {
+	
 	/**
-	 * Check if a given sudoku is correct. No same number in row, column and quadrant
-	 * @param b
-	 * @return if correct true, if not false
+	 * 
+	 * Comprova si donat un sudoku és correct. Si no es troba 
+	 * un nombre dos cops en la mateix fila, columna i quadrant
+	 * llavors el sudoku es correcte.
+	 * 
+	 * @param b : el sudoku a ser comprovat
+	 * @return : si es correcte retorna true, sino retorn false
+	 * 
 	 */
 	public boolean resolve(Board b){
 		final int dim = b.getSize();	

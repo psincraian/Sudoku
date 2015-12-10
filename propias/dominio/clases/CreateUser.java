@@ -1,48 +1,53 @@
 package propias.dominio.clases;
 
 /**
- * Class created to use when a new player want to be
- * an user 
+ * 
+ * Clase que s'encarrega de crear un nou usuari
+ * quan sobre la vista de creació d'un nou usuari 
  * 
  * @author Daniel Sanchez Martinez
+ * 
  */
 public class CreateUser {
 
 	private String nom, pass1, pass2;
+	
 	/**
+	 * 
 	 * Constructor
-	 * @param nom
-	 * @param pass1
-	 * @param pass2
+	 * @param nom : nom del nou usuari
+	 * @param pass1 : contrasenya 1
+	 * @param pass2 : contrasenya 2
+	 * 
 	 */
 	public CreateUser (String nom, String pass1, String pass2){
 		this.nom = nom;
 		this.pass1 = pass1;
 		this.pass2 = pass2;
 	}
-	/**
-	 * Empty constructor
-	 */
-	public CreateUser(){}
 	
 	/**
-	 * Return the name of the user 
-	 * @return name
+	 *  
+	 * @return name : retorna el nom de l'usuari nou
+	 * 
 	 */
 	public String getName(){
 		return nom;
 	}
+	
 	/**
-	 * Return the password of the user to be checked
-	 * @return password
-	 */
-	public String getPass(){
-		return pass1;
-	}
-	/**
-	 * @return check if two passwords are equal
+	 * 
+	 * @return Comprova si els dos passwords son correctes
+	 * 
 	 */
 	public boolean isEqual(){
 		return pass1 == pass2;
+	}
+	
+	public Usuari createUser(){
+		Usuari user = new Usuari(nom);
+		user.setPassword(pass1);
+		return user;
+		
 	}
 }
