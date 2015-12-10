@@ -71,7 +71,7 @@ public class CntrlSudokuCreator {
 	    }
 	    randomizeSudoku(rand.nextInt(10)*2000);	 
 	    setTypeCells();   
-	    return new Sudoku(sudoku, solution);
+	    return new Sudoku(sudoku, solution, (dificultat+1));
 	}
 
 	/**
