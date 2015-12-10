@@ -3,24 +3,19 @@ package propias.presentacion;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.KeyEvent;
 
-import javax.swing.AbstractAction;
 import javax.swing.Box;
-import javax.swing.JComponent;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.KeyStroke;
 import javax.swing.SwingConstants;
 
 /**
- * Sets the father View. This view is just for herency. 
  * 
- * @author daniel sanchez martinez
+ * Configura el panell que s'heretarà per tal de que
+ * totes les vistes tinguin la mateixa base
+ * 
+ * @author Daniel Sanchez Martinez
  *
  */
 
@@ -30,14 +25,22 @@ public class SetView extends JPanel{
 	JPanel panelN;
 	
 	/**
-	 * constructor
+	 * 
+	 * Constructor
+	 * 
 	 */
 	public SetView(){
 		super(new BorderLayout());
-		/*getContentPane().*/setBackground(Color.WHITE);
-		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBackground(Color.WHITE);
 	}
 	
+	/**
+	 * 
+	 * Funció que s'encarrega de ficar un titol a la vista.
+	 * 
+	 * @param t : el titol en si.
+	 * 
+	 */
 	public void setTitle(String t){
 		panelN = new JPanel();
 		panelN.setBackground(Color.WHITE);
@@ -49,20 +52,6 @@ public class SetView extends JPanel{
 		panelN.add(verticalStrut);
 		panelN.add(title);
 		panelN.add(horizontalStrut);
-		/*getContentPane().*/add(panelN, BorderLayout.NORTH);
-		setMaximumSize(1000,750);
-		setPreferredSize(976,728);
-	}
-	
-	public void setMaximumSize(int x, int y){
-		setMaximumSize(new Dimension(x,y));
-	}
-	
-	public void setMinimumSize(int x, int y){
-		setMinimumSize(new Dimension(x,y));
-	}
-	
-	public void setPreferredSize(int x, int y){
-		setPreferredSize(new Dimension(x,y));
+		add(panelN, BorderLayout.NORTH);
 	}
 }

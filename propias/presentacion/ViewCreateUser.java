@@ -5,16 +5,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Set createUser view.
+ * 
+ * Configura la vista de creació d'un nou usuari
  * 
  * @author Daniel Sanchez Martinez
+ * 
  */
 public class ViewCreateUser extends UserEntry{
 
 	private JPasswordField pass2;
 
 	/**
-	 * Create the application.
+	 * 
+	 * Constructora de la vista. Configura el titol i afegeix un nou element
+	 * pertanyent a la contrasenya de verificació
+	 * 
 	 */
 	public ViewCreateUser() {
 		super();
@@ -22,8 +27,12 @@ public class ViewCreateUser extends UserEntry{
 		addPasswordField();
 		setPanelSize(300,3);
 	}
+	
 	/**
-	 *  Add a new entry at the view.(password verification)
+	 * 
+	 *  Afegeix una nova linea a la vista. Un JLabel que correspon al missatge
+	 *  de que torni a escriure la contrasenya i la pròpia contrasenya.
+	 *  
 	 */
 	public void addPasswordField(){
 		pass2 = new JPasswordField(10);
@@ -35,7 +44,10 @@ public class ViewCreateUser extends UserEntry{
 	}
 	
 	/**
-	 * Send the passwords to be checked to the controllers.
+	 * 
+	 * Envia els dos passwords per tal de ser verificiats.
+	 * Si no son iguals, s'enviarà un missatge d'error. 
+	 * 
 	 */
 	public List<String> getInfoUser(){
 		List<String> user = new ArrayList<String>();
@@ -44,5 +56,4 @@ public class ViewCreateUser extends UserEntry{
 		user.add(String.valueOf(pass2.getPassword()));
 		return user;
 	}
-	
 }

@@ -10,22 +10,21 @@ import java.awt.event.MouseAdapter;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 
-import javafx.scene.shape.Line;
 
 /**
- * Generates a new view of board. the type's view is:
- * ViewMatch to create a new match
- * ViewCreateBoard to create a new sudoku by the user
+ * 
+ * Configura una nova vista amb un taulell. Segons 
+ * el tipus de vista que es vulgui, es carregarà 
+ * la creació d'un nou sudoku o jugar una partida. 
  * 
  * @author Daniel Sanchez Martinez
+ * 
  */
 public abstract class GenerateBoard extends SetView{
 	private JPanel panelS;
@@ -34,7 +33,6 @@ public abstract class GenerateBoard extends SetView{
 	protected JButton[] extraButton;
 	protected JPanel[][] square;
 	private JLabel[][] label;
-	private Box verticalBox;
 	Box horizontalBox;
 	Box verticalButton;
 	private int size;
@@ -45,15 +43,21 @@ public abstract class GenerateBoard extends SetView{
 	JButton actEntry;
 	
 	/**
-	 * Create the application.
+	 * 
+	 * Constructor del GenerateBoard. Configura la submida 
+	 * del taulell i comença a configurar la vista
+	 * 
+	 * @param board : Pertany al sudoku, si la vista que es vol mostrar
+	 * es ViewMatch, board contindrà el sudoku sense resoldre(amb forats), 
+	 * en el cas de que es vulgui la vista per crear un nou sudoku, el board
+	 * serà buit.
+	 * @param size : la mida del sudoku
+	 * 
 	 */
 	public GenerateBoard(int[][] board, int size) {
 		super();
-		//setMaximumSize(1000,750);
-		//setPreferredSize(976,728);
-		//setMinimumSize(976,728);
 		this.size = size;
-		if(size % 3 == 0)
+		if(size == 9)
 			subsize = 3;
 		else
 			subsize = 4;
@@ -61,7 +65,10 @@ public abstract class GenerateBoard extends SetView{
 	}
 
 	/**
-	 * Create the view
+	 * 
+	 * Configura la vista.
+	 * 
+	 * @param board : El sudoku
 	 */
 	protected void initialize(int[][] board) {
 		panelC = new JPanel();
@@ -70,7 +77,7 @@ public abstract class GenerateBoard extends SetView{
 		panelS.setBackground(Color.white);
 
 		/*Center*/
-		/*getContentPane().*/add(panelC, BorderLayout.CENTER);
+		add(panelC, BorderLayout.CENTER);
 		panelC.setLayout(new BoxLayout(panelC,BoxLayout.Y_AXIS));
 
 		iniBoard(board);
@@ -78,7 +85,7 @@ public abstract class GenerateBoard extends SetView{
 		/*South*/
 		Component verticalStrut_ = Box.createVerticalStrut(130);
 		panelS.add(verticalStrut_);
-		/*getContentPane().*/add(panelS, BorderLayout.SOUTH);
+		add(panelS, BorderLayout.SOUTH);
 		
 		/*East*/
 		extraButton[0].setToolTipText("Guardar board actual");
@@ -87,11 +94,16 @@ public abstract class GenerateBoard extends SetView{
 		verticalButton.add(extraButton[3]);
 		verticalButton.add(extraButton[0]);
 		verticalButton.add(button[size]);
-		/*getContentPane().*/add(verticalButton, BorderLayout.EAST);
+		add(verticalButton, BorderLayout.EAST);
 	}
+	
 	/**
-	 * Initialize the view
-	 * @param board
+	 * 
+	 * Inicialitza els paràmetres de la vista.
+	 * 
+	 * @param board : En el cas de que la vista sigui de jugar una partida, 
+	 * es posaràn els numeros a la vista.
+	 * 
 	 */
 	private void iniBoard(int[][] board){
 		square = new JPanel[size][size];
@@ -116,11 +128,16 @@ public abstract class GenerateBoard extends SetView{
 		panelC.setPreferredSize(new Dimension(size*30,size*30));
 		panelC.setMaximumSize(new Dimension(size*30,size*30));
 	}
+	
 	/**
-	 * Initialize some components
-	 * @param i
-	 * @param row
-	 * @return
+	 * 
+	 * Inicialitza el propi taulell per poder interactuar amb l'usuari.
+	 * 
+	 * @param i : fila dins del taulell
+	 * @param row : fila dins del sudoku(board)
+	 * @return Es retorna tota una fila, amb quadrats pintats, que pot estar buit
+	 * o amb numeros
+	 * 
 	 */
 	private Box iniRow(int i,int[] row){
 		horizontalBox = Box.createHorizontalBox();
@@ -153,10 +170,15 @@ public abstract class GenerateBoard extends SetView{
 		}
 		return horizontalBox;
 	}	
+	
 	/**
-	 * Paint the background of a panel. Depending on i and j positions.
-	 * @param i
-	 * @param j
+	 * 
+	 * Per tal de poder diferencia les lines dins del taulell, 
+	 * es pinta de diferent color(monocrom) segons la submida congigurada
+	 * 
+	 * @param i : posició dins d'una fila
+	 * @param j : posició dins d'un columna
+	 * 
 	 */
 	protected void drawSquare(int i, int j){
 		if(subsize == 3){
@@ -190,41 +212,59 @@ public abstract class GenerateBoard extends SetView{
 	}
 	
 	/**
-	 * Add listeners to the button
-	 * @param mm
-	 * @param b
+	 * 
+	 * Afegeix listeners als botons.
+	 * 
+	 * @param mm : Clase MouseAdaptar que s'encarrega de gestionar el listener
+	 * @param b : Botó a ser observat
+	 * 
 	 */
 	protected abstract void buttonListener(MouseAdapter mm, JButton b);
 	
 	/**
-	 * Add listeners to the panel
-	 * @param mm
-	 * @param index
-	 * @param subindex
+	 * Afegeix listeners als panells. Es a dir, afegeix els listeners
+	 * al taulell del joc.
+	 * 
+	 * @param mm : Clase MouseAdaptar que s'encarrega de gestionar el listener
+	 * @param index : posició dins d'una fila
+	 * @param subindex : posició dins d'una columna
 	 */
 	protected void panelListener(MouseAdapter mm, int index, int subindex){
 		square[index][subindex].addMouseListener(mm);
 	}
+	
 	/**
-	 * Enable or disable the button to interact between user and board
-	 * @param cond
+	 * 
+	 * Habilida o deshabilita els botons per interactuar entre usuari
+	 * i taulell. Està lligat amb els candidats.
+	 * 
+	 * @param cond : Condició que fa que un botó sigui habilitat o
+	 * deshabilitat
+	 * 
 	 */
 	protected void setEnableButton(boolean cond, int index){
 			button[index-1].setEnabled(cond);
 	}
 	
 	/**
-	 * Send message to the user
-	 * @param message
+	 * 
+	 * Envia un missatge a l'usuari.
+	 * 
+	 * @param message : El missatge en questió
+	 * 
 	 */
 	protected void sendMessage(String message){
 		JOptionPane.showMessageDialog(null, message);
 	}
 	
 	/**
-	 * Change value of a cell
-	 * @param l
-	 * @param text
+	 * 
+	 * Cambia el valor d'una casella. Relacionat quan un usuari vol
+	 * carregar una partida guardada.
+	 * 
+	 * @param l : panell en questió(casella)
+	 * @param text : valor a posar
+	 * 
 	 */
 	protected void setCell(JPanel p, String text){
 		JLabel l = new JLabel();
@@ -232,12 +272,12 @@ public abstract class GenerateBoard extends SetView{
 		l.setText(text);
 		p.setEnabled(true);
 	}
-	/**
-	 * Set frame to visible or not visible
-	 */
-	protected void disableView(){
-		setVisible(false);
-	}
 	
+	/**
+	 * 
+	 * Segons la vista que s'ha seleccionat, una vista tindrà unes botons o uns altres.
+	 * Aquesta funció s'encarregarà de mostrar tot allo que necessita la vista.
+	 * 
+	 */
 	protected abstract void enableCustomProperties();
 }

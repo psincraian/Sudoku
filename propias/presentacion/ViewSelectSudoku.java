@@ -10,12 +10,17 @@ import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JPasswordField;
-import javax.swing.JTextField;
+
+/**
+ * 
+ * Vista que s'encarrega de mostrar per pantalla les
+ * els sudokus que hi han disponibles a la base de dades
+ * 
+ * @author Daniel Sanchez Martinez
+ *
+ */
 
 public class ViewSelectSudoku extends SetView{
 	private JPanel panel;
@@ -23,7 +28,12 @@ public class ViewSelectSudoku extends SetView{
 	List<String> id;
 
 	/**
-	 * Create the application.
+	 * 
+	 * Constructor de la vista
+	 * 
+	 * @param id : llista que representa els id's dels 
+	 * sudokus a ser mostrats
+	 * 
 	 */
 	public ViewSelectSudoku(List<String> id) {
 		super();
@@ -34,7 +44,9 @@ public class ViewSelectSudoku extends SetView{
 	}
 	
 	/**
-	 * Create the view.
+	 * 
+	 * Funció que s'encarrega de configura la vista
+	 * 
 	 */
 	private void createView(){
 		iniNames();
@@ -63,7 +75,10 @@ public class ViewSelectSudoku extends SetView{
 		
 	}
 	/**
-	 * Initialize component's view
+	 * 
+	 * Funció que s'encarrega de inicialitzar els components 
+	 * que s'utilitzan a la vista
+	 * 
 	 */
 	private void iniNames() {
 		panel = new JPanel();
@@ -75,26 +90,16 @@ public class ViewSelectSudoku extends SetView{
 	}
 	
 	/**
-	 * Set the message to show to user
-	 * @param message
+	 * 
+	 * Afegeix els listeners als botons que 
+	 * s'utilitza a la vista
+	 * 
+	 * @param mm : Clase MouseAdapter que s'utilizarà
+	 * per tal de gestionar el listener
+	 * 
 	 */
-	public void sendMessage(String message){
-		JOptionPane.showMessageDialog(null, message);
-	}
-	
-	/**
-	 * Add listeners to the button
-	 * @param mm
-	 * @param b
-	 */
-	protected void buttonListener(MouseAdapter mm, JButton b){
-		b.addMouseListener(mm);
-	}
-	
-	/**
-	 * Set not visible the view
-	 */
-	protected void disableView(){
-		setVisible(false);
+	protected void buttonListener(MouseAdapter mm){
+		for(int i  = 0; i < buttons.length; ++i)
+			buttons[i].addMouseListener(mm);
 	}
 }

@@ -10,26 +10,35 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 /**
- * Set a type of board view
  * 
- * @author daniel sanchez martinez
+ * Configura la vista de creació d'un nou sudoku
+ * 
+ * @author Daniel Sanchez Martinez
+ * 
  */
 public class ViewCreateBoard extends GenerateBoard{
+	
 	/**
+	 * 
 	 * Constructor
-	 * @param board
-	 * @param size
+	 * 
+	 * @param board : Sudoku buit. Es requereix per tal de 
+	 * configura el taulell.
+	 * @param size : Mida del nou sudoku
+	 * 
 	 */
 	public ViewCreateBoard(int[][] board, int size){
 		super(board,size);
 		setTitle("CreaciÃ³ d'un nou Sudoku");
 		setVisible(true);
 		enableCustomProperties();
-		//pack();
-
 	}
+	
 	/**
-	 * For this view hints buttons aren't necessary
+	 * 
+	 * Configura els elements necessaris per aquesta vista i que
+	 * no es requereix a la vista de jugar una partida
+	 * 
 	 */
 	public void  enableCustomProperties(){
 		entryFast = new JLabel("Entrada rÃ pida");
@@ -46,6 +55,14 @@ public class ViewCreateBoard extends GenerateBoard{
 		verticalButton.add(actEntry);
 	}
 	
+	/**
+	 * 
+	 * Afegeix listeners als botons.
+	 * 
+	 * @param mm : Clase MouseAdaptar que s'encarrega de gestionar el listener
+	 * @param b : Botó a ser observat
+	 * 
+	 */
 	protected void buttonListener(MouseAdapter mm, JButton b){
 		b.addMouseListener(mm);
 	}

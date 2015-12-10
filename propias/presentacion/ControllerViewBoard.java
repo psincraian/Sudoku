@@ -1,6 +1,5 @@
 package propias.presentacion;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -30,8 +29,8 @@ public class ControllerViewBoard {
 	GenerateBoard vm;
 	List<Integer> candidates;
 	int size;
+	
 	/**
-	 * 
 	 * Constructor que s'encarrga de gestionar la vista seleccionada.
 	 * 
 	 * @param board : Es tracta del sudoku sense resoldre amb forats per tal
@@ -39,6 +38,9 @@ public class ControllerViewBoard {
 	 * @param size : Representa la mida del sudoku. Potser 9 o 16.
 	 * @param typeBoard : Representa el tipus de vista. Si typeBoard(1) la vista serà 
 	 * la de creació d'un nou suoku per part de l'usuari
+	 * @param scp
+	 * @param guest : Indica si l'usuari es convidat o no
+	 * @param frame : El fram del joc. Es configura amb el panell de la vista.
 	 * 
 	 */
 	public ControllerViewBoard(int[][] board, int size, int typeBoard, ControllerPresentation scp, boolean guest, JFrame frame){
@@ -67,6 +69,7 @@ public class ControllerViewBoard {
 			}
 		}
 	}
+	
 	/**
 	 * 
 	 * En el cas que estiguem jugant una partida ja començada per l'usuari
@@ -81,6 +84,7 @@ public class ControllerViewBoard {
 	public void updateBoard(String position, String value){
 		vm.setCell(findCell(position),value);
 	}
+	
 	/**
 	 * 
 	 * Troba una casella en el taulell donada una posició
@@ -102,6 +106,7 @@ public class ControllerViewBoard {
 		}
 		return p;
 	}
+	
 	/**
 	 * 
 	 * Habilita els botons(de l'1 al 9) depenen si son candidats o no.
@@ -113,6 +118,7 @@ public class ControllerViewBoard {
 		for(int i = 0; i < candidates.size();++i)
 			vm.setEnableButton(cond,candidates.get(i));
 	}
+	
 	/**
 	 * 
 	 * Genera un missatge per tal de ser mostrat a l'usuari.
@@ -158,7 +164,6 @@ public class ControllerViewBoard {
 	        		}
 	        	}
 				else if(bPressed.getText() == "Tornar"){
-    				vm.disableView();
     				cp.getBack();
 	        	}
 				else if(bPressed.getText() == "Guardar" && vm.extraButton[0].isEnabled()){
@@ -166,7 +171,6 @@ public class ControllerViewBoard {
 	        			if(cp.checkBoard()){
 	        				cp.saveBoard();
 	        				vm.sendMessage("S'ha guardat el sudoku");
-	        				vm.disableView();
 	        				cp.getBack();
 	        			}
 	        			else{
@@ -176,7 +180,6 @@ public class ControllerViewBoard {
 	        		else{
 	        			cp.saveBoard();
         				vm.sendMessage("S'ha guardat el sudoku");
-        				vm.disableView();
         				cp.getBack();
 	        		}
 	        	}

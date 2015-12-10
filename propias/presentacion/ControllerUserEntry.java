@@ -1,9 +1,7 @@
 package propias.presentacion;
 
-import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -13,7 +11,6 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.KeyStroke;
 
-import propias.presentacion.ControllerViewBoard.MouseManage;
 
 /**
  * Controla la clase UserEntry. Configura els listeners sobre els botons i obre la vista.
@@ -25,6 +22,7 @@ public class ControllerUserEntry {
 	
 	UserEntry eu;
 	ControllerPresentation cp;
+	
 	/**
 	 * 
 	 * Constructor de ControllerUserEntry tal de gestionar la vista seleccionada.
@@ -33,6 +31,7 @@ public class ControllerUserEntry {
 	 * i tracta les dades inserides per l'usuari.
 	 * @param typeUser: Si typeUser(1) es generarà la vista Login, en el cas contrari, es generarà 
 	 * la vista de creació d'un nou usuari. 
+	 * @param frame : El fram del joc. Es configura amb el panell de la vista.
 	 * 
 	 */
 	public ControllerUserEntry(ControllerPresentation cp, boolean typeUser, JFrame frame){
@@ -46,6 +45,7 @@ public class ControllerUserEntry {
 		eu.buttonListener(new MouseManage(), this.eu.cancel);
 		addKeyBinding();
 	}
+	
 	/**
 	 * 
 	 * Genera un missatge per tal de ser mostrat a l'usuari.
@@ -59,7 +59,7 @@ public class ControllerUserEntry {
 	
 	/**
 	 * 
-	 * Gestiona els clicks per part del ratolí. Hi han dos butons amb listeners, 
+	 * Clase que gestiona els clicks per part de l'usuari. Hi han dos butons amb listeners, 
 	 * 'Accept' i 'Cancel'.
 	 * 
 	 */
@@ -68,20 +68,18 @@ public class ControllerUserEntry {
 			JButton b = (JButton)e.getSource();
 			if(b.getText() == "Aceptar"){
 				if(cp.checkInfoUser(eu.getInfoUser())){
-					eu.disableView();
 					cp.getBack();
 				}
 				else{
-					eu.disableView();
 					cp.start();
 				}				
 			}
 			else{
-				eu.disableView();
 				cp.start();
 			}
 		}
 	}
+	
 	/**
 	 * 
 	 * S'encarrega que quan l'usuari pitji la tecla 'INTRO', es comprovaran les dades
@@ -93,7 +91,6 @@ public class ControllerUserEntry {
 	    eu.panelButtons.getActionMap().put("ENTER pressed", new AbstractAction() {
 	        public void actionPerformed(ActionEvent ae) {
 	        	if(cp.checkInfoUser(eu.getInfoUser())){
-					eu.disableView();
 					cp.getBack();
 				}
 	        }

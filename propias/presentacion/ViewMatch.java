@@ -17,9 +17,11 @@ import javax.swing.Timer;
 import javax.swing.border.Border;
 
 /**
- * Type of the view board: ViewMatch
+ * 
+ * Configura la vista de partida d'un sudoku.
  * 
  * @author Daniel Sanchez Martinez
+ * 
  */
 public class ViewMatch extends GenerateBoard{
 	
@@ -31,10 +33,17 @@ public class ViewMatch extends GenerateBoard{
 	String[] s;
 	String[] m;
 	String[] h;
+	
 	/**
-	 * Constructor
-	 * @param board
-	 * @param size
+	 * 
+	 * Constructor. Configura el titol a ser mostrat. 
+	 * Configura el temps que es mostrarà per pantalla
+	 * a l'usuari per a que sàpiga quan de temps li porta
+	 * resolde el sudoku
+	 * 
+	 * @param board : Correspon al sudoku(amb forats)
+	 * @param size : mida del sudoku(9 o 16)
+	 * 
 	 */
 	public ViewMatch(int[][] board, int size){
 		super(board,size);
@@ -47,10 +56,14 @@ public class ViewMatch extends GenerateBoard{
 		panelN.add(timeP);
 		initializeTime();
 		setVisible(true);
-		//pack();
-
 	}
 	
+	/**
+	 * 
+	 * Configura propietats personalitzades de la vista partida.
+	 * Botons com les ajudes que només s'utilitza en una partida.
+	 * 
+	 */
 	public void enableCustomProperties(){
 		extraButton[1] = new JButton("Hint1");
 		extraButton[2] = new JButton("Hint2");
@@ -60,15 +73,33 @@ public class ViewMatch extends GenerateBoard{
 		verticalButton.add(extraButton[2]);
 	}
 	
+	/**
+	 * 
+	 * Afegeix listeners als botons.
+	 * 
+	 * @param mm : Clase MouseAdaptar que s'encarrega de gestionar el listener
+	 * @param b : Botó a ser observat
+	 * 
+	 */
 	protected void buttonListener(MouseAdapter mm, JButton b){
 	b.addMouseListener(mm);
 	}
 	
+	/**
+	 * 
+	 * Inicialitza el timer i configura cada quan s'actualitzarà(1 segon)
+	 * 
+	 */
 	public void initializeTime(){
 		time = new Timer(1000, new timerListener());
 		time.start();		
 	}
 	
+	/**
+	 * 
+	 * Listener que s'encarrega de anar modificant el temps que es mostra per pantalla
+	 *
+	 */
 	class timerListener implements ActionListener{
 		public void actionPerformed(ActionEvent e){
 			++second[0];

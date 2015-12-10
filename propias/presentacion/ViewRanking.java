@@ -10,7 +10,6 @@ import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
@@ -31,19 +30,28 @@ public class ViewRanking extends SetView{
 	JTabbedPane difficulty;
 	JButton button;
 	
+	/**
+	 * 
+	 * Constructor
+	 * 
+	 * @param name : llista que conté els noms a ser mostrats
+	 * @param value : llsta que conté els punts/temps asociats a un usuari
+	 * 
+	 */
 	public ViewRanking(List<String> name, List<Long> value){
 		super();
 		this.name=name;
 		this.value=value;
 		setTitle("Ranking");
-		setMinimumSize(380,285);
-		setPreferredSize(976,728);
-		setMaximumSize(1000,750);
 		initialize();
-		//pack();
 		setVisible(true);
 	}
 	
+	/**
+	 * 
+	 * Funció que s'encarrega de configura la vista.
+	 * 
+	 */
 	public void initialize(){
 		
 		setRanking();
@@ -72,6 +80,12 @@ public class ViewRanking extends SetView{
 		add(east, BorderLayout.EAST);		
 	}
 	
+	/**
+	 * 
+	 * Funció que s'encarrega de inicialitzar els components 
+	 * de la vista.
+	 * 
+	 */
 	public void setRanking(){
 		nameL = new JLabel[name.size()];
 		valueL = new JLabel[name.size()];
@@ -81,7 +95,6 @@ public class ViewRanking extends SetView{
 		valueP.setLayout(new BoxLayout(valueP,BoxLayout.Y_AXIS));
 		nameP.setBackground(Color.white);
 		valueP.setBackground(Color.white);
-		//difficulty = new JTabbedPane();
 		
 		for(int i = 0; i < name.size(); ++i){
 			nameL[i] = new JLabel(name.get(i));
@@ -91,10 +104,13 @@ public class ViewRanking extends SetView{
 		}
 	}
 	
-	public void disableView(){
-		setVisible(false);
-	}
-	
+	/**
+	 * 
+	 * Listener que s'encarrega de gestionar el botó 'Tornar'
+	 * 
+	 * @param ma
+	 * 
+	 */
 	public void listener(MouseAdapter ma){
 		button.addMouseListener(ma);
 	}
