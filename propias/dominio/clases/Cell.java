@@ -11,8 +11,8 @@ public class Cell implements java.io.Serializable {
 	
 	public final String ERROR_VALUE_NOT_VALID = "Valor no valid";
 	
-	static int MAX_VALUE = 16;
-	static int MIN_VALUE = 0;
+	private int MAX_VALUE = 16;
+	private int MIN_VALUE = 0;
 	private int value;
 	private CellType type;
 	
