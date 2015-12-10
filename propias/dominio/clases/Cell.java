@@ -105,7 +105,7 @@ public class Cell implements java.io.Serializable {
 	 * @param value El valor a comprovar
 	 * @return Retorna true si la casella es valida
 	 */
-	private static boolean isValidValue(int value) {
+	private boolean isValidValue(int value) {
 		return value <= MAX_VALUE && value >= MIN_VALUE;
 	}
 }
