@@ -37,15 +37,20 @@ public class CreateUser {
 	
 	/**
 	 * 
-	 * @return Comprova si els dos passwords son correctes
+	 * Comprova si els dos passwords son correctes
+	 * 
+	 * @return 
+	 * 		si retorna 0, no s'esta ficant "coses" que no son paraules ni numeros
+	 * 		si retorna 1, contrasenya buida
+	 * 		si retorna 2, les dues contrasenya no son iguals
+	 * 		si retorna -1, les contrasenyes son iguals
 	 * 
 	 */
 	public int isEqual(){
 		for(int i = 0; i < pass1.length(); ++i) {
 			Character c = pass1.charAt(i);
-            if (c < '1' || (c >'9' && c < 'A') || (c > 'Z' && c < 'a') || c > 'z'){
+            if (c < '1' || (c >'9' && c < 'A') || (c > 'Z' && c < 'a') || c > 'z')
                 return 0;
-            } 
         }
 		if(pass1 == "" || pass2 == "")
 			return 1;
