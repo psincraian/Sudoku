@@ -9,7 +9,7 @@ package propias.dominio.clases;
  * 
  * @author Daniel Sanchez Martinez
  */
-public class ParamRanking implements Comparable<ParamRanking> {
+public class ParamRanking implements Comparable<ParamRanking>, java.io.Serializable  {
 
 	private String name;
 	private long value;
