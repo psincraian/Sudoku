@@ -12,6 +12,7 @@ public class CaracteristiquesPartida implements java.io.Serializable{
 	public int dificultat;
 	public int tipus;
 	public int givenNumbers;
+	public boolean newSudoku;
 	
 	/** Modifica la mida del objecte
 	 * 
@@ -75,5 +76,12 @@ public class CaracteristiquesPartida implements java.io.Serializable{
 	 */
 	public int getGivenNumbers() {
 		return givenNumbers;
+	}
+	/**
+	 * Indica si el sudoku a jugar es nou o de la BBDD
+	 * @return si el sudoku es nou o de la BBDD
+	 */
+	public boolean getNewSudoku(){
+		return newSudoku;
 	}
 }
