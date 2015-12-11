@@ -5,6 +5,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Scanner;
@@ -19,10 +20,18 @@ public class ViewLoadMatch extends SetView{
 	List<JButton> buttonList = new ArrayList<JButton>();
 	JPanel buttons;
 	JButton buttonReturn;
-	public ViewLoadMatch(List<String> id){
+	
+	private loadMatch l;
+	
+	protected interface loadMatch{
+		public void getBack();
+		public void loadMatch(String match);
+	}
+	public ViewLoadMatch(List<String> id, Object container){
 		super();
 		setTitle("Carregar Partida");
 		this.id = id;
+		this.l = (loadMatch) container;
 		startGUI();
 	}
 	
@@ -80,6 +89,19 @@ public class ViewLoadMatch extends SetView{
 	 */
 	public void listeners(MouseAdapter ma, JButton button){
 		button.addMouseListener(ma);
+	}
+	public class MouseManage extends MouseAdapter {
+		public void mouseClicked(MouseEvent e) {
+			JButton button = (JButton)e.getSource();
+			if (button.getText() == "Tornar") {
+				l.getBack();
+				
+			}
+			else {
+				l.loadMatch(button.getText());
+				}
+		}
+							
 	}
 	/**
 	 * Deixa la vista com a no visible

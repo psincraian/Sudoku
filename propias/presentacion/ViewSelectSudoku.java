@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.List;
 
 import javax.swing.BorderFactory;
@@ -26,7 +27,12 @@ public class ViewSelectSudoku extends SetView{
 	private JPanel panel;
 	protected JButton[] buttons;
 	List<String> id;
-
+	private selectSudoku ss;
+	
+	protected interface selectSudoku{
+		public void selectSudoku(String id);
+		public void getBack();
+	}
 	/**
 	 * 
 	 * Constructor de la vista
@@ -35,17 +41,16 @@ public class ViewSelectSudoku extends SetView{
 	 * sudokus a ser mostrats
 	 * 
 	 */
-	public ViewSelectSudoku(List<String> id) {
+	public ViewSelectSudoku(List<String> id,Object container) {
 		super();
+		this.ss = (selectSudoku) container;
 		this.id = id;
 		createView();
-		setVisible(true);
-		//pack();
 	}
 	
 	/**
 	 * 
-	 * Funció que s'encarrega de configura la vista
+	 * Funciï¿½ que s'encarrega de configura la vista
 	 * 
 	 */
 	private void createView(){
@@ -72,11 +77,10 @@ public class ViewSelectSudoku extends SetView{
 		vertical.add(panel);
 		vertical.add(Box.createVerticalGlue());
 		add(vertical, BorderLayout.CENTER);
-		
 	}
 	/**
 	 * 
-	 * Funció que s'encarrega de inicialitzar els components 
+	 * Funciï¿½ que s'encarrega de inicialitzar els components 
 	 * que s'utilitzan a la vista
 	 * 
 	 */
@@ -94,12 +98,22 @@ public class ViewSelectSudoku extends SetView{
 	 * Afegeix els listeners als botons que 
 	 * s'utilitza a la vista
 	 * 
-	 * @param mm : Clase MouseAdapter que s'utilizarà
+	 * @param mm : Clase MouseAdapter que s'utilizarï¿½
 	 * per tal de gestionar el listener
 	 * 
 	 */
 	protected void buttonListener(MouseAdapter mm){
 		for(int i  = 0; i < buttons.length; ++i)
 			buttons[i].addMouseListener(mm);
+	}
+	
+	public class MouseManage extends MouseAdapter {
+		public void mouseClicked(MouseEvent e) {
+			JButton b = (JButton)e.getSource();
+			if(b.getText().equals("Tornar"))
+				ss.getBack();
+			else
+				ss.selectSudoku(b.getText());
+		}
 	}
 }
