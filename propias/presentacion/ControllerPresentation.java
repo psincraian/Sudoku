@@ -26,7 +26,10 @@ import propias.presentacion.SelectSize.GetParametersListener;
  * @author Brian Martinez Alvarez
  *
  */
-public class ControllerPresentation implements GetParametersListener, SelectCharacteristics.GetParametersListener {
+public class ControllerPresentation implements 
+	SelectSize.GetParametersListener, 
+	SelectCharacteristics.GetParametersListener {
+	
 	JFrame frame;
     ControllerDomain cd;
     ControllerUserEntry cu;
@@ -40,7 +43,7 @@ public class ControllerPresentation implements GetParametersListener, SelectChar
     List<String> id; //ids de partides guardades
     int view = 0; // tipus de vista(perfil, ranking, load match)
     int mida = 0; //mida taulell
-    //public static ControllerPresentation controller;
+    
     /**
      * Constructora
      */
@@ -48,6 +51,7 @@ public class ControllerPresentation implements GetParametersListener, SelectChar
         cd = new ControllerDomain();
         createGUI();
     }
+    
     public void createGUI() {
 		frame = new JFrame("Sudoku");
 		frame.setBackground(Color.WHITE);
@@ -56,6 +60,7 @@ public class ControllerPresentation implements GetParametersListener, SelectChar
 		frame.setVisible(true);
 		frame.setMinimumSize(new Dimension(1000, 750));
 	}
+    
     /**
      * Inicia el joc
      */

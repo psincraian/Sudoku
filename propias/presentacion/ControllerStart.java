@@ -7,6 +7,7 @@ import java.awt.event.MouseEvent;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
+import propias.dominio.clases.Options;
 import propias.presentacion.ControllerUserEntry.MouseManage;
 /**
  * 
@@ -17,11 +18,19 @@ public class ControllerStart {
 	
 	ControllerPresentation cp;
 	ViewStart vi;
+	private GetParametersListener listener;
+	
+	protected interface GetParametersListener {
+		public void getOption(Options option);
+	}
+	
 	/**
 	 * 
 	 * @param cp Instance of controllerPresentation
 	 */
-	public ControllerStart(ControllerPresentation cp, JFrame frame){
+	public ControllerStart(Object object, JFrame frame){
+		listener = (GetParametersListener) object;
+
 		this.cp = cp; 
 		vi = new ViewStart();
 		frame.getContentPane().add(vi);
@@ -41,19 +50,19 @@ public class ControllerStart {
 			JButton button = (JButton)e.getSource();
 			if(button.getText() == "Iniciar Sessio"){
 					vi.disableView();
-					cp.startUser();
+					listener.getOption(Options.IniciarSessio);
 			}
 			if(button.getText() == "Iniciar Convidat"){
 				vi.disableView();
-				cp.startGuest();
+				listener.getOption(Options.IniciarConvidat);
 			}
 			if(button.getText() == "Registrar Usuari"){
 				vi.disableView();
-				cp.startNewUser();
+				listener.getOption(Options.RegistrarUsuari);
 			}
 			if(button.getText() == "Sortir"){
 				vi.disableView();
-				cp.exitApplication();
+				listener.getOption(Options.Sortir);
 			}
 		}
 							
