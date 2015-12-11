@@ -43,11 +43,12 @@ public class ControllerUserEntry {
 	 * @param frame : El fram del joc. Es configura amb el panell de la vista.
 	 * 
 	 */
-	public ControllerUserEntry( boolean typeUser, JFrame frame){
+	public ControllerUserEntry( boolean typeUser, JFrame frame, Object container){
 		if(typeUser)
 			eu = new ViewLogin();
 		else 
 			eu = new ViewCreateUser();
+		this.ue = (userEntry) container;
 		frame.getContentPane().add(eu);
 		eu.buttonListener(new MouseManage(), this.eu.accept);
 		eu.buttonListener(new MouseManage(), this.eu.cancel);

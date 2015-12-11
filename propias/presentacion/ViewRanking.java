@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.*;
 
 import javax.swing.BorderFactory;
@@ -13,6 +14,8 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
+
+import propias.presentacion.ViewSelectSudoku.selectSudoku;
 
 /**
  * Show ranking view.
@@ -29,7 +32,11 @@ public class ViewRanking extends SetView{
 	List<Long> value;
 	JTabbedPane difficulty;
 	JButton button;
+	private ranking r;
 	
+	interface ranking{
+		public void getBack();
+	}
 	/**
 	 * 
 	 * Constructor
@@ -38,10 +45,11 @@ public class ViewRanking extends SetView{
 	 * @param value : llsta que cont� els punts/temps asociats a un usuari
 	 * 
 	 */
-	public ViewRanking(List<String> name, List<Long> value){
+	public ViewRanking(List<String> name, List<Long> value, Object container){
 		super();
 		this.name=name;
 		this.value=value;
+		this.r = (ranking) container;
 		setTitle("Ranking");
 		initialize();
 		setVisible(true);
@@ -114,10 +122,14 @@ public class ViewRanking extends SetView{
 	public void listener(MouseAdapter ma){
 		button.addMouseListener(ma);
 	}
-
-	public void disableView() {
-		setVisible(false);
-		
+	
+	
+	public class MouseManage extends MouseAdapter {
+		public void mouseClicked(MouseEvent e) {
+			JButton b = (JButton)e.getSource();
+			if(b.getText().equals("Tornar"))
+				r.getBack();
+		}
 	}
 }
 

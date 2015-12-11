@@ -53,7 +53,7 @@ public class ControllerViewBoard {
 	 * @param frame : El fram del joc. Es configura amb el panell de la vista.
 	 * 
 	 */
-	public ControllerViewBoard(int[][] board, int size, int typeBoard, boolean guest, JFrame frame){
+	public ControllerViewBoard(int[][] board, int size, int typeBoard, boolean guest, JFrame frame, Object container){
 		this.size = size;
 		if(typeBoard == 0){
 			this.vm = new ViewMatch(board,size);
@@ -66,6 +66,7 @@ public class ControllerViewBoard {
 			this.vm = new ViewCreateBoard(board,size);
 			vm.buttonListener(new MouseManage(), vm.actEntry);
 		}
+		vb = (viewBoard) container;
 		frame.getContentPane().add(vm);
 		vm.buttonListener(new MouseManage(), vm.extraButton[0]);
 		vm.buttonListener(new MouseManage(), vm.extraButton[3]);
