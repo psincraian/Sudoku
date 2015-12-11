@@ -37,4 +37,11 @@ public abstract class UsuariGeneral implements java.io.Serializable {
 	public String consultarNom() {
 		return nom;
 	}
+	/**
+	 * posa el nom a un Usuari
+	 * @param name
+	 */
+	public void setNom(String name){
+		this.nom = name;
+	}
 }
