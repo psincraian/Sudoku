@@ -74,7 +74,7 @@ public class ControllerPresentation implements
      * Inicia el login
      */
     public void startUser(){
-    	new ControllerUserEntry(true,frame);
+    	new ControllerUserEntry(true,frame,this);
     }
     /**
      * Inicia com a usuari Convidat
@@ -86,7 +86,7 @@ public class ControllerPresentation implements
      * Inicia la creacio d'un nou usuari
      */
     public void startNewUser(){
-    	new ControllerUserEntry(false,frame);
+    	new ControllerUserEntry(false,frame,this);
     }
     /**
      * 
@@ -98,7 +98,6 @@ public class ControllerPresentation implements
 			JButton button = (JButton)e.getSource();
 			if (button.getText() == "Tornar") {
 				if (view == 1) vp.disableView();
-				else if (view == 2) vr.disableView();
 				else if (view == 3) vl.disableView();
 				getBack();
 			}
@@ -161,7 +160,7 @@ public class ControllerPresentation implements
     	    view = 3; // load match
     	    List<String> id = cd.getIDMatches();
     	    this.id = id;
-    	    vl = new ViewLoadMatch(id);
+    	    vl = new ViewLoadMatch(id,this);
     	    frame.getContentPane().add(vl);
 		    if (id.size() == 0) {
 		  		JOptionPane.showMessageDialog(null, "No hi ha partides guardades");
@@ -190,7 +189,7 @@ public class ControllerPresentation implements
     	  List<String> names = new ArrayList<String>();
           List<Long> values = new ArrayList<Long>();
           cd.getRanking(names,values);
-          vr = new ViewRanking(names, values);
+          vr = new ViewRanking(names, values,this);
           vr.listener(new MouseManage());
       }
       else if (om == OptionsMenu.Perfil) {
@@ -224,7 +223,7 @@ public class ControllerPresentation implements
 	            for(int j=0; j< mida; ++j) m[i][j] = 0;
 	        }
 	        cd.newSudoku(mida);
-	        c = new ControllerViewBoard(m, m[0].length,1,this,false,frame);
+	        c = new ControllerViewBoard(m, m[0].length,1,false,frame,this);
     	}
     	else {
     		int[][] m;
@@ -341,8 +340,8 @@ public class ControllerPresentation implements
      * @param save Indica si la partida es una partida nova o una partida carregada
      */
     private void play(int[][] m, boolean competicio, boolean save)  { 
-      if (name.equals("Convidat")) c = new ControllerViewBoard(m, m[0].length,0,this,true,frame);
-      else c = new ControllerViewBoard(m, m[0].length,0,this,false,frame);
+      if (name.equals("Convidat")) c = new ControllerViewBoard(m, m[0].length,0,true,frame,this);
+      else c = new ControllerViewBoard(m, m[0].length,0,false,frame,this);
       if (save) {
           for(int i= 0; i<m[0].length; ++i) {
               for(int j=0; j<m[0].length; ++j) {
@@ -465,10 +464,13 @@ public class ControllerPresentation implements
      */
     @Override
     public boolean checkInfoUser(List<String> credentials) {
-      name = credentials.get(0);
       correct = false;
-      String result = cd.checkCredentials(credentials);
-      if (result.equals("Login correcte") || result.equals("S'ha creat l'usuari"))
+      String result;
+      if(credentials.size() == 3)
+    	 result = cd.checkNewUser(credentials);
+      else
+    	 result = cd.checkLogin(credentials);
+      if (result.equals("Login correcte") || result.equals("S'ha creat l'usuari correctament"))
     	  correct = true;
       cu.sendMessage(result);
       return correct;
