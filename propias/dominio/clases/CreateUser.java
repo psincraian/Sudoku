@@ -43,7 +43,7 @@ public class CreateUser {
 	 * 		si retorna 0, no s'esta ficant "coses" que no son paraules ni numeros
 	 * 		si retorna 1, contrasenya buida
 	 * 		si retorna 2, les dues contrasenya no son iguals
-	 * 		si retorna -1, les contrasenyes son iguals
+	 * 		si retorna -1, les contrasenyes  son iguals
 	 * 
 	 */
 	public int isEqual(){
@@ -52,11 +52,12 @@ public class CreateUser {
             if (c < '1' || (c >'9' && c < 'A') || (c > 'Z' && c < 'a') || c > 'z')
                 return 0;
         }
-		if(pass1 == "" || pass2 == "")
+		if(nom.equals("")) return -3;
+		else if(pass1.equals("") || pass2.equals(""))
 			return 1;
-		else if(pass1 == pass2)
+		else if(pass1.equals(pass2))
 			return -1;
-		else
+		else //if(!pass1.equals(pass2))
 			return 2;
 	}
 	
