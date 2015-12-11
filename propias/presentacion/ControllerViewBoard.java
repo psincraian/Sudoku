@@ -25,26 +25,35 @@ import javax.swing.JPanel;
 public class ControllerViewBoard {
 	
 	MouseEvent lastCell = null;
-	ControllerPresentation cp;
 	GenerateBoard vm;
 	List<Integer> candidates;
 	int size;
+	private viewBoard vb;
 	
+	protected interface viewBoard{
+		public boolean checkBoard();
+		public void saveBoard();
+		public void getBack();
+		public void setBoardFast(String board);
+		public void updateCell(String cell, int value);
+		public int getCellResolved(String position);
+		public List<Integer> getCandidates(String name);
+		public List<String> getDifferentCells();
+	}
 	/**
 	 * Constructor que s'encarrga de gestionar la vista seleccionada.
 	 * 
 	 * @param board : Es tracta del sudoku sense resoldre amb forats per tal
 	 * de que l'usuari el resolgui.
 	 * @param size : Representa la mida del sudoku. Potser 9 o 16.
-	 * @param typeBoard : Representa el tipus de vista. Si typeBoard(1) la vista serà 
-	 * la de creació d'un nou suoku per part de l'usuari
+	 * @param typeBoard : Representa el tipus de vista. Si typeBoard(1) la vista serï¿½ 
+	 * la de creaciï¿½ d'un nou suoku per part de l'usuari
 	 * @param scp
 	 * @param guest : Indica si l'usuari es convidat o no
 	 * @param frame : El fram del joc. Es configura amb el panell de la vista.
 	 * 
 	 */
-	public ControllerViewBoard(int[][] board, int size, int typeBoard, ControllerPresentation scp, boolean guest, JFrame frame){
-		this.cp = scp;
+	public ControllerViewBoard(int[][] board, int size, int typeBoard, boolean guest, JFrame frame){
 		this.size = size;
 		if(typeBoard == 0){
 			this.vm = new ViewMatch(board,size);
@@ -72,9 +81,9 @@ public class ControllerViewBoard {
 	
 	/**
 	 * 
-	 * En el cas que estiguem jugant una partida ja començada per l'usuari
+	 * En el cas que estiguem jugant una partida ja comenï¿½ada per l'usuari
 	 * cal actualitzar el taulell amb les modificacions fetes per l'usuari
-	 * tal com va acabar(sense contar les caselles ocupades al començar 
+	 * tal com va acabar(sense contar les caselles ocupades al comenï¿½ar 
 	 * inicialment la partida)
 	 * 
 	 * @param position : Casella a modificar
@@ -87,9 +96,9 @@ public class ControllerViewBoard {
 	
 	/**
 	 * 
-	 * Troba una casella en el taulell donada una posició
+	 * Troba una casella en el taulell donada una posiciï¿½
 	 * 
-	 * @param position : La posició a ser trobada.
+	 * @param position : La posiciï¿½ a ser trobada.
 	 * @return  cell : Retorna la casella.
 	 * 
 	 */
@@ -111,7 +120,7 @@ public class ControllerViewBoard {
 	 * 
 	 * Habilita els botons(de l'1 al 9) depenen si son candidats o no.
 	 * 
-	 * @param cond : Depenen de cond, el boto estarà habilidat o no.
+	 * @param cond : Depenen de cond, el boto estarï¿½ habilidat o no.
 	 * 
 	 */
 	public void setCandidates(boolean cond){
@@ -123,7 +132,7 @@ public class ControllerViewBoard {
 	 * 
 	 * Genera un missatge per tal de ser mostrat a l'usuari.
 	 * 
-	 * @param message El missatge en questió.
+	 * @param message El missatge en questiï¿½.
 	 * 
 	 */
 	public void sendMessage(String message){
@@ -132,7 +141,7 @@ public class ControllerViewBoard {
 	
 	/**
 	 * 
-	 * Implementa la funció mouseClicked de la clase MouseAdapter, per tal de 
+	 * Implementa la funciï¿½ mouseClicked de la clase MouseAdapter, per tal de 
 	 * poder gestionar els listeners de la vista.
 	 *  
 	 */
@@ -148,7 +157,7 @@ public class ControllerViewBoard {
 			        	setCandidates(false);
 					}
 					lastCell = e;
-					candidates = cp.getCandidates(cell.getName());
+					candidates = vb.getCandidates(cell.getName());
 					setCandidates(true);
 		        	cell.setBackground(new Color(120,220,220));
 				}
@@ -156,7 +165,7 @@ public class ControllerViewBoard {
 			else if(e.getSource() instanceof JButton){
 				JButton bPressed = (JButton) e.getSource();
 				if(bPressed.getText() == "Hint2"){
-	        		List<String> currentProgress = cp.getDifferentCells();
+	        		List<String> currentProgress = vb.getDifferentCells();
 	        		for(String wrongCell : currentProgress){
 	        			JPanel p = new JPanel();
 	        			p = findCell(wrongCell);
@@ -164,27 +173,27 @@ public class ControllerViewBoard {
 	        		}
 	        	}
 				else if(bPressed.getText() == "Tornar"){
-    				cp.getBack();
+    				vb.getBack();
 	        	}
 				else if(bPressed.getText() == "Guardar" && vm.extraButton[0].isEnabled()){
 					if(vm instanceof ViewCreateBoard){
-	        			if(cp.checkBoard()){
-	        				cp.saveBoard();
+	        			if(vb.checkBoard()){
+	        				vb.saveBoard();
 	        				vm.sendMessage("S'ha guardat el sudoku");
-	        				cp.getBack();
+	        				vb.getBack();
 	        			}
 	        			else{
 	        				vm.sendMessage("No s'ha pogut guardar, no te soluciÃ³n Ãºnica");
 	        			}
 	        		}
 	        		else{
-	        			cp.saveBoard();
+	        			vb.saveBoard();
         				vm.sendMessage("S'ha guardat el sudoku");
-        				cp.getBack();
+        				vb.getBack();
 	        		}
 	        	}
 				else if(bPressed.getText() == "Actualitzar"){
-					cp.setBoardFast(vm.nums.getText());
+					vb.setBoardFast(vm.nums.getText());
 				}
 				else if(lastCell != null && !(lastCell.getSource() instanceof JButton))
 		        {
@@ -193,7 +202,7 @@ public class ControllerViewBoard {
 			        if(bPressed.getText() != "Hint1"){
 			        	if(bPressed.getName() == "0"){
 			        		label.setText("");
-							cp.updateCell(cell.getName(),0);
+							vb.updateCell(cell.getName(),0);
 				        	setCandidates(false);
 				        	String[] pos = cell.getName().split(" ");
 				        	vm.drawSquare(Integer.parseInt(pos[0]),Integer.parseInt(pos[1]));
@@ -201,7 +210,7 @@ public class ControllerViewBoard {
 			        	}
 			        	else if(candidates.contains(Integer.parseInt(bPressed.getText()))) {
 				        	label.setText(bPressed.getText());
-							cp.updateCell(cell.getName(),Integer.parseInt(bPressed.getText()));
+							vb.updateCell(cell.getName(),Integer.parseInt(bPressed.getText()));
 				        	setCandidates(false);
 				        	String[] pos = cell.getName().split(" ");
 				        	vm.drawSquare(Integer.parseInt(pos[0]),Integer.parseInt(pos[1]));
@@ -209,7 +218,7 @@ public class ControllerViewBoard {
 			        	}
 		        	}
 			        else if(bPressed.getText() == "Hint1"){
-			       		int value = cp.getCellResolved(cell.getName());
+			       		int value = vb.getCellResolved(cell.getName());
 				       	label.setText(Integer.toString(value));
 				       	String[] pos = cell.getName().split(" ");
 			        	vm.drawSquare(Integer.parseInt(pos[0]),Integer.parseInt(pos[1]));		
