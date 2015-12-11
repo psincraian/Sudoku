@@ -54,6 +54,7 @@ public class ControllerPresentation implements GetParametersListener, SelectChar
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
 		frame.setVisible(true);
+		frame.setMinimumSize(new Dimension(1000, 750));
 	}
     /**
      * Inicia el joc
@@ -435,20 +436,6 @@ public class ControllerPresentation implements GetParametersListener, SelectChar
 		panelN.add(title);
 		panelN.add(horizontalStrut);
 		frame.add(panelN, BorderLayout.NORTH);
-		setMaximumSize(1000,750);
-		setPreferredSize(976,728);
-	}
-	
-	public void setMaximumSize(int x, int y){
-		frame.setMaximumSize(new Dimension(x,y));
-	}
-	
-	public void setMinimumSize(int x, int y){
-		frame.setMinimumSize(new Dimension(x,y));
-	}
-	
-	public void setPreferredSize(int x, int y){
-		frame.setPreferredSize(new Dimension(x,y));
 	}
 	
 	public void setVerticalStrut(int y){
