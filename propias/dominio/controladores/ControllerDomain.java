@@ -58,6 +58,8 @@ public class ControllerDomain {
                 	return "Les contrasenyes nomes poden tenir lletres i numeros";
                 else {
                 	user = cu.createUser();
+                	cc.createUser(user);
+                	cc.userDBInit(user.consultarNom());
                     createStadistics();
                     initRanking();
                 	return "S'ha creat l'usuari correctament";

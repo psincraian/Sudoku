@@ -74,7 +74,7 @@ public class ControllerPresentation implements
      * Inicia el login
      */
     public void startUser(){
-    	new ControllerUserEntry(true,frame,this);
+    	cu = new ControllerUserEntry(true,frame,this);
     }
     /**
      * Inicia com a usuari Convidat
@@ -86,7 +86,7 @@ public class ControllerPresentation implements
      * Inicia la creacio d'un nou usuari
      */
     public void startNewUser(){
-    	new ControllerUserEntry(false,frame,this);
+    	cu = new ControllerUserEntry(false,frame,this);
     }
     /**
      * 
@@ -228,8 +228,6 @@ public class ControllerPresentation implements
     	else {
     		int[][] m;
     		if(!caracteristiques.newSudoku) {
-    			//List<String> ident = cd.getIDSudokus(caracteristiques);
-    			//paso los ident a la vista, mostrar los id y llama a selectsudoku
     			selectSudoku("e1");
     		}
     		m = cd.createMatch(caracteristiques);
