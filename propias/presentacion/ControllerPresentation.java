@@ -29,7 +29,8 @@ import propias.presentacion.SelectSize.GetParametersListener;
 public class ControllerPresentation implements 
 	SelectSize.GetParametersListener, 
 	SelectCharacteristics.GetParametersListener,
-	ControllerStart.GetOptionsListInterface {
+	ControllerStart.GetOptionsListInterface,
+	ControllerUserEntry.userEntry {
 	
 	JFrame frame;
     ControllerDomain cd;
@@ -73,20 +74,19 @@ public class ControllerPresentation implements
      * Inicia el login
      */
     public void startUser(){
-    	cu = new ControllerUserEntry(this,true,frame);
+    	new ControllerUserEntry(true,frame);
     }
     /**
      * Inicia com a usuari Convidat
      */
     public void startGuest(){
-    	name = "Convidat";
         Menu(true);
     }
     /**
      * Inicia la creacio d'un nou usuari
      */
     public void startNewUser(){
-    	cu = new ControllerUserEntry(this, false,frame);
+    	new ControllerUserEntry(false,frame);
     }
     /**
      * 
@@ -118,18 +118,6 @@ public class ControllerPresentation implements
      */
     public void exitApplication(){
     	System.exit(0);
-    }
-    /**
-     * 
-     * @param credentials Credencials de l'usuari a registrar o loguejar
-     * @return si el logueig o la creacio d'usuari s'ha fet correctament
-     */
-    public boolean checkInfoUser(List<String> credentials) {
-      name = credentials.get(0);
-      String result = cd.checkCredentials(credentials);
-      if (result.equals("Login correcte") || result.equals("S'ha creat l'usuari")) correct = true;
-      cu.sendMessage(result);
-      return correct;
     }
       
     /**
@@ -468,6 +456,21 @@ public class ControllerPresentation implements
 			exitApplication();
 			break;
 		}
-		
 	}
+	
+    /**
+     * 
+     * @param credentials Credencials de l'usuari a registrar o loguejar
+     * @return si el logueig o la creacio d'usuari s'ha fet correctament
+     */
+    @Override
+    public boolean checkInfoUser(List<String> credentials) {
+      name = credentials.get(0);
+      correct = false;
+      String result = cd.checkCredentials(credentials);
+      if (result.equals("Login correcte") || result.equals("S'ha creat l'usuari"))
+    	  correct = true;
+      cu.sendMessage(result);
+      return correct;
+    }
 }

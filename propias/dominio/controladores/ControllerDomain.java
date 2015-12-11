@@ -14,6 +14,14 @@ import propias.dominio.controladores.generator.CntrlSudokuHelps;
  *
  */
 public class ControllerDomain {
+	
+	public static final String LOGIN_OK = "Login correcte";
+	public static final String LOGIN_FAIL_USER_EMPTY = "Has d'introduir un nom d'usuari";
+	public static final String LOGIN_FAIL_USER_EXISTS = "L'usuari ja existeix";
+	public static final String LOGIN_FAIL_EMPTY_PASSWORDS = "Les contrasenyes no poden ser buides";
+	public static final String LOGIN_FAIL_PASSWORDS_DISTINCT = "Les contrasenyes no coincideixen";
+	public static final String LOGIN_FAIL_ONLY_VALID_CHARS = "Les contrasenyes nomes poden tenir numeros i lletres";
+	
     ControllerCasting cc;
     RankingGlobal rg;
     Stadistics stad;
@@ -46,7 +54,7 @@ public class ControllerDomain {
             try {
                 String pass2 = credentials.get(2);
                 CreateUser c = new CreateUser(user,pass1,pass2);
-                if (c.isEqual() == -3) return "L'usuari no pot ser buit";
+                if (c.isEqual() == -3) return LOGIN_FAIL_USER_EMPTY;
                 boolean b = cc.existsUser(user);
                 if (b)  return "L'usuari ja existeix";  //Usuari ja existent
                 else if(c.isEqual() == 1) return "Les contrasenyes no poden ser buides";
