@@ -71,13 +71,11 @@ public class ControllerDomain {
     }
     public String checkLogin(List<String> credentials){
         try {
-        	String passWordOk = "";
-            if(!user.equals("") && cc.existsUser(credentials.get(0))) {
-            	Usuari u = cc.getUser(credentials.get(0));
-                passWordOk = u.getPassword();
+        	if(!credentials.get(0).equals("") && cc.existsUser(credentials.get(0))) {
+            	user = cc.getUser(credentials.get(0));
+                String passWordOk = user.getPassword();
                 if (passWordOk.equals(credentials.get(1))) {
-                	this.user = new Usuari(credentials.get(0));
-                    cc.userDBInit(this.user.consultarNom());
+                    cc.userDBInit(user.consultarNom());
                     createStadistics();
                     initRanking();
                     return "Login correcte";

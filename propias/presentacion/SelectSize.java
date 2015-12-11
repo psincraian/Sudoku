@@ -6,7 +6,7 @@ import javax.swing.*;
 
 import propias.dominio.clases.CaracteristiquesPartida;
 
-public class SelectSize extends JPanel {
+public class SelectSize extends SetView {
 
 	public interface GetParametersListener {
 		public void getParameters(CaracteristiquesPartida caracteristiques);

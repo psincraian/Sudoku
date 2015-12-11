@@ -19,7 +19,6 @@ import javax.swing.SwingConstants;
 
 import propias.dominio.clases.*;
 import propias.dominio.controladores.*;
-import propias.presentacion.SelectSize.GetParametersListener;
 
 /**
  * 
@@ -30,13 +29,15 @@ public class ControllerPresentation implements
 	SelectSize.GetParametersListener, 
 	SelectCharacteristics.GetParametersListener,
 	ControllerStart.GetOptionsListInterface,
-	ControllerUserEntry.userEntry {
+	ControllerUserEntry.userEntry,
+	ControllerViewBoard.viewBoard,
+	ViewRanking.ranking {
 	
 	JFrame frame;
     ControllerDomain cd;
     ControllerUserEntry cu;
     ControllerViewBoard c;
-    String name; // nom de l'usuari
+    String name = ""; // nom de l'usuari
     boolean correct;
     boolean createSudoku; // true: crear un sudoku, false: partidaRapida
     ViewRanking vr;
@@ -223,6 +224,8 @@ public class ControllerPresentation implements
 	            for(int j=0; j< mida; ++j) m[i][j] = 0;
 	        }
 	        cd.newSudoku(mida);
+	        frame.removeAll();
+	        frame.setLayout(new BorderLayout());
 	        c = new ControllerViewBoard(m, m[0].length,1,false,frame,this);
     	}
     	else {
@@ -338,6 +341,8 @@ public class ControllerPresentation implements
      * @param save Indica si la partida es una partida nova o una partida carregada
      */
     private void play(int[][] m, boolean competicio, boolean save)  { 
+      frame.removeAll();
+      frame.setLayout(new BorderLayout());
       if (name.equals("Convidat")) c = new ControllerViewBoard(m, m[0].length,0,true,frame,this);
       else c = new ControllerViewBoard(m, m[0].length,0,false,frame,this);
       if (save) {
@@ -465,9 +470,10 @@ public class ControllerPresentation implements
       correct = false;
       String result;
       if(credentials.size() == 3)
-    	 result = cd.checkNewUser(credentials);
+    	  result = cd.checkNewUser(credentials);
       else
-    	 result = cd.checkLogin(credentials);
+    	  result = cd.checkLogin(credentials);
+
       if (result.equals("Login correcte") || result.equals("S'ha creat l'usuari correctament"))
     	  correct = true;
       cu.sendMessage(result);

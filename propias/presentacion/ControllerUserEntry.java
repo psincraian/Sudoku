@@ -50,8 +50,8 @@ public class ControllerUserEntry {
 			eu = new ViewCreateUser();
 		this.ue = (userEntry) container;
 		frame.getContentPane().add(eu);
-		eu.buttonListener(new MouseManage(), this.eu.accept);
-		eu.buttonListener(new MouseManage(), this.eu.cancel);
+		eu.buttonListener(new MouseManage(), eu.accept);
+		eu.buttonListener(new MouseManage(), eu.cancel);
 		addKeyBinding();
 	}
 	
