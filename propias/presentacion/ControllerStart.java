@@ -18,9 +18,9 @@ public class ControllerStart {
 	
 	ControllerPresentation cp;
 	ViewStart vi;
-	private GetParametersListener listener;
+	private GetOptionsListInterface listener;
 	
-	protected interface GetParametersListener {
+	protected interface GetOptionsListInterface {
 		public void getOption(Options option);
 	}
 	
@@ -29,7 +29,7 @@ public class ControllerStart {
 	 * @param cp Instance of controllerPresentation
 	 */
 	public ControllerStart(Object object, JFrame frame){
-		listener = (GetParametersListener) object;
+		listener = (GetOptionsListInterface) object;
 
 		this.cp = cp; 
 		vi = new ViewStart();

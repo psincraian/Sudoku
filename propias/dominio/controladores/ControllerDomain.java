@@ -164,16 +164,9 @@ public class ControllerDomain {
 		}		
 	    return board;
 	}
-    /** 
-     * Crea una partida nova que sera creada per l'usuari
-     * @param size Indica el tamaño del tablero
-     */
-    public void newMatch(int size){
-    	createSudoku = false;
-        match = new Match(this.user.consultarNom(), size);
-    }
     public void newSudoku(int size){
     	createSudoku = true;
+    	type = 0;
     	Board first = new Board(size);
     	Board second = new Board(size);
     	sudoku = new Sudoku(first,second);
@@ -266,10 +259,6 @@ public class ControllerDomain {
         ControllerBoard cb = new ControllerBoard();
         int[][] m = convertToMatrix(match.getSudoku());
         Boolean correct = cb.verify(m);
-        if (correct) {
-            updateRanking(false);
-            updateRanking(true);
-        }
         return correct;
     }
     /**
@@ -285,6 +274,7 @@ public class ControllerDomain {
             match = cc.getSavedMatch(id);
             dificult = match.getSudokuLevel()-1;
             size = match.getSudokuSize();
+            type = 0;
             int [][] enunciat = convertToMatrix(match.getSudoku());
             for(int i=0; i<enunciat.length; ++i){
             	for(int j=0; j<enunciat.length; ++j)
@@ -303,7 +293,7 @@ public class ControllerDomain {
     public void saveBoard(boolean newSudoku){
         if (!newSudoku){ // es una partida amb progres
 	        try{
-	            //cc.saveMatch(match,id);
+	            cc.saveMatch((MatchTraining)match,id);
 	        }
 	        catch(Exception e){
 	        }
@@ -363,29 +353,6 @@ public class ControllerDomain {
         }
     }
     /**
-     * Actualiza el Ranking global o de sudoku
-     * @param global Indica si el ranking es global o de sudoku
-     */
-    public void updateRanking(boolean global){
-        //List<List<String>> l = new ArrayList<List<String>>();
-        //List<String> aux = new ArrayList<String>();
-        if(global){
-            /*List<ParamRanking> c = rg.getRanking();
-            for(int i=0; i< c.size(); ++i){
-                ParamRanking p = c.get(i);
-                aux.add(p.getName());
-                aux.add(Long.toString(p.getValue()));
-                l.add(aux);
-            }*/
-        	//COGER VALORES DE MATCH COMPETITION Y PASARSELOS(NAME, VALUE)
-        	// update en persistencia
-        }
-        else{
-        	//COGER VALORES DE MATCH COMPETITION Y PASARSELOS(NAME, VALUE)
-        	//update en persistencia
-        }
-    }
-    /**
      * 
      * @param username Nombres de usuarios con ranking
      * @param values Valores de puntuacion por usuario
@@ -420,13 +387,15 @@ public class ControllerDomain {
 	        if(!createSudoku){ //nomes es comproba si esta ben resolt si no s'esta creant un sudoku
 		        if (cont < size) ++cont;
 		        else { // ha completado la partida correctamente
-		        	Sudoku s = new Sudoku(match.getSudoku(), match.getSolution());
-		        	int score = ((MatchCompetition) match).score();
-		        	s.updateRanking(this.user.consultarNom(), score);
-		        	stad.addTime(((MatchCompetition) match).getMatchTime(), dificult); //actualizo tiempo estadisticas
-		        	stad.afegirNumPartides(1, dificult); //actualizo numer partidas de estadisticas
-		        	rg.modRanking(new ParamRanking(this.user.consultarNom(), ((MatchCompetition) match).getMatchTime())); //actualizo ranking global
-		        	points = score;
+		        	if(type == 1){
+			        	Sudoku s = new Sudoku(match.getSudoku(), match.getSolution());
+			        	int score = ((MatchCompetition) match).score();
+			        	s.updateRanking(this.user.consultarNom(), score);
+			        	stad.addTime(((MatchCompetition) match).getMatchTime(), dificult); //actualizo tiempo estadisticas
+			        	stad.afegirNumPartides(1, dificult); //actualizo numer partidas de estadisticas
+			        	rg.modRanking(new ParamRanking(this.user.consultarNom(), ((MatchCompetition) match).getMatchTime())); //actualizo ranking global
+			        	points = score;
+		        	}
 		        }
 	        }
         } 

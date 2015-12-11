@@ -28,7 +28,8 @@ import propias.presentacion.SelectSize.GetParametersListener;
  */
 public class ControllerPresentation implements 
 	SelectSize.GetParametersListener, 
-	SelectCharacteristics.GetParametersListener {
+	SelectCharacteristics.GetParametersListener,
+	ControllerStart.GetOptionsListInterface {
 	
 	JFrame frame;
     ControllerDomain cd;
@@ -446,5 +447,27 @@ public class ControllerPresentation implements
 	public void setVerticalStrut(int y){
 		verticalStrut = Box.createVerticalStrut(y);
 		panelN.add(verticalStrut);
+	}
+
+	/**
+	 * @author Petru Rares Sincraian
+	 */
+	@Override
+	public void getOption(Options option) {
+		switch (option) {
+		case IniciarSessio:
+			startUser();
+			break;
+		case IniciarConvidat:
+			startGuest();
+			break;
+		case RegistrarUsuari:
+			startNewUser();
+			break;
+		case Sortir:
+			exitApplication();
+			break;
+		}
+		
 	}
 }
