@@ -99,7 +99,7 @@ public class ControllerDomain {
      */
     public int[][] createMatch(CaracteristiquesPartida c){
         try {
-        	if (!c.newSudoku) {
+        	if (!c.getNewSudoku()) {
         		cont = 0;
         	    Sudoku s = cc.getSudoku(c.getMida(), c.getDificultat(), id);
         	    this.size = c.getMida();
