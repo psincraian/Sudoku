@@ -6,7 +6,7 @@ package propias.dominio.clases;
  *
  * Es una classe auxiliar per definir les dades bàsiques d'una {@link Match}
  */
-public class CaracteristiquesPartida {	
+public class CaracteristiquesPartida implements java.io.Serializable{	
 
 	public int mida;
 	public int dificultat;
