@@ -6,7 +6,7 @@ import javax.swing.*;
 
 import propias.dominio.clases.CaracteristiquesPartida;
 
-public class SelectCharacteristics extends JPanel {
+public class SelectCharacteristics extends SetView {
 
 	public interface GetParametersListener {
 		public void getParameters(CaracteristiquesPartida caracteristiques);
@@ -46,10 +46,13 @@ public class SelectCharacteristics extends JPanel {
 			e.printStackTrace();
 		}
 		
+		setTitle(TITLE);
+		
 		characteristics = new CaracteristiquesPartida();
 		characteristics.setDificultat(1);
 		characteristics.setTipusPartida(0);
 		characteristics.setMida(9);
+		setVisible(true);
 		createView();
 	}
 

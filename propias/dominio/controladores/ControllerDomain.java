@@ -421,11 +421,11 @@ public class ControllerDomain {
 		        if (cont < size) ++cont;
 		        else { // ha completado la partida correctamente
 		        	Sudoku s = new Sudoku(match.getSudoku(), match.getSolution());
-		        	int score = match.score();
+		        	int score = ((MatchCompetition) match).score();
 		        	s.updateRanking(this.user.consultarNom(), score);
-		        	stad.addTime(match.getMatchTime(), dificult); //actualizo tiempo estadisticas
+		        	stad.addTime(((MatchCompetition) match).getMatchTime(), dificult); //actualizo tiempo estadisticas
 		        	stad.afegirNumPartides(1, dificult); //actualizo numer partidas de estadisticas
-		        	rg.modRanking(new ParamRanking(this.user.consultarNom(), match.getMatchTime())); //actualizo ranking global
+		        	rg.modRanking(new ParamRanking(this.user.consultarNom(), ((MatchCompetition) match).getMatchTime())); //actualizo ranking global
 		        	points = score;
 		        }
 	        }

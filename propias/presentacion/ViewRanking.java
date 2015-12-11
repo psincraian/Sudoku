@@ -34,8 +34,8 @@ public class ViewRanking extends SetView{
 	 * 
 	 * Constructor
 	 * 
-	 * @param name : llista que conté els noms a ser mostrats
-	 * @param value : llsta que conté els punts/temps asociats a un usuari
+	 * @param name : llista que contï¿½ els noms a ser mostrats
+	 * @param value : llsta que contï¿½ els punts/temps asociats a un usuari
 	 * 
 	 */
 	public ViewRanking(List<String> name, List<Long> value){
@@ -49,7 +49,7 @@ public class ViewRanking extends SetView{
 	
 	/**
 	 * 
-	 * Funció que s'encarrega de configura la vista.
+	 * Funciï¿½ que s'encarrega de configura la vista.
 	 * 
 	 */
 	public void initialize(){
@@ -82,7 +82,7 @@ public class ViewRanking extends SetView{
 	
 	/**
 	 * 
-	 * Funció que s'encarrega de inicialitzar els components 
+	 * Funciï¿½ que s'encarrega de inicialitzar els components 
 	 * de la vista.
 	 * 
 	 */
@@ -106,13 +106,18 @@ public class ViewRanking extends SetView{
 	
 	/**
 	 * 
-	 * Listener que s'encarrega de gestionar el botó 'Tornar'
+	 * Listener que s'encarrega de gestionar el botï¿½ 'Tornar'
 	 * 
 	 * @param ma
 	 * 
 	 */
 	public void listener(MouseAdapter ma){
 		button.addMouseListener(ma);
+	}
+
+	public void disableView() {
+		setVisible(false);
+		
 	}
 }
 
