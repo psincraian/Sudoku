@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.GridLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.lang.reflect.InvocationTargetException;
@@ -143,9 +144,9 @@ public class ControllerPresentation implements
      * Envia a l'usuari directament al menu principal
      */
     public void showMainMenu() {
-    	JPanel pane = (JPanel) frame.getContentPane();
-    	pane.removeAll();
-        VistaMenu vm = new VistaMenu(this);
+    	frame.getContentPane().removeAll();
+        frame.setLayout(new java.awt.GridBagLayout());
+    	VistaMenu vm = new VistaMenu(this);
         if (isGuest)
         	  vm.updateToGuestView();
         
@@ -232,9 +233,11 @@ public class ControllerPresentation implements
         	showMainMenu();
         }
     }
+    
     /**
      * Guarda la partida actual
      */
+    @Override
     public void saveBoard(){
         cd.saveBoard(createSudoku);
     }
