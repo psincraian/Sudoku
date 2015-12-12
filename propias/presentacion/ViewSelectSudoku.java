@@ -29,7 +29,7 @@ public class ViewSelectSudoku extends SetView{
 	List<String> id;
 	private selectSudoku ss;
 	
-	protected interface selectSudoku{
+	public interface selectSudoku{
 		public void selectSudoku(String id);
 		public void getBack();
 	}

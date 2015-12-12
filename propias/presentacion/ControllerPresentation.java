@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -36,7 +37,8 @@ public class ControllerPresentation implements
 	ControllerUserEntry.userEntry,
 	ControllerViewBoard.viewBoard,
 	ViewRanking.ranking,
-	VistaMenu.MenuButtonClicked {
+	VistaMenu.MenuButtonClicked,
+	ViewSelectSudoku.selectSudoku {
 	
 	JFrame frame;
     ControllerDomain cd;
@@ -121,14 +123,6 @@ public class ControllerPresentation implements
 			if (button.getText() == "Tornar") {
 				showMainMenu();
 			}
-			else {
-				for(int i=0; i< id.size(); ++i){
-					if(button.getText() == id.get(i)){
-						vl.disableView();
-						loadMatch(id.get(i));
-					}
-				}
-			}
 		}
 							
 	}
@@ -143,6 +137,7 @@ public class ControllerPresentation implements
     /**
      * Envia a l'usuari directament al menu principal
      */
+    @Override
     public void showMainMenu() {
     	frame.getContentPane().removeAll();
         frame.setLayout(new java.awt.GridBagLayout());
@@ -161,19 +156,13 @@ public class ControllerPresentation implements
         frame.setVisible(true);
     }
     
-    /**
-     * Selecciona la partida a carregar
-     * @param match
-     */
-    public void loadMatch(String match){
-    	int[][] m = cd.getSavedMatch(match);
-        // TODO play(m,true,true);
+    @Override
+    public void selectSudoku(String id) {
+    	int[][] m = cd.getSavedMatch(id);
+        playMatch(m);
     }
     
-    public void selectSudoku(String id){
-    	cd.selectSudoku(id);
-    }
-    
+    @Override
     public void setBoardFast(String s){
     	int mida = 0;
     	if (s.length() <= 81) mida = 81;
@@ -214,18 +203,22 @@ public class ControllerPresentation implements
     public Boolean isCompetition(){
         return cd.isCompetition();
     }
+    
     /**
      * 
      * @return si el taulell actual compleix les regles del joc i te solucio unica
      */
+    @Override
     public boolean checkBoard(){
         return cd.checkBoard();
     }
+    
     /**
      * 
      * @param position Coordenades d'una Cel·la
      * @param value Valor a posar a la Cel·la
      */
+    @Override
     public void updateCell(String position, int value){
         cd.updateCell(position, value);
         if(!createSudoku && cd.takePointsBoard() != 0){
@@ -270,8 +263,7 @@ public class ControllerPresentation implements
         return cd.getIDMatches();
     }
     
-    
-    private void playMatchTraining(int[][] sudoku) {
+    private void playMatch(int[][] sudoku) {
 		frame.getContentPane().removeAll();
 		frame.setLayout(new BorderLayout());
 		
@@ -282,10 +274,6 @@ public class ControllerPresentation implements
     		new ControllerViewBoard(sudoku, sudoku[0].length, ControllerViewBoard.VIEW_PLAY_SUDOKU, 
         			ControllerViewBoard.USER_GUEST, frame, this);
     	revalidateContentPane(frame);
-    }
-    
-    //TODO
-    private void playMatchCompetition(int[][] sudoku) {
     }
     
     // TODO
@@ -307,6 +295,7 @@ public class ControllerPresentation implements
      * @param s Coordenades de una Cel·la
      * @return els candidats possibles per aquella casella
      */
+    @Override
     public List<Integer> getCandidates(String s) {
         String[] nombres = s.split(" ");
         int row = Integer.parseInt(nombres[0]);
@@ -320,6 +309,7 @@ public class ControllerPresentation implements
      * 
      * @return retorna una llista de posicions amb les caselles diferents
      */
+    @Override
     public List<String> getDifferentCells() {
         try {
             return cd.getDifferentCells();
@@ -342,24 +332,17 @@ public class ControllerPresentation implements
         }
         
     }
+    
     /**
      * 
      * @param s Coordenades de la casella
      * @return Retorna la solucio de la casella amb posicio s
      */
+    @Override
     public int getCellResolved(String s) {
-        try {
-            return cd.getCellSol(s);
-        } 
-        catch (Exception e) {
-        	return 0;
-        }
-        
+    	return cd.getCellSol(s);
     }
 
-	/**
-	 * @author Petru Rares Sincraian
-	 */
 	@Override
 	public void getOption(Options option) {
 		switch (option) {
@@ -424,18 +407,16 @@ public class ControllerPresentation implements
 	// TODO
 	private void showLoadMatch() {
 		List<String> id = cd.getIDMatches();
-		this.id = id;
-		vl = new ViewLoadMatch(id, this);
 		if (id.size() == 0) {
 			JOptionPane.showMessageDialog(null, "No hi ha partides guardades");
-			vl.disableView();
 			showMainMenu();
-		} else {
-			for (int i = 0; i < id.size(); ++i) {
-				vl.listeners(new MouseManage(), vl.buttonList.get(i));
-			}
-			vl.listener(new MouseManage());
 		}
+		
+		frame.getContentPane().removeAll();
+		frame.setLayout(new BorderLayout());
+		ViewSelectSudoku vl = new ViewSelectSudoku(id, this);
+		frame.add(vl);
+		revalidateContentPane(frame);
 	}
 	
 	private void showSelectCharacteristics() {
@@ -456,10 +437,7 @@ public class ControllerPresentation implements
     public void getParameters(CaracteristiquesPartida caracteristiques){
     	int sudoku[][];
     	sudoku = cd.createMatch(caracteristiques);
-        if (caracteristiques.getTipusPartida() == 0)
-        	playMatchTraining(sudoku);
-        else
-        	playMatchCompetition(sudoku);
+       	playMatch(sudoku);
     }
     
 	@Override
@@ -484,5 +462,10 @@ public class ControllerPresentation implements
 			exitApplication();
 			break;
 		}	
+	}
+
+	@Override
+	public void getBack() {
+		showMainMenu();
 	}
 }
