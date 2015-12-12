@@ -38,17 +38,12 @@ public class ControllerPresentation implements
 	ControllerViewBoard.viewBoard,
 	ViewRanking.ranking,
 	VistaMenu.MenuButtonClicked,
-	ViewSelectSudoku.selectSudoku {
+	ViewSelectSudoku.selectSudoku{
 	
 	JFrame frame;
     ControllerDomain cd;
-    ControllerViewBoard c;
     boolean isGuest; // nom de l'usuari
     boolean createSudoku; // true: crear un sudoku, false: partidaRapida
-    ViewRanking vr;
-    ViewProfile vp;
-    ViewLoadMatch vl;
-    List<String> id; //ids de partides guardades
     int mida = 0; //mida taulell
     
     /**
@@ -114,19 +109,6 @@ public class ControllerPresentation implements
     }
     
     /**
-     * Comproba el boto premut
-     */
-    public class MouseManage extends MouseAdapter {
-		public void mouseClicked(MouseEvent e) {
-			JButton button = (JButton)e.getSource();
-			if (button.getText() == "Tornar") {
-				showMainMenu();
-			}
-		}
-							
-	}
-    
-    /**
      * Surt de l'aplicacio
      */
     public void exitApplication(){
@@ -159,10 +141,12 @@ public class ControllerPresentation implements
     public void selectSudoku(String id) {
     	int[][] m = cd.getSavedMatch(id);
         playMatch(m);
+        updateSudokuCells(m.length);
     }
     
     @Override
     public void setBoardFast(String s){
+    	ControllerViewBoard c = ControllerViewBoard.getInstance();
     	int mida = 0;
     	if (s.length() <= 81) mida = 81;
     	else if (s.length() > 81 && s.length()<=256 && this.mida == 16) mida = 256;
@@ -220,6 +204,7 @@ public class ControllerPresentation implements
     @Override
     public void updateCell(String position, int value){
         cd.updateCell(position, value);
+    	ControllerViewBoard c = ControllerViewBoard.getInstance();
         if(!createSudoku && cd.takePointsBoard() != 0){
         	c.sendMessage("Felicitats, has omplert el sudoku. Ranking del Sudoku: " + cd.takePointsBoard());
         	showMainMenu();
@@ -276,10 +261,10 @@ public class ControllerPresentation implements
     }
     
     // TODO
-    private void loadSudoku() {
-    	int[][] m = new int[10][10];
-		for(int i= 0; i<m[0].length; ++i) {
-			for(int j=0; j<m[0].length; ++j) {
+    private void updateSudokuCells(int size) {
+    	ControllerViewBoard c = ControllerViewBoard.getInstance();
+		for(int i= 0; i < size; ++i) {
+			for(int j=0; j < size; ++j) {
 				int res = cd.modify(i,j);
 				String row = Integer.toString(i);
 				String col = Integer.toString(j);
