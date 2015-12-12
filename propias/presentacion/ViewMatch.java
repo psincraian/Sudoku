@@ -37,8 +37,8 @@ public class ViewMatch extends GenerateBoard{
 	/**
 	 * 
 	 * Constructor. Configura el titol a ser mostrat. 
-	 * Configura el temps que es mostrarà per pantalla
-	 * a l'usuari per a que sàpiga quan de temps li porta
+	 * Configura el temps que es mostrarï¿½ per pantalla
+	 * a l'usuari per a que sï¿½piga quan de temps li porta
 	 * resolde el sudoku
 	 * 
 	 * @param board : Correspon al sudoku(amb forats)
@@ -48,7 +48,6 @@ public class ViewMatch extends GenerateBoard{
 	public ViewMatch(int[][] board, int size){
 		super(board,size);
 		setTitle("Partida Sudoku");
-		enableCustomProperties();
 		timeL = new JLabel();
 		JPanel timeP = new JPanel();
 		timeP.setBorder(BorderFactory.createRaisedBevelBorder());
@@ -61,7 +60,7 @@ public class ViewMatch extends GenerateBoard{
 	/**
 	 * 
 	 * Configura propietats personalitzades de la vista partida.
-	 * Botons com les ajudes que només s'utilitza en una partida.
+	 * Botons com les ajudes que nomï¿½s s'utilitza en una partida.
 	 * 
 	 */
 	public void enableCustomProperties(){
@@ -78,7 +77,7 @@ public class ViewMatch extends GenerateBoard{
 	 * Afegeix listeners als botons.
 	 * 
 	 * @param mm : Clase MouseAdaptar que s'encarrega de gestionar el listener
-	 * @param b : Botó a ser observat
+	 * @param b : Botï¿½ a ser observat
 	 * 
 	 */
 	protected void buttonListener(MouseAdapter mm, JButton b){
@@ -87,7 +86,7 @@ public class ViewMatch extends GenerateBoard{
 	
 	/**
 	 * 
-	 * Inicialitza el timer i configura cada quan s'actualitzarà(1 segon)
+	 * Inicialitza el timer i configura cada quan s'actualitzarï¿½(1 segon)
 	 * 
 	 */
 	public void initializeTime(){
