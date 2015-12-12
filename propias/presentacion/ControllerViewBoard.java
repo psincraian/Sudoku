@@ -24,6 +24,11 @@ import javax.swing.JPanel;
  */
 public class ControllerViewBoard {
 	
+	public final static int VIEW_CREATE_SUDOKU = 0;
+	public final static int VIEW_PLAY_SUDOKU = 1;
+	public final static boolean USER_GUEST = true;
+	public final static boolean USER_NOT_GUEST = false;
+	
 	MouseEvent lastCell = null;
 	GenerateBoard vm;
 	List<Integer> candidates;
@@ -55,11 +60,11 @@ public class ControllerViewBoard {
 	 */
 	public ControllerViewBoard(int[][] board, int size, int typeBoard, boolean guest, JFrame frame, Object container){
 		this.size = size;
-		if(typeBoard == 0){
+		if(typeBoard == VIEW_PLAY_SUDOKU){
 			this.vm = new ViewMatch(board,size);
 			vm.buttonListener(new MouseManage(), vm.extraButton[1]);
 			vm.buttonListener(new MouseManage(), vm.extraButton[2]);
-			if(guest)
+			if(guest == USER_GUEST)
 				vm.extraButton[0].setEnabled(false);
 		}
 		else{
