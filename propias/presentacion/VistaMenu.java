@@ -37,8 +37,6 @@ public class VistaMenu extends SetView {
 	
 	public VistaMenu(Object object) {
 		super();
-		setFocusable(true);
-		requestFocusInWindow();
 		
 		try {
 			menuButtonClicked = (MenuButtonClicked) object;
