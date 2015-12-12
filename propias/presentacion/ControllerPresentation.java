@@ -59,9 +59,8 @@ public class ControllerPresentation implements
 		frame = new JFrame("Sudoku");
 		frame.setBackground(Color.WHITE);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.pack();
-		frame.setVisible(true);
-		frame.setMinimumSize(new Dimension(1000, 750));
+		frame.setMaximumSize(new Dimension(1000, 750));
+		frame.setPreferredSize(new Dimension(1000, 750));		
 	}
     
     /**
@@ -70,12 +69,16 @@ public class ControllerPresentation implements
     public void start() {
     	correct = false;
         new ControllerStart(this,frame);
+        frame.setVisible(true);
+        frame.pack();
     }
     /**
      * Inicia el login
      */
     public void startUser(){
     	cu = new ControllerUserEntry(true,frame,this);
+    	frame.setVisible(true);
+        frame.pack();
     }
     /**
      * Inicia com a usuari Convidat
@@ -88,6 +91,8 @@ public class ControllerPresentation implements
      */
     public void startNewUser(){
     	cu = new ControllerUserEntry(false,frame,this);
+    	frame.setVisible(true);
+        frame.pack();
     }
     /**
      * 
@@ -151,7 +156,7 @@ public class ControllerPresentation implements
     	  createSudoku = false;
     	  JPanel newContentPane = new SelectCharacteristics(this);
   		  newContentPane.setOpaque(true);
-          frame.getContentPane().setLayout(new java.awt.GridBagLayout());
+  		  frame.setLayout(new java.awt.GridBagLayout());
   		  frame.getContentPane().add(newContentPane, new java.awt.GridBagConstraints());
           frame.pack();
   		  frame.setVisible(true);
@@ -180,10 +185,8 @@ public class ControllerPresentation implements
     	  createSudoku = true;
           JPanel newContentPane = new SelectSize(this);
   		  newContentPane.setOpaque(true);
-          frame.getContentPane().setLayout(new java.awt.GridBagLayout());
-  		  frame.getContentPane().add(newContentPane, new java.awt.GridBagConstraints());
-          frame.pack();
-  		  frame.setVisible(true);
+  		frame.setLayout(new java.awt.GridBagLayout());
+		  frame.getContentPane().add(newContentPane, new java.awt.GridBagConstraints());
       }
       else if (om == OptionsMenu.Ranking) {
     	  view = 2; // ranking
@@ -191,6 +194,8 @@ public class ControllerPresentation implements
           List<Long> values = new ArrayList<Long>();
           cd.getRanking(names,values);
           vr = new ViewRanking(names, values,this);
+          frame.setVisible(true);
+          frame.pack();
           vr.listener(new MouseManage());
       }
       else if (om == OptionsMenu.Perfil) {
@@ -224,9 +229,10 @@ public class ControllerPresentation implements
 	            for(int j=0; j< mida; ++j) m[i][j] = 0;
 	        }
 	        cd.newSudoku(mida);
-	        frame.removeAll();
 	        frame.setLayout(new BorderLayout());
 	        c = new ControllerViewBoard(m, m[0].length,1,false,frame,this);
+	        frame.setVisible(true);
+	        frame.pack();
     	}
     	else {
     		int[][] m;
@@ -345,6 +351,8 @@ public class ControllerPresentation implements
       frame.setLayout(new BorderLayout());
       if (name.equals("Convidat")) c = new ControllerViewBoard(m, m[0].length,0,true,frame,this);
       else c = new ControllerViewBoard(m, m[0].length,0,false,frame,this);
+      frame.setVisible(true);
+      frame.pack();
       if (save) {
           for(int i= 0; i<m[0].length; ++i) {
               for(int j=0; j<m[0].length; ++j) {
