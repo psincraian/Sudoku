@@ -60,13 +60,13 @@ public class ControllerDomain {
                 	user = cu.createUser();
                 	cc.createUser(user);
                 	cc.userDBInit(user.consultarNom());
-                    createStadistics();
-                    initRanking();
+                    stad = cc.getStadistics();
+                    rg = cc.getRankingGlobal();
                 	return "S'ha creat l'usuari correctament";
                 } 
             }
             catch (Exception e) {
-            	return null;
+            	return e.getMessage();
             }
     }
     public String checkLogin(List<String> credentials){
@@ -76,8 +76,8 @@ public class ControllerDomain {
                 String passWordOk = user.getPassword();
                 if (passWordOk.equals(credentials.get(1))) {
                     cc.userDBInit(user.consultarNom());
-                    createStadistics();
-                    initRanking();
+                    stad = cc.getStadistics();
+                    rg = cc.getRankingGlobal();
                     return "Login correcte";
                 }
                 else return "Nom o contrasenya incorrectes";
@@ -279,6 +279,7 @@ public class ControllerDomain {
             return enunciat;
         }
         catch(Exception e){
+        	System.out.println(e.getMessage());
             return null;
         }
     }
@@ -292,6 +293,7 @@ public class ControllerDomain {
 	            cc.saveMatch((MatchTraining)match,id);
 	        }
 	        catch(Exception e){
+				e.printStackTrace();
 	        }
         }
         else { // es un nou sudoku
@@ -333,21 +335,11 @@ public class ControllerDomain {
         try {
         return cc.getIdMatches();
     } catch (Exception e) {
+    	System.out.println(e.getMessage());
         return null;
         }
     }
-    /**
-     * 
-     * @param global Indica si el ranking es global o de sudoku
-     */
-    public void initRanking() {
-        try{
-            rg = cc.getRankingGlobal();
-        }
-        catch(Exception e){
-            e.printStackTrace();
-        }
-    }
+    
     /**
      * 
      * @param username Nombres de usuarios con ranking
@@ -396,14 +388,11 @@ public class ControllerDomain {
 	        }
         } 
         catch (Exception e) {
-        e.printStackTrace();
+        	e.printStackTrace();
         }
     }
     public int takePointsBoard(){
     	return points;
-    }
-    public void setBoardFast(String s) {
-    	
     }
     /**
      * Obtiene los candidatos de la casilla con coordenadas row,col
@@ -412,15 +401,15 @@ public class ControllerDomain {
      * @return
      */
     public List<Integer> getCandidates(int row, int col) {
-    try {
-    	System.out.println(row+" "+col);
-        List<Integer> candidates = CntrlSudokuHelps.getCandidates(new Position(row,col), match.getSudoku());
-        return candidates;
-    } 
-    catch (Exception e) {
-    	System.out.println(e.getStackTrace());
-            return null;
-    }
+	    try {
+	    	System.out.println(row+" "+col);
+	        List<Integer> candidates = CntrlSudokuHelps.getCandidates(new Position(row,col), match.getSudoku());
+	        return candidates;
+	    } 
+	    catch (Exception e) {
+	    	System.out.println(e.getStackTrace());
+	        return null;
+	    }
     }
     /**
      * Retorna una llista de Position amb les caselles diferents.
@@ -462,22 +451,12 @@ public class ControllerDomain {
             p = new Position(row,column);
             return CntrlSudokuHelps.getCellSolution(match.getSolution(), p);
         } catch (Exception e) {
-          return 0;
+        	System.out.println(e.getStackTrace());
+        	return 0;
         }
         
     }
 
-    /**
-     * Instancia las estadisticas 
-     */
-    public void createStadistics() {
-        try{
-            stad = cc.getStadistics();
-        }
-        catch(Exception e){
-            System.out.println("Catched");
-        }
-    }
     /**
      * 
      * @return Retorna el numero de partidas jugadas por el usuario
