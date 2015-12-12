@@ -27,7 +27,7 @@ public class ControllerViewBoard {
 	public final static int VIEW_CREATE_SUDOKU = 0;
 	public final static int VIEW_PLAY_SUDOKU = 1;
 	public final static boolean USER_GUEST = true;
-	public final static boolean USER_NOT_GUEST = false;
+	public final static boolean TRAINING = true;
 	
 	private static ControllerViewBoard instance;
 	
@@ -60,12 +60,12 @@ public class ControllerViewBoard {
 	 * @param frame : El fram del joc. Es configura amb el panell de la vista.
 	 * 
 	 */
-	public ControllerViewBoard(int[][] board, int typeBoard, boolean guest,boolean competition, JFrame frame, Object container){
+	public ControllerViewBoard(int[][] board, int typeBoard, boolean guest,boolean training, JFrame frame, Object container){
 		this.size = board[0].length;
 		instance = this;
 		if(typeBoard == VIEW_PLAY_SUDOKU){
 			this.vm = new ViewMatch(board,size);
-			if(!competition){
+			if(training == TRAINING){
 				vm.buttonListener(new MouseManage(), vm.extraButton[1]);
 				vm.buttonListener(new MouseManage(), vm.extraButton[2]);
 			}
