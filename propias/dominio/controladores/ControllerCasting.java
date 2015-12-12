@@ -30,15 +30,15 @@ public class ControllerCasting {
 	*/
 	public void createUser(Usuari user) throws Exception {
 		ByteArrayOutputStream bos = new ByteArrayOutputStream();
-    	ObjectOutputStream oos = new ObjectOutputStream(bos);
-    	oos.writeObject(user);
-    	oos.close();
-    	String serializedUser = new String(DatatypeConverter.printBase64Binary(bos.toByteArray()));	
-    	ByteArrayOutputStream bos2 = new ByteArrayOutputStream();
-    	ObjectOutputStream oos2 = new ObjectOutputStream(bos2);
-    	oos2.writeObject(new Stadistics());
-    	oos2.close();
-    	String serializedStd = new String(DatatypeConverter.printBase64Binary(bos2.toByteArray()));   	
+    		ObjectOutputStream oos = new ObjectOutputStream(bos);
+    		oos.writeObject(user);
+    		oos.close();
+    		String serializedUser = new String(DatatypeConverter.printBase64Binary(bos.toByteArray()));	
+    		ByteArrayOutputStream bos2 = new ByteArrayOutputStream();
+    		ObjectOutputStream oos2 = new ObjectOutputStream(bos2);
+    		oos2.writeObject(new Stadistics());
+    		oos2.close();
+    		String serializedStd = new String(DatatypeConverter.printBase64Binary(bos2.toByteArray()));   	
 		cp.newUser(user.consultarNom(), serializedUser, serializedStd);
 		RankingGlobal rank = new RankingGlobal(new ArrayList<ParamRanking>());
 		if(cp.existRankingGlobal()){
@@ -59,11 +59,11 @@ public class ControllerCasting {
 	public Usuari getUser(String nomUser) throws Exception {
 		byte[] bytes = DatatypeConverter.parseBase64Binary(cp.getUser(nomUser));
 		ByteArrayInputStream bis = new ByteArrayInputStream(bytes);
-    	ObjectInputStream ois = new ObjectInputStream(bis);
-    	Usuari user = (Usuari) ois.readObject();
-    	bis.close();
-    	ois.close();
-    	return user;
+    		ObjectInputStream ois = new ObjectInputStream(bis);
+    		Usuari user = (Usuari) ois.readObject();
+    		bis.close();
+    		ois.close();
+    		return user;
 	}
 
 	/**
@@ -83,8 +83,8 @@ public class ControllerCasting {
 	public Stadistics getStadistics() throws Exception {	
 		byte[] bytes = DatatypeConverter.parseBase64Binary(cp.getStadistics());
 		ByteArrayInputStream bis = new ByteArrayInputStream(bytes);
-    	ObjectInputStream ois = new ObjectInputStream(bis);
-    	return (Stadistics) ois.readObject();
+    		ObjectInputStream ois = new ObjectInputStream(bis);
+    		return (Stadistics) ois.readObject();
 	}
 
 	/**
@@ -94,10 +94,10 @@ public class ControllerCasting {
 	*/
 	public void setStadistics(Stadistics std)  throws Exception {
 		ByteArrayOutputStream bos = new ByteArrayOutputStream();
-    	ObjectOutputStream oos = new ObjectOutputStream(bos);
-    	oos.writeObject(std);
-    	oos.close();
-    	String serializedStd = new String(DatatypeConverter.printBase64Binary(bos.toByteArray())); 	
+    		ObjectOutputStream oos = new ObjectOutputStream(bos);
+    		oos.writeObject(std);
+    		oos.close();
+    		String serializedStd = new String(DatatypeConverter.printBase64Binary(bos.toByteArray())); 	
 		cp.setStadistics(serializedStd);
 	}
 
@@ -108,10 +108,10 @@ public class ControllerCasting {
 	*/
 	public String introduceSudoku(Sudoku sudo) throws Exception {
 		ByteArrayOutputStream bos = new ByteArrayOutputStream();
-    	ObjectOutputStream oos = new ObjectOutputStream(bos);
-    	oos.writeObject(sudo);
-    	oos.close();
-    	String serializedSudoku = new String(DatatypeConverter.printBase64Binary(bos.toByteArray()));    	
+    		ObjectOutputStream oos = new ObjectOutputStream(bos);
+    		oos.writeObject(sudo);
+    		oos.close();
+    		String serializedSudoku = new String(DatatypeConverter.printBase64Binary(bos.toByteArray()));    	
 		return cp.introduceSudoku(serializedSudoku, sudo.returnLevel(), sudo.getSudoku().getSize());
 	}
 
@@ -155,8 +155,8 @@ public class ControllerCasting {
 	public Sudoku getSudoku(int size, int dif, String id) throws Exception {
 		byte[] bytes = DatatypeConverter.parseBase64Binary(cp.getSudoku(id, size, dif));
 		ByteArrayInputStream bis = new ByteArrayInputStream(bytes);
-    	ObjectInputStream ois = new ObjectInputStream(bis);
-    	return (Sudoku) ois.readObject();
+    		ObjectInputStream ois = new ObjectInputStream(bis);
+    		return (Sudoku) ois.readObject();
 	}
 
 	/**
@@ -178,8 +178,8 @@ public class ControllerCasting {
 	public MatchTraining getSavedMatch(String id) throws Exception {
 		byte[] bytes = DatatypeConverter.parseBase64Binary(cp.getSavedMatch(id));
 		ByteArrayInputStream bis = new ByteArrayInputStream(bytes);
-    	ObjectInputStream ois = new ObjectInputStream(bis);
-    	return (MatchTraining) ois.readObject();
+    		ObjectInputStream ois = new ObjectInputStream(bis);
+    		return (MatchTraining) ois.readObject();
 	}
 
 	/**
@@ -189,11 +189,11 @@ public class ControllerCasting {
 	*/
 	public void saveMatch(MatchTraining m, String name) throws Exception {		
 		ByteArrayOutputStream bos = new ByteArrayOutputStream();
-    	ObjectOutputStream oos = new ObjectOutputStream(bos);
-    	oos.writeObject(m);
-    	oos.close();
-    	String serializedMatch = new String(DatatypeConverter.printBase64Binary(bos.toByteArray()));    	
-    	cp.saveMatch(name, serializedMatch);
+    		ObjectOutputStream oos = new ObjectOutputStream(bos);
+    		oos.writeObject(m);
+    		oos.close();
+	 	String serializedMatch = new String(DatatypeConverter.printBase64Binary(bos.toByteArray()));    	
+	 	cp.saveMatch(name, serializedMatch);
 	}
 
 	/**
@@ -202,8 +202,8 @@ public class ControllerCasting {
 	public RankingGlobal getRankingGlobal() throws Exception {		
 		byte[] bytes = DatatypeConverter.parseBase64Binary(cp.getRankingGlobal());
 		ByteArrayInputStream bis = new ByteArrayInputStream(bytes);
-    	ObjectInputStream ois = new ObjectInputStream(bis);
-    	return (RankingGlobal) ois.readObject();
+    		ObjectInputStream ois = new ObjectInputStream(bis);
+	 	return (RankingGlobal) ois.readObject();
 	}
 
 	/**
@@ -212,30 +212,30 @@ public class ControllerCasting {
 	*/
 	public void setRankingGlobal(RankingGlobal ranking) throws Exception {
 		ByteArrayOutputStream bos = new ByteArrayOutputStream();
-    	ObjectOutputStream oos = new ObjectOutputStream(bos);
-    	oos.writeObject(ranking);
-    	oos.close();
-    	String serializedranking = new String(DatatypeConverter.printBase64Binary(bos.toByteArray()));    	
-    	cp.setRankingGlobal(serializedranking);
+	 	ObjectOutputStream oos = new ObjectOutputStream(bos);
+	 	oos.writeObject(ranking);
+	 	oos.close();
+	 	String serializedranking = new String(DatatypeConverter.printBase64Binary(bos.toByteArray()));    	
+	 	cp.setRankingGlobal(serializedranking);
 	}
 
 	/*
 	public static Object deserialize(String fileName) throws IOException, ClassNotFoundException {
-        FileInputStream fis = new FileInputStream(fileName);
-        BufferedInputStream bis = new BufferedInputStream(fis);
-        ObjectInputStream ois = new ObjectInputStream(bis);
-        Object obj = ois.readObject();
-        ois.close();
-        return obj;
-    }
+	        FileInputStream fis = new FileInputStream(fileName);
+	        BufferedInputStream bis = new BufferedInputStream(fis);
+	        ObjectInputStream ois = new ObjectInputStream(bis);
+	        Object obj = ois.readObject();
+	        ois.close();
+	        return obj;
+    	}
 
-    public static void serialize(Object obj, String fileName) throws IOException {
-        FileOutputStream fos = new FileOutputStream(fileName);
-        BufferedOutputStream bos = new BufferedOutputStream(fos);
-        ObjectOutputStream oos = new ObjectOutputStream(bos);
-        oos.writeObject(obj);
-        oos.close();
-    }
+    	public static void serialize(Object obj, String fileName) throws IOException {
+	        FileOutputStream fos = new FileOutputStream(fileName);
+	        BufferedOutputStream bos = new BufferedOutputStream(fos);
+	        ObjectOutputStream oos = new ObjectOutputStream(bos);
+	        oos.writeObject(obj);
+	        oos.close();
+    	}
 	*/
 
 }
