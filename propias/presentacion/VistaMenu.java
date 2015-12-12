@@ -13,7 +13,7 @@ import propias.dominio.clases.OptionsMenu;
  * @author Petru Rares
  *
  */
-public class VistaMenu extends JPanel {
+public class VistaMenu extends SetView {
 	
 	public interface MenuButtonClicked {
 		public void getOption(OptionsMenu option);
@@ -37,6 +37,8 @@ public class VistaMenu extends JPanel {
 	
 	public VistaMenu(Object object) {
 		super();
+		setFocusable(true);
+		requestFocusInWindow();
 		
 		try {
 			menuButtonClicked = (MenuButtonClicked) object;

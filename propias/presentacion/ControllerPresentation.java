@@ -94,9 +94,9 @@ public class ControllerPresentation implements
      * Inicia com a usuari Convidat
      */
     public void startGuest(){
-    	frame.getContentPane().removeAll();
-    	frame.setVisible(true);
-        frame.pack();    }
+    	isGuest = true;
+    	showMainMenu();
+    }
     
     /**
      * Inicia la creacio d'un nou usuari
@@ -143,12 +143,9 @@ public class ControllerPresentation implements
     public void showMainMenu() {
     	frame.getContentPane().removeAll();
         VistaMenu vm = new VistaMenu(this);
-        if (isGuest) {
-      	  vm.updateToGuestView();
-        }
-        
+        if (isGuest)
+        	  vm.updateToGuestView();
         frame.getContentPane().add(vm, new java.awt.GridBagConstraints());
-        frame.pack();
         frame.setVisible(true);
     }
     
