@@ -31,13 +31,14 @@ public class ControllerPresentation implements
 	ControllerStart.GetOptionsListInterface,
 	ControllerUserEntry.userEntry,
 	ControllerViewBoard.viewBoard,
-	ViewRanking.ranking {
+	ViewRanking.ranking,
+	VistaMenu.MenuButtonClicked {
 	
 	JFrame frame;
     ControllerDomain cd;
     ControllerUserEntry cu;
     ControllerViewBoard c;
-    String name; // nom de l'usuari
+    boolean isGuest; // nom de l'usuari
     boolean createSudoku; // true: crear un sudoku, false: partidaRapida
     ViewRanking vr;
     ViewProfile vp;
@@ -50,6 +51,13 @@ public class ControllerPresentation implements
      * Constructora
      */
     public ControllerPresentation() {
+    	javax.swing.SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+		    	frame = new JFrame();
+				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		        frame.getContentPane().setLayout(new java.awt.GridBagLayout());
+			}
+    	});
         cd = new ControllerDomain();
         createGUI();
     }
@@ -87,7 +95,6 @@ public class ControllerPresentation implements
      */
     public void startGuest(){
     	frame.getContentPane().removeAll();
-    	cu = new ControllerUserEntry(true,frame,this);
     	frame.setVisible(true);
         frame.pack();    }
     
@@ -110,7 +117,7 @@ public class ControllerPresentation implements
 			if (button.getText() == "Tornar") {
 				if (view == 1) vp.disableView();
 				else if (view == 3) vl.disableView();
-				getBack();
+				showMainMenu();
 			}
 			else {
 				for(int i=0; i< id.size(); ++i){
@@ -133,90 +140,16 @@ public class ControllerPresentation implements
     /**
      * Envia a l'usuari directament al menu principal
      */
-    public void getBack() {
-        if (name.equals("Convidat"))
-            Menu(true);
-        else
-            Menu(false);
-    }
-    /**
-     * 
-     * @param convidat Indica si l'usuari es usuari convidat
-     */
-    public void Menu(boolean convidat) {
-      frame.getContentPane().removeAll();
-      VistaMenu vm = new VistaMenu();
-      OptionsMenu om; 
-      if (convidat) {
-        vm.deshabilitar(OptionsMenu.Perfil);
-        vm.deshabilitar(OptionsMenu.Ranking);
-        vm.deshabilitar(OptionsMenu.CargarPartida);
-        vm.mostrar();
-        om = vm.obtenirOpcio();
-      }
-      else {
-        vm.mostrar();
-        om = vm.obtenirOpcio();
-      }
-      if (om == OptionsMenu.PartidaRapida) {
-    	  createSudoku = false;
-    	  JPanel newContentPane = new SelectCharacteristics(this);
-  		  newContentPane.setOpaque(true);
-	      frame.getContentPane().removeAll();
-  		  frame.setLayout(new java.awt.GridBagLayout());
-  		  frame.getContentPane().add(newContentPane, new java.awt.GridBagConstraints());
-          frame.pack();
-  		  frame.setVisible(true);
-      }
-      if (om == OptionsMenu.CargarPartida) {
-    	    createSudoku = false;
-    	    view = 3; // load match
-    	    List<String> id = cd.getIDMatches();
-    	    this.id = id;
-    	    vl = new ViewLoadMatch(id,this);
-	        frame.getContentPane().removeAll();
-    	    frame.getContentPane().add(vl);
-		    if (id.size() == 0) {
-		  		JOptionPane.showMessageDialog(null, "No hi ha partides guardades");
-		  		vl.disableView();
-		  		getBack();
-		    }
-		    else{
-		    	for(int i=0; i<id.size(); ++i){
-		    		vl.listeners(new MouseManage(), vl.buttonList.get(i));
-		    	}
-	  		vl.listener(new MouseManage());
-		  	}
-	  }
-          
-      else if (om == OptionsMenu.CrearSudoku) {
-    	  createSudoku = true;
-          JPanel newContentPane = new SelectSize(this);
-  		  newContentPane.setOpaque(true);
-	      frame.getContentPane().removeAll();
-  		  frame.setLayout(new java.awt.GridBagLayout());
-		  frame.getContentPane().add(newContentPane, new java.awt.GridBagConstraints());
-      }
-      else if (om == OptionsMenu.Ranking) {
-    	  view = 2; // ranking
-    	  List<String> names = new ArrayList<String>();
-          List<Long> values = new ArrayList<Long>();
-          cd.getRanking(names,values);
-	      frame.getContentPane().removeAll();
-	      frame.setLayout(new BorderLayout());
-          vr = new ViewRanking(names, values,this);
-          frame.setVisible(true);
-          frame.pack();
-      }
-      else if (om == OptionsMenu.Perfil) {
-    	  view = 1; // perfil
-	      frame.getContentPane().removeAll();
-    	  vp = new ViewProfile(getMatches(), getTime(), getBestTime());
-    	  frame.setVisible(true);
-          frame.pack();
-    	  vp.listener(new MouseManage());
-      }
-      else if (om == OptionsMenu.Sortir) start();
+    public void showMainMenu() {
+    	frame.getContentPane().removeAll();
+        VistaMenu vm = new VistaMenu(this);
+        if (isGuest) {
+      	  vm.updateToGuestView();
+        }
+        
+        frame.getContentPane().add(vm, new java.awt.GridBagConstraints());
+        frame.pack();
+        frame.setVisible(true);
     }
     
     /**
@@ -240,7 +173,7 @@ public class ControllerPresentation implements
 	        cd.newSudoku(mida);
 	        frame.getContentPane().removeAll();
 	        frame.setLayout(new BorderLayout());
-	        c = new ControllerViewBoard(m, m[0].length,1,false,frame,this);
+	        new ControllerViewBoard(m, m[0].length,1,false,frame,this);
 	        frame.setVisible(true);
 	        frame.pack();
     	}
@@ -316,7 +249,7 @@ public class ControllerPresentation implements
         cd.updateCell(position, value);
         if(!createSudoku && cd.takePointsBoard() != 0){
         	c.sendMessage("Felicitats, has omplert el sudoku. Ranking del Sudoku: " + cd.takePointsBoard());
-        	getBack();
+        	showMainMenu();
         }
     }
     /**
@@ -366,7 +299,7 @@ public class ControllerPresentation implements
         frame.setVisible(true);
         frame.pack();
         
-    	if (name.equals("Convidat"))
+    	if (!isGuest)
     		new ControllerViewBoard(m, m[0].length, ControllerViewBoard.VIEW_PLAY_SUDOKU, 
     			ControllerViewBoard.USER_NOT_GUEST, frame, this);
     	else 
@@ -441,32 +374,6 @@ public class ControllerPresentation implements
         }
         
     }
-    Component verticalStrut;
-	JPanel panelN;
-	
-	/**
-	 * constructor
-	 */
-	
-	
-	public void setTitle(String t){
-		panelN = new JPanel();
-		panelN.setBackground(Color.WHITE);
-		panelN.setLayout(new FlowLayout(FlowLayout.CENTER));
-		JLabel title = new JLabel(t);
-		title.setHorizontalAlignment(SwingConstants.CENTER);
-		verticalStrut = Box.createVerticalStrut(60);
-		Component horizontalStrut = Box.createHorizontalStrut(20);
-		panelN.add(verticalStrut);
-		panelN.add(title);
-		panelN.add(horizontalStrut);
-		frame.add(panelN, BorderLayout.NORTH);
-	}
-	
-	public void setVerticalStrut(int y){
-		verticalStrut = Box.createVerticalStrut(y);
-		panelN.add(verticalStrut);
-	}
 
 	/**
 	 * @author Petru Rares Sincraian
@@ -508,4 +415,60 @@ public class ControllerPresentation implements
       cu.sendMessage(result);
       return correct;
     }
+
+    
+	@Override
+	public void getOption(OptionsMenu om) {
+		if (om == OptionsMenu.PartidaRapida) {
+	          VistaSeleccionarCaracteristiques sc = new VistaSeleccionarCaracteristiques();
+	          int[][] m = cd.createMatch(sc.obtenirCaracteristiques());
+	          if (!isCompetition()) play(m,false,false);
+	          else play(m,true,false);
+	      }
+	      if (om == OptionsMenu.CargarPartida) {
+	    	    view = 3; // load match
+	    	    List<String> id = cd.getIDMatches();
+	    	    this.id = id;
+	    	    vl = new ViewLoadMatch(id, this);
+		    if (id.size() == 0) {
+	  		JOptionPane.showMessageDialog(null, "No hi ha partides guardades");
+	  		vl.disableView();
+	  		showMainMenu();
+		    }
+		    else{
+		  		
+	  		for(int i=0; i<id.size(); ++i){
+	  			vl.listeners(new MouseManage(), vl.buttonList.get(i));
+	  		}
+	  		vl.listener(new MouseManage());
+		  	}
+		  
+	      } else if (om == OptionsMenu.CrearSudoku) {
+	          VistaSeleccionarCaracteristiques sc = new VistaSeleccionarCaracteristiques();
+	          int mida = sc.obtenirMida();
+	          this.mida = mida;
+	          int m[][] = new int[mida][mida];
+	          for(int i=0; i< mida; ++i){
+	              for(int j=0; j< mida; ++j) m[i][j] = 0;
+	          }
+
+	          new ControllerViewBoard(m, m[0].length, ControllerViewBoard.VIEW_CREATE_SUDOKU, 
+	      			ControllerViewBoard.USER_NOT_GUEST, frame, this);;
+	      
+	      } else if (om == OptionsMenu.Ranking) {
+	    	  view = 2; // ranking
+	    	  List<String> names = new ArrayList<String>();
+	          List<Long> values = new ArrayList<Long>();
+	          cd.getRanking(names,values);
+	          vr = new ViewRanking(names, values, this);
+	          vr.listener(new MouseManage());
+	      }
+	      else if (om == OptionsMenu.Perfil) {
+	    	  view = 1; // perfil
+	    	  vp = new ViewProfile(getMatches(), getTime(), getBestTime());
+	    	  vp.listener(new MouseManage());
+	      }
+	      else if (om == OptionsMenu.Sortir) start();
+		
+	}
 }

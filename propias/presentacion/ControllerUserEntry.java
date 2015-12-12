@@ -31,7 +31,7 @@ public class ControllerUserEntry {
 	
 	protected interface userEntry{
 		public boolean checkInfoUser(List<String> info);
-		public void getBack();
+		public void showMainMenu();
 		public void start();
 	}
 	
@@ -80,7 +80,7 @@ public class ControllerUserEntry {
 			JButton b = (JButton)e.getSource();
 			if(b.getText() == "Aceptar"){
 				if(ue.checkInfoUser(eu.getInfoUser()))
-					ue.getBack();
+					ue.showMainMenu();
 				else
 					ue.start();		
 			}
@@ -100,7 +100,7 @@ public class ControllerUserEntry {
 	    eu.panelButtons.getActionMap().put("ENTER pressed", new AbstractAction() {
 	        public void actionPerformed(ActionEvent ae) {
 	        	if(ue.checkInfoUser(eu.getInfoUser())){
-					ue.getBack();
+					ue.showMainMenu();
 				}
 	        }
 	    });

@@ -38,7 +38,7 @@ public class ControllerViewBoard {
 	protected interface viewBoard{
 		public boolean checkBoard();
 		public void saveBoard();
-		public void getBack();
+		public void showMainMenu();
 		public void setBoardFast(String board);
 		public void updateCell(String cell, int value);
 		public int getCellResolved(String position);
@@ -179,14 +179,14 @@ public class ControllerViewBoard {
 	        		}
 	        	}
 				else if(bPressed.getText() == "Tornar"){
-    				vb.getBack();
+    				vb.showMainMenu();
 	        	}
 				else if(bPressed.getText() == "Guardar" && vm.extraButton[0].isEnabled()){
 					if(vm instanceof ViewCreateBoard){
 	        			if(vb.checkBoard()){
 	        				vb.saveBoard();
 	        				vm.sendMessage("S'ha guardat el sudoku");
-	        				vb.getBack();
+	        				vb.showMainMenu();
 	        			}
 	        			else{
 	        				vm.sendMessage("No s'ha pogut guardar, no te solución única");
@@ -195,7 +195,7 @@ public class ControllerViewBoard {
 	        		else{
 	        			vb.saveBoard();
         				vm.sendMessage("S'ha guardat el sudoku");
-        				vb.getBack();
+        				vb.showMainMenu();
 	        		}
 	        	}
 				else if(bPressed.getText() == "Actualitzar"){

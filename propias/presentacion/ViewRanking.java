@@ -35,7 +35,7 @@ public class ViewRanking extends SetView{
 	private ranking r;
 	
 	interface ranking{
-		public void getBack();
+		public void showMainMenu();
 	}
 	/**
 	 * 
@@ -127,7 +127,7 @@ public class ViewRanking extends SetView{
 		public void mouseClicked(MouseEvent e) {
 			JButton b = (JButton)e.getSource();
 			if(b.getText().equals("Tornar"))
-				r.getBack();
+				r.showMainMenu();
 		}
 	}
 	public void disableView() {
