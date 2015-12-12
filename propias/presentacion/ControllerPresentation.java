@@ -37,7 +37,6 @@ public class ControllerPresentation implements
     ControllerUserEntry cu;
     ControllerViewBoard c;
     String name; // nom de l'usuari
-    boolean correct;
     boolean createSudoku; // true: crear un sudoku, false: partidaRapida
     ViewRanking vr;
     ViewProfile vp;
@@ -67,31 +66,32 @@ public class ControllerPresentation implements
      * Inicia el joc
      */
     public void start() {
-    	correct = false;
         new ControllerStart(this,frame);
     }
+    
     /**
      * Inicia el login
      */
     public void startUser(){
-    	new ControllerUserEntry(true,frame);
+    	new ControllerUserEntry(true, frame, this);
     }
+    
     /**
      * Inicia com a usuari Convidat
      */
     public void startGuest(){
         Menu(true);
     }
+    
     /**
      * Inicia la creacio d'un nou usuari
      */
     public void startNewUser(){
-    	new ControllerUserEntry(false,frame);
+    	new ControllerUserEntry(false, frame, this);
     }
+    
     /**
-     * 
      * Comproba el boto premut
-     *
      */
     public class MouseManage extends MouseAdapter {
 		public void mouseClicked(MouseEvent e) {
@@ -161,7 +161,7 @@ public class ControllerPresentation implements
     	    view = 3; // load match
     	    List<String> id = cd.getIDMatches();
     	    this.id = id;
-    	    vl = new ViewLoadMatch(id);
+    	    vl = new ViewLoadMatch(id, this);
     	    frame.getContentPane().add(vl);
 		    if (id.size() == 0) {
 		  		JOptionPane.showMessageDialog(null, "No hi ha partides guardades");
@@ -190,7 +190,7 @@ public class ControllerPresentation implements
     	  List<String> names = new ArrayList<String>();
           List<Long> values = new ArrayList<Long>();
           cd.getRanking(names,values);
-          vr = new ViewRanking(names, values);
+          vr = new ViewRanking(names, values, this);
           vr.listener(new MouseManage());
       }
       else if (om == OptionsMenu.Perfil) {
@@ -209,11 +209,7 @@ public class ControllerPresentation implements
     	int[][] m = cd.getSavedMatch(match);
         play(m,true,true);
     }
-    /*public static synchronized ControllerPresentation getInstance(){
-    	if (controller == null)
-    		controller = new ControllerPresentation();
-    	return controller;
-    }*/
+
     @Override
     public void getParameters(CaracteristiquesPartida caracteristiques){
     	if (createSudoku){
@@ -224,13 +220,11 @@ public class ControllerPresentation implements
 	            for(int j=0; j< mida; ++j) m[i][j] = 0;
 	        }
 	        cd.newSudoku(mida);
-	        c = new ControllerViewBoard(m, m[0].length,1,this,false,frame);
+	        new ControllerViewBoard(m, m[0].length,1,false,frame, this);
     	}
     	else {
     		int[][] m;
     		if(!caracteristiques.newSudoku) {
-    			//List<String> ident = cd.getIDSudokus(caracteristiques);
-    			//paso los ident a la vista, mostrar los id y llama a selectsudoku
     			selectSudoku("e1");
     		}
     		m = cd.createMatch(caracteristiques);
@@ -238,9 +232,11 @@ public class ControllerPresentation implements
             else play(m,true,false);
     	}
     }
+    
     public void selectSudoku(String id){
     	cd.selectSudoku(id);
     }
+    
     public void setBoardFast(String s){
     	int mida = 0;
     	if (s.length() <= 81) mida = 81;
@@ -334,6 +330,7 @@ public class ControllerPresentation implements
     public List<String> getIDMatches(){
         return cd.getIDMatches();
     }
+    
     /**
      * 
      * @param m taulell a jugar
@@ -341,19 +338,24 @@ public class ControllerPresentation implements
      * @param save Indica si la partida es una partida nova o una partida carregada
      */
     private void play(int[][] m, boolean competicio, boolean save)  { 
-      if (name.equals("Convidat")) c = new ControllerViewBoard(m, m[0].length,0,this,true,frame);
-      else c = new ControllerViewBoard(m, m[0].length,0,this,false,frame);
-      if (save) {
-          for(int i= 0; i<m[0].length; ++i) {
-              for(int j=0; j<m[0].length; ++j) {
-                  int res = cd.modify(i,j);
-                  String row = Integer.toString(i);
-                  String col = Integer.toString(j);
-                  String cood = row + " " + col; 
-                  if (res != 0) c.updateBoard(cood,Integer.toString(res));
-              }
-          }
-      }
+    	if (name.equals("Convidat"))
+    		new ControllerViewBoard(m, m[0].length, ControllerViewBoard.VIEW_PLAY_SUDOKU, 
+    			ControllerViewBoard.USER_NOT_GUEST, frame, this);
+    	else 
+    		new ControllerViewBoard(m, m[0].length, ControllerViewBoard.VIEW_PLAY_SUDOKU, 
+        			ControllerViewBoard.USER_NOT_GUEST, frame, this);
+    	
+    	if (save) {
+		      for(int i= 0; i<m[0].length; ++i) {
+		          for(int j=0; j<m[0].length; ++j) {
+		              int res = cd.modify(i,j);
+		              String row = Integer.toString(i);
+		              String col = Integer.toString(j);
+		              String cood = row + " " + col; 
+		              if (res != 0) c.updateBoard(cood,Integer.toString(res));
+		          }
+		      }
+		  }
       
     }
     /**
@@ -466,7 +468,7 @@ public class ControllerPresentation implements
     @Override
     public boolean checkInfoUser(List<String> credentials) {
       name = credentials.get(0);
-      correct = false;
+      boolean correct = false;
       String result = cd.checkCredentials(credentials);
       if (result.equals("Login correcte") || result.equals("S'ha creat l'usuari"))
     	  correct = true;
