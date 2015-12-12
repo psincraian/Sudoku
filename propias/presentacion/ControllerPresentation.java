@@ -18,6 +18,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
+import com.sun.corba.se.impl.protocol.BootstrapServerRequestDispatcher;
+
 import propias.dominio.clases.*;
 import propias.dominio.controladores.*;
 
@@ -267,17 +269,20 @@ public class ControllerPresentation implements
     
     
     private void playMatchTraining(int[][] sudoku) {
+		frame.getContentPane().removeAll();
+		frame.setLayout(new BorderLayout());
+		
     	if (!isGuest)
     		new ControllerViewBoard(sudoku, sudoku[0].length, ControllerViewBoard.VIEW_PLAY_SUDOKU, 
     			ControllerViewBoard.USER_NOT_GUEST, frame, this);
     	else 
     		new ControllerViewBoard(sudoku, sudoku[0].length, ControllerViewBoard.VIEW_PLAY_SUDOKU, 
         			ControllerViewBoard.USER_GUEST, frame, this);
+    	revalidateContentPane(frame);
     }
     
     //TODO
     private void playMatchCompetition(int[][] sudoku) {
-    	
     }
     
     // TODO

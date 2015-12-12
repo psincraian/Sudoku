@@ -84,4 +84,12 @@ public class CaracteristiquesPartida implements java.io.Serializable{
 	public boolean getNewSudoku(){
 		return newSudoku;
 	}
+	
+	/** Indica si el sudoku vol ser de la BBDD o nou
+	 * 
+	 * @param bool True si vol ser nou i false de la BBDD
+	 */
+	public void setNewSudoku(boolean newSudoku) {
+		this.newSudoku = newSudoku;
+	}
 }

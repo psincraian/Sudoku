@@ -31,6 +31,10 @@ public class SelectCharacteristics extends SetView {
 	private final static String SIZE_16 = "16x16";
 
 	private final static String GIVEN_NUMBERS_LABEL = "Given numbers";
+	
+	private final static String SUDOKU_BD_NEW_LABEL = "From BD or create new";
+	private final static String SUDOKU_NEW = "New sudoku";
+	private final static String SUDOKU_BD = "From BD";
 
 	private CaracteristiquesPartida characteristics;
 	private JTextField hiddenNumbersField;
@@ -52,6 +56,7 @@ public class SelectCharacteristics extends SetView {
 		characteristics.setDificultat(1);
 		characteristics.setTipusPartida(0);
 		characteristics.setMida(9);
+		characteristics.setNewSudoku(true);
 		setVisible(true);
 		createView();
 	}
@@ -61,11 +66,13 @@ public class SelectCharacteristics extends SetView {
 		JPanel panelDifficulty = new JPanel();
 		JPanel panelSize = new JPanel();
 		JPanel panelGivenNuber = new JPanel();
+		JPanel panelSudokuType = new JPanel();
 
 		createMatchGroup(panelMatch);
 		createDifficultyGroup(panelDifficulty);
 		createSizeGroup(panelSize);
 		createGivenNumbersPanel(panelGivenNuber);
+		createSudokuSelectionGroup(panelSudokuType);
 
 		JButton saveButton = new JButton(SAVE_BUTTON);
 		saveButton.addActionListener(new SaveActionListener());
@@ -79,6 +86,7 @@ public class SelectCharacteristics extends SetView {
 				.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
 					.addComponent(panelSize, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 					.addComponent(panelMatch, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+					.addComponent(panelSudokuType, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 					.addComponent(panelGivenNuber, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 					.addComponent(saveButton, GroupLayout.Alignment.TRAILING)
 					.addComponent(panelDifficulty, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -89,6 +97,8 @@ public class SelectCharacteristics extends SetView {
 			.addGroup(layout.createSequentialGroup()
 			.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 			.addComponent(panelMatch, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+			.addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+			.addComponent(panelSudokuType, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 			.addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
 			.addComponent(panelDifficulty, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 			.addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
@@ -109,22 +119,58 @@ public class SelectCharacteristics extends SetView {
 		setMaximumSize(getMinimumSize());
 		setName(TITLE);
 	}
+	
+	private void createSudokuSelectionGroup(JPanel panel) {
+		JRadioButton newSudoku = new JRadioButton(SUDOKU_NEW);
+		newSudoku.setActionCommand(SUDOKU_NEW);
+		newSudoku.setSelected(true);
+
+		JRadioButton bdSudoku = new JRadioButton(SUDOKU_BD);
+		bdSudoku.setActionCommand(SUDOKU_NEW);
+
+		ButtonGroup typeSudoku = new ButtonGroup();
+		typeSudoku.add(newSudoku);
+		typeSudoku.add(bdSudoku);
+
+		RadiousActionListener listener = new RadiousActionListener();
+		newSudoku.addActionListener(listener);
+		bdSudoku.addActionListener(listener);
+
+		panel.setBorder(BorderFactory.createTitledBorder(SUDOKU_BD_NEW_LABEL));
+		GroupLayout layout = new GroupLayout(panel);
+		panel.setLayout(layout);
+
+		layout.setHorizontalGroup(
+			layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+			.addGroup(layout.createSequentialGroup()
+				.addComponent(newSudoku)
+				.addGap(18, 18, 18)
+				.addComponent(bdSudoku)
+				.addGap(0, 0, Short.MAX_VALUE))
+		);
+		layout.setVerticalGroup(
+			layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+			.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+				.addComponent(newSudoku)
+				.addComponent(bdSudoku))
+		);
+	}
 
 	private void createMatchGroup(JPanel panel) {
 		JRadioButton matchTraining = new JRadioButton(MATCH_TRAINING);
 		matchTraining.setActionCommand(MATCH_TRAINING);
 		matchTraining.setSelected(true);
 
-		JRadioButton matchCompetition = new JRadioButton(MATCH_COMPETITION);
-		matchCompetition.setActionCommand(MATCH_COMPETITION);
+		JRadioButton bdSudoku = new JRadioButton(MATCH_COMPETITION);
+		bdSudoku.setActionCommand(MATCH_COMPETITION);
 
 		ButtonGroup match = new ButtonGroup();
 		match.add(matchTraining);
-		match.add(matchCompetition);
+		match.add(bdSudoku);
 
 		RadiousActionListener listener = new RadiousActionListener();
 		matchTraining.addActionListener(listener);
-		matchCompetition.addActionListener(listener);
+		bdSudoku.addActionListener(listener);
 
 		panel.setBorder(BorderFactory.createTitledBorder(MATCH_LABEL));
 		GroupLayout layout = new GroupLayout(panel);
@@ -135,14 +181,14 @@ public class SelectCharacteristics extends SetView {
 			.addGroup(layout.createSequentialGroup()
 				.addComponent(matchTraining)
 				.addGap(18, 18, 18)
-				.addComponent(matchCompetition)
+				.addComponent(bdSudoku)
 				.addGap(0, 0, Short.MAX_VALUE))
 		);
 		layout.setVerticalGroup(
 			layout.createParallelGroup(GroupLayout.Alignment.LEADING)
 			.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
 				.addComponent(matchTraining)
-				.addComponent(matchCompetition))
+				.addComponent(bdSudoku))
 		);
 	}
 
@@ -268,6 +314,12 @@ public class SelectCharacteristics extends SetView {
 					break;
 				case SIZE_16:
 					characteristics.setMida(16);
+					break;
+				case SUDOKU_NEW:
+					characteristics.setNewSudoku(true);
+					break;
+				case SUDOKU_BD:
+					characteristics.setNewSudoku(false);
 					break;
 				default: break;
 			}

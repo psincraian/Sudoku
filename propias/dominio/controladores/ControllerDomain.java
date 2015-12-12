@@ -124,8 +124,9 @@ public class ControllerDomain {
     		}	
             
         } catch (Exception e) {
+        	e.printStackTrace();
 			System.out.println(e.getMessage());
-            return null;
+			return null;
         }
     }
     public List<String> getIDSudokus(CaracteristiquesPartida c){
