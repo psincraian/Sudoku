@@ -270,7 +270,7 @@ public abstract class GenerateBoard extends SetView{
 		JLabel l = new JLabel();
 		l = (JLabel)p.getComponent(0);
 		l.setText(text);
-		l.setForeground(Color.BLACK);
+		l.setForeground(Color.BLACK);		
 		p.setEnabled(true);
 	}
 	
