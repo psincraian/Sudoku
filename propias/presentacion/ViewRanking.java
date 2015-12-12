@@ -131,5 +131,9 @@ public class ViewRanking extends SetView{
 				r.getBack();
 		}
 	}
+	public void disableView() {
+		// TODO Auto-generated method stub
+		setVisible(false);
+	}
 }
 
