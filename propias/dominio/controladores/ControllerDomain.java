@@ -80,12 +80,12 @@ public class ControllerDomain {
                     rg = cc.getRankingGlobal();
                     return "Login correcte";
                 }
-                else return "Nom o contrasenya incorrectes";
+                else return "Contrasenya incorrecte";
             }
-            else return "Nom o contrasenya incorrectes";
+            else return "Nom incorrecte";
         } 
-        catch (Exception e1) {
-            return null;
+        catch (Exception e) {
+            return e.getMessage();
         }
     }
     /**
@@ -124,7 +124,7 @@ public class ControllerDomain {
     		}	
             
         } catch (Exception e) {
-            e.printStackTrace(); // mai arribarem
+			System.out.println(e.getMessage());
             return null;
         }
     }
@@ -132,6 +132,7 @@ public class ControllerDomain {
     	try {
 			return cc.getIDSudokus(c.getMida(), c.getDificultat());
 		} catch (Exception e) {
+			System.out.println(e.getMessage());
 			return null;
 		}
     }
@@ -185,8 +186,8 @@ public class ControllerDomain {
 					sudoku.setCell(p, Character.getNumericValue(s.charAt(position)));
 					return String.valueOf(s.charAt(position));
 				} catch (Exception e) {
+					System.out.println(e.getMessage());
 				}
-				
 			}
     	}
     	else if (mida == 256){
@@ -200,7 +201,7 @@ public class ControllerDomain {
 					sudoku.setCell(p, Character.getNumericValue(s.charAt(position)));
 					return value;
 				} catch (Exception e) {
-
+					System.out.println(e.getMessage());
 				}
 				
 			}
