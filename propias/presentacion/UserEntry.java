@@ -38,7 +38,7 @@ public abstract class UserEntry extends SetView {
 
 	/**
 	 * 
-	 * Creadora de la configuració de la vista.
+	 * Creadora de la configuraciï¿½ de la vista.
 	 * 
 	 */
 	public UserEntry() {
@@ -46,7 +46,6 @@ public abstract class UserEntry extends SetView {
 		setFocusable(true);
 		requestFocusInWindow();
 		createView();
-		setVisible(true);
 	}
 	
 	/**
@@ -111,7 +110,7 @@ public abstract class UserEntry extends SetView {
 	}
 	
 	/**
-	 * Funció que s'encarrega de retorna el nombre
+	 * Funciï¿½ que s'encarrega de retorna el nombre
 	 * de l'usuari
 	 * 
 	 * @return nom de l'usuari
@@ -136,9 +135,9 @@ public abstract class UserEntry extends SetView {
 	 * 
 	 * Afegeix els listeners als botons que s'especifiqui.
 	 * 
-	 * @param mm : Clase MouseAdapter que s'encarregarà de
+	 * @param mm : Clase MouseAdapter que s'encarregarï¿½ de
 	 * gestionar els listeners dels botons
-	 * @param b : El botó que es vol observar
+	 * @param b : El botï¿½ que es vol observar
 	 * 
 	 */
 	protected void buttonListener(MouseAdapter mm, JButton b){
@@ -147,13 +146,13 @@ public abstract class UserEntry extends SetView {
 	
 	/**
 	 * 
-	 * Aquesta funció s'encarregà de configura l'amplada i alçada
-	 * màxima dels JTextField, JPasswordField i JLabel
+	 * Aquesta funciï¿½ s'encarregï¿½ de configura l'amplada i alï¿½ada
+	 * mï¿½xima dels JTextField, JPasswordField i JLabel
 	 * per tal de dibuixar un quadrat elevat al seu voltant.
 	 * 
 	 * @param width : amplada 
 	 * @param nElem : nombre de elements, que pot ser 2 en el cas de login
-	 * i 3 en el cas de creació d'un nou usuari.
+	 * i 3 en el cas de creaciï¿½ d'un nou usuari.
 	 */
 	protected void setPanelSize(int width, int nElem){
 		panel.setPreferredSize(new Dimension(width,nElem*40));
@@ -163,8 +162,8 @@ public abstract class UserEntry extends SetView {
 	
 	/**
 	 * 
-	 * Funció que s'encarrega de retorna el password introduit.
-	 * Retorna una llista ja que per la vista de creació d'un nou
+	 * Funciï¿½ que s'encarrega de retorna el password introduit.
+	 * Retorna una llista ja que per la vista de creaciï¿½ d'un nou
 	 * usuari hi han 2 contrasenyes.
 	 * 
 	 * @return Contrasenya a verificar.

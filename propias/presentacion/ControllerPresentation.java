@@ -19,7 +19,6 @@ import javax.swing.SwingConstants;
 
 import propias.dominio.clases.*;
 import propias.dominio.controladores.*;
-import propias.presentacion.SelectSize.GetParametersListener;
 
 /**
  * 
@@ -30,7 +29,9 @@ public class ControllerPresentation implements
 	SelectSize.GetParametersListener, 
 	SelectCharacteristics.GetParametersListener,
 	ControllerStart.GetOptionsListInterface,
-	ControllerUserEntry.userEntry {
+	ControllerUserEntry.userEntry,
+	ControllerViewBoard.viewBoard,
+	ViewRanking.ranking {
 	
 	JFrame frame;
     ControllerDomain cd;
@@ -57,23 +58,28 @@ public class ControllerPresentation implements
 		frame = new JFrame("Sudoku");
 		frame.setBackground(Color.WHITE);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.pack();
-		frame.setVisible(true);
-		frame.setMinimumSize(new Dimension(1000, 750));
+		frame.setMaximumSize(new Dimension(1000, 750));
+		frame.setPreferredSize(new Dimension(1000, 750));		
 	}
     
     /**
      * Inicia el joc
      */
     public void start() {
+        frame.getContentPane().removeAll();
         new ControllerStart(this,frame);
+        frame.setVisible(true);
+        frame.pack();
     }
     
     /**
      * Inicia el login
      */
     public void startUser(){
-    	new ControllerUserEntry(true, frame, this);
+        frame.getContentPane().removeAll();
+    	cu = new ControllerUserEntry(true,frame,this);
+    	frame.setVisible(true);
+        frame.pack();
     }
     
     /**
@@ -87,7 +93,10 @@ public class ControllerPresentation implements
      * Inicia la creacio d'un nou usuari
      */
     public void startNewUser(){
-    	new ControllerUserEntry(false, frame, this);
+        frame.getContentPane().removeAll();
+    	cu = new ControllerUserEntry(false,frame,this);
+    	frame.setVisible(true);
+        frame.pack();
     }
     
     /**
@@ -98,7 +107,6 @@ public class ControllerPresentation implements
 			JButton button = (JButton)e.getSource();
 			if (button.getText() == "Tornar") {
 				if (view == 1) vp.disableView();
-				else if (view == 2) vr.disableView();
 				else if (view == 3) vl.disableView();
 				getBack();
 			}
@@ -134,6 +142,7 @@ public class ControllerPresentation implements
      * @param convidat Indica si l'usuari es usuari convidat
      */
     public void Menu(boolean convidat) {
+      frame.getContentPane().removeAll();
       VistaMenu vm = new VistaMenu();
       OptionsMenu om; 
       if (convidat) {
@@ -151,7 +160,8 @@ public class ControllerPresentation implements
     	  createSudoku = false;
     	  JPanel newContentPane = new SelectCharacteristics(this);
   		  newContentPane.setOpaque(true);
-          frame.getContentPane().setLayout(new java.awt.GridBagLayout());
+	      frame.getContentPane().removeAll();
+  		  frame.setLayout(new java.awt.GridBagLayout());
   		  frame.getContentPane().add(newContentPane, new java.awt.GridBagConstraints());
           frame.pack();
   		  frame.setVisible(true);
@@ -161,7 +171,8 @@ public class ControllerPresentation implements
     	    view = 3; // load match
     	    List<String> id = cd.getIDMatches();
     	    this.id = id;
-    	    vl = new ViewLoadMatch(id, this);
+    	    vl = new ViewLoadMatch(id,this);
+	        frame.getContentPane().removeAll();
     	    frame.getContentPane().add(vl);
 		    if (id.size() == 0) {
 		  		JOptionPane.showMessageDialog(null, "No hi ha partides guardades");
@@ -180,22 +191,27 @@ public class ControllerPresentation implements
     	  createSudoku = true;
           JPanel newContentPane = new SelectSize(this);
   		  newContentPane.setOpaque(true);
-          frame.getContentPane().setLayout(new java.awt.GridBagLayout());
-  		  frame.getContentPane().add(newContentPane, new java.awt.GridBagConstraints());
-          frame.pack();
-  		  frame.setVisible(true);
+	      frame.getContentPane().removeAll();
+  		  frame.setLayout(new java.awt.GridBagLayout());
+		  frame.getContentPane().add(newContentPane, new java.awt.GridBagConstraints());
       }
       else if (om == OptionsMenu.Ranking) {
     	  view = 2; // ranking
     	  List<String> names = new ArrayList<String>();
           List<Long> values = new ArrayList<Long>();
           cd.getRanking(names,values);
-          vr = new ViewRanking(names, values, this);
-          vr.listener(new MouseManage());
+	      frame.getContentPane().removeAll();
+	      frame.setLayout(new BorderLayout());
+          vr = new ViewRanking(names, values,this);
+          frame.setVisible(true);
+          frame.pack();
       }
       else if (om == OptionsMenu.Perfil) {
     	  view = 1; // perfil
+	      frame.getContentPane().removeAll();
     	  vp = new ViewProfile(getMatches(), getTime(), getBestTime());
+    	  frame.setVisible(true);
+          frame.pack();
     	  vp.listener(new MouseManage());
       }
       else if (om == OptionsMenu.Sortir) start();
@@ -220,8 +236,13 @@ public class ControllerPresentation implements
 	            for(int j=0; j< mida; ++j) m[i][j] = 0;
 	        }
 	        cd.newSudoku(mida);
-	        new ControllerViewBoard(m, m[0].length,1,false,frame, this);
+	        frame.getContentPane().removeAll();
+	        frame.setLayout(new BorderLayout());
+	        c = new ControllerViewBoard(m, m[0].length,1,false,frame,this);
+	        frame.setVisible(true);
+	        frame.pack();
     	}
+    	
     	else {
     		int[][] m;
     		if(!caracteristiques.newSudoku) {
@@ -338,26 +359,32 @@ public class ControllerPresentation implements
      * @param save Indica si la partida es una partida nova o una partida carregada
      */
     private void play(int[][] m, boolean competicio, boolean save)  { 
+        frame.getContentPane().removeAll();
+        frame.setLayout(new BorderLayout());
+        frame.setVisible(true);
+        frame.pack();
+        
     	if (name.equals("Convidat"))
     		new ControllerViewBoard(m, m[0].length, ControllerViewBoard.VIEW_PLAY_SUDOKU, 
     			ControllerViewBoard.USER_NOT_GUEST, frame, this);
     	else 
     		new ControllerViewBoard(m, m[0].length, ControllerViewBoard.VIEW_PLAY_SUDOKU, 
         			ControllerViewBoard.USER_NOT_GUEST, frame, this);
-    	
+    
     	if (save) {
-		      for(int i= 0; i<m[0].length; ++i) {
-		          for(int j=0; j<m[0].length; ++j) {
-		              int res = cd.modify(i,j);
-		              String row = Integer.toString(i);
-		              String col = Integer.toString(j);
-		              String cood = row + " " + col; 
-		              if (res != 0) c.updateBoard(cood,Integer.toString(res));
-		          }
-		      }
-		  }
+    		for(int i= 0; i<m[0].length; ++i) {
+    			for(int j=0; j<m[0].length; ++j) {
+    				int res = cd.modify(i,j);
+    				String row = Integer.toString(i);
+    				String col = Integer.toString(j);
+    				String cood = row + " " + col; 
+    				if (res != 0) c.updateBoard(cood,Integer.toString(res));
+    			}
+    		}
+    	}
       
     }
+    
     /**
      * 
      * @param s Coordenades de una Cel·la
@@ -467,10 +494,14 @@ public class ControllerPresentation implements
      */
     @Override
     public boolean checkInfoUser(List<String> credentials) {
-      name = credentials.get(0);
       boolean correct = false;
-      String result = cd.checkCredentials(credentials);
-      if (result.equals("Login correcte") || result.equals("S'ha creat l'usuari"))
+      String result;
+      if(credentials.size() == 3)
+    	  result = cd.checkNewUser(credentials);
+      else
+    	  result = cd.checkLogin(credentials);
+
+      if (result.equals("Login correcte") || result.equals("S'ha creat l'usuari correctament"))
     	  correct = true;
       cu.sendMessage(result);
       return correct;

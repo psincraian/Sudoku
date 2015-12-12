@@ -15,12 +15,6 @@ import propias.dominio.controladores.generator.CntrlSudokuHelps;
  */
 public class ControllerDomain {
 	
-	public static final String LOGIN_OK = "Login correcte";
-	public static final String LOGIN_FAIL_USER_EMPTY = "Has d'introduir un nom d'usuari";
-	public static final String LOGIN_FAIL_USER_EXISTS = "L'usuari ja existeix";
-	public static final String LOGIN_FAIL_EMPTY_PASSWORDS = "Les contrasenyes no poden ser buides";
-	public static final String LOGIN_FAIL_PASSWORDS_DISTINCT = "Les contrasenyes no coincideixen";
-	public static final String LOGIN_FAIL_ONLY_VALID_CHARS = "Les contrasenyes nomes poden tenir numeros i lletres";
 	
     ControllerCasting cc;
     RankingGlobal rg;
@@ -35,6 +29,7 @@ public class ControllerDomain {
     boolean createSudoku; //indica si s'esta creant un nou sudoku o no
     int cont; //indica les caselles posades per l'usuari al jugar una partida
     int points; // punts de la partida
+    ErrorUserEntry errorUser;
     
     /**
      * Constructora
@@ -47,58 +42,51 @@ public class ControllerDomain {
      * @param credentials Contiene la informacion del usuario
      * @return Si el login o el crear usuario se ha relaizado correctamente
      */
-    public String checkCredentials(List<String> credentials){
-        String user = credentials.get(0);
-        String pass1 = credentials.get(1);
-        if (credentials.size() == 3) { //create user
+    public String checkNewUser(List<String> credentials){
             try {
-                String pass2 = credentials.get(2);
-                CreateUser c = new CreateUser(user,pass1,pass2);
-                if (c.isEqual() == -3) return LOGIN_FAIL_USER_EMPTY;
-                boolean b = cc.existsUser(user);
-                if (b)  return "L'usuari ja existeix";  //Usuari ja existent
-                else if(c.isEqual() == 1) return "Les contrasenyes no poden ser buides";
-                else if(c.isEqual() == 2) return "Les contrasenyes no coincideixen"; //Les contrasenyes no coincideixen
-                else if(c.isEqual() == 0)  return "Les contrasenyes nomes poden tenir lletres i numeros";
+            	if(cc.existsUser(credentials.get(0))) 
+            		return "El nom d'usuari ja existeix";
+                CreateUser cu = new CreateUser(credentials.get(0),credentials.get(1),credentials.get(2));
+                errorUser = cu.isEqual();
+                if (errorUser.equals(ErrorUserEntry.LOGIN_FAIL_USER_EMPTY)) 
+                	return "Usuari ha de tenir un nom";
+                else if(errorUser.equals(ErrorUserEntry.LOGIN_FAIL_EMPTY_PASSWORDS)) 
+                	return "Les contrasenyes no poden ser buides";
+                else if(errorUser.equals(ErrorUserEntry.LOGIN_FAIL_PASSWORDS_DISTINCT)) 
+                	return "Les contrasenyes no coincideixen"; 
+                else if(errorUser.equals(ErrorUserEntry.LOGIN_FAIL_ONLY_VALID_CHARS_AND_NUMBERS))  
+                	return "Les contrasenyes nomes poden tenir lletres i numeros";
                 else {
-                	this.user = new Usuari(user);
-                	this.user.setPassword(pass1);
-                	cc.createUser(this.user);
-                	cc.userDBInit(this.user.consultarNom());
+                	user = cu.createUser();
+                	cc.createUser(user);
+                	cc.userDBInit(user.consultarNom());
                     createStadistics();
                     initRanking();
-                	return "S'ha creat l'usuari";
-                }
-                
+                	return "S'ha creat l'usuari correctament";
+                } 
             }
-                catch (Exception e) {
-                    return null;
+            catch (Exception e) {
+            	return null;
             }
-            
-        }
-        else { //login
-            String passWordOk = "";
-            try {
-                if(!user.equals("") && cc.existsUser(user)) {
-                	Usuari u = cc.getUser(user);
-                    passWordOk = u.getPassword();
-                    if (passWordOk.equals(pass1)) {
-                    	this.user = new Usuari(user);
-                        cc.userDBInit(this.user.consultarNom());
-                        createStadistics();
-                        initRanking();
-                        return "Login correcte";
-                    }
-                    else return "Nom o contrasenya incorrectes";
+    }
+    public String checkLogin(List<String> credentials){
+        try {
+        	if(!credentials.get(0).equals("") && cc.existsUser(credentials.get(0))) {
+            	user = cc.getUser(credentials.get(0));
+                String passWordOk = user.getPassword();
+                if (passWordOk.equals(credentials.get(1))) {
+                    cc.userDBInit(user.consultarNom());
+                    createStadistics();
+                    initRanking();
+                    return "Login correcte";
                 }
                 else return "Nom o contrasenya incorrectes";
-            } 
-            catch (Exception e1) {
-                return null;
             }
-            
-            
-        }   
+            else return "Nom o contrasenya incorrectes";
+        } 
+        catch (Exception e1) {
+            return null;
+        }
     }
     /**
      * Crea una partida a partir d'unes caracteristiques posades per l'usuari
@@ -425,10 +413,12 @@ public class ControllerDomain {
      */
     public List<Integer> getCandidates(int row, int col) {
     try {
+    	System.out.println(row+" "+col);
         List<Integer> candidates = CntrlSudokuHelps.getCandidates(new Position(row,col), match.getSudoku());
         return candidates;
     } 
     catch (Exception e) {
+    	System.out.println(e.getStackTrace());
             return null;
     }
     }

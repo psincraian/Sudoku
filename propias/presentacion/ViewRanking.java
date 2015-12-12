@@ -52,7 +52,6 @@ public class ViewRanking extends SetView{
 		this.r = (ranking) container;
 		setTitle("Ranking");
 		initialize();
-		setVisible(true);
 	}
 	
 	/**

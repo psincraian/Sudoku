@@ -46,19 +46,20 @@ public class CreateUser {
 	 * 		si retorna -1, les contrasenyes  son iguals
 	 * 
 	 */
-	public int isEqual(){
+	public ErrorUserEntry isEqual(){
 		for(int i = 0; i < pass1.length(); ++i) {
 			Character c = pass1.charAt(i);
             if (c < '1' || (c >'9' && c < 'A') || (c > 'Z' && c < 'a') || c > 'z')
-                return 0;
+                return ErrorUserEntry.LOGIN_FAIL_ONLY_VALID_CHARS_AND_NUMBERS;
         }
-		if(nom.equals("")) return -3;
+		if(nom.equals(""))
+			return ErrorUserEntry.LOGIN_FAIL_USER_EMPTY;
 		else if(pass1.equals("") || pass2.equals(""))
-			return 1;
-		else if(pass1.equals(pass2))
-			return -1;
-		else //if(!pass1.equals(pass2))
-			return 2;
+			return ErrorUserEntry.LOGIN_FAIL_EMPTY_PASSWORDS;
+		else if(!pass1.equals(pass2))
+			return ErrorUserEntry.LOGIN_FAIL_PASSWORDS_DISTINCT;
+		else 
+			return ErrorUserEntry.LOGIN_OK;
 	}
 	
 	public Usuari createUser(){

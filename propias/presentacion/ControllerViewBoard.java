@@ -71,7 +71,7 @@ public class ControllerViewBoard {
 			this.vm = new ViewCreateBoard(board,size);
 			vm.buttonListener(new MouseManage(), vm.actEntry);
 		}
-		vb = (viewBoard) container;
+		vb = (viewBoard)container;
 		frame.getContentPane().add(vm);
 		vm.buttonListener(new MouseManage(), vm.extraButton[0]);
 		vm.buttonListener(new MouseManage(), vm.extraButton[3]);
