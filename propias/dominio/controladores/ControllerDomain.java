@@ -95,7 +95,7 @@ public class ControllerDomain {
      * @param c Contiene las caracteristicas de la nueva partia
      * @return Una nueva partida con caracteristicas c
      */
-    public int[][] createMatch(CaracteristiquesPartida c){
+    public int[][] createMatch(CaracteristiquesPartida c, Boolean isGuest){
         try {
         	if (!c.getNewSudoku()) {
         		cont = 0;
@@ -103,7 +103,8 @@ public class ControllerDomain {
         	    this.size = c.getMida();
             	this.dificult = c.getDificultat();
             	this.type = c.getTipusPartida();
-            	if(type == 0) match = new MatchTraining(this.user.consultarNom(), s);
+            	if (isGuest) match = new MatchTraining("Convidat", s);
+            	else if(type == 0) match = new MatchTraining(this.user.consultarNom(), s);
                 else match = new MatchCompetition(this.user.consultarNom(), s);
             	int[][] matrix = convertToMatrix(s.getSudoku());
             	return matrix;
@@ -119,8 +120,9 @@ public class ControllerDomain {
         	    this.size = c.getMida();
             	this.dificult = c.getDificultat();
             	this.type = c.getTipusPartida();
-            	if(type == 0) match = new MatchTraining(this.user.consultarNom(), s);
-                else match = new MatchCompetition(this.user.consultarNom(), s);
+            	if (isGuest) match = new MatchTraining("Convidat", s);
+            	else if(type == 0) match = new MatchTraining(this.user.consultarNom(), s);
+                else if (type == 1) match = new MatchCompetition(this.user.consultarNom(), s);
             	int[][] matrix = convertToMatrix(s.getSudoku());
             	return matrix;
     		}	
