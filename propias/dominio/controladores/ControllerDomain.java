@@ -413,10 +413,12 @@ public class ControllerDomain {
      */
     public List<Integer> getCandidates(int row, int col) {
     try {
+    	System.out.println(row+" "+col);
         List<Integer> candidates = CntrlSudokuHelps.getCandidates(new Position(row,col), match.getSudoku());
         return candidates;
     } 
     catch (Exception e) {
+    	System.out.println(e.getStackTrace());
             return null;
     }
     }

@@ -205,7 +205,6 @@ public class ControllerPresentation implements
           vr = new ViewRanking(names, values,this);
           frame.setVisible(true);
           frame.pack();
-          vr.listener(new MouseManage());
       }
       else if (om == OptionsMenu.Perfil) {
     	  view = 1; // perfil
