@@ -60,8 +60,8 @@ public class ControllerViewBoard {
 	 * @param frame : El fram del joc. Es configura amb el panell de la vista.
 	 * 
 	 */
-	public ControllerViewBoard(int[][] board, int size, int typeBoard, boolean guest, JFrame frame, Object container){
-		this.size = size;
+	public ControllerViewBoard(int[][] board, int typeBoard, boolean guest, JFrame frame, Object container){
+		this.size = board[0].length;
 		instance = this;
 		if(typeBoard == VIEW_PLAY_SUDOKU){
 			this.vm = new ViewMatch(board,size);
