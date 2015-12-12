@@ -96,6 +96,7 @@ public class ViewSelectSudoku extends SetView{
 		for(int i = 0; i < id.size(); ++i){
 			buttons[i] = new JButton(id.get(i));
 		}
+		buttonListener();
 	}
 	
 	/**
@@ -107,9 +108,9 @@ public class ViewSelectSudoku extends SetView{
 	 * per tal de gestionar el listener
 	 * 
 	 */
-	protected void buttonListener(MouseAdapter mm){
+	protected void buttonListener(){
 		for(int i  = 0; i < buttons.length; ++i)
-			buttons[i].addMouseListener(mm);
+			buttons[i].addMouseListener(new MouseManage());
 	}
 	
 	public class MouseManage extends MouseAdapter {
