@@ -1,4 +1,5 @@
 *.class
+*.data
 
 # Temp OSX specific
 *.DS_Store
