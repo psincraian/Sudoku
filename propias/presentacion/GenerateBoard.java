@@ -20,8 +20,8 @@ import javax.swing.border.LineBorder;
 /**
  * 
  * Configura una nova vista amb un taulell. Segons 
- * el tipus de vista que es vulgui, es carregarà 
- * la creació d'un nou sudoku o jugar una partida. 
+ * el tipus de vista que es vulgui, es carregarï¿½ 
+ * la creaciï¿½ d'un nou sudoku o jugar una partida. 
  * 
  * @author Daniel Sanchez Martinez
  * 
@@ -45,12 +45,12 @@ public abstract class GenerateBoard extends SetView{
 	/**
 	 * 
 	 * Constructor del GenerateBoard. Configura la submida 
-	 * del taulell i comença a configurar la vista
+	 * del taulell i comenï¿½a a configurar la vista
 	 * 
 	 * @param board : Pertany al sudoku, si la vista que es vol mostrar
-	 * es ViewMatch, board contindrà el sudoku sense resoldre(amb forats), 
+	 * es ViewMatch, board contindrï¿½ el sudoku sense resoldre(amb forats), 
 	 * en el cas de que es vulgui la vista per crear un nou sudoku, el board
-	 * serà buit.
+	 * serï¿½ buit.
 	 * @param size : la mida del sudoku
 	 * 
 	 */
@@ -99,10 +99,10 @@ public abstract class GenerateBoard extends SetView{
 	
 	/**
 	 * 
-	 * Inicialitza els paràmetres de la vista.
+	 * Inicialitza els parï¿½metres de la vista.
 	 * 
 	 * @param board : En el cas de que la vista sigui de jugar una partida, 
-	 * es posaràn els numeros a la vista.
+	 * es posarï¿½n els numeros a la vista.
 	 * 
 	 */
 	private void iniBoard(int[][] board){
@@ -176,8 +176,8 @@ public abstract class GenerateBoard extends SetView{
 	 * Per tal de poder diferencia les lines dins del taulell, 
 	 * es pinta de diferent color(monocrom) segons la submida congigurada
 	 * 
-	 * @param i : posició dins d'una fila
-	 * @param j : posició dins d'un columna
+	 * @param i : posiciï¿½ dins d'una fila
+	 * @param j : posiciï¿½ dins d'un columna
 	 * 
 	 */
 	protected void drawSquare(int i, int j){
@@ -216,7 +216,7 @@ public abstract class GenerateBoard extends SetView{
 	 * Afegeix listeners als botons.
 	 * 
 	 * @param mm : Clase MouseAdaptar que s'encarrega de gestionar el listener
-	 * @param b : Botó a ser observat
+	 * @param b : Botï¿½ a ser observat
 	 * 
 	 */
 	protected abstract void buttonListener(MouseAdapter mm, JButton b);
@@ -226,8 +226,8 @@ public abstract class GenerateBoard extends SetView{
 	 * al taulell del joc.
 	 * 
 	 * @param mm : Clase MouseAdaptar que s'encarrega de gestionar el listener
-	 * @param index : posició dins d'una fila
-	 * @param subindex : posició dins d'una columna
+	 * @param index : posiciï¿½ dins d'una fila
+	 * @param subindex : posiciï¿½ dins d'una columna
 	 */
 	protected void panelListener(MouseAdapter mm, int index, int subindex){
 		square[index][subindex].addMouseListener(mm);
@@ -236,9 +236,9 @@ public abstract class GenerateBoard extends SetView{
 	/**
 	 * 
 	 * Habilida o deshabilita els botons per interactuar entre usuari
-	 * i taulell. Està lligat amb els candidats.
+	 * i taulell. Estï¿½ lligat amb els candidats.
 	 * 
-	 * @param cond : Condició que fa que un botó sigui habilitat o
+	 * @param cond : Condiciï¿½ que fa que un botï¿½ sigui habilitat o
 	 * deshabilitat
 	 * 
 	 */
@@ -250,7 +250,7 @@ public abstract class GenerateBoard extends SetView{
 	 * 
 	 * Envia un missatge a l'usuari.
 	 * 
-	 * @param message : El missatge en questió
+	 * @param message : El missatge en questiï¿½
 	 * 
 	 */
 	protected void sendMessage(String message){
@@ -262,7 +262,7 @@ public abstract class GenerateBoard extends SetView{
 	 * Cambia el valor d'una casella. Relacionat quan un usuari vol
 	 * carregar una partida guardada.
 	 * 
-	 * @param l : panell en questió(casella)
+	 * @param l : panell en questiï¿½(casella)
 	 * @param text : valor a posar
 	 * 
 	 */
@@ -270,13 +270,14 @@ public abstract class GenerateBoard extends SetView{
 		JLabel l = new JLabel();
 		l = (JLabel)p.getComponent(0);
 		l.setText(text);
+		l.setForeground(Color.BLACK);		
 		p.setEnabled(true);
 	}
 	
 	/**
 	 * 
-	 * Segons la vista que s'ha seleccionat, una vista tindrà unes botons o uns altres.
-	 * Aquesta funció s'encarregarà de mostrar tot allo que necessita la vista.
+	 * Segons la vista que s'ha seleccionat, una vista tindrï¿½ unes botons o uns altres.
+	 * Aquesta funciï¿½ s'encarregarï¿½ de mostrar tot allo que necessita la vista.
 	 * 
 	 */
 	protected abstract void enableCustomProperties();
