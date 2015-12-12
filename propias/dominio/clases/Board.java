@@ -208,7 +208,8 @@ public class Board implements java.io.Serializable {
 	public int[][] getMatrix() {
 	    int[][] target = new int[size][size];
 	    for (int i = 0; i < size; i++)
-	        System.arraycopy(board[i], 0, target[i], 0, size);
+	    	for (int j = 0; j < size; ++j)
+	    		target[i][j] = board[i][j].getValue();
 	    return target;
 	}
 

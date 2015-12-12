@@ -9,7 +9,7 @@ import propias.dominio.clases.CaracteristiquesPartida;
 public class SelectSize extends SetView {
 
 	public interface GetParametersListener {
-		public void getParameters(CaracteristiquesPartida caracteristiques);
+		public void getSize(int size);
 	}
 	
 	private static final long serialVersionUID = -170046201841094501L;
@@ -21,7 +21,7 @@ public class SelectSize extends SetView {
 	private final static String SIZE_9 = "9x9";
 	private final static String SIZE_16 = "16x16";
 
-	private CaracteristiquesPartida characteristics;
+	private int size;
 	private GetParametersListener listener;
 
 	public SelectSize(Object container) {
@@ -34,8 +34,7 @@ public class SelectSize extends SetView {
 			e.printStackTrace();
 		}
 		
-		characteristics = new CaracteristiquesPartida();
-		characteristics.setMida(9);
+		size = 9;
 		createView();
 	}
 
@@ -120,10 +119,10 @@ public class SelectSize extends SetView {
 		public void actionPerformed(ActionEvent e) {
 			switch (e.getActionCommand()) {
 				case SIZE_9:
-					characteristics.setMida(9);
+					size = 9;
 					break;
 				case SIZE_16:
-					characteristics.setMida(16);
+					size = 16;
 					break;
 				default: break;
 			}
@@ -134,7 +133,7 @@ public class SelectSize extends SetView {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			listener.getParameters(characteristics);
+			listener.getSize(size);
 		}
 		
 	}

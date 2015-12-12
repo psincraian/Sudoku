@@ -390,18 +390,12 @@ public class ControllerPresentation implements
          vr.listener(new MouseManage());
     }
     
-    //TODO
     private void showCreateSudoku() {
-        VistaSeleccionarCaracteristiques sc = new VistaSeleccionarCaracteristiques();
-        int mida = sc.obtenirMida();
-        this.mida = mida;
-        int m[][] = new int[mida][mida];
-        for(int i=0; i< mida; ++i){
-            for(int j=0; j< mida; ++j) m[i][j] = 0;
-        }
-
-        new ControllerViewBoard(m, m[0].length, ControllerViewBoard.VIEW_CREATE_SUDOKU, 
-    			ControllerViewBoard.USER_NOT_GUEST, frame, this);;
+    	frame.getContentPane().removeAll();
+    	frame.setLayout(new GridBagLayout());
+    	SelectSize sc = new SelectSize(this);
+    	frame.add(sc);
+    	revalidateContentPane(frame);
     }
     
 	// TODO
@@ -467,5 +461,16 @@ public class ControllerPresentation implements
 	@Override
 	public void getBack() {
 		showMainMenu();
+	}
+
+	@Override
+	public void getSize(int size) {
+        int[][] m = cd.newSudoku(size);
+        
+        frame.getContentPane().removeAll();
+        frame.setLayout(new BorderLayout());
+        new ControllerViewBoard(m, size, ControllerViewBoard.VIEW_CREATE_SUDOKU, 
+    			ControllerViewBoard.USER_NOT_GUEST, frame, this);
+        revalidateContentPane(frame);
 	}
 }
