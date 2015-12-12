@@ -271,7 +271,7 @@ public class ControllerPresentation implements
     	  result = cd.checkNewUser(credentials);
       else
     	  result = cd.checkLogin(credentials);
-
+      ControllerUserEntry.getInstance().sendMessage(result);
       if (result.equals("Login correcte") || result.equals("S'ha creat l'usuari correctament"))
     	  correct = true;
       return correct;

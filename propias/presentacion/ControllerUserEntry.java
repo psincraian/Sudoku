@@ -26,6 +26,8 @@ public class ControllerUserEntry {
 	public static final boolean LOGIN_VIEW = true;
 	public static final boolean REGISTRATION_VIEW = false;
 	
+	private static ControllerUserEntry instance;
+
 	UserEntry eu;
 	private userEntry ue;
 	
@@ -67,6 +69,10 @@ public class ControllerUserEntry {
 	 */
 	public void sendMessage(String message){
 		eu.sendMessage(message);
+	}
+	
+	public static ControllerUserEntry getInstance() {
+		return instance;
 	}
 	
 	/**
