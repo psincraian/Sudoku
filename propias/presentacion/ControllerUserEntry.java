@@ -23,6 +23,9 @@ import propias.presentacion.ControllerViewBoard.viewBoard;
  */
 public class ControllerUserEntry {
 	
+	public static final boolean LOGIN_VIEW = true;
+	public static final boolean REGISTRATION_VIEW = false;
+	
 	UserEntry eu;
 	private userEntry ue;
 	
@@ -44,7 +47,7 @@ public class ControllerUserEntry {
 	 * 
 	 */
 	public ControllerUserEntry( boolean typeUser, JFrame frame, Object container){
-		if(typeUser)
+		if(typeUser == LOGIN_VIEW)
 			eu = new ViewLogin();
 		else 
 			eu = new ViewCreateUser();

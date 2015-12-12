@@ -77,7 +77,7 @@ public class ControllerPresentation implements
      */
     public void startUser(){
         frame.getContentPane().removeAll();
-    	cu = new ControllerUserEntry(true,frame,this);
+    	cu = new ControllerUserEntry(ControllerUserEntry.LOGIN_VIEW ,frame,this);
     	frame.setVisible(true);
         frame.pack();
     }
@@ -86,15 +86,17 @@ public class ControllerPresentation implements
      * Inicia com a usuari Convidat
      */
     public void startGuest(){
-        Menu(true);
-    }
+    	frame.getContentPane().removeAll();
+    	cu = new ControllerUserEntry(true,frame,this);
+    	frame.setVisible(true);
+        frame.pack();    }
     
     /**
      * Inicia la creacio d'un nou usuari
      */
     public void startNewUser(){
         frame.getContentPane().removeAll();
-    	cu = new ControllerUserEntry(false,frame,this);
+    	cu = new ControllerUserEntry(ControllerUserEntry.REGISTRATION_VIEW ,frame,this);
     	frame.setVisible(true);
         frame.pack();
     }
