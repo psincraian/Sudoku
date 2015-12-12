@@ -44,7 +44,6 @@ public class ControllerPresentation implements
     ControllerDomain cd;
     boolean isGuest; // nom de l'usuari
     boolean createSudoku; // true: crear un sudoku, false: partidaRapida
-    int mida = 0; //mida taulell
     
     /**
      * Constructora
@@ -149,12 +148,10 @@ public class ControllerPresentation implements
     	ControllerViewBoard c = ControllerViewBoard.getInstance();
     	int mida = 0;
     	if (s.length() <= 81) mida = 81;
-    	else if (s.length() > 81 && s.length()<=256 && this.mida == 16) mida = 256;
+    	else if (s.length() > 81 && s.length()<=256) mida = 256;
     	else c.sendMessage("Has posat massa valors");
     	int i = 0, j = 0;
-    	String posx;
-    	String posy;
-    	String pos;
+    	String posx, posy, pos;
     	for (int position=0; position < mida; ++position){
     		if ((mida == 81 && j == 9) ||(mida == 256 && j == 16)){
 				j = 0;
@@ -168,27 +165,8 @@ public class ControllerPresentation implements
     		++j;
     	}
     }
-    public String charHexa(char a){
-    	if (a >='0' && a <= '9') return String.valueOf(a);
-    	else if (a == 'A') return String.valueOf(10);
-    	else if (a == 'B') return String.valueOf(11);
-    	else if (a == 'C') return String.valueOf(12);
-    	else if (a == 'D') return String.valueOf(13);
-    	else if (a == 'E') return String.valueOf(14);
-    	else if (a == 'F') return String.valueOf(15);
-    	else if (a == 'G') return String.valueOf(16);
-    	else return String.valueOf(0);
-    }
-    /**
-     * 
-     * @return si la partida actual es de competicio o d'entrenament
-     */
-    public Boolean isCompetition(){
-        return cd.isCompetition();
-    }
     
     /**
-     * 
      * @return si el taulell actual compleix les regles del joc i te solucio unica
      */
     @Override
@@ -218,34 +196,6 @@ public class ControllerPresentation implements
     public void saveBoard(){
         cd.saveBoard(createSudoku);
     }
-    /**
-     * 
-     * @return Retorna el numero de partides jugades per l'usuari
-     */
-    public long[] getMatches(){
-        return cd.returnMatches();
-    }
-    /**
-     * 
-     * @return El temps total jugat per l'usuari segons la dificultat
-     */
-    public long[] getTime(){
-        return cd.returnTime();
-    }
-    /**
-     * 
-     * @return El millor temps jugat per l'usuari segons la dificultat
-     */
-    public long[] getBestTime(){
-        return cd.returnBestTime();
-    }
-    /**
-     * 
-     * @return Retorna els identificadors de les partides guardades per l'usuari
-     */
-    public List<String> getIDMatches(){
-        return cd.getIDMatches();
-    }
     
     private void playMatch(int[][] sudoku) {
 		frame.getContentPane().removeAll();
@@ -255,7 +205,6 @@ public class ControllerPresentation implements
     	revalidateContentPane(frame);
     }
     
-    // TODO
     private void updateSudokuCells(int size) {
     	ControllerViewBoard c = ControllerViewBoard.getInstance();
 		for(int i= 0; i < size; ++i) {
@@ -290,26 +239,7 @@ public class ControllerPresentation implements
      */
     @Override
     public List<String> getDifferentCells() {
-        try {
-            return cd.getDifferentCells();
-        } 
-        catch (Exception e) {
-        	return null;
-        }
-        
-    }
-    /**
-     * 
-     * @return Retorna la solució de la seguent casella no valida.
-     */
-    public int getNextSol() {
-        try {
-            return cd.getNextSol();
-        } 
-        catch (Exception e) {
-        	return 0;
-        }
-        
+       return cd.getDifferentCells(); 
     }
     
     /**
@@ -379,7 +309,6 @@ public class ControllerPresentation implements
     	revalidateContentPane(frame);
     }
     
-	// TODO
 	private void showLoadMatch() {
 		List<String> id = cd.getIDMatches();
 		if (id.size() == 0) {
@@ -404,7 +333,7 @@ public class ControllerPresentation implements
 	private void showProfile() {
 		frame.getContentPane().removeAll();
 		frame.setLayout(new BorderLayout());
-		ViewProfile vp = new ViewProfile(getMatches(), getTime(), getBestTime());
+		ViewProfile vp = new ViewProfile(cd.returnMatches(), cd.returnTime(), cd.returnBestTime());
 		frame.add(vp);
 		revalidateContentPane(frame);
 	}
