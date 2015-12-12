@@ -40,16 +40,6 @@ public class ControllerPresentation implements
      * Constructora
      */
     public ControllerPresentation() {
-    	try {
-			javax.swing.SwingUtilities.invokeAndWait(new Runnable() {
-				public void run() {
-			        createGUI();
-				}
-			});
-		} catch (InvocationTargetException | InterruptedException e) {
-			e.printStackTrace();
-		}
-    	
         cd = new ControllerDomain();
     }
     
@@ -66,6 +56,7 @@ public class ControllerPresentation implements
      * Inicia el joc
      */
     public void start() {
+    	createGUI();
         frame.getContentPane().removeAll();
         new ControllerStart(this,frame);
         revalidateContentPane(frame);
@@ -307,12 +298,13 @@ public class ControllerPresentation implements
 			JOptionPane.showMessageDialog(null, "No hi ha partides guardades");
 			showMainMenu();
 		}
-		
-		frame.getContentPane().removeAll();
-		frame.setLayout(new BorderLayout());
-		ViewSelectSudoku vl = new ViewSelectSudoku(id, this);
-		frame.add(vl, BorderLayout.CENTER);;
-		revalidateContentPane(frame);
+		else{
+			frame.getContentPane().removeAll();
+			frame.setLayout(new BorderLayout());
+			ViewSelectSudoku vl = new ViewSelectSudoku(id, this);
+			frame.add(vl, BorderLayout.CENTER);;
+			revalidateContentPane(frame);
+		}
 	}
 	
 	private void showSelectCharacteristics() {
