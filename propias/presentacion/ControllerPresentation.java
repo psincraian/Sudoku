@@ -4,13 +4,11 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagLayout;
-import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-import com.sun.org.apache.bcel.internal.generic.GETFIELD;
 
 import propias.dominio.clases.*;
 import propias.dominio.controladores.*;
@@ -35,7 +33,8 @@ public class ControllerPresentation implements
     ControllerDomain cd;
     boolean isGuest; 
     boolean createSudoku; // true: crear un sudoku, false: partidaRapida
-    
+    boolean loadMatch;
+    CaracteristiquesPartida caracteristiques;
     /**
      * Constructora
      */
@@ -121,9 +120,16 @@ public class ControllerPresentation implements
     
     @Override
     public void selectSudoku(String id) {
-    	int[][] m = cd.getSavedMatch(id);
-        playMatch(m, false);
-        updateSudokuCells(m.length);
+    	if (loadMatch) {
+    		int[][] m = cd.getSavedMatch(id);
+    		updateSudokuCells(m.length);
+    	}
+    	else {
+    		cd.selectSudoku(id);
+    		int[][] sudo = cd.createMatch(this.caracteristiques, isGuest);
+    		playMatch(sudo, this.caracteristiques.getTipusPartida() == 1);
+    	}
+        
     }
     
     @Override
@@ -328,12 +334,13 @@ public class ControllerPresentation implements
 			JOptionPane.showMessageDialog(null, "No hi ha partides guardades");
 			showMainMenu();
 		}
-		
-		frame.getContentPane().removeAll();
-		frame.setLayout(new BorderLayout());
-		ViewSelectSudoku vl = new ViewSelectSudoku(list, this);
-		frame.add(vl, BorderLayout.CENTER);;
-		revalidateContentPane(frame);
+		else {
+			frame.getContentPane().removeAll();
+			frame.setLayout(new BorderLayout());
+			ViewSelectSudoku vl = new ViewSelectSudoku(list, this);
+			frame.add(vl, BorderLayout.CENTER);;
+			revalidateContentPane(frame);
+		}
 	}
 	
     @Override
@@ -342,17 +349,21 @@ public class ControllerPresentation implements
     	if (caracteristiques.getNewSudoku()) {
     		sudoku = cd.createMatch(caracteristiques, isGuest);
     		playMatch(sudoku, caracteristiques.getTipusPartida() == 1);
-    	} else
+    	} else {
+    		this.caracteristiques = caracteristiques;
     		showSelectFromBD(caracteristiques);
+    	}
     }
     
 	@Override
 	public void getOption(OptionsMenu om) {
 		switch (om) {
 		case PartidaRapida:
+			loadMatch = false;
 			showSelectCharacteristics();
 			break;
 		case CargarPartida:
+			loadMatch = true;
 			showLoadMatch();
 			break;
 		case CrearSudoku:

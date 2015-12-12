@@ -99,7 +99,7 @@ public class ControllerDomain {
         try {
         	if (!c.getNewSudoku()) {
         		cont = 0;
-        	    Sudoku s = cc.getSudoku(c.getMida(), c.getDificultat(), id);
+        	    Sudoku s = cc.getSudoku(c.getMida(), c.getDificultat(), this.id);
         	    this.size = c.getMida();
             	this.dificult = c.getDificultat();
             	this.type = c.getTipusPartida();
@@ -141,8 +141,7 @@ public class ControllerDomain {
 		}
     }
     public void selectSudoku(String id){
-		this.id = id;
-	  
+    	this.id = id;
     }
     /**
  	* Converteix un string a una matriu

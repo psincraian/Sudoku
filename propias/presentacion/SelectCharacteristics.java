@@ -126,8 +126,8 @@ public class SelectCharacteristics extends SetView {
 		newSudoku.setSelected(true);
 
 		JRadioButton bdSudoku = new JRadioButton(SUDOKU_BD);
-		bdSudoku.setActionCommand(SUDOKU_NEW);
-
+		bdSudoku.setActionCommand(SUDOKU_BD);
+		
 		ButtonGroup typeSudoku = new ButtonGroup();
 		typeSudoku.add(newSudoku);
 		typeSudoku.add(bdSudoku);
