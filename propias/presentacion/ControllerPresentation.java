@@ -26,7 +26,8 @@ public class ControllerPresentation implements
 	ControllerViewBoard.viewBoard,
 	ViewRanking.ranking,
 	VistaMenu.MenuButtonClicked,
-	ViewSelectSudoku.selectSudoku{
+	ViewSelectSudoku.selectSudoku,
+	ViewProfile.ProfileReturnListener {
 	
 	JFrame frame;
     ControllerDomain cd;
@@ -73,7 +74,8 @@ public class ControllerPresentation implements
      */
     public void startUser(){
     	isGuest = false;
-        frame.getContentPane().removeAll();
+    	frame.getContentPane().removeAll();
+        frame.setLayout(new BorderLayout());
     	new ControllerUserEntry(ControllerUserEntry.LOGIN_VIEW ,frame,this);
     	revalidateContentPane(frame);
     }
@@ -321,7 +323,7 @@ public class ControllerPresentation implements
 	private void showProfile() {
 		frame.getContentPane().removeAll();
 		frame.setLayout(new BorderLayout());
-		ViewProfile vp = new ViewProfile(cd.returnMatches(), cd.returnTime(), cd.returnBestTime());
+		ViewProfile vp = new ViewProfile(cd.returnMatches(), cd.returnTime(), cd.returnBestTime(), this);
 		frame.add(vp);
 		revalidateContentPane(frame);
 	}

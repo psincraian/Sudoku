@@ -3,6 +3,8 @@ package propias.presentacion;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -35,14 +37,21 @@ public class ViewProfile extends SetView{
 	long[] time;
 	long[] bestTime;
 	public JButton buttonReturn;
+	private ProfileReturnListener listener;
+	
+	protected interface ProfileReturnListener {
+		public void getBack();
+	}
+	
 	/**
 	 * Constructora
 	 * @param matches Partides jugades
 	 * @param time Temps total jugat
 	 * @param bestTime Millor temps del jugador
 	 */
-	public ViewProfile(long[] matches, long[] time, long[] bestTime){
+	public ViewProfile(long[] matches, long[] time, long[] bestTime, Object object){
 		super();
+		listener = (ProfileReturnListener) object;
 		this.matches = matches;
 		this.time = time;
 		this.bestTime = bestTime;
@@ -70,7 +79,8 @@ public class ViewProfile extends SetView{
 		add(Box.createGlue(),BorderLayout.WEST);
 		buttons.add(Box.createVerticalStrut(80), BorderLayout.SOUTH);
 		buttons.setBackground(Color.white);
-		add(buttons, BorderLayout.SOUTH);	
+		add(buttons, BorderLayout.SOUTH);
+		listener(new MouseManage());
 	}
 	/**
 	 * Inicia les variables necessaries
@@ -128,6 +138,15 @@ public class ViewProfile extends SetView{
 			dataBestTime[i] = new JLabel(String.valueOf(bestTime[i]));
 		}
 	}
+	
+	public class MouseManage extends MouseAdapter {
+		public void mouseClicked(MouseEvent e) {
+			JButton b = (JButton)e.getSource();
+			if(b.getText().equals("Tornar"))
+				listener.getBack();
+		}
+	}
+	
 	/**
 	 * Controla el boto
 	 * @param ma
