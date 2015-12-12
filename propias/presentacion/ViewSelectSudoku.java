@@ -13,6 +13,8 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.ScrollPaneConstants;
 
 /**
  * 
@@ -28,6 +30,7 @@ public class ViewSelectSudoku extends SetView{
 	protected JButton[] buttons;
 	List<String> id;
 	private selectSudoku ss;
+	private JScrollPane sp;
 	
 	public interface selectSudoku{
 		public void selectSudoku(String id);
@@ -70,11 +73,12 @@ public class ViewSelectSudoku extends SetView{
 			horizontal.add(buttons[i]);
 			horizontal.add(Box.createRigidArea(new Dimension(15,15)));
 		}
-		panel.setMaximumSize(new Dimension(250,(buttons.length/3)*35));
-		panel.setPreferredSize(new Dimension(250,(buttons.length/3)*35));
-		panel.setMinimumSize(new Dimension(250,(buttons.length/3)*35));
-		panel.setBorder(BorderFactory.createRaisedBevelBorder());
-		vertical.add(panel);
+		panel.add(horizontal);
+		sp.setMaximumSize(new Dimension(300,200));
+		sp.setPreferredSize(new Dimension(300,200));
+		sp.setMinimumSize(new Dimension(300,200));
+		sp.getViewport().add(panel);
+		vertical.add(sp);
 		vertical.add(Box.createVerticalGlue());
 		add(vertical, BorderLayout.CENTER);
 	}
@@ -86,6 +90,7 @@ public class ViewSelectSudoku extends SetView{
 	 */
 	private void iniNames() {
 		panel = new JPanel();
+		sp = new JScrollPane(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		panel.setLayout(new BoxLayout(panel,BoxLayout.Y_AXIS));
 		buttons = new JButton[id.size()];
 		for(int i = 0; i < id.size(); ++i){
