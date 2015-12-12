@@ -138,7 +138,7 @@ public class ControllerPresentation implements
     	ControllerViewBoard c = ControllerViewBoard.getInstance();
     	int mida = 0;
     	if (s.length() <= 81) mida = 81;
-    	else if (s.length() > 81 && s.length()<=256) mida = 256;
+    	else if (s.length()<=256) mida = 256;
     	else c.sendMessage("Has posat massa valors");
     	int i = 0, j = 0;
     	String posx, posy, pos;
