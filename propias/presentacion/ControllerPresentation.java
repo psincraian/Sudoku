@@ -381,13 +381,16 @@ public class ControllerPresentation implements
       return correct;
     }
     
-    //TODO
     private void showRanking() {
     	 List<String> names = new ArrayList<String>();
          List<Long> values = new ArrayList<Long>();
          cd.getRanking(names,values);
-         vr = new ViewRanking(names, values, this);
-         vr.listener(new MouseManage());
+         
+         frame.getContentPane().removeAll();
+         frame.setLayout(new BorderLayout());
+         ViewRanking vr = new ViewRanking(names, values, this);
+         frame.add(vr);
+         revalidateContentPane(frame);
     }
     
     private void showCreateSudoku() {
@@ -420,13 +423,14 @@ public class ControllerPresentation implements
 		revalidateContentPane(frame);
 	}
 	
-	// TODO
 	private void showProfile() {
-		vp = new ViewProfile(getMatches(), getTime(), getBestTime());
-		vp.listener(new MouseManage());
+		frame.getContentPane().removeAll();
+		frame.setLayout(new BorderLayout());
+		ViewProfile vp = new ViewProfile(getMatches(), getTime(), getBestTime());
+		frame.add(vp);
+		revalidateContentPane(frame);
 	}
 	
-    // TODO
     @Override
     public void getParameters(CaracteristiquesPartida caracteristiques){
     	int sudoku[][];
