@@ -257,7 +257,9 @@ public class ControllerDomain {
      */
     public boolean compareSolution() {
         ControllerBoard cb = new ControllerBoard();
-        int[][] m = convertToMatrix(match.getSudoku());
+        int[][] m;
+        if(!createSudoku) m = convertToMatrix(match.getSudoku());
+        else m = convertToMatrix(sudoku.getSudoku());
         Boolean correct = cb.verify(m);
         return correct;
     }
@@ -375,9 +377,10 @@ public class ControllerDomain {
         int row = Integer.parseInt(nombres[0]);
         int column = Integer.parseInt(nombres[1]);
         try {
-	        match.setCell(new Position(row, column), value);
+	        
 	        if(!createSudoku){ //nomes es comproba si esta ben resolt si no s'esta creant un sudoku
-		        if (cont < size) ++cont;
+	        	match.setCell(new Position(row, column), value);
+	        	if (cont < size) ++cont;
 		        else { // ha completado la partida correctamente
 		        	if(type == 1){
 			        	Sudoku s = new Sudoku(match.getSudoku(), match.getSolution());
@@ -389,6 +392,9 @@ public class ControllerDomain {
 			        	points = score;
 		        	}
 		        }
+	        }
+	        else {
+	        	sudoku.setCell(new Position(row, column), value);
 	        }
         } 
         catch (Exception e) {
@@ -406,7 +412,9 @@ public class ControllerDomain {
      */
     public List<Integer> getCandidates(int row, int col) {
 	    try {
-	        List<Integer> candidates = CntrlSudokuHelps.getCandidates(new Position(row,col), match.getSudoku());
+	        List<Integer> candidates = new ArrayList<Integer>();
+	        if (!createSudoku) candidates = CntrlSudokuHelps.getCandidates(new Position(row,col), match.getSudoku());
+	        else candidates = CntrlSudokuHelps.getCandidates(new Position(row,col), sudoku.getSudoku());
 	        return candidates;
 	    } 
 	    catch (Exception e) {
