@@ -237,6 +237,10 @@ public class ControllerViewBoard {
 		}
 	}
 	
+	public void enableCustomProperties(){
+		vm.enableCustomProperties();
+	}
+	
 	public static ControllerViewBoard getInstance() {
 		return instance;
 	}
