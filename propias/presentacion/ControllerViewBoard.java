@@ -29,6 +29,8 @@ public class ControllerViewBoard {
 	public final static boolean USER_GUEST = true;
 	public final static boolean USER_NOT_GUEST = false;
 	
+	private static ControllerViewBoard instance;
+	
 	MouseEvent lastCell = null;
 	GenerateBoard vm;
 	List<Integer> candidates;
@@ -60,6 +62,7 @@ public class ControllerViewBoard {
 	 */
 	public ControllerViewBoard(int[][] board, int size, int typeBoard, boolean guest, JFrame frame, Object container){
 		this.size = size;
+		instance = this;
 		if(typeBoard == VIEW_PLAY_SUDOKU){
 			this.vm = new ViewMatch(board,size);
 			vm.buttonListener(new MouseManage(), vm.extraButton[1]);
@@ -232,5 +235,9 @@ public class ControllerViewBoard {
 		        }
 			}
 		}
+	}
+	
+	public static ControllerViewBoard getInstance() {
+		return instance;
 	}
 }
