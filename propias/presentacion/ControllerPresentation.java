@@ -68,6 +68,7 @@ public class ControllerPresentation implements
      */
     public void start() {
     	correct = false;
+        frame.getContentPane().removeAll();
         new ControllerStart(this,frame);
         frame.setVisible(true);
         frame.pack();
@@ -76,6 +77,7 @@ public class ControllerPresentation implements
      * Inicia el login
      */
     public void startUser(){
+        frame.getContentPane().removeAll();
     	cu = new ControllerUserEntry(true,frame,this);
     	frame.setVisible(true);
         frame.pack();
@@ -90,6 +92,7 @@ public class ControllerPresentation implements
      * Inicia la creacio d'un nou usuari
      */
     public void startNewUser(){
+        frame.getContentPane().removeAll();
     	cu = new ControllerUserEntry(false,frame,this);
     	frame.setVisible(true);
         frame.pack();
@@ -139,6 +142,7 @@ public class ControllerPresentation implements
      * @param convidat Indica si l'usuari es usuari convidat
      */
     public void Menu(boolean convidat) {
+      frame.getContentPane().removeAll();
       VistaMenu vm = new VistaMenu();
       OptionsMenu om; 
       if (convidat) {
@@ -156,6 +160,7 @@ public class ControllerPresentation implements
     	  createSudoku = false;
     	  JPanel newContentPane = new SelectCharacteristics(this);
   		  newContentPane.setOpaque(true);
+	      frame.getContentPane().removeAll();
   		  frame.setLayout(new java.awt.GridBagLayout());
   		  frame.getContentPane().add(newContentPane, new java.awt.GridBagConstraints());
           frame.pack();
@@ -167,6 +172,7 @@ public class ControllerPresentation implements
     	    List<String> id = cd.getIDMatches();
     	    this.id = id;
     	    vl = new ViewLoadMatch(id,this);
+	        frame.getContentPane().removeAll();
     	    frame.getContentPane().add(vl);
 		    if (id.size() == 0) {
 		  		JOptionPane.showMessageDialog(null, "No hi ha partides guardades");
@@ -185,7 +191,8 @@ public class ControllerPresentation implements
     	  createSudoku = true;
           JPanel newContentPane = new SelectSize(this);
   		  newContentPane.setOpaque(true);
-  		frame.setLayout(new java.awt.GridBagLayout());
+	      frame.getContentPane().removeAll();
+  		  frame.setLayout(new java.awt.GridBagLayout());
 		  frame.getContentPane().add(newContentPane, new java.awt.GridBagConstraints());
       }
       else if (om == OptionsMenu.Ranking) {
@@ -193,6 +200,8 @@ public class ControllerPresentation implements
     	  List<String> names = new ArrayList<String>();
           List<Long> values = new ArrayList<Long>();
           cd.getRanking(names,values);
+	      frame.getContentPane().removeAll();
+	      frame.setLayout(new BorderLayout());
           vr = new ViewRanking(names, values,this);
           frame.setVisible(true);
           frame.pack();
@@ -200,7 +209,10 @@ public class ControllerPresentation implements
       }
       else if (om == OptionsMenu.Perfil) {
     	  view = 1; // perfil
+	      frame.getContentPane().removeAll();
     	  vp = new ViewProfile(getMatches(), getTime(), getBestTime());
+    	  frame.setVisible(true);
+          frame.pack();
     	  vp.listener(new MouseManage());
       }
       else if (om == OptionsMenu.Sortir) start();
@@ -229,6 +241,7 @@ public class ControllerPresentation implements
 	            for(int j=0; j< mida; ++j) m[i][j] = 0;
 	        }
 	        cd.newSudoku(mida);
+	        frame.getContentPane().removeAll();
 	        frame.setLayout(new BorderLayout());
 	        c = new ControllerViewBoard(m, m[0].length,1,false,frame,this);
 	        frame.setVisible(true);
@@ -347,7 +360,7 @@ public class ControllerPresentation implements
      * @param save Indica si la partida es una partida nova o una partida carregada
      */
     private void play(int[][] m, boolean competicio, boolean save)  { 
-      frame.removeAll();
+      frame.getContentPane().removeAll();
       frame.setLayout(new BorderLayout());
       if (name.equals("Convidat")) c = new ControllerViewBoard(m, m[0].length,0,true,frame,this);
       else c = new ControllerViewBoard(m, m[0].length,0,false,frame,this);
