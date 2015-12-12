@@ -60,13 +60,15 @@ public class ControllerViewBoard {
 	 * @param frame : El fram del joc. Es configura amb el panell de la vista.
 	 * 
 	 */
-	public ControllerViewBoard(int[][] board, int typeBoard, boolean guest, JFrame frame, Object container){
+	public ControllerViewBoard(int[][] board, int typeBoard, boolean guest,boolean competition, JFrame frame, Object container){
 		this.size = board[0].length;
 		instance = this;
 		if(typeBoard == VIEW_PLAY_SUDOKU){
 			this.vm = new ViewMatch(board,size);
-			vm.buttonListener(new MouseManage(), vm.extraButton[1]);
-			vm.buttonListener(new MouseManage(), vm.extraButton[2]);
+			if(!competition){
+				vm.buttonListener(new MouseManage(), vm.extraButton[1]);
+				vm.buttonListener(new MouseManage(), vm.extraButton[2]);
+			}
 			if(guest == USER_GUEST)
 				vm.extraButton[0].setEnabled(false);
 		}
