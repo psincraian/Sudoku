@@ -66,7 +66,8 @@ public class ControllerDomain {
                 } 
             }
             catch (Exception e) {
-            	return e.getMessage();
+            	e.printStackTrace();
+            	return null;
             }
     }
     public String checkLogin(List<String> credentials){
@@ -85,7 +86,8 @@ public class ControllerDomain {
             else return "Nom incorrecte";
         } 
         catch (Exception e) {
-            return e.getMessage();
+        	e.printStackTrace();
+        	return null;
         }
     }
     /**
@@ -125,16 +127,15 @@ public class ControllerDomain {
             
         } catch (Exception e) {
         	e.printStackTrace();
-			System.out.println(e.getMessage());
-			return null;
+        	return null;
         }
     }
     public List<String> getIDSudokus(CaracteristiquesPartida c){
     	try {
 			return cc.getIDSudokus(c.getMida(), c.getDificultat());
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
-			return null;
+			e.printStackTrace();
+        	return null;
 		}
     }
     public void selectSudoku(String id){
@@ -186,7 +187,8 @@ public class ControllerDomain {
 					sudoku.setCell(p, Character.getNumericValue(s.charAt(position)));
 					return String.valueOf(s.charAt(position));
 				} catch (Exception e) {
-					System.out.println(e.getMessage());
+					e.printStackTrace();
+		        	return null;
 				}
 			}
     	}
@@ -201,7 +203,8 @@ public class ControllerDomain {
 					sudoku.setCell(p, Character.getNumericValue(s.charAt(position)));
 					return value;
 				} catch (Exception e) {
-					System.out.println(e.getMessage());
+					e.printStackTrace();
+		        	return null;
 				}
 				
 			}
@@ -280,8 +283,8 @@ public class ControllerDomain {
             return enunciat;
         }
         catch(Exception e){
-        	System.out.println(e.getMessage());
-            return null;
+        	e.printStackTrace();
+        	return null;
         }
     }
     /**
@@ -294,7 +297,7 @@ public class ControllerDomain {
 	            cc.saveMatch((MatchTraining)match,id);
 	        }
 	        catch(Exception e){
-				e.printStackTrace();
+	        	e.printStackTrace();
 	        }
         }
         else { // es un nou sudoku
@@ -336,8 +339,8 @@ public class ControllerDomain {
         try {
         return cc.getIdMatches();
     } catch (Exception e) {
-    	System.out.println(e.getMessage());
-        return null;
+    	e.printStackTrace();
+    	return null;
         }
     }
     
@@ -408,8 +411,8 @@ public class ControllerDomain {
 	        return candidates;
 	    } 
 	    catch (Exception e) {
-	    	System.out.println(e.getStackTrace());
-	        return null;
+	    	e.printStackTrace();
+        	return null;
 	    }
     }
     /**
@@ -452,7 +455,7 @@ public class ControllerDomain {
             p = new Position(row,column);
             return CntrlSudokuHelps.getCellSolution(match.getSolution(), p);
         } catch (Exception e) {
-        	System.out.println(e.getStackTrace());
+        	e.printStackTrace();
         	return 0;
         }
         
