@@ -35,7 +35,7 @@ public class ViewRanking extends SetView{
 	private ranking r;
 	
 	interface ranking{
-		public void showMainMenu();
+		public void getBack();
 	}
 	/**
 	 * 
@@ -81,6 +81,7 @@ public class ViewRanking extends SetView{
 						
 		/*East*/
 		button = new JButton("Tornar");
+		listener();
 		JPanel east = new JPanel();
 		east.setBackground(Color.white);
 		east.add(button);
@@ -118,8 +119,8 @@ public class ViewRanking extends SetView{
 	 * @param ma
 	 * 
 	 */
-	public void listener(MouseAdapter ma){
-		button.addMouseListener(ma);
+	public void listener(){
+		button.addMouseListener(new MouseManage());
 	}
 	
 	
@@ -127,7 +128,7 @@ public class ViewRanking extends SetView{
 		public void mouseClicked(MouseEvent e) {
 			JButton b = (JButton)e.getSource();
 			if(b.getText().equals("Tornar"))
-				r.showMainMenu();
+				r.getBack();
 		}
 	}
 	public void disableView() {
