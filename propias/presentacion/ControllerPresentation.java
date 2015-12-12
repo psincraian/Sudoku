@@ -42,7 +42,6 @@ public class ControllerPresentation implements
 	
 	JFrame frame;
     ControllerDomain cd;
-    ControllerUserEntry cu;
     ControllerViewBoard c;
     boolean isGuest; // nom de l'usuari
     boolean createSudoku; // true: crear un sudoku, false: partidaRapida
@@ -93,7 +92,7 @@ public class ControllerPresentation implements
     public void startUser(){
     	isGuest = false;
         frame.getContentPane().removeAll();
-    	cu = new ControllerUserEntry(ControllerUserEntry.LOGIN_VIEW ,frame,this);
+    	new ControllerUserEntry(ControllerUserEntry.LOGIN_VIEW ,frame,this);
     	revalidateContentPane(frame);
     }
     
@@ -110,7 +109,7 @@ public class ControllerPresentation implements
      */
     public void startNewUser(){
         frame.getContentPane().removeAll();
-    	cu = new ControllerUserEntry(ControllerUserEntry.REGISTRATION_VIEW ,frame,this);
+    	new ControllerUserEntry(ControllerUserEntry.REGISTRATION_VIEW ,frame,this);
     	revalidateContentPane(frame);
     }
     
@@ -377,7 +376,6 @@ public class ControllerPresentation implements
 
       if (result.equals("Login correcte") || result.equals("S'ha creat l'usuari correctament"))
     	  correct = true;
-      cu.sendMessage(result);
       return correct;
     }
     
@@ -412,7 +410,7 @@ public class ControllerPresentation implements
 		frame.getContentPane().removeAll();
 		frame.setLayout(new BorderLayout());
 		ViewSelectSudoku vl = new ViewSelectSudoku(id, this);
-		frame.add(vl);
+		frame.add(vl, BorderLayout.CENTER);;
 		revalidateContentPane(frame);
 	}
 	
