@@ -54,6 +54,7 @@ public class ControllerUserEntry {
 		else 
 			eu = new ViewCreateUser();
 		this.ue = (userEntry) container;
+		instance = this;
 		frame.getContentPane().add(eu);
 		eu.buttonListener(new MouseManage(), eu.accept);
 		eu.buttonListener(new MouseManage(), eu.cancel);
