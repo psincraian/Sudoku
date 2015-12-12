@@ -161,12 +161,11 @@ public class ControllerDomain {
 		}		
 	    return board;
 	}
-    public void newSudoku(int size){
+    public int[][] newSudoku(int size){
     	createSudoku = true;
     	type = 0;
-    	Board first = new Board(size);
-    	Board second = new Board(size);
-    	sudoku = new Sudoku(first,second);
+    	sudoku = new Sudoku(new Board(size),new Board(size));
+    	return sudoku.getSudoku().getMatrix();
     }
     /**
      * Permet crear un nou taulell rapidament a partir d'una cadena de caracters que conte

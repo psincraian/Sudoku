@@ -164,33 +164,7 @@ public class ControllerPresentation implements
      */
     public void loadMatch(String match){
     	int[][] m = cd.getSavedMatch(match);
-        play(m,true,true);
-    }
-
-    @Override
-    public void getParameters(CaracteristiquesPartida caracteristiques){
-    	if (createSudoku){
-	    	int mida = caracteristiques.getMida();
-	        this.mida = mida;
-	        int m[][] = new int[mida][mida];
-	        for(int i=0; i< mida; ++i){
-	            for(int j=0; j< mida; ++j) m[i][j] = 0;
-	        }
-	        cd.newSudoku(mida);
-	        frame.getContentPane().removeAll();
-	        new ControllerViewBoard(m, m[0].length,1,false,frame,this);
-	        revalidateContentPane(frame);
-    	}
-    	
-    	else {
-    		int[][] m;
-    		if(!caracteristiques.newSudoku) {
-    			selectSudoku("e1");
-    		}
-    		m = cd.createMatch(caracteristiques);
-            if (!isCompetition()) play(m,false,false);
-            else play(m,true,false);
-    	}
+        // TODO play(m,true,true);
     }
     
     public void selectSudoku(String id){
@@ -291,36 +265,33 @@ public class ControllerPresentation implements
         return cd.getIDMatches();
     }
     
-    /**
-     * 
-     * @param m taulell a jugar
-     * @param competicio Indica si la partida es competicio o entrenament
-     * @param save Indica si la partida es una partida nova o una partida carregada
-     */
-    private void play(int[][] m, boolean competicio, boolean save)  { 
-        frame.getContentPane().removeAll();
-        
+    
+    private void playMatchTraining(int[][] sudoku) {
     	if (!isGuest)
-    		new ControllerViewBoard(m, m[0].length, ControllerViewBoard.VIEW_PLAY_SUDOKU, 
+    		new ControllerViewBoard(sudoku, sudoku[0].length, ControllerViewBoard.VIEW_PLAY_SUDOKU, 
     			ControllerViewBoard.USER_NOT_GUEST, frame, this);
     	else 
-    		new ControllerViewBoard(m, m[0].length, ControllerViewBoard.VIEW_PLAY_SUDOKU, 
-        			ControllerViewBoard.USER_NOT_GUEST, frame, this);
-    	revalidateContentPane(frame);
-        
-        //TODO
-    	if (save) {
-    		for(int i= 0; i<m[0].length; ++i) {
-    			for(int j=0; j<m[0].length; ++j) {
-    				int res = cd.modify(i,j);
-    				String row = Integer.toString(i);
-    				String col = Integer.toString(j);
-    				String cood = row + " " + col; 
-    				if (res != 0) c.updateBoard(cood,Integer.toString(res));
-    			}
-    		}
-    	}
-      
+    		new ControllerViewBoard(sudoku, sudoku[0].length, ControllerViewBoard.VIEW_PLAY_SUDOKU, 
+        			ControllerViewBoard.USER_GUEST, frame, this);
+    }
+    
+    //TODO
+    private void playMatchCompetition(int[][] sudoku) {
+    	
+    }
+    
+    // TODO
+    private void loadSudoku() {
+    	int[][] m = new int[10][10];
+		for(int i= 0; i<m[0].length; ++i) {
+			for(int j=0; j<m[0].length; ++j) {
+				int res = cd.modify(i,j);
+				String row = Integer.toString(i);
+				String col = Integer.toString(j);
+				String cood = row + " " + col; 
+				if (res != 0) c.updateBoard(cood,Integer.toString(res));
+			}
+		}
     }
     
     /**
@@ -459,7 +430,7 @@ public class ControllerPresentation implements
 		}
 	}
 	
-	private void showNewMatch() {
+	private void showSelectCharacteristics() {
         frame.getContentPane().removeAll();
 		SelectCharacteristics sc = new SelectCharacteristics(this);
 		frame.add(sc);
@@ -471,13 +442,23 @@ public class ControllerPresentation implements
 		vp = new ViewProfile(getMatches(), getTime(), getBestTime());
 		vp.listener(new MouseManage());
 	}
-
+	
+    // TODO
+    @Override
+    public void getParameters(CaracteristiquesPartida caracteristiques){
+    	int sudoku[][];
+    	sudoku = cd.createMatch(caracteristiques);
+        if (caracteristiques.getTipusPartida() == 0)
+        	playMatchTraining(sudoku);
+        else
+        	playMatchCompetition(sudoku);
+    }
     
 	@Override
 	public void getOption(OptionsMenu om) {
 		switch (om) {
 		case PartidaRapida:
-			showNewMatch();
+			showSelectCharacteristics();
 			break;
 		case CargarPartida:
 			showLoadMatch();

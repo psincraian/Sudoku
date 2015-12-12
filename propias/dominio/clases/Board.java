@@ -201,6 +201,16 @@ public class Board implements java.io.Serializable {
 		} else
 			throw new ArrayIndexOutOfBoundsException();	    
 	}
+	
+	/** Retorna la matriu del board
+	 * 
+	 */
+	public int[][] getMatrix() {
+	    int[][] target = new int[size][size];
+	    for (int i = 0; i < size; i++)
+	        System.arraycopy(board[i], 0, target[i], 0, size);
+	    return target;
+	}
 
 	
 	/** Indica si la posició està en el taulell
