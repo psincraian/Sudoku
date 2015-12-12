@@ -10,6 +10,8 @@ import java.util.*;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
+import com.sun.org.apache.bcel.internal.generic.GETFIELD;
+
 import propias.dominio.clases.*;
 import propias.dominio.controladores.*;
 
@@ -192,6 +194,7 @@ public class ControllerPresentation implements
 		frame.setLayout(new BorderLayout());
 		new ControllerViewBoard(sudoku, sudoku[0].length, ControllerViewBoard.VIEW_PLAY_SUDOKU, 
 			isGuest, frame, this);
+		ControllerViewBoard.getInstance().enableCustomProperties();
     	revalidateContentPane(frame);
     }
     
@@ -328,11 +331,28 @@ public class ControllerPresentation implements
 		revalidateContentPane(frame);
 	}
 	
+	private void showSelectFromBD(CaracteristiquesPartida caracteristiques) {
+		List<String> list = cd.getIDSudokus(caracteristiques);
+		if (list == null || list.size() == 0) {
+			JOptionPane.showMessageDialog(null, "No hi ha partides guardades");
+			showMainMenu();
+		}
+		
+		frame.getContentPane().removeAll();
+		frame.setLayout(new BorderLayout());
+		ViewSelectSudoku vl = new ViewSelectSudoku(list, this);
+		frame.add(vl, BorderLayout.CENTER);;
+		revalidateContentPane(frame);
+	}
+	
     @Override
     public void getParameters(CaracteristiquesPartida caracteristiques){
     	int sudoku[][];
-    	sudoku = cd.createMatch(caracteristiques);
-       	playMatch(sudoku);
+    	if (caracteristiques.getNewSudoku()) {
+    		sudoku = cd.createMatch(caracteristiques);
+    		playMatch(sudoku);
+    	} else
+    		showSelectFromBD(caracteristiques);
     }
     
 	@Override
