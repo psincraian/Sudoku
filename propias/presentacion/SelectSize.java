@@ -127,8 +127,6 @@ public class SelectSize extends SetView {
 					break;
 				default: break;
 			}
-
-			System.out.println(e.getActionCommand());
 		}
 	}
 	

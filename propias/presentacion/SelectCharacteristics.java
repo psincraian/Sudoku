@@ -271,8 +271,6 @@ public class SelectCharacteristics extends SetView {
 					break;
 				default: break;
 			}
-
-			System.out.println(e.getActionCommand());
 		}
 	}
 	
