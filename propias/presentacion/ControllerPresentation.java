@@ -17,7 +17,7 @@ import propias.dominio.controladores.*;
 
 /**
  * 
- * @author Brian Martinez Alvarez
+ * @author Brian Martinez Alvarez i petites modificacions per Petru Rares
  *
  */
 public class ControllerPresentation implements 
@@ -33,7 +33,7 @@ public class ControllerPresentation implements
 	
 	JFrame frame;
     ControllerDomain cd;
-    boolean isGuest; // nom de l'usuari
+    boolean isGuest; 
     boolean createSudoku; // true: crear un sudoku, false: partidaRapida
     
     /**
@@ -131,7 +131,7 @@ public class ControllerPresentation implements
     @Override
     public void selectSudoku(String id) {
     	int[][] m = cd.getSavedMatch(id);
-        playMatch(m);
+        playMatch(m, false);
         updateSudokuCells(m.length);
     }
     
@@ -189,12 +189,11 @@ public class ControllerPresentation implements
         cd.saveBoard(createSudoku);
     }
     
-    private void playMatch(int[][] sudoku) {
+    private void playMatch(int[][] sudoku, boolean competition) {
 		frame.getContentPane().removeAll();
 		frame.setLayout(new BorderLayout());
-		new ControllerViewBoard(sudoku, sudoku[0].length, ControllerViewBoard.VIEW_PLAY_SUDOKU, 
-			isGuest, frame, this);
-		ControllerViewBoard.getInstance().enableCustomProperties();
+		new ControllerViewBoard(sudoku, ControllerViewBoard.VIEW_PLAY_SUDOKU,
+			isGuest, competition, frame, this);
     	revalidateContentPane(frame);
     }
     
@@ -349,8 +348,8 @@ public class ControllerPresentation implements
     public void getParameters(CaracteristiquesPartida caracteristiques){
     	int sudoku[][];
     	if (caracteristiques.getNewSudoku()) {
-    		sudoku = cd.createMatch(caracteristiques);
-    		playMatch(sudoku);
+    		sudoku = cd.createMatch(caracteristiques, isGuest);
+    		playMatch(sudoku, caracteristiques.getTipusPartida() == 1);
     	} else
     		showSelectFromBD(caracteristiques);
     }
@@ -390,8 +389,8 @@ public class ControllerPresentation implements
         
         frame.getContentPane().removeAll();
         frame.setLayout(new BorderLayout());
-        new ControllerViewBoard(m, size, ControllerViewBoard.VIEW_CREATE_SUDOKU, 
-    			ControllerViewBoard.USER_NOT_GUEST, frame, this);
+        new ControllerViewBoard(m, ControllerViewBoard.VIEW_PLAY_SUDOKU,
+    			isGuest, false, frame, this);;
         revalidateContentPane(frame);
 	}
 }
