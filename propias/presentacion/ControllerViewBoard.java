@@ -27,7 +27,7 @@ public class ControllerViewBoard {
 	public final static int VIEW_CREATE_SUDOKU = 0;
 	public final static int VIEW_PLAY_SUDOKU = 1;
 	public final static boolean USER_GUEST = true;
-	public final static boolean TRAINING = true;
+	public final static boolean TRAINING = false;
 	
 	private static ControllerViewBoard instance;
 	
@@ -66,6 +66,7 @@ public class ControllerViewBoard {
 		if(typeBoard == VIEW_PLAY_SUDOKU){
 			this.vm = new ViewMatch(board,size);
 			if(training == TRAINING){
+				vm.enableCustomProperties();
 				vm.buttonListener(new MouseManage(), vm.extraButton[1]);
 				vm.buttonListener(new MouseManage(), vm.extraButton[2]);
 			}
@@ -238,11 +239,7 @@ public class ControllerViewBoard {
 			}
 		}
 	}
-	
-	public void enableCustomProperties(){
-		vm.enableCustomProperties();
-	}
-	
+
 	public static ControllerViewBoard getInstance() {
 		return instance;
 	}
