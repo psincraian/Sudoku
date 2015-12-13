@@ -54,7 +54,6 @@ public class ControllerViewBoard {
 		public int getCellResolved(String position);
 		public List<Integer> getCandidates(String name);
 		public List<String> getDifferentCells();
-		public void checkCompleted();
 	}
 	/**
 	 * Constructor que s'encarrga de gestionar la vista seleccionada.
@@ -236,7 +235,6 @@ public class ControllerViewBoard {
 				        	setCandidates(false);
 				        	String[] pos = cell.getName().split(" ");
 				        	vm.drawSquare(Integer.parseInt(pos[0]),Integer.parseInt(pos[1]));
-				        	vb.checkCompleted();
 				        	lastCell = e;
 			        	}
 		        	}
@@ -245,7 +243,6 @@ public class ControllerViewBoard {
 				       	label.setText(Integer.toString(value));
 				       	String[] pos = cell.getName().split(" ");
 			        	vm.drawSquare(Integer.parseInt(pos[0]),Integer.parseInt(pos[1]));	
-			        	vb.checkCompleted();
 			        }
 		        }
 			}

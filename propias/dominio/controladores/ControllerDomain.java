@@ -393,7 +393,7 @@ public class ControllerDomain {
      * @param position Indica las coordenadas de la casilla
      * @param value Indica el valor a poner en la casilla
      */
-    public void updateCell(String position, int value){
+    public boolean updateCell(String position, int value){
         String[] nombres = position.split(" ");
         int row = Integer.parseInt(nombres[0]);
         int column = Integer.parseInt(nombres[1]);
@@ -402,6 +402,7 @@ public class ControllerDomain {
 	        if(!createSudoku){ //nomes es comproba si esta ben resolt si no s'esta creant un sudoku
 	        	boolean buit = ( match.getCellValue(new Position(row, column)) == 0);
 	        	match.setCell(new Position(row, column), value);
+	        	cont = 80;
 	        	if(value != 0) ++cont;
 	        	else if (value == 0 && !buit) --cont;
 		        if(cont == (size*size)) { // ha completado la partida correctamente
@@ -417,15 +418,18 @@ public class ControllerDomain {
 		        	else{
 		        		points = -1;
 		        	}
+		        	return true;
 		        }
 	        }
 	        else {
 	        	sudoku.setCell(new Position(row, column), value);
 	        	++cont;
 	        }
+	        return false;
         } 
         catch (Exception e) {
         	e.printStackTrace();
+        	return false;
         }
     }
     public int takePointsBoard(){
