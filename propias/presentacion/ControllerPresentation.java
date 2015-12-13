@@ -174,9 +174,21 @@ public class ControllerPresentation implements
      */
     @Override
     public void updateCell(String position, int value){
-        cd.updateCell(position, value);
-    	ControllerViewBoard c = ControllerViewBoard.getInstance();
+    		cd.updateCell(position, value);
+    	/*ControllerViewBoard c = ControllerViewBoard.getInstance();
         if(!createSudoku && cd.takePointsBoard() != 0 && this.caracteristiques.getTipusPartida() == 1){
+        	c.sendMessage("Felicitats, has omplert el sudoku. Ranking del Sudoku: " + cd.takePointsBoard());
+        	showMainMenu();
+        }
+        else if (this.caracteristiques.getTipusPartida() == 0 && !createSudoku && cd.takePointsBoard() != 0){
+        	c.sendMessage("Felicitats, has omplert el sudoku.");
+        	showMainMenu();
+        }*/
+        
+    }
+    public void checkCompleted(){
+    	ControllerViewBoard c = ControllerViewBoard.getInstance();
+    	if(!createSudoku && cd.takePointsBoard() != 0 && this.caracteristiques.getTipusPartida() == 1){
         	c.sendMessage("Felicitats, has omplert el sudoku. Ranking del Sudoku: " + cd.takePointsBoard());
         	showMainMenu();
         }
@@ -185,7 +197,6 @@ public class ControllerPresentation implements
         	showMainMenu();
         }
     }
-    
     /**
      * Guarda la partida actual
      */

@@ -99,7 +99,9 @@ public class ControllerDomain {
         try {
         	createSudoku = false; // no es crea un sudoku nou
         	if (!c.getNewSudoku()) {
-        		cont = c.givenNumbers;
+        		cont = c.getGivenNumbers();
+        		points = 0;
+        		System.out.println("cont: " + cont);
         	    Sudoku s = cc.getSudoku(c.getMida(), c.getDificultat(), this.id);
         	    this.size = c.getMida();
             	this.dificult = c.getDificultat();
@@ -111,7 +113,8 @@ public class ControllerDomain {
             	return matrix;
         	}
 			else{
-				cont = c.givenNumbers;
+				cont = c.getGivenNumbers();
+				points = 0;
         		CntrlSudokuCreator cs = new CntrlSudokuCreator();
         		CntrlSudokuGenerator csg = new CntrlSudokuGenerator(c.getMida());
         		Sudoku s = cs.create(c.getDificultat(), csg.generateBoard());
@@ -397,9 +400,11 @@ public class ControllerDomain {
         try {
 	        
 	        if(!createSudoku){ //nomes es comproba si esta ben resolt si no s'esta creant un sudoku
+	        	boolean buit = ( match.getCellValue(new Position(row, column)) == 0);
 	        	match.setCell(new Position(row, column), value);
-	        	++cont;
-		        if(cont == size*size) { // ha completado la partida correctamente
+	        	if(value != 0) ++cont;
+	        	else if (value == 0 && !buit) --cont;
+		        if(cont == (size*size)) { // ha completado la partida correctamente
 		        	if(type == 1){
 			        	Sudoku s = new Sudoku(match.getSudoku(), match.getSolution());
 			        	int score = ((MatchCompetition) match).score();
