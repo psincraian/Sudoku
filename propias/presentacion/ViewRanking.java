@@ -26,6 +26,7 @@ public class ViewRanking extends SetView{
 	
 	JPanel nameP;
 	JPanel valueP;
+	JPanel rank;
 	JLabel[] nameL;
 	JLabel[] valueL;
 	List<String> name;
@@ -66,10 +67,8 @@ public class ViewRanking extends SetView{
 		/*Center*/
 		Box verticalBox = Box.createVerticalBox();
 		verticalBox.add(Box.createGlue());
-		JPanel rank = new JPanel();
-		rank.setPreferredSize(new Dimension(200,40*nameL.length));
-		rank.setMinimumSize(new Dimension(200,40*nameL.length));
-		rank.setMaximumSize(new Dimension(200,40*nameL.length));
+		rank = new JPanel();
+		setSize(200,40);
 		rank.setBorder(BorderFactory.createRaisedBevelBorder());
 		rank.add(nameP);
 		rank.add(Box.createHorizontalStrut(20));
@@ -110,6 +109,22 @@ public class ViewRanking extends SetView{
 			nameP.add(nameL[i]);
 			valueP.add(valueL[i]);
 		}
+	}
+	
+	public void addPosUser(int pos, Long value, String name){
+		setSize(200,45);
+		rank.add(Box.createVerticalStrut(20));
+		JPanel aux = new JPanel();
+		aux.setBackground(Color.WHITE);
+		aux.add(new JLabel(Integer.toString(pos)+". "+name));
+		aux.add(new JLabel(String.valueOf(value)));
+		rank.add(aux);
+	}
+	
+	public void setSize(int x, int y){
+		rank.setPreferredSize(new Dimension(x,y*nameL.length));
+		rank.setMinimumSize(new Dimension(x,y*nameL.length));
+		rank.setMaximumSize(new Dimension(x,y*nameL.length));
 	}
 	
 	/**

@@ -57,6 +57,7 @@ public class ControllerPresentation implements
     public void start() {
     	createGUI();
         frame.getContentPane().removeAll();
+        frame.getContentPane().setLayout(new BorderLayout());
         new ControllerStart(this,frame);
         revalidateContentPane(frame);
     }
