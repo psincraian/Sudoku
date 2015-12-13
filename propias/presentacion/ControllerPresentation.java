@@ -180,7 +180,7 @@ public class ControllerPresentation implements
         	c.sendMessage("Felicitats, has omplert el sudoku. Ranking del Sudoku: " + cd.takePointsBoard());
         	showMainMenu();
         }
-        else if (this.caracteristiques.getTipusPartida() == 0 && !createSudoku){
+        else if (this.caracteristiques.getTipusPartida() == 0 && !createSudoku && cd.takePointsBoard() != 0){
         	c.sendMessage("Felicitats, has omplert el sudoku.");
         	showMainMenu();
         }
@@ -357,14 +357,24 @@ public class ControllerPresentation implements
 	
     @Override
     public void getParameters(CaracteristiquesPartida caracteristiques){
-    	int sudoku[][];
-    	if (caracteristiques.getNewSudoku()) {
-    		sudoku = cd.createMatch(caracteristiques, isGuest);
-    		this.caracteristiques = caracteristiques;
-    		playMatch(sudoku, caracteristiques.getTipusPartida() == 1);
-    	} else
-    		this.caracteristiques = caracteristiques;
-    		showSelectFromBD(caracteristiques);
+    	if(caracteristiques.getDificultat() == 0 && caracteristiques.getGivenNumbers() > 0.8 * (int) Math.pow(caracteristiques.getMida(),2)
+    		||caracteristiques.getDificultat() == 1 && caracteristiques.getGivenNumbers() > 0.42 * (int) Math.pow(caracteristiques.getMida(),2)
+    		|| caracteristiques.getDificultat() == 2 && caracteristiques.getGivenNumbers() > 0.32 * (int) Math.pow(caracteristiques.getMida(),2)){
+    		JOptionPane.showMessageDialog(null, "Has demanat massa valors");
+    		showSelectCharacteristics();
+    	}
+    	else{
+	    	int sudoku[][];
+	    	if (caracteristiques.getNewSudoku()) {
+	    		sudoku = cd.createMatch(caracteristiques, isGuest);
+	    		this.caracteristiques = caracteristiques;
+	    		playMatch(sudoku, caracteristiques.getTipusPartida() == 1);
+	    	} 
+	    	else{
+	    		this.caracteristiques = caracteristiques;
+	    		showSelectFromBD(caracteristiques);
+	    	}
+    	}
     }
     
 	@Override

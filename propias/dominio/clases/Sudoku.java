@@ -11,6 +11,9 @@ import propias.dominio.clases.Position;
  */
 public class Sudoku implements java.io.Serializable {
 	
+	/**
+	 * 
+	 */
 	private Board sudoku;	
 	private Board solution;
 	private int level;

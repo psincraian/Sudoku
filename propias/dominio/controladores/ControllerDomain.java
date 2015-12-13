@@ -99,7 +99,7 @@ public class ControllerDomain {
         try {
         	createSudoku = false; // no es crea un sudoku nou
         	if (!c.getNewSudoku()) {
-        		cont = 0;
+        		cont = c.givenNumbers;
         	    Sudoku s = cc.getSudoku(c.getMida(), c.getDificultat(), this.id);
         	    this.size = c.getMida();
             	this.dificult = c.getDificultat();
@@ -111,7 +111,7 @@ public class ControllerDomain {
             	return matrix;
         	}
 			else{
-				cont = 0;
+				cont = c.givenNumbers;
         		CntrlSudokuCreator cs = new CntrlSudokuCreator();
         		CntrlSudokuGenerator csg = new CntrlSudokuGenerator(c.getMida());
         		Sudoku s = cs.create(c.getDificultat(), csg.generateBoard());
@@ -408,6 +408,9 @@ public class ControllerDomain {
 			        	stad.afegirNumPartides(1, dificult); //actualizo numer partidas de estadisticas
 			        	rg.modRanking(new ParamRanking(this.user.consultarNom(), ((MatchCompetition) match).getMatchTime())); //actualizo ranking global
 			        	points = score;
+		        	}
+		        	else{
+		        		points = -1;
 		        	}
 		        }
 	        }
