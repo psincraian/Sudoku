@@ -15,7 +15,7 @@ import propias.dominio.controladores.*;
 
 /**
  * 
- * @author Brian Martinez Alvarez i petites modificacions per Petru Rares
+ * @author Brian Martinez Alvarez
  *
  */
 public class ControllerPresentation implements 
@@ -35,6 +35,7 @@ public class ControllerPresentation implements
     boolean createSudoku; // true: crear un sudoku, false: partidaRapida
     boolean loadMatch;
     CaracteristiquesPartida caracteristiques;
+    
     /**
      * Constructora
      */
@@ -112,14 +113,20 @@ public class ControllerPresentation implements
         frame.add(vm);
         revalidateContentPane(frame);
     }
-    
+    /**
+     * Dona propietats a la vista
+     * @param frame Vista del programa
+     */
     private static void revalidateContentPane(JFrame frame) {
     	frame.revalidate();
     	frame.repaint();
         frame.pack();
         frame.setVisible(true);
     }
-    
+    /**
+     * Selecciona el sudoku amb identificador id
+     * @param id Identidifador del sudoku
+     */
     @Override
     public void selectSudoku(String id) {
 		int[][] sudoku;
@@ -135,7 +142,9 @@ public class ControllerPresentation implements
     	}
 		
     }
-    
+    /** Omple un sudoku que es vol crear, ràpidament
+     * @param s Sudoku en format cadena de caracters 
+     */
     @Override
     public void setBoardFast(String s){
     	ControllerViewBoard c = ControllerViewBoard.getInstance();
@@ -176,18 +185,23 @@ public class ControllerPresentation implements
     public void updateCell(String position, int value){
     	Boolean check = cd.updateCell(position, value);
     	if(check){
-	    	ControllerViewBoard c = ControllerViewBoard.getInstance();
-	        if(!createSudoku && cd.takePointsBoard() != 0 && this.caracteristiques.getTipusPartida() == 1){
-	        	c.sendMessage("Felicitats, has omplert el sudoku. Ranking del Sudoku: " + cd.takePointsBoard());
-	        	showMainMenu();
-	        }
-	        else if (this.caracteristiques.getTipusPartida() == 0 && !createSudoku && cd.takePointsBoard() != 0){
-	        	c.sendMessage("Felicitats, has omplert el sudoku.");
-	        	showMainMenu();
-	        }
+	    	boardCompleted();
     	}
     }
-    
+    /**
+     * Indica que s'ha completat el sudoku correctament
+     */
+    public void boardCompleted(){
+    	ControllerViewBoard c = ControllerViewBoard.getInstance();
+        if(!createSudoku && cd.takePointsBoard() != 0 && this.caracteristiques.getTipusPartida() == 1){
+        	c.sendMessage("Felicitats, has omplert el sudoku. Ranking del Sudoku: " + cd.takePointsBoard());
+        	showMainMenu();
+        }
+        else if (this.caracteristiques.getTipusPartida() == 0 && !createSudoku && cd.takePointsBoard() != 0){
+        	c.sendMessage("Felicitats, has omplert el sudoku.");
+        	showMainMenu();
+        }
+    }
     /**
      * Guarda la partida actual
      */
@@ -195,7 +209,11 @@ public class ControllerPresentation implements
     public void saveBoard(){
         cd.saveBoard(createSudoku);
     }
-    
+    /**
+     * Juga una partida
+     * @param sudoku Sudoku de la partida a jugar
+     * @param competition Indica si es una partida de competicio
+     */
     private void playMatch(int[][] sudoku, boolean competition) {
 		frame.getContentPane().removeAll();
 		frame.setLayout(new BorderLayout());
@@ -203,7 +221,10 @@ public class ControllerPresentation implements
 			isGuest, competition, frame, this);
     	revalidateContentPane(frame);
     }
-    
+    /**
+     * Actualitza les caselles del sudoku
+     * @param size indica la mida del sudoku
+     */
     private void updateSudokuCells(int size) {
     	ControllerViewBoard c = ControllerViewBoard.getInstance();
 		for(int i= 0; i < size; ++i) {
@@ -242,23 +263,21 @@ public class ControllerPresentation implements
     }
     
     /**
-     * 
+     * Soluciona la casella indicada per la posicio s
      * @param s Coordenades de la casella
      * @return Retorna la solucio de la casella amb posicio s
      */
     @Override
     public int getCellResolved(String s) {
     	if(cd.updateCell(s,cd.getCellSol(s))) {
-    		ControllerViewBoard c = ControllerViewBoard.getInstance();
-	        if (this.caracteristiques.getTipusPartida() == 0 && !createSudoku && cd.takePointsBoard() != 0){
-	        	c.sendMessage("Felicitats, has omplert el sudoku.");
-	        	showMainMenu();
-	        }
+    		boardCompleted();
     	}
     	else return cd.getCellSol(s);
 		return 0;
     }
-
+    /**
+     * Opcions del menu inicial
+     */
 	@Override
 	public void getOption(Options option) {
 		switch (option) {
@@ -295,7 +314,9 @@ public class ControllerPresentation implements
     	  correct = true;
       return correct;
     }
-    
+    /**
+     * Mostra el ranking global
+     */
     private void showRanking() {
     	 List<String> names = new ArrayList<String>();
          List<Long> values = new ArrayList<Long>();
@@ -309,7 +330,9 @@ public class ControllerPresentation implements
          frame.add(vr);
          revalidateContentPane(frame);
     }
-    
+    /**
+     * Mostra la creacio d'un sudoku
+     */
     private void showCreateSudoku() {
     	frame.getContentPane().removeAll();
     	frame.setLayout(new GridBagLayout());
@@ -317,7 +340,9 @@ public class ControllerPresentation implements
     	frame.add(sc);
     	revalidateContentPane(frame);
     }
-    
+    /**
+     * Mostra les partides guardades
+     */
 	private void showLoadMatch() {
 		List<String> id = cd.getIDMatches();
 		if (id.size() == 0) {
@@ -332,7 +357,9 @@ public class ControllerPresentation implements
 			revalidateContentPane(frame);
 		}
 	}
-	
+	/**
+	 * Mostra les caracteristiques a escollir per jugar una partida
+	 */
 	private void showSelectCharacteristics() {
         frame.getContentPane().removeAll();
 		SelectCharacteristics sc = new SelectCharacteristics(this);
@@ -341,7 +368,9 @@ public class ControllerPresentation implements
 		frame.add(sc);
 		revalidateContentPane(frame);
 	}
-	
+	/**
+	 * Mostra el perfil de l'usuari
+	 */
 	private void showProfile() {
 		frame.getContentPane().removeAll();
 		frame.setLayout(new BorderLayout());
@@ -349,7 +378,10 @@ public class ControllerPresentation implements
 		frame.add(vp);
 		revalidateContentPane(frame);
 	}
-	
+	/**
+	 * Mostra les partides que compleixen les caracteristiques desitjades que estan a la BBDD
+	 * @param caracteristiques caracteristiques de la partida
+	 */
 	private void showSelectFromBD(CaracteristiquesPartida caracteristiques) {
 		List<List<String>> list = cd.getIDSudokusAndMaker(caracteristiques);
 		if (list == null || list.size() == 0) {
@@ -364,7 +396,10 @@ public class ControllerPresentation implements
 			revalidateContentPane(frame);
 		}
 	}
-	
+	/**
+	 * Obte les caracteristiques de la partida a jugar
+	 * @param caracteristiques Caracteristiques de la partida
+	 */
     @Override
     public void getParameters(CaracteristiquesPartida caracteristiques){
     	if(caracteristiques.getDificultat() == 0 && caracteristiques.getGivenNumbers() > 0.8 * (int) Math.pow(caracteristiques.getMida(),2)
@@ -386,7 +421,9 @@ public class ControllerPresentation implements
 	    	}
     	}
     }
-    
+    /**
+     * Opcions del menu principal
+     */
 	@Override
 	public void getOption(OptionsMenu om) {
 		switch (om) {
@@ -414,12 +451,16 @@ public class ControllerPresentation implements
 			break;
 		}	
 	}
-
+	/**
+	 * Torna al menu principal
+	 */
 	@Override
 	public void getBack() {
 		showMainMenu();
 	}
-
+	/**
+	 * Obte la mida del sudoku a crear
+	 */
 	@Override
 	public void getSize(int size) {
         int[][] m = cd.newSudoku(size);

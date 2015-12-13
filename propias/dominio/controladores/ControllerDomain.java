@@ -10,7 +10,7 @@ import propias.dominio.controladores.generator.CntrlSudokuHelps;
 
 /**
  * 
- * @author Brian
+ * @author Brian Martinez Alvarez
  *
  */
 public class ControllerDomain {
@@ -39,8 +39,8 @@ public class ControllerDomain {
     }
     /**
      * Comproba les credencials d'un usuari
-     * @param credentials Contiene la informacion del usuario
-     * @return Si el login o el crear usuario se ha relaizado correctamente
+     * @param credentials Conte la info de l'usuari a registrar
+     * @return Si el crear usuari sh'ha realitzat correctament
      */
     public String checkNewUser(List<String> credentials){
             try {
@@ -70,6 +70,11 @@ public class ControllerDomain {
             	return null;
             }
     }
+    /**
+     * Comproba les credencials d'un usuari a loguejar
+     * @param credentials  conte la info de l'usuari a loguejar
+     * @return Si el login s'ha realitzat correctament
+     */
     public String checkLogin(List<String> credentials){
         try {
         	if(!credentials.get(0).equals("") && cc.existsUser(credentials.get(0))) {
@@ -136,6 +141,11 @@ public class ControllerDomain {
         	return null;
         }
     }
+    /**
+     * Retorna el llistat amb identificadors de partides guardades i els seus creadors
+     * @param c Caracteristiques de les partides desitjades
+     * @return llistat amb identificadors de partides guardades i els seus creadors
+     */
     public List<List<String>> getIDSudokusAndMaker(CaracteristiquesPartida c){
     	try {
 			return cc.getIDSudokusAndMaker(c.getMida(), c.getDificultat(), c.getGivenNumbers());
@@ -144,6 +154,10 @@ public class ControllerDomain {
         	return null;
 		}
     }
+    /**
+     * Selecciona el sudoku a jugar
+     * @param id id del sudoku
+     */
     public void selectSudoku(String id){
     	this.id = id;
     }
@@ -168,6 +182,11 @@ public class ControllerDomain {
 		}		
 	    return board;
 	}
+	/**
+	 * creacio d'un nou sudoku
+	 * @param size mida del sudoku
+	 * @return taulell del sudoku a crear completament buit
+	 */
     public int[][] newSudoku(int size){
     	createSudoku = true;
     	cont = 0;
@@ -369,6 +388,10 @@ public class ControllerDomain {
             values.add(aux.getValue());
         } 
     }
+    /**
+     * Incorpora al ranking els usuaris fora dels 10 primers llocs
+     * @param info Info del usuari
+     */
     public void addToRanking(List<String> info){
     	List<ParamRanking> l = rg.getRanking();
     	boolean found = false;
@@ -433,6 +456,10 @@ public class ControllerDomain {
         	return false;
         }
     }
+    /**
+     * Obte els punts del sudoku 
+     * @return puntuacio del sudoku
+     */
     public int takePointsBoard(){
     	return points;
     }
