@@ -166,10 +166,7 @@ public class CntrlSearchLevel {
 	* base 2 de num.
 	*/
 	private double log2(int num){
-		if(Integer.bitCount(num) == 1){
-			return Math.log(num)/Math.log(2);
-		}		
-		return 0;
+		return Math.log(num)/Math.log(2);
 	}
 
 	/**
@@ -191,7 +188,10 @@ public class CntrlSearchLevel {
 	* @return int nombre decodificat.
 	*/
 	private int decodeNum(int num){
-		return (int)log2(num) + 1;
+		if(Integer.bitCount(num) == 1){
+			return (int)log2(num) + 1;
+		}
+		return 0;
 	}
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
