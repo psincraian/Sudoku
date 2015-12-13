@@ -160,8 +160,8 @@ public class ControllerCasting {
 			bytes = DatatypeConverter.parseBase64Binary(cp.getSudokuInfo(lvl, size));
 		}		
 		ByteArrayInputStream bis = new ByteArrayInputStream(bytes);
-    	ObjectInputStream ois = new ObjectInputStream(bis);
-    	return (ListSudokuInfo) ois.readObject();
+    		ObjectInputStream ois = new ObjectInputStream(bis);
+    		return (ListSudokuInfo) ois.readObject();
 	}
 
 	/**
