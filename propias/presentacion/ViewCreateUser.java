@@ -6,7 +6,7 @@ import java.util.List;
 
 /**
  * 
- * Configura la vista de creació d'un nou usuari
+ * Configura la vista de creacio d'un nou usuari
  * 
  * @author Daniel Sanchez Martinez
  * 
@@ -18,7 +18,7 @@ public class ViewCreateUser extends UserEntry{
 	/**
 	 * 
 	 * Constructora de la vista. Configura el titol i afegeix un nou element
-	 * pertanyent a la contrasenya de verificació
+	 * pertanyent a la contrasenya de verificacio
 	 * 
 	 */
 	public ViewCreateUser() {
@@ -31,7 +31,7 @@ public class ViewCreateUser extends UserEntry{
 	/**
 	 * 
 	 *  Afegeix una nova linea a la vista. Un JLabel que correspon al missatge
-	 *  de que torni a escriure la contrasenya i la pròpia contrasenya.
+	 *  de que torni a escriure la contrasenya i la propia contrasenya.
 	 *  
 	 */
 	public void addPasswordField(){
@@ -46,7 +46,7 @@ public class ViewCreateUser extends UserEntry{
 	/**
 	 * 
 	 * Envia els dos passwords per tal de ser verificiats.
-	 * Si no son iguals, s'enviarà un missatge d'error. 
+	 * Si no son iguals, s'enviara un missatge d'error. 
 	 * 
 	 */
 	public List<String> getInfoUser(){

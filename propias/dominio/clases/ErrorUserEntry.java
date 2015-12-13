@@ -6,6 +6,7 @@ package propias.dominio.clases;
  * 
  * Indica els possibles tipus de error al introduir un 
  * usuari nou o ja loguejat
+ * 
  */
 public enum ErrorUserEntry {
 	LOGIN_OK,

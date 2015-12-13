@@ -38,7 +38,7 @@ public abstract class UserEntry extends SetView {
 
 	/**
 	 * 
-	 * Creadora de la configuraci� de la vista.
+	 * Creadora de la configuracio de la vista.
 	 * 
 	 */
 	public UserEntry() {
@@ -75,14 +75,14 @@ public abstract class UserEntry extends SetView {
 		vertical.add(Box.createVerticalGlue());
 		add(vertical, BorderLayout.CENTER);
 		
-		/*getContentPane().*/add(Box.createHorizontalStrut(100), BorderLayout.EAST);
+		add(Box.createHorizontalStrut(100), BorderLayout.EAST);
 
 		panelButtons = new JPanel();
 		panelButtons.add(accept);
 		panelButtons.add(cancel);
 		panelButtons.add(Box.createVerticalStrut(80), BorderLayout.SOUTH);
 		panelButtons.setBackground(Color.white);
-		/*getContentPane().*/add(panelButtons, BorderLayout.SOUTH);
+		add(panelButtons, BorderLayout.SOUTH);
 	}
 	
 	/**
@@ -110,7 +110,7 @@ public abstract class UserEntry extends SetView {
 	}
 	
 	/**
-	 * Funci� que s'encarrega de retorna el nombre
+	 * Funcio que s'encarrega de retorna el nombre
 	 * de l'usuari
 	 * 
 	 * @return nom de l'usuari
@@ -135,9 +135,9 @@ public abstract class UserEntry extends SetView {
 	 * 
 	 * Afegeix els listeners als botons que s'especifiqui.
 	 * 
-	 * @param mm : Clase MouseAdapter que s'encarregar� de
+	 * @param mm : Clase MouseAdapter que s'encarregara de
 	 * gestionar els listeners dels botons
-	 * @param b : El bot� que es vol observar
+	 * @param b : El boto que es vol observar
 	 * 
 	 */
 	protected void buttonListener(MouseAdapter mm, JButton b){
@@ -146,13 +146,13 @@ public abstract class UserEntry extends SetView {
 	
 	/**
 	 * 
-	 * Aquesta funci� s'encarreg� de configura l'amplada i al�ada
-	 * m�xima dels JTextField, JPasswordField i JLabel
+	 * Aquesta funcio s'encarrega de configura l'amplada i alçada
+	 * maxima dels JTextField, JPasswordField i JLabel
 	 * per tal de dibuixar un quadrat elevat al seu voltant.
 	 * 
 	 * @param width : amplada 
 	 * @param nElem : nombre de elements, que pot ser 2 en el cas de login
-	 * i 3 en el cas de creaci� d'un nou usuari.
+	 * i 3 en el cas de creacio d'un nou usuari.
 	 */
 	protected void setPanelSize(int width, int nElem){
 		panel.setPreferredSize(new Dimension(width,nElem*40));
@@ -162,8 +162,8 @@ public abstract class UserEntry extends SetView {
 	
 	/**
 	 * 
-	 * Funci� que s'encarrega de retorna el password introduit.
-	 * Retorna una llista ja que per la vista de creaci� d'un nou
+	 * Funcio que s'encarrega de retorna el password introduit.
+	 * Retorna una llista ja que per la vista de creacio d'un nou
 	 * usuari hi han 2 contrasenyes.
 	 * 
 	 * @return Contrasenya a verificar.

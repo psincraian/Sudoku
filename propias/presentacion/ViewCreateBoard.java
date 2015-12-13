@@ -11,7 +11,7 @@ import javax.swing.JTextField;
 
 /**
  * 
- * Configura la vista de creació d'un nou sudoku
+ * Configura la vista de creacio d'un nou sudoku
  * 
  * @author Daniel Sanchez Martinez
  * 
@@ -30,7 +30,6 @@ public class ViewCreateBoard extends GenerateBoard{
 	public ViewCreateBoard(int[][] board, int size){
 		super(board,size);
 		setTitle("CreaciÃ³ d'un nou Sudoku");
-		setVisible(true);
 		enableCustomProperties();
 	}
 	
@@ -60,7 +59,7 @@ public class ViewCreateBoard extends GenerateBoard{
 	 * Afegeix listeners als botons.
 	 * 
 	 * @param mm : Clase MouseAdaptar que s'encarrega de gestionar el listener
-	 * @param b : Botó a ser observat
+	 * @param b : Boto a ser observat
 	 * 
 	 */
 	protected void buttonListener(MouseAdapter mm, JButton b){

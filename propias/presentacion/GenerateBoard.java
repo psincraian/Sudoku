@@ -20,8 +20,8 @@ import javax.swing.border.LineBorder;
 /**
  * 
  * Configura una nova vista amb un taulell. Segons 
- * el tipus de vista que es vulgui, es carregar� 
- * la creaci� d'un nou sudoku o jugar una partida. 
+ * el tipus de vista que es vulgui, es carregara 
+ * la creacio d'un nou sudoku o jugar una partida. 
  * 
  * @author Daniel Sanchez Martinez
  * 
@@ -45,12 +45,12 @@ public abstract class GenerateBoard extends SetView{
 	/**
 	 * 
 	 * Constructor del GenerateBoard. Configura la submida 
-	 * del taulell i comen�a a configurar la vista
+	 * del taulell i comença a configurar la vista
 	 * 
 	 * @param board : Pertany al sudoku, si la vista que es vol mostrar
-	 * es ViewMatch, board contindr� el sudoku sense resoldre(amb forats), 
+	 * es ViewMatch, board contindra el sudoku sense resoldre(amb forats), 
 	 * en el cas de que es vulgui la vista per crear un nou sudoku, el board
-	 * ser� buit.
+	 * sera buit.
 	 * @param size : la mida del sudoku
 	 * 
 	 */
@@ -99,10 +99,10 @@ public abstract class GenerateBoard extends SetView{
 	
 	/**
 	 * 
-	 * Inicialitza els par�metres de la vista.
+	 * Inicialitza els parametres de la vista.
 	 * 
 	 * @param board : En el cas de que la vista sigui de jugar una partida, 
-	 * es posar�n els numeros a la vista.
+	 * es posaran els numeros a la vista.
 	 * 
 	 */
 	private void iniBoard(int[][] board){
@@ -176,8 +176,8 @@ public abstract class GenerateBoard extends SetView{
 	 * Per tal de poder diferencia les lines dins del taulell, 
 	 * es pinta de diferent color(monocrom) segons la submida congigurada
 	 * 
-	 * @param i : posici� dins d'una fila
-	 * @param j : posici� dins d'un columna
+	 * @param i : posicio dins d'una fila
+	 * @param j : posicio dins d'un columna
 	 * 
 	 */
 	protected void drawSquare(int i, int j){
@@ -216,7 +216,7 @@ public abstract class GenerateBoard extends SetView{
 	 * Afegeix listeners als botons.
 	 * 
 	 * @param mm : Clase MouseAdaptar que s'encarrega de gestionar el listener
-	 * @param b : Bot� a ser observat
+	 * @param b : Boto a ser observat
 	 * 
 	 */
 	protected abstract void buttonListener(MouseAdapter mm, JButton b);
@@ -226,8 +226,8 @@ public abstract class GenerateBoard extends SetView{
 	 * al taulell del joc.
 	 * 
 	 * @param mm : Clase MouseAdaptar que s'encarrega de gestionar el listener
-	 * @param index : posici� dins d'una fila
-	 * @param subindex : posici� dins d'una columna
+	 * @param index : posicio dins d'una fila
+	 * @param subindex : posicio dins d'una columna
 	 */
 	protected void panelListener(MouseAdapter mm, int index, int subindex){
 		square[index][subindex].addMouseListener(mm);
@@ -236,9 +236,9 @@ public abstract class GenerateBoard extends SetView{
 	/**
 	 * 
 	 * Habilida o deshabilita els botons per interactuar entre usuari
-	 * i taulell. Est� lligat amb els candidats.
+	 * i taulell. Esta lligat amb els candidats.
 	 * 
-	 * @param cond : Condici� que fa que un bot� sigui habilitat o
+	 * @param cond : Condicio que fa que un boto sigui habilitat o
 	 * deshabilitat
 	 * 
 	 */
@@ -250,7 +250,7 @@ public abstract class GenerateBoard extends SetView{
 	 * 
 	 * Envia un missatge a l'usuari.
 	 * 
-	 * @param message : El missatge en questi�
+	 * @param message : El missatge en questio
 	 * 
 	 */
 	protected void sendMessage(String message){
@@ -262,7 +262,7 @@ public abstract class GenerateBoard extends SetView{
 	 * Cambia el valor d'una casella. Relacionat quan un usuari vol
 	 * carregar una partida guardada.
 	 * 
-	 * @param l : panell en questi�(casella)
+	 * @param l : panell en questio(casella)
 	 * @param text : valor a posar
 	 * 
 	 */
@@ -276,8 +276,8 @@ public abstract class GenerateBoard extends SetView{
 	
 	/**
 	 * 
-	 * Segons la vista que s'ha seleccionat, una vista tindr� unes botons o uns altres.
-	 * Aquesta funci� s'encarregar� de mostrar tot allo que necessita la vista.
+	 * Segons la vista que s'ha seleccionat, una vista tindra unes botons o uns altres.
+	 * Aquesta funcio s'encarregara de mostrar tot allo que necessita la vista.
 	 * 
 	 */
 	protected abstract void enableCustomProperties();

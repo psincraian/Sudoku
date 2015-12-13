@@ -31,6 +31,12 @@ public class ControllerUserEntry {
 	UserEntry eu;
 	private userEntry ue;
 	
+	/**
+	 * 
+	 * Interface que s'encarregara de la comunicacio
+	 * de la comunicacio amb el ControllerPresentation
+	 *
+	 */
 	protected interface userEntry{
 		public boolean checkInfoUser(List<String> info);
 		public void showMainMenu();
@@ -41,11 +47,11 @@ public class ControllerUserEntry {
 	 * 
 	 * Constructor de ControllerUserEntry tal de gestionar la vista seleccionada.
 	 * 
-	 * @param cp: Instancia de controlador de presentaci� per tal de poder comunicar-se
-	 * i tracta les dades inserides per l'usuari.
-	 * @param typeUser: Si typeUser(1) es generar� la vista Login, en el cas contrari, es generar� 
-	 * la vista de creaci� d'un nou usuari. 
+	 * @param typeUser: Si typeUser(1) es generara la vista Login, en el cas contrari, es generara 
+	 * la vista de creacio d'un nou usuari. 
 	 * @param frame : El fram del joc. Es configura amb el panell de la vista.
+	 * @param container instancia de l'interface que s'ha dimplementar en 
+	 * ControllerPresentation per tal de poder comunicar-se amb la vista
 	 * 
 	 */
 	public ControllerUserEntry( boolean typeUser, JFrame frame, Object container){
@@ -65,13 +71,21 @@ public class ControllerUserEntry {
 	 * 
 	 * Genera un missatge per tal de ser mostrat a l'usuari.
 	 * 
-	 * @param message El missatge en questi�.
+	 * @param message El missatge en questio.
 	 * 
 	 */
 	public void sendMessage(String message){
 		eu.sendMessage(message);
 	}
 	
+	/**
+	 * 
+	 * Funcio que s'encarrega de retorna l'instancia d'aquest controlador
+	 * per tal existeixi un sola instancia(singleton)
+	 * 
+	 * @return instancia de ControllerUserEntry
+	 * 
+	 */
 	public static ControllerUserEntry getInstance() {
 		return instance;
 	}

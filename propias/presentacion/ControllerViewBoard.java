@@ -27,7 +27,9 @@ public class ControllerViewBoard {
 	public final static int VIEW_CREATE_SUDOKU = 0;
 	public final static int VIEW_PLAY_SUDOKU = 1;
 	public final static boolean USER_GUEST = true;
-	public final static boolean TRAINING = false;
+	public final static boolean COMPETITION = false;
+	public final static boolean TRAINING = true;
+
 	
 	private static ControllerViewBoard instance;
 	
@@ -37,6 +39,12 @@ public class ControllerViewBoard {
 	int size;
 	private viewBoard vb;
 	
+	/**
+	 * 
+	 * Interface que s'encarregara de la comunicacio
+	 * de la comunicacio amb el ControllerPresentation
+	 *
+	 */
 	protected interface viewBoard{
 		public boolean checkBoard();
 		public void saveBoard();
@@ -52,25 +60,26 @@ public class ControllerViewBoard {
 	 * 
 	 * @param board : Es tracta del sudoku sense resoldre amb forats per tal
 	 * de que l'usuari el resolgui.
-	 * @param size : Representa la mida del sudoku. Potser 9 o 16.
 	 * @param typeBoard : Representa el tipus de vista. Si typeBoard(1) la vista ser� 
 	 * la de creaci� d'un nou suoku per part de l'usuari
-	 * @param scp
-	 * @param guest : Indica si l'usuari es convidat o no
+	 * @param guest : boolea que ens diu si l'usuari es convidat
+	 * @param competition : boolea que ens diu si el tipus de partida es de competicio
 	 * @param frame : El fram del joc. Es configura amb el panell de la vista.
+	 * @param container : instancia de l'interface que s'ha dimplementar en 
+	 * ControllerPresentation per tal de poder comunicar-se amb la vista
 	 * 
 	 */
-	public ControllerViewBoard(int[][] board, int typeBoard, boolean guest,boolean training, JFrame frame, Object container){
+	public ControllerViewBoard(int[][] board, int typeBoard, boolean guest,boolean competition, JFrame frame, Object container){
 		this.size = board[0].length;
 		instance = this;
 		if(typeBoard == VIEW_PLAY_SUDOKU){
 			this.vm = new ViewMatch(board,size);
-			if(training == TRAINING){
+			if(competition == COMPETITION){
 				vm.enableCustomProperties();
 				vm.buttonListener(new MouseManage(), vm.extraButton[1]);
 				vm.buttonListener(new MouseManage(), vm.extraButton[2]);
 			}
-			if(guest == USER_GUEST)
+			if(guest == USER_GUEST || competition == TRAINING)
 				vm.extraButton[0].setEnabled(false);
 		}
 		else{
@@ -93,9 +102,9 @@ public class ControllerViewBoard {
 	
 	/**
 	 * 
-	 * En el cas que estiguem jugant una partida ja comen�ada per l'usuari
+	 * En el cas que estiguem jugant una partida ja començada per l'usuari
 	 * cal actualitzar el taulell amb les modificacions fetes per l'usuari
-	 * tal com va acabar(sense contar les caselles ocupades al comen�ar 
+	 * tal com va acabar(sense contar les caselles ocupades al començar
 	 * inicialment la partida)
 	 * 
 	 * @param position : Casella a modificar
@@ -108,9 +117,9 @@ public class ControllerViewBoard {
 	
 	/**
 	 * 
-	 * Troba una casella en el taulell donada una posici�
+	 * Troba una casella en el taulell donada una posicio
 	 * 
-	 * @param position : La posici� a ser trobada.
+	 * @param position : La posicio a ser trobada.
 	 * @return  cell : Retorna la casella.
 	 * 
 	 */
@@ -132,7 +141,7 @@ public class ControllerViewBoard {
 	 * 
 	 * Habilita els botons(de l'1 al 9) depenen si son candidats o no.
 	 * 
-	 * @param cond : Depenen de cond, el boto estar� habilidat o no.
+	 * @param cond : Depenen de cond, el boto estara habilidat o no.
 	 * 
 	 */
 	public void setCandidates(boolean cond){
@@ -144,7 +153,7 @@ public class ControllerViewBoard {
 	 * 
 	 * Genera un missatge per tal de ser mostrat a l'usuari.
 	 * 
-	 * @param message El missatge en questi�.
+	 * @param message El missatge en questio.
 	 * 
 	 */
 	public void sendMessage(String message){
@@ -153,7 +162,7 @@ public class ControllerViewBoard {
 	
 	/**
 	 * 
-	 * Implementa la funci� mouseClicked de la clase MouseAdapter, per tal de 
+	 * Implementa la funcio mouseClicked de la clase MouseAdapter, per tal de 
 	 * poder gestionar els listeners de la vista.
 	 *  
 	 */
@@ -239,7 +248,15 @@ public class ControllerViewBoard {
 			}
 		}
 	}
-
+	
+	/**
+	 * 
+	 * Funcio que s'encarrega de retorna l'instancia d'aquest controlador
+	 * per tal existeixi un sola instancia(singleton)
+	 * 
+	 * @return instancia de ControllerViewBoard
+	 * 
+	 */
 	public static ControllerViewBoard getInstance() {
 		return instance;
 	}

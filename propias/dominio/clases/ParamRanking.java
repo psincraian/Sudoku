@@ -4,7 +4,7 @@ package propias.dominio.clases;
  * 
  * Aquesta clase s'utilitza per contenir dos elements en
  * un ranking. Per un costat, el nom d'un usuari
- * i la puntuació que represant/temps obtingut d'una partida. 
+ * i la puntuacio que represant/temps obtingut d'una partida. 
  * 
  * @author Daniel Sanchez Martinez
  * 
@@ -16,11 +16,11 @@ public class ParamRanking implements Comparable<ParamRanking>, java.io.Serializa
 	
 	/**
 	 * 
-	 * Constructor amb un nom i valor, que pot ser puntuació 
+	 * Constructor amb un nom i valor, que pot ser puntuacio 
 	 * o temps
 	 * 
 	 * @param name : nom de l'usuari
-	 * @param value : puntuació/temps de la partida
+	 * @param value : puntuacio/temps de la partida
 	 * 
 	 */
 	public ParamRanking(String name, long value){
@@ -39,7 +39,7 @@ public class ParamRanking implements Comparable<ParamRanking>, java.io.Serializa
 	
 	/**
 	 * 
-	 * @return Retorna la puntuació/temps de la partida
+	 * @return Retorna la puntuacio/temps de la partida
 	 * 
 	 */
 	public long getValue(){
@@ -50,7 +50,7 @@ public class ParamRanking implements Comparable<ParamRanking>, java.io.Serializa
 	 * 
 	 * Configura el segon valor de ParamRanking
 	 *
-	 * @param value : puntuació/temps en questió
+	 * @param value : puntuacio/temps en questio
 	 * 
 	 */
 	public void setValue(long value){
@@ -59,7 +59,7 @@ public class ParamRanking implements Comparable<ParamRanking>, java.io.Serializa
 	
 	/**
 	 * 
-	 * Implementa la funció compareTo de la clase Comparable
+	 * Implementa la funcio compareTo de la clase Comparable
 	 * per tal de comparar dos ParamRanking i que el ranking
 	 * estigui ordenat
 	 * 

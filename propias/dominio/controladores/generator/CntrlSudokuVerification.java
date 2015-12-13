@@ -14,7 +14,7 @@ public class CntrlSudokuVerification {
 	
 	/**
 	 * 
-	 * Comprova si donat un sudoku és correct. Si no es troba 
+	 * Comprova si donat un sudoku es correcte. Si no es troba 
 	 * un nombre dos cops en la mateix fila, columna i quadrant
 	 * llavors el sudoku es correcte.
 	 * 

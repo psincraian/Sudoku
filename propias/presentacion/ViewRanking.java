@@ -18,9 +18,15 @@ import javax.swing.JTabbedPane;
 import propias.presentacion.ViewSelectSudoku.selectSudoku;
 
 /**
- * Show ranking view.
+ * 
+ * Mostra la vista de ranking. Pot representa la vista
+ * de ranking global o ranking sudoku. Ranking global esta 
+ * representat per usuari+puntuacio i ranking sudoku esta
+ * representat per usuari+temps en resoldre el sudoku 
+ * en questio
  * 
  * @author Daniel Sanchez Martinez
+ * 
  */
 public class ViewRanking extends SetView{
 	
@@ -35,15 +41,22 @@ public class ViewRanking extends SetView{
 	JButton button;
 	private ranking r;
 	
+	/**
+	 * 
+	 * Interface que s'encarregara de la comunicacio
+	 * de la comunicacio amb el ControllerPresentation
+	 *
+	 */
 	interface ranking{
 		public void getBack();
 	}
+	
 	/**
 	 * 
 	 * Constructor
 	 * 
-	 * @param name : llista que cont� els noms a ser mostrats
-	 * @param value : llsta que cont� els punts/temps asociats a un usuari
+	 * @param name : llista que conte els noms a ser mostrats
+	 * @param value : llsta que conte els punts/temps asociats a un usuari
 	 * 
 	 */
 	public ViewRanking(List<String> name, List<Long> value, Object container){
@@ -57,7 +70,7 @@ public class ViewRanking extends SetView{
 	
 	/**
 	 * 
-	 * Funci� que s'encarrega de configura la vista.
+	 * Funcio que s'encarrega de configura la vista.
 	 * 
 	 */
 	public void initialize(){
@@ -89,7 +102,7 @@ public class ViewRanking extends SetView{
 	
 	/**
 	 * 
-	 * Funci� que s'encarrega de inicialitzar els components 
+	 * Funcio que s'encarrega de inicialitzar els components 
 	 * de la vista.
 	 * 
 	 */
@@ -111,6 +124,18 @@ public class ViewRanking extends SetView{
 		}
 	}
 	
+	/**
+	 * 
+	 * Funcio que s'encarrega de mostrar la posicio del usuari
+	 * en el cas de que no estigui en les posicions mostrades
+	 * en la vista
+	 * 
+	 * @param pos : posicio del usuari en el ranking
+	 * @param value : valor que representa la posicion en el
+	 * ranking del usuari
+	 * @param name : nom de l'usuari
+	 * 
+	 */
 	public void addPosUser(int pos, Long value, String name){
 		setSize(200,45);
 		rank.add(Box.createVerticalStrut(20));
@@ -121,6 +146,12 @@ public class ViewRanking extends SetView{
 		rank.add(aux);
 	}
 	
+	/**
+	 * 
+	 * Funcio que s'encarrega de configura les dimensions del
+	 * panell rank, que engloba la informacio del ranking
+	 * 
+	 */
 	public void setSize(int x, int y){
 		rank.setPreferredSize(new Dimension(x,y*nameL.length));
 		rank.setMinimumSize(new Dimension(x,y*nameL.length));
@@ -129,26 +160,25 @@ public class ViewRanking extends SetView{
 	
 	/**
 	 * 
-	 * Listener que s'encarrega de gestionar el bot� 'Tornar'
-	 * 
-	 * @param ma
+	 * Listener que s'encarrega de gestionar el boto 'Tornar'
 	 * 
 	 */
 	public void listener(){
 		button.addMouseListener(new MouseManage());
 	}
 	
-	
+	/**
+	 * 
+	 * Clase que gestiona els clicks per part de l'usuari. Hi han un boto amb listener, 
+	 * 'Tornar'.
+	 * 
+	 */
 	public class MouseManage extends MouseAdapter {
 		public void mouseClicked(MouseEvent e) {
 			JButton b = (JButton)e.getSource();
 			if(b.getText().equals("Tornar"))
 				r.getBack();
 		}
-	}
-	public void disableView() {
-		// TODO Auto-generated method stub
-		setVisible(false);
 	}
 }
 

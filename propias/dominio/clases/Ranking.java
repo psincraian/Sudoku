@@ -5,7 +5,7 @@ import java.util.*;
 /**
  * Aquesta clase defineix un ranking. El tipus de ranking pot ser:
  * global en el cas de que representi el nom d'un usuari
- * i la seva puntuació en una partida o el nom de l'usuari i el
+ * i la seva puntuacio en una partida o el nom de l'usuari i el
  * temps que ha emplat per tal de terminar el sudoku 
  *
  * @author Daniel Sanchez Martinez
@@ -35,7 +35,7 @@ public abstract class Ranking implements java.io.Serializable {
 	
 	/**
 	 * 
-	 * Comproba si un usuari està al ranking
+	 * Comproba si un usuari esta al ranking
 	 * 
 	 * @param id : nom de l'usuari a ser comprovat
 	 * @return si l'usuari es troba al ranking, retorna cert
@@ -52,11 +52,11 @@ public abstract class Ranking implements java.io.Serializable {
 	
 	/**
 	 * 
-	 * Afegeix una nova entrada al ranking. Després
+	 * Afegeix una nova entrada al ranking. Despres
 	 * ordena el ranking.
 	 * 
 	 * @param pr : ParamRanking que representa 
-	 * a un usuari i una puntuació/temps
+	 * a un usuari i una puntuacio/temps
 	 * 
 	 */
 	protected void addParam(ParamRanking pr){
@@ -70,7 +70,7 @@ public abstract class Ranking implements java.io.Serializable {
 	 * hi es al ranking i s'actualitza si es dona el cas.
 	 * 
 	 * @param pr : ParamRanking que representa 
-	 * a un usuari i una puntuació/temps
+	 * a un usuari i una puntuacio/temps
 	 * 
 	 */
 	public abstract void modRanking(ParamRanking pr);

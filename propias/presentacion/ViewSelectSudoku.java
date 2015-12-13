@@ -32,10 +32,17 @@ public class ViewSelectSudoku extends SetView{
 	private selectSudoku ss;
 	private JScrollPane sp;
 	
+	/**
+	 * 
+	 * Interface que s'encarregara de la comunicacio
+	 * de la comunicacio amb el ControllerPresentation
+	 *
+	 */
 	public interface selectSudoku{
 		public void selectSudoku(String id);
 		public void getBack();
 	}
+	
 	/**
 	 * 
 	 * Constructor de la vista
@@ -53,7 +60,7 @@ public class ViewSelectSudoku extends SetView{
 	
 	/**
 	 * 
-	 * Funci� que s'encarrega de configura la vista
+	 * Funcio que s'encarrega de configura la vista
 	 * 
 	 */
 	private void createView(){
@@ -82,9 +89,10 @@ public class ViewSelectSudoku extends SetView{
 		vertical.add(Box.createVerticalGlue());
 		add(vertical, BorderLayout.CENTER);
 	}
+	
 	/**
 	 * 
-	 * Funci� que s'encarrega de inicialitzar els components 
+	 * Funcio que s'encarrega de inicialitzar els components 
 	 * que s'utilitzan a la vista
 	 * 
 	 */
@@ -104,7 +112,7 @@ public class ViewSelectSudoku extends SetView{
 	 * Afegeix els listeners als botons que 
 	 * s'utilitza a la vista
 	 * 
-	 * @param mm : Clase MouseAdapter que s'utilizar�
+	 * @param mm : Clase MouseAdapter que s'utilizara
 	 * per tal de gestionar el listener
 	 * 
 	 */
@@ -113,6 +121,14 @@ public class ViewSelectSudoku extends SetView{
 			buttons[i].addMouseListener(new MouseManage());
 	}
 	
+	/**
+	 * 
+	 * Clase que gestiona els clicks per part de l'usuari. Si l'usuari
+	 * clica sobre "Tornar", tornarem enrere. En canvi, si l'usuari
+	 * clica sobre un boto, que representa un id(sudoku), començara la
+	 * vista match
+	 * 
+	 */
 	public class MouseManage extends MouseAdapter {
 		public void mouseClicked(MouseEvent e) {
 			JButton b = (JButton)e.getSource();

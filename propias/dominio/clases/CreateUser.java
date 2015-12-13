@@ -62,6 +62,14 @@ public class CreateUser {
 			return ErrorUserEntry.LOGIN_OK;
 	}
 	
+	/**
+	 * 
+	 * Funcio que s'encarrega de crear un nou usuari amb
+	 * el nom i contrasenya ja seleccionats
+	 * 
+	 * @return : instancia de Usuari ja creada
+	 * 
+	 */
 	public Usuari createUser(){
 		Usuari user = new Usuari(nom);
 		user.setPassword(pass1);

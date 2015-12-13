@@ -3,11 +3,13 @@ package propias.dominio.clases;
 import java.util.*;
 
 /**
+ * 
  * Ranking del tipus sudoku. Representa
  * a un usuaria i el seu temps en resoldre 
  * el sudoku que representa el ranking
  *
  * @author Daniel Sanchez Martinez
+ * 
  */
 public class RankingSudoku extends Ranking{
 	
