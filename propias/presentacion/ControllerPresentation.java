@@ -343,7 +343,7 @@ public class ControllerPresentation implements
 	}
 	
 	private void showSelectFromBD(CaracteristiquesPartida caracteristiques) {
-		List<String> list = cd.getIDSudokus(caracteristiques);
+		List<List<String>> list = cd.getIDSudokusAndMaker(caracteristiques);
 		if (list == null || list.size() == 0) {
 			JOptionPane.showMessageDialog(null, "No hi ha partides guardades");
 			showMainMenu();

@@ -117,9 +117,9 @@ public class ControllerDomain {
 				points = 0;
         		CntrlSudokuCreator cs = new CntrlSudokuCreator();
         		CntrlSudokuGenerator csg = new CntrlSudokuGenerator(c.getMida());
-        		Sudoku s = cs.create(c.getDificultat(), csg.generateBoard());
+        		Sudoku s = cs.createWithMinCells(c.getDificultat(), csg.generateBoard(),c.getGivenNumbers());
         		s.setMaker("creacion automatica");
-        	    String id = cc.introduceSudoku(s);
+        	    String id = cc.introduceSudoku(s, c.getGivenNumbers());
         	    this.id = id;
         	    s = cc.getSudoku(c.getMida(), c.getDificultat(), id);
         	    this.size = c.getMida();
@@ -137,9 +137,9 @@ public class ControllerDomain {
         	return null;
         }
     }
-    public List<String> getIDSudokus(CaracteristiquesPartida c){
+    public List<List<String>> getIDSudokusAndMaker(CaracteristiquesPartida c){
     	try {
-			return cc.getIDSudokus(c.getMida(), c.getDificultat());
+			return cc.getIDSudokusAndMaker(c.getMida(), c.getDificultat(), c.getGivenNumbers());
 		} catch (Exception e) {
 			e.printStackTrace();
         	return null;
@@ -209,6 +209,7 @@ public class ControllerDomain {
 					p.setRow(i);
 					p.setColumn(j);
 					sudoku.setCell(p, Character.getNumericValue(s.charAt(position)));
+					++cont;
 					return value;
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -321,7 +322,7 @@ public class ControllerDomain {
 				cs.init(sudoku.getSudoku());
 				int dificultat = cs.searchLevel();
 				Sudoku s = new Sudoku(sudoku.getSudoku(), sudoku.getSolution(), dificultat);
-				cc.introduceSudoku(s);
+				cc.introduceSudoku(s,cont);
 			} catch (Exception e1) {
 				e1.printStackTrace();
 			}
@@ -421,8 +422,10 @@ public class ControllerDomain {
 		        }
 	        }
 	        else {
+	        	boolean buit = ( sudoku.getSudoku().getCellValue(row, column) == 0);
 	        	sudoku.setCell(new Position(row, column), value);
-	        	++cont;
+	        	if(value != 0) ++cont;
+	        	else if (value == 0 && !buit) --cont;
 	        }
 	        return false;
         } 
@@ -491,7 +494,8 @@ public class ControllerDomain {
         try {
             p = new Position(row,column);
             int res = CntrlSudokuHelps.getCellSolution(match.getSolution(), p);
-            updateCell(pos,res);
+            if(updateCell(pos,res)) System.out.println("true");
+            else System.out.println("false");
             return res;
         } catch (Exception e) {
         	e.printStackTrace();
