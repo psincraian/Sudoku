@@ -322,6 +322,8 @@ public class ControllerPresentation implements
 	private void showSelectCharacteristics() {
         frame.getContentPane().removeAll();
 		SelectCharacteristics sc = new SelectCharacteristics(this);
+		if (isGuest)
+			sc.updateToGuest();
 		frame.add(sc);
 		revalidateContentPane(frame);
 	}

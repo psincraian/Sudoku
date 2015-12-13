@@ -1,6 +1,8 @@
 *.class
 *.data
 
+data*
+
 # Temp OSX specific
 *.DS_Store
 *.directory
