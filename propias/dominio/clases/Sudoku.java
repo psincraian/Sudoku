@@ -59,7 +59,6 @@ public class Sudoku implements java.io.Serializable {
 	public Board getSolution() {
 		return new Board(solution);
 	}
-	
 	/** Canviar el valor de casella especificada
 	 * 
 	 * @param position La posició de la casella

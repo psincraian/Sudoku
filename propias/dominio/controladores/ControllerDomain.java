@@ -97,6 +97,7 @@ public class ControllerDomain {
      */
     public int[][] createMatch(CaracteristiquesPartida c, Boolean isGuest){
         try {
+        	createSudoku = false; // no es crea un sudoku nou
         	if (!c.getNewSudoku()) {
         		cont = 0;
         	    Sudoku s = cc.getSudoku(c.getMida(), c.getDificultat(), this.id);
@@ -304,16 +305,16 @@ public class ControllerDomain {
 	        }
         }
         else { // es un nou sudoku
-        	for(int i=0; i< match.getSudokuSize(); ++i){
-        		for(int j=0; j< match.getSudokuSize(); ++j){
-        			if(match.getSudoku().getCellValue(i, j) != 0) match.getSudoku().setCellType(i, j, CellType.Locked);
+        	for(int i=0; i< this.sudoku.getSudoku().getSize(); ++i){
+        		for(int j=0; j< sudoku.getSudoku().getSize(); ++j){
+        			if(sudoku.getSudoku().getCellValue(i, j) != 0) sudoku.getSudoku().setCellType(i, j, CellType.Locked);
         		}
         	}
 	        CntrlSearchLevel cs = new CntrlSearchLevel();
 	        try {
-				cs.init(match.getSudoku());
+				cs.init(sudoku.getSudoku());
 				int dificultat = cs.searchLevel();
-				Sudoku s = new Sudoku(match.getSudoku(), match.getSolution(), dificultat+1);
+				Sudoku s = new Sudoku(sudoku.getSudoku(), sudoku.getSolution(), dificultat);
 				cc.introduceSudoku(s);
 			} catch (Exception e1) {
 				e1.printStackTrace();

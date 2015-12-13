@@ -41,7 +41,9 @@ public class ControllerPresentation implements
     public ControllerPresentation() {
         cd = new ControllerDomain();
     }
-    
+    /**
+     * Crea la vista
+     */
     public void createGUI() {
 		frame = new JFrame("Sudoku");
         frame.getContentPane().setLayout(new java.awt.GridBagLayout());
@@ -120,11 +122,19 @@ public class ControllerPresentation implements
     }
     
     @Override
-    //TODO
     public void selectSudoku(String id) {
-		int[][] sudoku = cd.getSavedMatch(id);
-		playMatch(sudoku, false);
-        updateSudokuCells(sudoku.length);
+		int[][] sudoku;
+    	if (loadMatch){
+    		sudoku = cd.getSavedMatch(id);
+    		playMatch(sudoku, false);
+            updateSudokuCells(sudoku.length);
+		}
+    	else{
+    		cd.selectSudoku(id);
+    		sudoku = cd.createMatch(this.caracteristiques, isGuest);
+    		playMatch(sudoku, this.caracteristiques.getTipusPartida() == 1);
+    	}
+		
     }
     
     @Override
@@ -339,13 +349,13 @@ public class ControllerPresentation implements
 	}
 	
     @Override
-    //TODO
     public void getParameters(CaracteristiquesPartida caracteristiques){
     	int sudoku[][];
     	if (caracteristiques.getNewSudoku()) {
     		sudoku = cd.createMatch(caracteristiques, isGuest);
     		playMatch(sudoku, caracteristiques.getTipusPartida() == 1);
     	} else
+    		this.caracteristiques = caracteristiques;
     		showSelectFromBD(caracteristiques);
     }
     
@@ -354,6 +364,7 @@ public class ControllerPresentation implements
 		switch (om) {
 		case PartidaRapida:
 			loadMatch = false;
+			createSudoku = false;
 			showSelectCharacteristics();
 			break;
 		case CargarPartida:
@@ -361,6 +372,7 @@ public class ControllerPresentation implements
 			showLoadMatch();
 			break;
 		case CrearSudoku:
+			createSudoku = true;
 			showCreateSudoku();
 			break;
 		case Ranking:
