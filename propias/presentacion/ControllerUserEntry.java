@@ -12,9 +12,6 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.KeyStroke;
 
-import propias.presentacion.ControllerViewBoard.viewBoard;
-
-
 /**
  * Controla la clase UserEntry. Configura els listeners sobre els botons i obre la vista.
  * 

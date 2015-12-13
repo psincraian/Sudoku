@@ -1,9 +1,5 @@
 package propias.dominio.clases;
 
-import propias.dominio.controladores.generator.CntrlSudokuDiggingHoles;
-import propias.dominio.controladores.generator.CntrlSudokuGenerator;
-import propias.dominio.controladores.generator.CntrlSudokuSolver;
-
 
 /** Classe partida. La classe partida ve definida per un nom d'usuari i un Sudoku concret.
  * Proporciona metodes per poder obtenir el nom d'usuari, el sudoku, canviar valors del

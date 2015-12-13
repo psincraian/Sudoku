@@ -8,7 +8,6 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 
 import propias.dominio.clases.Options;
-import propias.presentacion.ControllerUserEntry.MouseManage;
 /**
  * 
  * @author Brian Martinez Alvarez

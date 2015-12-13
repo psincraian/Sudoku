@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Random;
 import java.lang.Math;
 import propias.dominio.clases.Board;
-import propias.dominio.clases.CellType;
 
 /**
 *Clase con metodos para hacer agujeros en

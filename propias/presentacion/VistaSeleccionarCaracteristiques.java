@@ -2,7 +2,6 @@ package propias.presentacion;
 
 import java.util.Scanner;
 import propias.dominio.clases.CaracteristiquesPartida;
-import propias.dominio.clases.CaracteristiquesPartida.*;
 import propias.dominio.clases.Dificultat;
 import propias.dominio.clases.TipusPartida;
 

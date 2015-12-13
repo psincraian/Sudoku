@@ -15,8 +15,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
-import propias.presentacion.ViewSelectSudoku.selectSudoku;
-
 /**
  * 
  * Mostra la vista de ranking. Pot representa la vista

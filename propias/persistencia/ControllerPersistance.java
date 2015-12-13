@@ -1,7 +1,6 @@
 package propias.persistencia;
 
 import java.util.*;
-import java.util.regex.Pattern;
 import java.io.*;
 import java.nio.file.*;
 

@@ -6,7 +6,6 @@ import java.awt.event.MouseAdapter;
 import javax.swing.Box;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 /**

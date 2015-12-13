@@ -1,6 +1,5 @@
 package propias.dominio.clases;
 
-import java.sql.Time;
 import java.util.ArrayList;
 
 import propias.dominio.clases.Position;
