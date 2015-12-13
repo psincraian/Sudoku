@@ -119,17 +119,11 @@ public class ControllerPresentation implements
     }
     
     @Override
+    //TODO
     public void selectSudoku(String id) {
-    	if (loadMatch) {
-    		int[][] m = cd.getSavedMatch(id);
-    		updateSudokuCells(m.length);
-    	}
-    	else {
-    		cd.selectSudoku(id);
-    		int[][] sudo = cd.createMatch(this.caracteristiques, isGuest);
-    		playMatch(sudo, this.caracteristiques.getTipusPartida() == 1);
-    	}
-        
+		int[][] sudoku = cd.getSavedMatch(id);
+		playMatch(sudoku, false);
+        updateSudokuCells(sudoku.length);
     }
     
     @Override
@@ -344,15 +338,14 @@ public class ControllerPresentation implements
 	}
 	
     @Override
+    //TODO
     public void getParameters(CaracteristiquesPartida caracteristiques){
     	int sudoku[][];
     	if (caracteristiques.getNewSudoku()) {
     		sudoku = cd.createMatch(caracteristiques, isGuest);
     		playMatch(sudoku, caracteristiques.getTipusPartida() == 1);
-    	} else {
-    		this.caracteristiques = caracteristiques;
+    	} else
     		showSelectFromBD(caracteristiques);
-    	}
     }
     
 	@Override
