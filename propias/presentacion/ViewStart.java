@@ -48,15 +48,18 @@ public class ViewStart extends SetView {
 	 * inclou a la vista els components
 	 */
 	private void addToGUI() {
-		Box panelButtons = Box.createVerticalBox();
-		panelButtons.add(Box.createGlue());
-		panelButtons.add(button[0]);
-		panelButtons.add(button[1]);
-		panelButtons.add(button[2]);
-		panelButtons.add(button[3]);
-		panelButtons.add(Box.createGlue());
-		panelButtons.setBackground(Color.WHITE);
-		add(panelButtons, BorderLayout.CENTER);
+		JPanel panel = new JPanel();
+		Box Buttons = Box.createVerticalBox();
+		Buttons.add(Box.createVerticalGlue());
+		Buttons.add(button[0]);
+		Buttons.add(button[1]);
+		Buttons.add(button[2]);
+		Buttons.add(button[3]);
+		Buttons.add(Box.createVerticalGlue());
+		Buttons.setBackground(Color.WHITE);
+		panel.setBackground(Color.WHITE);
+		panel.add(Buttons);
+		add(panel, BorderLayout.CENTER);
 	}
 	/**
 	 * 
