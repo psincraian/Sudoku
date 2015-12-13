@@ -167,6 +167,7 @@ public class ControllerDomain {
 	}
     public int[][] newSudoku(int size){
     	createSudoku = true;
+    	cont = 0;
     	type = 0;
     	sudoku = new Sudoku(new Board(size),new Board(size));
     	return sudoku.getSudoku().getMatrix();
@@ -187,6 +188,7 @@ public class ControllerDomain {
 					p.setRow(i);
 					p.setColumn(j);
 					sudoku.setCell(p, Character.getNumericValue(s.charAt(position)));
+					++cont;
 					return String.valueOf(s.charAt(position));
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -410,6 +412,7 @@ public class ControllerDomain {
 	        }
 	        else {
 	        	sudoku.setCell(new Position(row, column), value);
+	        	++cont;
 	        }
         } 
         catch (Exception e) {
@@ -475,7 +478,9 @@ public class ControllerDomain {
         Position p;
         try {
             p = new Position(row,column);
-            return CntrlSudokuHelps.getCellSolution(match.getSolution(), p);
+            int res = CntrlSudokuHelps.getCellSolution(match.getSolution(), p);
+            updateCell(pos,res);
+            return res;
         } catch (Exception e) {
         	e.printStackTrace();
         	return 0;
