@@ -89,13 +89,17 @@ public class ViewRanking extends SetView{
 		verticalBox.add(Box.createGlue());
 		add(verticalBox, BorderLayout.CENTER);
 						
-		/*East*/
+		/*SOUTH*/
 		button = new JButton("Tornar");
 		listener();
-		JPanel east = new JPanel();
-		east.setBackground(Color.white);
-		east.add(button);
-		add(east, BorderLayout.EAST);		
+		JPanel panel = new JPanel();
+		Box south = Box.createVerticalBox();
+		south.setBackground(Color.white);
+		south.add(button);
+		south.add(Box.createVerticalStrut(50));
+		panel.add(south);
+		panel.setBackground(Color.WHITE);
+		add(panel, BorderLayout.SOUTH);		
 	}
 	
 	/**

@@ -31,7 +31,7 @@ public class ControllerStart {
 		listener = (GetOptionsListInterface) object;
 
 		vi = new ViewStart();
-		frame.getContentPane().add(vi, BorderLayout.CENTER);
+		frame.getContentPane().add(vi);
 		vi.listeners(new MouseManage(), vi.button[0]);
 		vi.listeners(new MouseManage(), vi.button[1]);
 		vi.listeners(new MouseManage(), vi.button[2]);
