@@ -397,8 +397,8 @@ public class ControllerDomain {
 	        
 	        if(!createSudoku){ //nomes es comproba si esta ben resolt si no s'esta creant un sudoku
 	        	match.setCell(new Position(row, column), value);
-	        	if (cont < size) ++cont;
-		        else { // ha completado la partida correctamente
+	        	++cont;
+		        if(cont == size*size) { // ha completado la partida correctamente
 		        	if(type == 1){
 			        	Sudoku s = new Sudoku(match.getSudoku(), match.getSolution());
 			        	int score = ((MatchCompetition) match).score();
