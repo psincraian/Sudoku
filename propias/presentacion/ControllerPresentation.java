@@ -248,7 +248,15 @@ public class ControllerPresentation implements
      */
     @Override
     public int getCellResolved(String s) {
-    	return cd.getCellSol(s);
+    	if(cd.updateCell(s,cd.getCellSol(s))) {
+    		ControllerViewBoard c = ControllerViewBoard.getInstance();
+	        if (this.caracteristiques.getTipusPartida() == 0 && !createSudoku && cd.takePointsBoard() != 0){
+	        	c.sendMessage("Felicitats, has omplert el sudoku.");
+	        	showMainMenu();
+	        }
+    	}
+    	else return cd.getCellSol(s);
+		return 0;
     }
 
 	@Override

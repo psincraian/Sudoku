@@ -101,7 +101,6 @@ public class ControllerDomain {
         	if (!c.getNewSudoku()) {
         		cont = c.getGivenNumbers();
         		points = 0;
-        		System.out.println("cont: " + cont);
         	    Sudoku s = cc.getSudoku(c.getMida(), c.getDificultat(), this.id);
         	    this.size = c.getMida();
             	this.dificult = c.getDificultat();
@@ -494,8 +493,6 @@ public class ControllerDomain {
         try {
             p = new Position(row,column);
             int res = CntrlSudokuHelps.getCellSolution(match.getSolution(), p);
-            if(updateCell(pos,res)) System.out.println("true");
-            else System.out.println("false");
             return res;
         } catch (Exception e) {
         	e.printStackTrace();
