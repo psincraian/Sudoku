@@ -15,6 +15,7 @@ public class Sudoku implements java.io.Serializable {
 	private Board solution;
 	private int level;
 	private RankingSudoku ranking;
+	private String maker;
 	
 	/** Retorna Sudoku amb un enunciat i una solució
 	 * 
@@ -41,6 +42,24 @@ public class Sudoku implements java.io.Serializable {
 		this.solution = solution;
 		this.level = level;
 		ranking = new RankingSudoku(new ArrayList<ParamRanking>());
+	}
+	
+	/** Retorna Sudoku amb un enunciat i una solució
+	 * 
+	 * @param sudoku L'enunciat. Ha de ser un Sudoku valid. Només ha de tenir
+	 * una única solució.
+	 * @param solution La solució del sudoku. Ha de ser un sudoku valid.
+	 * @param level El nivell del sudoku. S'ha de correspondre amb el
+	 * @param maker creador del sudoku.
+	 * sudoku donat.
+	 * @author Adrián Sánchez Albanell
+	 */
+	public Sudoku(Board sudoku, Board solution, int level, String maker) {
+		this.sudoku = sudoku;
+		this.solution = solution;
+		this.level = level;
+		ranking = new RankingSudoku(new ArrayList<ParamRanking>());
+		this.maker = maker;
 	}
 	
 	/** Retorna el sudoku
@@ -86,6 +105,15 @@ public class Sudoku implements java.io.Serializable {
 	 */
 	public int returnLevel() {
 		return level;
+	}
+	
+	/** Retorna el nivell del Sudoku
+	 * 
+	 * @return es un enter entre 0 i 2.
+	 * @author Adrián Sánchez Albanell
+	 */
+	public String returnMaker() {
+		return maker;
 	}
 	
 	/** Permet donar el nivell al Sudoku
