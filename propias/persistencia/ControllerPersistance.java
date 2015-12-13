@@ -157,47 +157,77 @@ public class ControllerPersistance {
 		if(size == 16){
 			difID = difID.toUpperCase();
 		}
-		String id = difID + Integer.toString(fl.list().length + 1);
+		String id;
+		int length = fl.list().length;
+		if(length == 0) id = difID + Integer.toString(length + 1);
+		else id = difID + Integer.toString(length);
 		FileWriter fw = new FileWriter(autoPath + "/data/Sudokus/" + size + "x" + size + "/" + difSt + "/" + id);
 		PrintWriter pw = new PrintWriter(fw);
 		pw.print(sudoku);
 		fw.close();
 		return id;
 	}
-	
+
 	/**
-   	* Introdueix un nou sudoku als fitxers.
-  	* @param sudoku sudoku a guardar.
-  	* @param dif dificultat del sudoku.
-  	* @param size mida del sudoku.
-  	*/
-	public String introduceSudoku(String sudoku, int dif, int size, int givens) throws Exception {
+	* Metode per a modificar la informacio guardada
+	* sobre els sudokus amb una certa dificultat i
+	* mida.
+	* @param infoSudokuList informacio a guardar
+	* serialitzada.
+	* @param dif dificultat dels sudokus representats 
+	* per la informacio.
+	* @param size nivell dels sudokus representats 
+	* per la informacio.
+	*/
+	public void introduceSudokuInfo(String infoSudokuList, int dif, int size) throws Exception {
 		String difSt;
-		String difID;
 		if(dif == 0){
 			difSt = "Facil";
-			difID = "e";
 		}
 		else if(dif == 1){
 			difSt = "Medio";
-			difID = "m";
 		}
 		else{
 			difSt = "Dificil";
-			difID = "d";
 		}
-		String sizeStr = Integer.toString(size);
-		String dir = autoPath + "/data/Sudokus/" + size + "x" + size + "/" + difSt;
-		File fl = new File(dir);		
-		if(size == 16){
-			difID = difID.toUpperCase();
-		}
-		String id = givens + difID + Integer.toString(fl.list().length + 1);
-		FileWriter fw = new FileWriter(autoPath + "/data/Sudokus/" + size + "x" + size + "/" + difSt + "/" + id);
+		String dir = autoPath + "/data/Sudokus/" + size + "x" + size + "/" + difSt + "/infoSudokus";
+		File f = new File(dir);	
+		f.delete();
+		f.createNewFile();
+		FileWriter fw = new FileWriter(f.getAbsolutePath());
 		PrintWriter pw = new PrintWriter(fw);
-		pw.print(sudoku);
+		pw.print(infoSudokuList);
 		fw.close();
-		return id;
+	}
+
+		/**
+	* Metode per a obtenir la informacio guardada
+	* dels sudokus amb una certa dificultat i
+	* mida.
+	* @param dif dificultat dels sudokus representats 
+	* per la informacio.
+	* @param size nivell dels sudokus representats 
+	* per la informacio.	
+	* @param infoSudokuList informacio a guardada
+	* serialitzada.
+	*/
+	public String getSudokuInfo(int dif, int size) throws Exception {
+		String difSt;
+		if(dif == 0){
+			difSt = "Facil";
+		}
+		else if(dif == 1){
+			difSt = "Medio";
+		}
+		else{
+			difSt = "Dificil";
+		}
+		String dir = autoPath + "/data/Sudokus/" + size + "x" + size + "/" + difSt + "/infoSudokus";
+		FileReader fr = new FileReader(dir);
+		Scanner scn = new Scanner(fr);
+		String info = scn.next();
+		fr.close();
+		return info;
 	}
 
 	/**
@@ -359,7 +389,6 @@ public class ControllerPersistance {
 		f.createNewFile();
 		FileWriter fw = new FileWriter(f.getAbsolutePath());
 		PrintWriter pw = new PrintWriter(fw);
-		String sudoku;
 		pw.print(rankingGlobal);
 		fw.close();
 	}
