@@ -10,10 +10,7 @@ import propias.dominio.clases.Position;
  *
  */
 public class Sudoku implements java.io.Serializable {
-	
-	/**
-	 * 
-	 */
+
 	private Board sudoku;	
 	private Board solution;
 	private int level;
@@ -32,7 +29,7 @@ public class Sudoku implements java.io.Serializable {
 		ranking = new RankingSudoku(new ArrayList<ParamRanking>());
 	}
 	
-		/** Retorna Sudoku amb un enunciat i una solució
+	/** Retorna Sudoku amb un enunciat i una solució
 	 * 
 	 * @param sudoku L'enunciat. Ha de ser un Sudoku valid. Només ha de tenir
 	 * una única solució.
@@ -64,6 +61,7 @@ public class Sudoku implements java.io.Serializable {
 		ranking = new RankingSudoku(new ArrayList<ParamRanking>());
 		this.maker = maker;
 	}
+	
 	/** Retorna Sudoku amb un enunciat i una solució
 	 * 
 	 * @param sudoku L'enunciat. Ha de ser un Sudoku valid. Només ha de tenir
@@ -125,14 +123,16 @@ public class Sudoku implements java.io.Serializable {
 		return level;
 	}
 	
-	/** Retorna el nivell del Sudoku
+	/** Retorna el nom de l'autor
+	 * del sudoku. 
+	 * @return String nom de l'autor.
 	 * 
-	 * @return es un enter entre 0 i 2.
 	 * @author Adrián Sánchez Albanell
 	 */
 	public String returnMaker() {
 		return maker;
 	}
+	
 	public void setMaker(String maker) {
 		this.maker = maker;
 	}
