@@ -166,7 +166,10 @@ public class CntrlSearchLevel {
 	* base 2 de num.
 	*/
 	private double log2(int num){
-		return Math.log(num)/Math.log(2);
+		if(Integer.bitCount(num) == 1){
+			return Math.log(num)/Math.log(2);
+		}		
+		return 0;
 	}
 
 	/**
