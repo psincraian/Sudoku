@@ -38,6 +38,12 @@ public class SelectCharacteristics extends SetView {
 	private CaracteristiquesPartida characteristics;
 	private JTextField hiddenNumbersField;
 	private GetParametersListener listener;
+	
+	private JPanel panelMatch;
+	private JPanel panelDifficulty;
+	private JPanel panelSize;
+	private JPanel panelGivenNuber;
+	private JPanel panelSudokuType;
 
 	public SelectCharacteristics(Object container) {
 		super();
@@ -59,13 +65,17 @@ public class SelectCharacteristics extends SetView {
 		setVisible(true);
 		createView();
 	}
+	
+	public void updateToGuest() {
+		panelMatch.remove(1);
+	}
 
 	private void createView() {		
-		JPanel panelMatch = new JPanel();
-		JPanel panelDifficulty = new JPanel();
-		JPanel panelSize = new JPanel();
-		JPanel panelGivenNuber = new JPanel();
-		JPanel panelSudokuType = new JPanel();
+		panelMatch = new JPanel();
+		panelDifficulty = new JPanel();
+		panelSize = new JPanel();
+		panelGivenNuber = new JPanel();
+		panelSudokuType = new JPanel();
 
 		createMatchGroup(panelMatch);
 		createDifficultyGroup(panelDifficulty);
