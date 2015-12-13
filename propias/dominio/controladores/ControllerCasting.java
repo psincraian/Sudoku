@@ -30,15 +30,15 @@ public class ControllerCasting {
 	*/
 	public void createUser(Usuari user) throws Exception {
 		ByteArrayOutputStream bos = new ByteArrayOutputStream();
-    		ObjectOutputStream oos = new ObjectOutputStream(bos);
-    		oos.writeObject(user);
-    		oos.close();
-    		String serializedUser = new String(DatatypeConverter.printBase64Binary(bos.toByteArray()));	
-    		ByteArrayOutputStream bos2 = new ByteArrayOutputStream();
-    		ObjectOutputStream oos2 = new ObjectOutputStream(bos2);
-    		oos2.writeObject(new Stadistics());
-    		oos2.close();
-    		String serializedStd = new String(DatatypeConverter.printBase64Binary(bos2.toByteArray()));   	
+		ObjectOutputStream oos = new ObjectOutputStream(bos);
+		oos.writeObject(user);
+		oos.close();
+		String serializedUser = new String(DatatypeConverter.printBase64Binary(bos.toByteArray()));	
+		ByteArrayOutputStream bos2 = new ByteArrayOutputStream();
+		ObjectOutputStream oos2 = new ObjectOutputStream(bos2);
+		oos2.writeObject(new Stadistics());
+		oos2.close();
+		String serializedStd = new String(DatatypeConverter.printBase64Binary(bos2.toByteArray()));   	
 		cp.newUser(user.consultarNom(), serializedUser, serializedStd);
 		RankingGlobal rank = new RankingGlobal(new ArrayList<ParamRanking>());
 		if(cp.existRankingGlobal()){
@@ -94,26 +94,11 @@ public class ControllerCasting {
 	*/
 	public void setStadistics(Stadistics std)  throws Exception {
 		ByteArrayOutputStream bos = new ByteArrayOutputStream();
-    		ObjectOutputStream oos = new ObjectOutputStream(bos);
-    		oos.writeObject(std);
-    		oos.close();
-    		String serializedStd = new String(DatatypeConverter.printBase64Binary(bos.toByteArray())); 	
+		ObjectOutputStream oos = new ObjectOutputStream(bos);
+		oos.writeObject(std);
+		oos.close();
+		String serializedStd = new String(DatatypeConverter.printBase64Binary(bos.toByteArray())); 	
 		cp.setStadistics(serializedStd);
-	}
-
-	/**
-	* Permet introduir un nou sudoku als
-	* fitxers.
-	* @param sudo el sudoku a introduir.
-	* @return String la id del sudoku.
-	*/
-	public String introduceSudoku(Sudoku sudo) throws Exception {
-		ByteArrayOutputStream bos = new ByteArrayOutputStream();
-    		ObjectOutputStream oos = new ObjectOutputStream(bos);
-    		oos.writeObject(sudo);
-    		oos.close();
-    		String serializedSudoku = new String(DatatypeConverter.printBase64Binary(bos.toByteArray()));    	
-		return cp.introduceSudoku(serializedSudoku, sudo.returnLevel(), sudo.getSudoku().getSize());
 	}
 	
 	/**
@@ -126,11 +111,57 @@ public class ControllerCasting {
 	*/
 	public String introduceSudoku(Sudoku sudo, int givens) throws Exception {
 		ByteArrayOutputStream bos = new ByteArrayOutputStream();
-    		ObjectOutputStream oos = new ObjectOutputStream(bos);
-    		oos.writeObject(sudo);
-    		oos.close();
-    		String serializedSudoku = new String(DatatypeConverter.printBase64Binary(bos.toByteArray()));    	
-		return cp.introduceSudoku(serializedSudoku, sudo.returnLevel(), sudo.getSudoku().getSize(), givens);
+		ObjectOutputStream oos = new ObjectOutputStream(bos);
+		oos.writeObject(sudo);
+		oos.close();
+		String serializedSudoku = new String(DatatypeConverter.printBase64Binary(bos.toByteArray()));  
+		String id = cp.introduceSudoku(serializedSudoku, sudo.returnLevel(), sudo.getSudoku().getSize());
+		ListSudokuInfo info = getSudokuInfo(sudo.returnLevel(), sudo.getSudoku().getSize());
+		info.addInfo(id, sudo.returnMaker(), givens);
+		introduceSudokuInfo(info, sudo.returnLevel(), sudo.getSudoku().getSize());
+		return id;
+	}
+
+	/**
+	* Metode per a modificar la informacio
+	* adicional dels sudokus guardada en
+	* les bases de dades.
+	* @param info la nova informacio a
+	* escriure al fitxer.
+	* @param lvl nivell dels sudokus
+	* representats en la informacio.
+	* @param size mida dels sudokus
+	* representats en la informacio.
+	*/
+	private void introduceSudokuInfo(ListSudokuInfo info, int lvl, int size) throws Exception {
+		ByteArrayOutputStream bos = new ByteArrayOutputStream();
+		ObjectOutputStream oos = new ObjectOutputStream(bos);
+		oos.writeObject(info);
+		oos.close();
+		String serializedInfo =  new String(DatatypeConverter.printBase64Binary(bos.toByteArray()));
+		cp.introduceSudokuInfo(serializedInfo, lvl, size);
+	}
+
+	/**
+	* Retorna la informacio dels
+	* sudokus d'una certa mida i
+	* nivell de dificultat.
+	* @param lvl nivell.
+	* @param size mida.
+	* @return List<List<String>>
+	* la informacio demanada.
+	*/
+	private ListSudokuInfo getSudokuInfo(int lvl, int size) throws Exception {
+		byte[] bytes;
+		try {
+			bytes = DatatypeConverter.parseBase64Binary(cp.getSudokuInfo(lvl, size));
+		} catch(FileNotFoundException fnfe) {
+			introduceSudokuInfo(new ListSudokuInfo(), lvl, size);
+			bytes = DatatypeConverter.parseBase64Binary(cp.getSudokuInfo(lvl, size));
+		}		
+		ByteArrayInputStream bis = new ByteArrayInputStream(bytes);
+    	ObjectInputStream ois = new ObjectInputStream(bis);
+    	return (ListSudokuInfo) ois.readObject();
 	}
 
 	/**
@@ -161,6 +192,25 @@ public class ControllerCasting {
 	}
 
 	/**
+	* Permet obtenir tots els
+	* identificadors de sudoku
+	* i qui es el seu creador
+	* dels sudokus amb una certa
+	* mida i nivell de dificultat
+	* i que a demes tinguin un
+	* minim de caselles inicials.
+	* @param size la mida.
+	* @param dif la dificultat.
+	* @return List<String> amb
+	* els identificadors dels
+	* sudokus.
+	*/
+	public List<List<String>> getIDSudokusAndMaker(int size, int dif, int givens) throws Exception {
+		ListSudokuInfo info = getSudokuInfo(dif, size);
+		return info.getInfoIdMaker(givens);
+	}
+
+	/**
 	* Permet obtenir un sudoku
 	* de la mida i dificultat
 	* demanades i amb una certa
@@ -173,8 +223,8 @@ public class ControllerCasting {
 	public Sudoku getSudoku(int size, int dif, String id) throws Exception {
 		byte[] bytes = DatatypeConverter.parseBase64Binary(cp.getSudoku(id, size, dif));
 		ByteArrayInputStream bis = new ByteArrayInputStream(bytes);
-    		ObjectInputStream ois = new ObjectInputStream(bis);
-    		return (Sudoku) ois.readObject();
+    	ObjectInputStream ois = new ObjectInputStream(bis);
+    	return (Sudoku) ois.readObject();
 	}
 
 	/**
