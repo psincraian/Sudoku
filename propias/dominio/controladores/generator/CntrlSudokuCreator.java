@@ -26,7 +26,8 @@ public class CntrlSudokuCreator {
 	private int givens;
 	private double MIN_GIVENS_PORTION = 0.22;
 	private double EASY_AVERAGE = 0.48;
-	private double MEDIUM_AVERAGE = 0.10;
+	private double MEDIUM_AVERAGE = 0.20;
+	private double DIFFICULT_AVERAGE = 0.10;
 	
 	private List<Integer> pos;
 
@@ -57,17 +58,61 @@ public class CntrlSudokuCreator {
 		}
 
 		if(dificultat == 0){
-			int random = rand.nextInt((int)((size*size)*EASY_AVERAGE));
+			int random = (int)((size*size)*EASY_AVERAGE);//rand.nextInt((int)((size*size)*EASY_AVERAGE));
 			minGivens += random;
 			easyDigging();
 	    }
 	    else if(dificultat == 1){
-	    	int random = rand.nextInt((int)((size*size)*MEDIUM_AVERAGE));
+	    	int random = (int)((size*size)*MEDIUM_AVERAGE);//rand.nextInt((int)((size*size)*MEDIUM_AVERAGE));
 			minGivens += random;
 			mediumDigging();
 	    }
 	    else{			
-			difficultDigging();			
+	    	int random = (int)((size*size)*DIFFICULT_AVERAGE);//rand.nextInt((int)((size*size)*DIFFICULT_AVERAGE));
+			minGivens += random;
+			difficultDigging();
+	    }
+	    randomizeSudoku(rand.nextInt(10)*2000);	 
+	    setTypeCells();   
+	    return new Sudoku(sudoku, solution, dificultat, "creacion automatica");
+	}
+
+	/**
+	 * Permite crear un sudoku de dificultat
+	 * facil, media o dificil a partir de una
+	 * plantilla y un numero minimo de casillas
+	 * dadas (sera un sudoku con solucion
+	 * isomorfa a la de la plantilla, pero no
+	 * necesariamente la misma).
+	 * @param dificultat 0 para facil, 1 para media
+	 * y 2 para dificil.
+	 * @return Sudoku el nou sudoku generat.
+	 */
+	public Sudoku createWithMinCells(int dificultat, Board board, int minGivens) throws Exception {
+		Random rand = new Random();
+
+		solution = new Board(board);
+		sudoku = new Board(board);
+		size = board.getSize();
+		sqrtSize = (int)Math.sqrt(size);
+		if(minGivens < (int)((size*size)*MIN_GIVENS_PORTION)) 
+			minGivens = (int)((size*size)*MIN_GIVENS_PORTION);
+		this.minGivens = minGivens;
+		givens = size*size;
+
+		pos = new ArrayList<Integer>();
+		for(int p = 0; p < size*size; ++p){
+			pos.add(p);
+		}
+
+		if(dificultat == 0){
+			easyDigging();
+	    }
+	    else if(dificultat == 1){
+			mediumDigging();
+	    }
+	    else{			
+			difficultDigging();
 	    }
 	    randomizeSudoku(rand.nextInt(10)*2000);	 
 	    setTypeCells();   
