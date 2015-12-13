@@ -105,6 +105,7 @@ public class ControllerCasting {
 	* Permet introduir un nou sudoku als
 	* fitxers.
 	* @param sudo el sudoku a introduir.
+	* @return String la id del sudoku.
 	*/
 	public String introduceSudoku(Sudoku sudo) throws Exception {
 		ByteArrayOutputStream bos = new ByteArrayOutputStream();
@@ -113,6 +114,23 @@ public class ControllerCasting {
     		oos.close();
     		String serializedSudoku = new String(DatatypeConverter.printBase64Binary(bos.toByteArray()));    	
 		return cp.introduceSudoku(serializedSudoku, sudo.returnLevel(), sudo.getSudoku().getSize());
+	}
+	
+	/**
+	* Permet introduir un nou sudoku als
+	* fitxers.
+	* @param sudo el sudoku a introduir.
+	* @param givens nombre de caselles
+	* donades del sudoku.
+	* @return String la id del sudoku.
+	*/
+	public String introduceSudoku(Sudoku sudo, int givens) throws Exception {
+		ByteArrayOutputStream bos = new ByteArrayOutputStream();
+    		ObjectOutputStream oos = new ObjectOutputStream(bos);
+    		oos.writeObject(sudo);
+    		oos.close();
+    		String serializedSudoku = new String(DatatypeConverter.printBase64Binary(bos.toByteArray()));    	
+		return cp.introduceSudoku(serializedSudoku, sudo.returnLevel(), sudo.getSudoku().getSize(), givens);
 	}
 
 	/**
