@@ -115,6 +115,7 @@ public class ControllerDomain {
         		CntrlSudokuCreator cs = new CntrlSudokuCreator();
         		CntrlSudokuGenerator csg = new CntrlSudokuGenerator(c.getMida());
         		Sudoku s = cs.create(c.getDificultat(), csg.generateBoard());
+        		s.setMaker("auto");
         	    String id = cc.introduceSudoku(s);
         	    this.id = id;
         	    s = cc.getSudoku(c.getMida(), c.getDificultat(), id);
@@ -169,7 +170,7 @@ public class ControllerDomain {
     	createSudoku = true;
     	cont = 0;
     	type = 0;
-    	sudoku = new Sudoku(new Board(size),new Board(size));
+    	sudoku = new Sudoku(new Board(size),new Board(size), this.user.consultarNom());
     	return sudoku.getSudoku().getMatrix();
     }
     /**
