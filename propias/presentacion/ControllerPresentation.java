@@ -386,7 +386,7 @@ public class ControllerPresentation implements
         
         frame.getContentPane().removeAll();
         frame.setLayout(new BorderLayout());
-        new ControllerViewBoard(m, ControllerViewBoard.VIEW_PLAY_SUDOKU,
+        new ControllerViewBoard(m, ControllerViewBoard.VIEW_CREATE_SUDOKU,
     			isGuest, false, frame, this);;
         revalidateContentPane(frame);
 	}
