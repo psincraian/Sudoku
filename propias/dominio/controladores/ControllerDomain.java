@@ -117,13 +117,13 @@ public class ControllerDomain {
             	return matrix;
         	}
 			else{
-				cont = c.getGivenNumbers();
 				points = 0;
         		CntrlSudokuCreator cs = new CntrlSudokuCreator();
         		CntrlSudokuGenerator csg = new CntrlSudokuGenerator(c.getMida());
         		Sudoku s = cs.createWithMinCells(c.getDificultat(), csg.generateBoard(),c.getGivenNumbers());
         		s.setMaker("creacion automatica");
         	    String id = cc.introduceSudoku(s, c.getGivenNumbers());
+        	    cont = cs.getGivensLastSudoku();
         	    this.id = id;
         	    s = cc.getSudoku(c.getMida(), c.getDificultat(), id);
         	    this.size = c.getMida();
