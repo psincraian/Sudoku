@@ -357,11 +357,24 @@ public class ControllerDomain {
         List<ParamRanking> l = rg.getRanking();
         int mida = l.size();
         if (mida >10) mida = 10;
-        for(int i=0; i<mida; ++i) {
+        for(int i=mida-1; i>=0; --i) {
             ParamRanking aux = l.get(i);
             username.add(aux.getName());
             values.add(aux.getValue());
         } 
+    }
+    public void addToRanking(List<String> info){
+    	List<ParamRanking> l = rg.getRanking();
+    	boolean found = false;
+    	for (int i=l.size()-1; !found && i>10; --i){
+    		ParamRanking aux = l.get(i);
+    		if (aux.getName().equals(this.user.consultarNom())){
+    			found = true;
+    			info.add(aux.getName());
+    			info.add(Long.toString(aux.getValue()));
+    			info.add(Integer.toString(i));
+    		}
+    	}
     }
     /**
      * Comprueba si el Tablero actual es correcto y con solucion unica

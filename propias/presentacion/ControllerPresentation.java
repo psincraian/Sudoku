@@ -286,10 +286,12 @@ public class ControllerPresentation implements
     	 List<String> names = new ArrayList<String>();
          List<Long> values = new ArrayList<Long>();
          cd.getRanking(names,values);
-         
          frame.getContentPane().removeAll();
          frame.setLayout(new BorderLayout());
          ViewRanking vr = new ViewRanking(names, values, this);
+         List<String> info = new ArrayList<String>(); // name, value, pos
+         cd.addToRanking(info);
+         if(info != null && info.size() != 0)vr.addPosUser(Integer.parseInt(info.get(2)), Long.parseLong(info.get(1)), info.get(0));
          frame.add(vr);
          revalidateContentPane(frame);
     }
