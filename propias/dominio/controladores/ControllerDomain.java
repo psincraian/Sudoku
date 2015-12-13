@@ -402,7 +402,6 @@ public class ControllerDomain {
 	        if(!createSudoku){ //nomes es comproba si esta ben resolt si no s'esta creant un sudoku
 	        	boolean buit = ( match.getCellValue(new Position(row, column)) == 0);
 	        	match.setCell(new Position(row, column), value);
-	        	cont = 80;
 	        	if(value != 0) ++cont;
 	        	else if (value == 0 && !buit) --cont;
 		        if(cont == (size*size)) { // ha completado la partida correctamente
