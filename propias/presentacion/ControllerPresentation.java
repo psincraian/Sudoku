@@ -46,7 +46,6 @@ public class ControllerPresentation implements
      */
     public void createGUI() {
 		frame = new JFrame("Sudoku");
-        frame.getContentPane().setLayout(new java.awt.GridBagLayout());
 		frame.setBackground(Color.WHITE);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setMaximumSize(new Dimension(1000, 750));

@@ -12,7 +12,7 @@ import javax.swing.SwingConstants;
 
 /**
  * 
- * Configura el panell que s'heretar� per tal de que
+ * Configura el panell que s'heretara per tal de que
  * totes les vistes tinguin la mateixa base
  * 
  * @author Daniel Sanchez Martinez
@@ -36,7 +36,7 @@ public class SetView extends JPanel{
 	
 	/**
 	 * 
-	 * Funci� que s'encarrega de ficar un titol a la vista.
+	 * Funcio que s'encarrega de ficar un titol a la vista.
 	 * 
 	 * @param t : el titol en si.
 	 * 

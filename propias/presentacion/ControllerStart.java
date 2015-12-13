@@ -31,13 +31,12 @@ public class ControllerStart {
 	public ControllerStart(Object object, JFrame frame){
 		listener = (GetOptionsListInterface) object;
 
-		this.cp = cp; 
 		vi = new ViewStart();
-		frame.getContentPane().add(vi);
-		vi.listeners(new MouseManage(), vi.button1);
-		vi.listeners(new MouseManage(), vi.button2);
-		vi.listeners(new MouseManage(), vi.button3);
-		vi.listeners(new MouseManage(), vi.button4);
+		frame.getContentPane().add(vi, BorderLayout.CENTER);
+		vi.listeners(new MouseManage(), vi.button[0]);
+		vi.listeners(new MouseManage(), vi.button[1]);
+		vi.listeners(new MouseManage(), vi.button[2]);
+		vi.listeners(new MouseManage(), vi.button[3]);
 		
 	}
 	/**
@@ -49,19 +48,15 @@ public class ControllerStart {
 		public void mouseClicked(MouseEvent e) {
 			JButton button = (JButton)e.getSource();
 			if(button.getText() == "Iniciar Sessio"){
-					vi.disableView();
 					listener.getOption(Options.IniciarSessio);
 			}
 			if(button.getText() == "Iniciar Convidat"){
-				vi.disableView();
 				listener.getOption(Options.IniciarConvidat);
 			}
 			if(button.getText() == "Registrar Usuari"){
-				vi.disableView();
 				listener.getOption(Options.RegistrarUsuari);
 			}
 			if(button.getText() == "Sortir"){
-				vi.disableView();
 				listener.getOption(Options.Sortir);
 			}
 		}

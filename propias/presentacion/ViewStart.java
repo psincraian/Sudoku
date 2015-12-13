@@ -11,7 +11,8 @@ import javax.swing.*;
  *
  */
 public class ViewStart extends SetView {
-	public JButton button1;
+	public JButton[] button;
+	String[] nom = {"Iniciar Sessio", "Iniciar Convidat", "Registrar Usuari", "Sortir"};
 	JButton button2;
 	JButton button3;
 	JButton button4;
@@ -28,40 +29,33 @@ public class ViewStart extends SetView {
 	 */
 	public void startGUI() {
 		instanceGUI();
-		configureGUI();
 		addToGUI();
-		//pack();
-		setVisible(true);
 	}
 	/**
 	 * Instancia els elements de la vista
 	 */
 	private void instanceGUI() {
-		button1 = new JButton("Iniciar Sessio");
-		button2 = new JButton("Iniciar Convidat");	
-		button3 = new JButton("Registrar Usuari");
-		button4 = new JButton("Sortir");
+		button = new JButton[4];
+		for(int i = 0; i < 4; ++i){
+			button[i] = new JButton(nom[i]);
+			button[i].setPreferredSize(new Dimension(125,50));
+			button[i].setMinimumSize(new Dimension(125,50));
+			button[i].setMaximumSize(new Dimension(125,50));
+		}
 	}
-	/**
-	 * Configura la vista
-	 */
-	private void configureGUI() {
-		//setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		//dispose();
-	}
+
 	/**
 	 * inclou a la vista els components
 	 */
 	private void addToGUI() {
-		Box vertical = Box.createVerticalBox();
-		vertical.add(Box.createVerticalGlue());
-		JPanel panelButtons = new JPanel();
-		panelButtons.add(button1);
-		panelButtons.add(button2);
-		panelButtons.add(button3);
-		panelButtons.add(button4);
+		Box panelButtons = Box.createVerticalBox();
+		panelButtons.add(Box.createGlue());
+		panelButtons.add(button[0]);
+		panelButtons.add(button[1]);
+		panelButtons.add(button[2]);
+		panelButtons.add(button[3]);
+		panelButtons.add(Box.createGlue());
 		panelButtons.setBackground(Color.WHITE);
-		panelButtons.setLayout(new GridLayout(4,0));
 		add(panelButtons, BorderLayout.CENTER);
 	}
 	/**
@@ -71,11 +65,5 @@ public class ViewStart extends SetView {
 	 */
 	public void listeners(MouseAdapter ma, JButton button){
 		button.addMouseListener(ma);
-	}
-	/**
-	 * Deixa la vista com a no visible
-	 */
-	public void disableView(){
-		setVisible(false);
 	}
 }
