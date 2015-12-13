@@ -75,6 +75,16 @@ public class CntrlSudokuCreator {
 	}
 
 	/**
+	* Metode per obtenir les caselles donades
+	* en l'ultim sudoku creat.
+	* @return int nombre de caselles donades
+	* en l'ultim sudoku.
+	*/
+	public int getGivensLastSudoku(){
+		return givens;
+	}
+
+	/**
 	* Metode per donar el tipus
 	* que correspon a cada casella.
 	*/
