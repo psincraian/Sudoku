@@ -115,7 +115,7 @@ public class ControllerDomain {
         		CntrlSudokuCreator cs = new CntrlSudokuCreator();
         		CntrlSudokuGenerator csg = new CntrlSudokuGenerator(c.getMida());
         		Sudoku s = cs.create(c.getDificultat(), csg.generateBoard());
-        		s.setMaker("auto");
+        		s.setMaker("creacion automatica");
         	    String id = cc.introduceSudoku(s);
         	    this.id = id;
         	    s = cc.getSudoku(c.getMida(), c.getDificultat(), id);
