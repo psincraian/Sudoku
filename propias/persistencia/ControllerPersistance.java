@@ -164,6 +164,41 @@ public class ControllerPersistance {
 		fw.close();
 		return id;
 	}
+	
+	/**
+   	* Introdueix un nou sudoku als fitxers.
+  	* @param sudoku sudoku a guardar.
+  	* @param dif dificultat del sudoku.
+  	* @param size mida del sudoku.
+  	*/
+	public String introduceSudoku(String sudoku, int dif, int size, int givens) throws Exception {
+		String difSt;
+		String difID;
+		if(dif == 0){
+			difSt = "Facil";
+			difID = "e";
+		}
+		else if(dif == 1){
+			difSt = "Medio";
+			difID = "m";
+		}
+		else{
+			difSt = "Dificil";
+			difID = "d";
+		}
+		String sizeStr = Integer.toString(size);
+		String dir = autoPath + "/data/Sudokus/" + size + "x" + size + "/" + difSt;
+		File fl = new File(dir);		
+		if(size == 16){
+			difID = difID.toUpperCase();
+		}
+		String id = givens + difID + Integer.toString(fl.list().length + 1);
+		FileWriter fw = new FileWriter(autoPath + "/data/Sudokus/" + size + "x" + size + "/" + difSt + "/" + id);
+		PrintWriter pw = new PrintWriter(fw);
+		pw.print(sudoku);
+		fw.close();
+		return id;
+	}
 
 	/**
    	* Permet obtenir el ID d'un sudoku d'una certa mida i
