@@ -91,7 +91,7 @@ public abstract class ListInfo implements java.io.Serializable {
 	public List<String> getNames(){
 		List<String> listName = new ArrayList<String>();
 		for(int a = 0; a < listInfo.size(); ++a){
-			listID.add(listInfo.get(a).name);
+			listName.add(listInfo.get(a).name);
 		}
 		return listName;
 	}
