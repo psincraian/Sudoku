@@ -8,6 +8,7 @@ package propias.dominio.clases;
 public class Usuari extends UsuariGeneral {
 	
 	private String password;
+	private List<String> llistaSudokus;
 
 	/** Crea un usuari amb el nom especificat
 	 * 
@@ -15,6 +16,7 @@ public class Usuari extends UsuariGeneral {
 	 */
 	public Usuari(String nom) {
 		super(nom);
+		llistaSudokus = new ArrayList<Integer>();
 	}
 	
 	/** Retorna la contrasenya del usuari
@@ -26,5 +28,13 @@ public class Usuari extends UsuariGeneral {
 	}
 	public void setPassword(String password){
 		this.password = password;
+	}
+	
+	public void addSudoku(String id) {
+		llistaSudokus.add(id);
+	}
+	
+	public List<String> consultarSudokus() {
+		return llistaSudokus;
 	}
 }
