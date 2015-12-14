@@ -339,7 +339,7 @@ public class ControllerDomain {
 	        try {
 				cs.init(sudoku.getSudoku());
 				int dificultat = cs.searchLevel();
-				Sudoku s = new Sudoku(sudoku.getSudoku(), sudoku.getSolution(), dificultat);
+				Sudoku s = new Sudoku(sudoku.getSudoku(), sudoku.getSolution(), dificultat, this.user.consultarNom());
 				cc.introduceSudoku(s,cont);
 			} catch (Exception e1) {
 				e1.printStackTrace();
@@ -448,6 +448,7 @@ public class ControllerDomain {
 	        	sudoku.setCell(new Position(row, column), value);
 	        	if(value != 0) ++cont;
 	        	else if (value == 0 && !buit) --cont;
+	        	System.out.println("cont: " + cont);
 	        }
 	        return false;
         } 
