@@ -18,22 +18,6 @@ public class ListSudokuInfo extends ListInfo implements java.io.Serializable {
 	}
 
 	/**
-	* Permet afegir la informacio d'un sudoku
-	* a la llista.
-	* @param name identificador del sudoku.
-	* @param maker creador del sudoku.
-	* @param givens caselles inicials del
-	* sudoku.
-	*/
-	public void addInfo(String name, String maker, int givens){
-		info i = new info();
-		i.name = name;
-		i.maker = maker;
-		i.givens = givens;
-		listInfo.add(i);
-	}
-
-	/**
 	* Permet obtenir una llista amb els id
 	* i el creador de cada sudoku que tingui
 	* com a minim un cert nombre de caselles
