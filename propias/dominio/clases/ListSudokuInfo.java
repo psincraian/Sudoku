@@ -3,12 +3,10 @@ package propias.dominio.clases;
 import java.util.*;
 
 /**
- * Aquesta clase defineix un ranking. El tipus de ranking pot ser:
- * global en el cas de que representi el nom d'un usuari
- * i la seva puntuacio en una partida o el nom de l'usuari i el
- * temps que ha emplat per tal de terminar el sudoku 
+ * Classe que defineix la informacio adicional
+ * necessaria dels sudokus.
  *
- * @author Daniel Sanchez Martinez
+ * @author Adrian Sanchez Albanell
  * 
  */
 public class ListSudokuInfo implements java.io.Serializable {
