@@ -3,8 +3,6 @@ package propias.Driver;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.List;
-import java.util.Random;
-import java.util.Scanner;
 import propias.Driver.Stub_Board;
 
 /**
