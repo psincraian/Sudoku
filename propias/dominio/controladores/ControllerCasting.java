@@ -87,7 +87,7 @@ public class ControllerCasting {
 	* @param name nom de l'usuari
 	* a esborrar.
 	*/
-	public void deleteUser(String name) throws Exception {
+	public void deleteUser() throws Exception {
 
 	}
 
@@ -97,26 +97,25 @@ public class ControllerCasting {
 	*/
 	public void changeNameUser(String newName) throws Exception {
 		Usuari newUser = getUser();
-		newUser.setNom(newName);
 		//cp.changeNameUser();
 	}
 
 	/**
-	* Permet modificar la contrasenya d'un usuari.
-	* @param newName nou nom de l'usuari.
+	* Permet modificar l'usuari carregat a
+	* persistencia per un altre.
 	*/
-	public void changePasswordUser(String newPassword) throws Exception {
-		Usuari user = getUser();
-		user.setPassword(newPassword);
+	public void setUser(Usuari user){
 		ByteArrayOutputStream bos = new ByteArrayOutputStream();
 	 	ObjectOutputStream oos = new ObjectOutputStream(bos);
 	 	oos.writeObject(user);
 	 	oos.close();
 	 	String serializeduser = new String(DatatypeConverter.printBase64Binary(bos.toByteArray()));	 	
-		cp.changePasswordUser(serializeduser);
+		cp.setUser(serializeduser);
+		if(!getUser().consultarNom().equals(user.consultarNom())){
+			cp.changeName(user.consultarNom);
+			changeNameUser(newName);
+		}
 	}
-
-
 
 	/**
    	* Inicialitza el controlador de persistencia
