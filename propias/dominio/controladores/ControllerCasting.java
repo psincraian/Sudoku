@@ -87,7 +87,8 @@ public class ControllerCasting {
 	* @param name nom de l'usuari
 	* a esborrar.
 	*/
-	public void deleteUser() throws Exception {
+	public void deleteUser() throws Exception {		
+		cp.changeName(cp.getNameUserDB() + "(eliminat)");
 		cp.deleteUser();
 	}
 
@@ -159,7 +160,7 @@ public class ControllerCasting {
 	* @param newName nou nom de l'usuari.
 	*/
 	public void changeNameListInfoMatches(String oldName, String newName) throws Exception {
-		
+
 	}
 
 	/**
@@ -357,6 +358,7 @@ public class ControllerCasting {
   	* les partides.
   	*/
 	public List<List<String>> getIdMakerGivenSavedMatches() throws Exception {
+
 		ListMatchInfo info = getMatchInfo();
 		return info.getInfoIdMakerGivens();
 	}
@@ -375,6 +377,20 @@ public class ControllerCasting {
 	}
 
 	/**
+	* Guarda el match m amb el nom name.
+	* @param m partida.
+	* @param name nom de la partida.
+	*/
+	public void saveMatch(MatchTraining m, String name) throws Exception {		
+		ByteArrayOutputStream bos = new ByteArrayOutputStream();
+    	ObjectOutputStream oos = new ObjectOutputStream(bos);
+    	oos.writeObject(m);
+    	oos.close();
+	 	String serializedMatch = new String(DatatypeConverter.printBase64Binary(bos.toByteArray()));    	
+	 	cp.saveMatch(name, serializedMatch);
+	}
+
+	/**
 	* Guarda el match m amb el nom name
 	* i actualitza la llista d'informacio
 	* adicional de partides.
@@ -387,9 +403,9 @@ public class ControllerCasting {
 	*/
 	public void saveMatch(MatchTraining m, String name, String maker, int givens) throws Exception {		
 		ByteArrayOutputStream bos = new ByteArrayOutputStream();
-    		ObjectOutputStream oos = new ObjectOutputStream(bos);
-    		oos.writeObject(m);
-    		oos.close();
+    	ObjectOutputStream oos = new ObjectOutputStream(bos);
+    	oos.writeObject(m);
+    	oos.close();
 	 	String serializedMatch = new String(DatatypeConverter.printBase64Binary(bos.toByteArray()));    	
 	 	cp.saveMatch(name, serializedMatch);
 	 	ListMatchInfo info = getMatchInfo();
@@ -451,6 +467,7 @@ public class ControllerCasting {
 	* partides.
 	*/
 	private ListMatchInfo getMatchInfo() throws Exception {
+		System.out.println("patata");
 		byte[] bytes;
 		try {
 			bytes = DatatypeConverter.parseBase64Binary(cp.getMatchInfo());
@@ -507,24 +524,5 @@ public class ControllerCasting {
 	 	String serializedranking = new String(DatatypeConverter.printBase64Binary(bos.toByteArray()));    	
 	 	cp.setRankingGlobal(serializedranking);
 	}
-
-	/*
-	public static Object deserialize(String fileName) throws IOException, ClassNotFoundException {
-	        FileInputStream fis = new FileInputStream(fileName);
-	        BufferedInputStream bis = new BufferedInputStream(fis);
-	        ObjectInputStream ois = new ObjectInputStream(bis);
-	        Object obj = ois.readObject();
-	        ois.close();
-	        return obj;
-    	}
-
-    	public static void serialize(Object obj, String fileName) throws IOException {
-	        FileOutputStream fos = new FileOutputStream(fileName);
-	        BufferedOutputStream bos = new BufferedOutputStream(fos);
-	        ObjectOutputStream oos = new ObjectOutputStream(bos);
-	        oos.writeObject(obj);
-	        oos.close();
-    	}
-	*/
 
 }
