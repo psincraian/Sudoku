@@ -37,7 +37,7 @@ public class ControllerPersistance {
 		}
 		d = new File(autoPath + "/data/Sudokus/9x9/Facil/");
 		if(!d.exists()){
-			new File(autoPath + "/data/Sudokus/9x9/Facil/").mkdirs();			
+			new File(autoPath + "/data/Sudokus/9x9/Facil/").mkdirs();
 		}
 		d = new File(autoPath + "/data/Sudokus/9x9/Medio/");
 		if(!d.exists()){
@@ -112,6 +112,12 @@ public class ControllerPersistance {
 		return userObj;
 	}
 
+	/**
+   	* Metode que intercambia el fitxer
+   	* d'usuari de l'usuari carregat
+   	* a persistencia per un altre.
+  	* @param serializedUser nou usuari.
+  	*/
 	public void setUser(String serializedUser) throws Exception {
 		File f = new File(autoPath + "/data/Users/" + user + "/user");
 		f.delete();
@@ -122,9 +128,43 @@ public class ControllerPersistance {
 		fw.close();
 	}
 
-	public void changeName(String newName){
-		
+	/**
+	* Permet borrar l'usuari de
+	* persistencia dels fitxers.
+	*/
+	public void deleteUser() throws Exception {
+		File dir = new File(autoPath + "/data/Users/" + user);
+		recursiveDeleteFile(dir);
 	}
+
+	private void recursiveDeleteFile(File file){
+		if(file.isDirectory()){
+			if(file.list().length!=0){
+				String filesDelete[] = file.list();
+				for(int f = 0; f < filesDelete.length; ++f){
+					File fd = new File(file, filesDelete[f]);
+					recursiveDeleteFile(fd);
+				}
+			}
+			file.delete();
+		}
+		else{
+			file.delete();
+		}
+	}
+
+	/**
+	* Metode per a cambiar el nom del
+	* directori de l'usuari.
+	*/
+	public void changeName(String newName){
+		//Renombrar la carpeta:
+		File file = new File(autoPath + "/data/Users/" + user);
+		File file2 = new File(autoPath + "/data/Users/" + newName);
+		user = newName;
+	}
+
+
 
 	/**
    	* Inicialitza el controlador per a un usuari 
