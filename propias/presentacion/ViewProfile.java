@@ -37,7 +37,8 @@ public class ViewProfile extends SetView implements DialogTwoPasswords.twoPasswo
 	long[] time;
 	long[] bestTime;
 	String name;
-	String pass;
+	String pass1;
+	String pass2;
 	public JButton buttonReturn;
 	public JButton changeName;
 	public JButton changePass;
@@ -155,12 +156,12 @@ public class ViewProfile extends SetView implements DialogTwoPasswords.twoPasswo
 				listener.getBack();
 			}
 			else if (b.getText().equals("Cambiar nom Usuari")){
-				DialogChangeUsername du = new DialogChangeUsername(this);
+				new DialogChangeUsername(this);
 				save(name);
 			}
 			else{
-				DialogTwoPasswords dp = new DialogTwoPasswords(this);
-				save(pass);
+				new DialogTwoPasswords(this);
+				save(pass1,pass2);
 			}
 		}
 	}
@@ -188,7 +189,6 @@ public class ViewProfile extends SetView implements DialogTwoPasswords.twoPasswo
 	}
 	@Override
 	public void cancel() {
-		
 		
 	}
 	
