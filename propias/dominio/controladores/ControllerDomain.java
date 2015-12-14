@@ -249,7 +249,7 @@ public class ControllerDomain {
     	else res = this.givenSelectMatch;
     	for(int i = 0; i < res.size(); ++i) {
     		List<String> aux = res.get(i); // minillista(id + maker)
-            if(aux.get(0) == this.id) { //id en la pos iessima
+            if(aux.get(0).equals(this.id)) { //id en la pos iessima
             	return Integer.parseInt(aux.get(2)); //given de la posicio iessima
             }
         }
@@ -399,10 +399,6 @@ public class ControllerDomain {
             size = match.getSudokuSize();
             type = 0;
             int [][] enunciat = convertToMatrix(match.getSudoku());
-            for(int i=0; i<enunciat.length; ++i){
-            	for(int j=0; j<enunciat.length; ++j)
-            		if(enunciat[i][j] != 0) ++cont; 
-            }
             return enunciat;
         }
         catch(Exception e){
@@ -417,7 +413,7 @@ public class ControllerDomain {
     public void saveBoard(boolean newSudoku){
         if (!newSudoku){ // es una partida amb progres
 	        try{
-	            cc.saveMatch((MatchTraining)match,id);
+	            cc.saveMatch((MatchTraining)match,id,match.getMaker(), cont);
 	        }
 	        catch(Exception e){
 	        	e.printStackTrace();
@@ -509,7 +505,7 @@ public class ControllerDomain {
 	        if(!createSudoku){ //nomes es comproba si esta ben resolt si no s'esta creant un sudoku
 	        	boolean buit = ( match.getCellValue(new Position(row, column)) == 0);
 	        	match.setCell(new Position(row, column), value);
-	        	if(value != 0) ++cont;
+	        	if(value != 0 && buit) ++cont;
 	        	else if (value == 0 && !buit) --cont;
 		        if(cont == (size*size)) { // ha completado la partida correctamente
 		        	if(type == 1){
@@ -523,6 +519,7 @@ public class ControllerDomain {
 			        	cc.deleteMatch(this.id);
 		        	}
 		        	else{
+		        		cc.deleteMatch(this.id);
 		        		points = -1;
 		        	}
 		        	return true;
@@ -531,7 +528,7 @@ public class ControllerDomain {
 	        else {
 	        	boolean buit = ( sudoku.getSudoku().getCellValue(row, column) == 0);
 	        	sudoku.setCell(new Position(row, column), value);
-	        	if(value != 0) ++cont;
+	        	if(value != 0 && buit) ++cont;
 	        	else if (value == 0 && !buit) --cont;
 	        	
 	        }

@@ -93,6 +93,13 @@ public class Sudoku implements java.io.Serializable {
 	public Board getSolution() {
 		return new Board(solution);
 	}
+	/**
+	 * Retorna el nom del creador
+	 * @return Nom del creador
+	 */
+	public String getMaker(){
+		return this.maker;
+	}
 	/** Canviar el valor de casella especificada
 	 * 
 	 * @param position La posició de la casella

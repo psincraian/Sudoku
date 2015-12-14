@@ -45,7 +45,13 @@ public class Match implements java.io.Serializable {
 	public Board getSolution() {
 		return sudoku.getSolution();
 	}
-	
+	/**
+	 * Retorna el creador del sudoku
+	 * @return el nom del creador
+	 */
+	public String getMaker(){
+		return sudoku.getMaker();
+	}
 	/** Canvia el usuari de la partida
 	 * 
 	 * @param username El nou usuari
