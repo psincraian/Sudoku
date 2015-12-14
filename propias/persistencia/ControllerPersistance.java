@@ -112,7 +112,7 @@ public class ControllerPersistance {
 		return userObj;
 	}
 
-	public void changePasswordUser(String serializedUser) throws Exception {
+	public void setUser(String serializedUser) throws Exception {
 		File f = new File(autoPath + "/data/Users/" + user + "/user");
 		f.delete();
 		f.createNewFile();
@@ -120,6 +120,10 @@ public class ControllerPersistance {
 		PrintWriter pw = new PrintWriter(fw);
 		pw.print(serializedUser);
 		fw.close();
+	}
+
+	public void changeName(String newName){
+		
 	}
 
 	/**

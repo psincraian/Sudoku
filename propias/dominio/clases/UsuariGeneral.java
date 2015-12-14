@@ -11,7 +11,6 @@ import java.util.List;
 public abstract class UsuariGeneral implements java.io.Serializable {
 	
 	private String nom;
-	List<Integer> llistaSudokus;
 	
 	/** La constructora per defecte. Crea un usuari amb el nom especificat. 
 	 * 
@@ -19,15 +18,6 @@ public abstract class UsuariGeneral implements java.io.Serializable {
 	 */
 	public UsuariGeneral(String nom) {
 		this.nom = nom;
-		llistaSudokus = new ArrayList<Integer>();
-	}
-	
-	public void addSudoku(int id) {
-		llistaSudokus.add(id);
-	}
-	
-	public List<Integer> consultarSudokus() {
-		return llistaSudokus;
 	}
 	
 	/** retorna el nom del usuari 

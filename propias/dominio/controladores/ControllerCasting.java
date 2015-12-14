@@ -87,36 +87,25 @@ public class ControllerCasting {
 	* @param name nom de l'usuari
 	* a esborrar.
 	*/
-	public void deleteUser(String name) throws Exception {
+	public void deleteUser() throws Exception {
 
 	}
 
 	/**
-	* Permet modificar el nom d'un usuari.
-	* @param newName nou nom de l'usuari.
+	* Permet modificar l'usuari carregat a
+	* persistencia per un altre.
 	*/
-	public void changeNameUser(String newName) throws Exception {
-		Usuari newUser = getUser();
-		newUser.setNom(newName);
-		//cp.changeNameUser();
-	}
-
-	/**
-	* Permet modificar la contrasenya d'un usuari.
-	* @param newName nou nom de l'usuari.
-	*/
-	public void changePasswordUser(String newPassword) throws Exception {
-		Usuari user = getUser();
-		user.setPassword(newPassword);
+	public void setUser(Usuari user) throws Exception {
 		ByteArrayOutputStream bos = new ByteArrayOutputStream();
 	 	ObjectOutputStream oos = new ObjectOutputStream(bos);
 	 	oos.writeObject(user);
 	 	oos.close();
 	 	String serializeduser = new String(DatatypeConverter.printBase64Binary(bos.toByteArray()));	 	
-		cp.changePasswordUser(serializeduser);
+		cp.setUser(serializeduser);
+		if(!getUser().consultarNom().equals(user.consultarNom())){
+			cp.changeName(user.consultarNom());
+		}
 	}
-
-
 
 	/**
    	* Inicialitza el controlador de persistencia
@@ -259,7 +248,7 @@ public class ControllerCasting {
 	*/
 	public List<List<String>> getIDSudokusAndMaker(int size, int dif, int givens) throws Exception {
 		ListSudokuInfo info = getSudokuInfo(dif, size);
-		return info.getInfoIdMaker(givens);
+		return info.getInfoIdMakerGivens(givens);
 	}
 
 	/**
@@ -345,7 +334,7 @@ public class ControllerCasting {
     	oos.close();
 	 	String serializedMatch = new String(DatatypeConverter.printBase64Binary(bos.toByteArray()));    	
 	 	cp.saveMatch(name, serializedMatch);
-	 	ListMatchInfo info = getMatchInfo();
+	 	ListInfo info = getMatchInfo();
 	 	info.addInfo(name, maker, givens);
 	 	introduceMatchInfo(info);
 	}
