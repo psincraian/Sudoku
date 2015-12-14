@@ -25,7 +25,8 @@ public abstract class ListInfo implements java.io.Serializable {
 
 	/**
 	* Permet afegir la informacio d'un objecte
-	* a la llista.
+	* a la llista. Si ja existia un objecte amb
+	* el mateix nom el sobreescriu.
 	* @param name nameentificador de la objecte.
 	* @param maker creador de la objecte.
 	* @param givens caselles inicials de la
@@ -66,6 +67,19 @@ public abstract class ListInfo implements java.io.Serializable {
 			if(listInfo.get(p).name.equals(name)) return p;
 		}
 		return -1;
+	}
+
+	/**
+	* Permet canviar el nom d'un 
+	* creador per a tots els objectes
+	* que hagi creat.
+	*/
+	public void replaceMaker(String oldName, String newName){
+		for(int a = 0; a < listInfo.size(); ++a){
+			if(listInfo.get(a).maker.equals(oldName)){
+				listInfo.get(a).maker = newName;
+			}
+		}
 	}
 
 }
