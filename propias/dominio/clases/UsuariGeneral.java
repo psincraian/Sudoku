@@ -22,11 +22,11 @@ public abstract class UsuariGeneral implements java.io.Serializable {
 		llistaSudokus = new ArrayList<Integer>();
 	}
 	
-	public void addSudoku(int id) {
+	public void addSudoku(String id) {
 		llistaSudokus.add(id);
 	}
 	
-	public List<Integer> consultarSudokus() {
+	public List<String> consultarSudokus() {
 		return llistaSudokus;
 	}
 	
