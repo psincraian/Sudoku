@@ -9,10 +9,9 @@ import propias.dominio.clases.Board;
 import propias.dominio.clases.CellType;
 
 /**
-*Clase con metodos para hacer agujeros en
-*un tablero sudoku de tamaño 9x9 o 16x16
-*para crear sudokus jugables de diferentes
-*dificultades.
+*Clase amb metodes per a fer forats en
+*un taulell sudoku de mida 9x9 o 16x16
+*creant sudokus de diferents dificultats.
 *
 * @author  Adrián Sánchez Albanell
 */
@@ -33,13 +32,14 @@ public class CntrlSudokuCreator {
 
 
 	/**
-	 * Permite crear un sudoku de dificultat
-	 * facil, media o dificil a partir de una
-	 * plantilla (sera un sudoku con solucion
+	 * Permet crear un sudoku de dificultat
+	 * facil, mitjana o dificil a partir d'una
+	 * plantilla (sera un sudoku amb solucion
 	 * isomorfa a la de la plantilla, pero no
-	 * necesariamente la misma).
-	 * @param dificultat 0 para facil, 1 para media
-	 * y 2 para dificil.
+	 * necesariament la mateixa).
+	 * @param dificultat 0 per a facil, 1 per a
+	 * mitjana i 2 per a dificil.
+	 * @param board la plantilla inicial.
 	 * @return Sudoku el nou sudoku generat.
 	 */
 	public Sudoku create(int dificultat, Board board) throws Exception {
@@ -78,14 +78,18 @@ public class CntrlSudokuCreator {
 	}
 
 	/**
-	 * Permite crear un sudoku de dificultat
-	 * facil, media o dificil a partir de una
-	 * plantilla y un numero minimo de casillas
-	 * dadas (sera un sudoku con solucion
+	 * Permet crear un sudoku de dificultat
+	 * facil, mitjana o dificil a partir d'una
+	 * plantilla (sera un sudoku amb solucion
 	 * isomorfa a la de la plantilla, pero no
-	 * necesariamente la misma).
-	 * @param dificultat 0 para facil, 1 para media
-	 * y 2 para dificil.
+	 * necesariament la mateixa).
+	 * Permet triar el minim de caselles que
+	 * tindra donades el sudoku inicial.
+	 * @param dificultat 0 per a facil, 1 per a
+	 *  mitjana i 2 per a dificil.
+	 * @param board la plantilla inicial.
+	 * @param minGivens el minim de caselles
+	 * inicials.
 	 * @return Sudoku el nou sudoku generat.
 	 */
 	public Sudoku createWithMinCells(int dificultat, Board board, int minGivens) throws Exception {
@@ -224,14 +228,13 @@ public class CntrlSudokuCreator {
 	}
 
 	/**
-	 * Prueva a hacer un agujero en
-	 * una casilla concreta. Si al hacerlo
-	 * el sudoku ya no tiene solucion unica
-	 * o deja de ser de nivel facil no lo hace.
-	 * @param i fila de la casilla.
-	 * @param j columna de la casilla.
-	 * @return boolean si se ha hecho o no 
-	 * el agujero.
+	 * Prova a fer un forat en
+	 * una casella concreta. Si al ferlo
+	 * el sudoku ja no te solucio unica
+	 * o deja de ser de nivel facil no el fa.
+	 * @param i fila de la casella.
+	 * @param j columna de la casella.
+	 * @return boolean si sha fet o no el forat.
 	 */
 	private boolean easyDiggingHole(int i, int j) throws Exception {
 		Board temp = new Board(sudoku);
@@ -244,21 +247,20 @@ public class CntrlSudokuCreator {
 	   		solv.solve();
 	   		if(solv.isUnique()){
 				sudoku.deleteCellValue(i, j);
-	    			return true;
-	    		}
+	    		return true;
+	    	}
 		}		
 		return false;
 	}
 
 	/**
-	 * Prueva a hacer un agujero en
-	 * una casilla concreta. Si al hacerlo
-	 * el sudoku ya no tiene solucion unica
-	 * o deja de ser de nivel medio no lo hace.
-	 * @param i fila de la casilla.
-	 * @param j columna de la casilla.
-	 * @return boolean si se ha hecho o no 
-	 * el agujero.
+	 * Prova a fer un forat en
+	 * una casella concreta. Si al ferlo
+	 * el sudoku ja no te solucio unica
+	 * o deja de ser de nivel mitja no el fa.
+	 * @param i fila de la casella.
+	 * @param j columna de la casella.
+	 * @return boolean si sha fet o no el forat.
 	 */
 	private boolean mediumDiggingHole(int i, int j) throws Exception {
 		Board temp = new Board(sudoku);
@@ -271,21 +273,20 @@ public class CntrlSudokuCreator {
 	   		solv.solve();
 	   		if(solv.isUnique()){
 				sudoku.deleteCellValue(i, j);
-	    			return true;
-	    		}
+	    		return true;
+	    	}
 		}
 		return false;
 	}
 	
 	/**
-	 * Prueva a hacer un agujero en
-	 * una casilla concreta. Si al hacerlo
-	 * el sudoku ya no tiene solucion unica, 
-	 * no lo hace.
-	 * @param i fila de la casilla.
-	 * @param j columna de la casilla.
-	 * @return boolean si se ha hecho o no 
-	 * el agujero.
+	 * Prova a fer un forat en
+	 * una casella concreta. Si al ferlo
+	 * el sudoku ja no te solucio unica
+	 * no el fa.
+	 * @param i fila de la casella.
+	 * @param j columna de la casella.
+	 * @return boolean si sha fet o no el forat.
 	 */
 	private boolean difficultDiggingHole(int i, int j) throws Exception {		
 	    Board temp = new Board(sudoku);
@@ -301,12 +302,12 @@ public class CntrlSudokuCreator {
 	}
 	
 	/**
-	 * Metodo para hacer permutaciones
-	 * validas en el sudoku de forma
-	 * random un numero determinado
-	 * de veces.
-	 * @param permutations numero de permutaciones
-	 * que se haran.
+	 * Metode per a fer permutacions
+	 * valides en el sudoku de forma
+	 * random un nombre determinat
+	 * de vegades.
+	 * @param permutations nombre de permutacions
+	 * que se faran.
 	 */
 	private void randomizeSudoku(int permutations) throws Exception {
 		Random rand = new Random();
@@ -341,11 +342,11 @@ public class CntrlSudokuCreator {
 	}
 
 	/**
-	 * Intercambia dos filas.
-	 * @param b1 bloque de la primera fila.
-	 * @param b2 bloque de la segunda fila.
+	 * Intercambia dues files.
+	 * @param b1 bloc de la primera fila.
+	 * @param b2 bloc de la segona fila.
 	 * @param r1 identificador de la primera fila.
-	 * @param r2 identificador de la segunda fila.
+	 * @param r2 identificador de la segona fila.
 	 */
 	private void switchRows(int b1, int b2, int r1, int r2) throws Exception {
 		r1 = r1 + b1*sqrtSize;
@@ -362,11 +363,11 @@ public class CntrlSudokuCreator {
 	}
 
 	/**
-	 * Intercambia dos columnas.
-	 * @param b1 bloque de la primera columna.
-	 * @param b2 bloque de la segunda columna.
-	 * @param c1 identificador de la primera columna.
-	 * @param c2 identificador de la segunda columna.
+	 * Intercambia dues columnes.
+	 * @param b1 bloc de la primera columna.
+	 * @param b2 bloc de la segona columna.
+	 * @param r1 identificador de la primera columna.
+	 * @param r2 identificador de la segona columna.
 	 */
 	private void switchColumns(int b1, int b2, int c1, int c2) throws Exception {
 		c1 = c1 + b1*sqrtSize;
@@ -383,9 +384,9 @@ public class CntrlSudokuCreator {
 	}
 	
 	/**
-	 * Intercambia dos filas de quadrantes.
-	 * @param b1 primer grupo de quadrantes.
-	 * @param b2 segundo grupo de quadrantes.
+	 * Intercambia dues files de quadrants.
+	 * @param b1 primer grup de quadrans.
+	 * @param b2 segon grup de quadrants.
 	 */
 	private void switchQuadRows(int b1, int b2) throws Exception {
 		for(int i = 0; i < sqrtSize; ++i){
@@ -394,9 +395,9 @@ public class CntrlSudokuCreator {
 	}
 	
 	/**
-	 * Intercambia dos columnas de quadrantes.
-	 * @param b1 primer grupo de quadrantes.
-	 * @param b2 segundo grupo de quadrantes.
+	 * Intercambia dues columnes de quadrants.
+	 * @param b1 primer grup de quadrants.
+	 * @param b2 segon grup de quadrants.
 	 */
 	private void switchQuadColumns(int b1, int b2) throws Exception {
 		for(int j = 0; j < sqrtSize; ++j){
