@@ -345,7 +345,7 @@ public class ControllerPresentation implements
      * Mostra les partides guardades
      */
 	private void showLoadMatch() {
-		List<String> id = cd.getIDMatches();
+		List<List<String>> id = cd.getIDMatchesAndMaker();
 		if (id.size() == 0) {
 			JOptionPane.showMessageDialog(null, "No hi ha partides guardades");
 			showMainMenu();

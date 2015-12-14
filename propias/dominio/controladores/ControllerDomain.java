@@ -19,6 +19,8 @@ public class ControllerDomain {
     ControllerCasting cc;
     RankingGlobal rg;
     Stadistics stad;
+    List<List<String>> givenLoadMatch;
+    List<List<String>> givenSelectMatch;
     int size = 0;
     int dificult = 0;
     int type = 0;
@@ -104,10 +106,10 @@ public class ControllerDomain {
         try {
         	createSudoku = false; // no es crea un sudoku nou
         	if (!c.getNewSudoku()) {
-        		cont = c.getGivenNumbers();
         		points = 0;
         	    Sudoku s = cc.getSudoku(c.getMida(), c.getDificultat(), this.id);
         	    this.size = c.getMida();
+        	    cont = positionInList(false);
             	this.dificult = c.getDificultat();
             	this.type = c.getTipusPartida();
             	if (isGuest) match = new MatchTraining("Convidat", s);
@@ -148,11 +150,27 @@ public class ControllerDomain {
      */
     public List<List<String>> getIDSudokusAndMaker(CaracteristiquesPartida c){
     	try {
-			return cc.getIDSudokusAndMaker(c.getMida(), c.getDificultat(), c.getGivenNumbers());
+    		List<List<String>> select = cc.getIDSudokusAndMaker(c.getMida(), c.getDificultat(), c.getGivenNumbers());
+    		this.givenSelectMatch = select;
+			return select;
 		} catch (Exception e) {
 			e.printStackTrace();
         	return null;
 		}
+    }
+    /**
+     * 
+     * @return Los identificadores de cada partida
+     */
+    public List<List<String>> getIDMatchesAndMaker(){
+        try {
+        	List<List<String>> load = cc.getIdMakerGivenSavedMatches();
+        	this.givenLoadMatch = load;
+        	return load;
+    } catch (Exception e) {
+    		e.printStackTrace();
+    		return null;
+        }
     }
     /**
      * Selecciona el sudoku a jugar
@@ -160,6 +178,18 @@ public class ControllerDomain {
      */
     public void selectSudoku(String id){
     	this.id = id;
+    }
+    public int positionInList(boolean loadMatch){
+    	List<List<String>> res;
+    	if (loadMatch) res = this.givenLoadMatch;
+    	else res = this.givenSelectMatch;
+    	for(int i = 0; i < res.size(); ++i) {
+    		List<String> aux = res.get(i); // minillista(id + maker)
+            if(aux.get(0) == this.id) { //id en la pos iessima
+            	return Integer.parseInt(aux.get(2)); //given de la posicio iessima
+            }
+        }
+    	return 0;
     }
     /**
  	* Converteix un string a una matriu
@@ -297,9 +327,9 @@ public class ControllerDomain {
      */
     public int[][] getSavedMatch(String id){
         try{
-        	cont = 0;
         	createSudoku = false;
             this.id = id;
+            cont = positionInList(true);
             match = cc.getSavedMatch(id);
             dificult = match.getSudokuLevel()-1;
             size = match.getSudokuSize();
@@ -340,7 +370,8 @@ public class ControllerDomain {
 				cs.init(sudoku.getSudoku());
 				int dificultat = cs.searchLevel();
 				Sudoku s = new Sudoku(sudoku.getSudoku(), sudoku.getSolution(), dificultat, this.user.consultarNom());
-				cc.introduceSudoku(s,cont);
+				String ident = cc.introduceSudoku(s,cont);
+				this.user.addSudoku(ident);
 			} catch (Exception e1) {
 				e1.printStackTrace();
 			}
@@ -359,18 +390,6 @@ public class ControllerDomain {
         int[][] auxi = convertToMatrix(aux);
         if (auxi[i][j] != 0 && aux.getCellType(i, j) != CellType.Locked) return auxi[i][j];
         return 0;
-    }
-    /**
-     * 
-     * @return Los identificadores de cada partida
-     */
-    public List<String> getIDMatches(){
-        try {
-        return cc.getIdMatches();
-    } catch (Exception e) {
-    	e.printStackTrace();
-    	return null;
-        }
     }
     
     /**
@@ -436,6 +455,7 @@ public class ControllerDomain {
 			        	stad.afegirNumPartides(1, dificult); //actualizo numer partidas de estadisticas
 			        	rg.modRanking(new ParamRanking(this.user.consultarNom(), ((MatchCompetition) match).getMatchTime())); //actualizo ranking global
 			        	points = score;
+			        	cc.deleteMatch(this.id);
 		        	}
 		        	else{
 		        		points = -1;
@@ -448,7 +468,7 @@ public class ControllerDomain {
 	        	sudoku.setCell(new Position(row, column), value);
 	        	if(value != 0) ++cont;
 	        	else if (value == 0 && !buit) --cont;
-	        	System.out.println("cont: " + cont);
+	        	
 	        }
 	        return false;
         } 
