@@ -11,7 +11,7 @@ import java.util.*;
  */
 public abstract class ListInfo implements java.io.Serializable {
 
-	protected class info implements java.io.Serializable {
+	class info implements java.io.Serializable {
 		public String name;
 		public String maker;
 		public int givens;
