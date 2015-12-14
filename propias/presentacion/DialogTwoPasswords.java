@@ -21,9 +21,9 @@ public class DialogTwoPasswords extends JDialog {
     private void initComponents() {
 
         panePassword1 = new javax.swing.JScrollPane();
-        password1 = new javax.swing.JTextPane();
+        password1 = new HintTextField("Introduce password");
         panePassword2 = new javax.swing.JScrollPane();
-        password2 = new javax.swing.JTextPane();
+        password2 = new HintTextField("Repeat password");
         Save = new javax.swing.JButton();
         Cancel = new javax.swing.JButton();
 
@@ -93,7 +93,7 @@ public class DialogTwoPasswords extends JDialog {
     private javax.swing.JButton Save;
     private javax.swing.JScrollPane panePassword1;
     private javax.swing.JScrollPane panePassword2;
-    private javax.swing.JTextPane password1;
-    private javax.swing.JTextPane password2;
+    private HintTextField password1;
+    private HintTextField password2;
     private twoPasswordsInterface listener;
 }
