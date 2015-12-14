@@ -103,12 +103,55 @@ public class ControllerCasting {
 	 	String serializeduser = new String(DatatypeConverter.printBase64Binary(bos.toByteArray()));	 	
 		cp.setUser(serializeduser);
 		if(!getUser().consultarNom().equals(user.consultarNom())){
-			
+			changeNameObjects(getUser().consultarNom(), user.consultarNom());
 			cp.changeName(user.consultarNom());	
 		}
 	}
 
+	/**
+	* Metode per canviar el nom als objectes
+	* afectats al canviar el nom de l'usuari.
+	* @param newName nou nom de l'usuari.
+	*/
+	public void changeNameObjects(String oldName, String newName) throws Exception {		
+		changeNameSudokus(oldName, newName);
+		/*
+		changeNameListInfoSudokus(newName);
+		changeNameListInfoMatches(newName);
+		changeNameRankingGlobal(newName);
+		*/
+	}
 
+	/**
+	* Metode per actualitzar tots els sudokus
+	* amb el nou nom d'usuari on sigui necessari.
+	* @param newName nou nom de l'usuari.
+	*/
+	public void changeNameSudokus(String oldName, String newName) throws Exception {
+		for(int s = 0; s < 2; ++s){
+			for(int dif = 0; dif < 3; ++dif){
+				int size;
+				if(s == 0) size = 9;
+				else size = 16;
+				ListSudokuInfo sudoInfo = getSudokuInfo(dif, size);
+				sudoInfo.replaceMaker(oldName, newName);
+				List<List<String>> idMakerGivensSudokus = sudoInfo.getInfoIdMakerGivens(0);
+				introduceSudokuInfo(new ListSudokuInfo(), dif, s);
+				for(int a = 0; a < idMakerGivensSudokus.size(); ++a){
+					Sudoku sudo = getSudoku(s, dif, idMakerGivensSudokus.get(a).get(0));
+					RankingSudoku rank = sudo.getRanking();
+					List<ParamRanking> params = rank.getRanking();
+					for(int pr = 0; pr < params.size(); ++pr){
+						if(params.get(pr).getName().equals(oldName)){
+							params.set(pr, new ParamRanking(newName, params.get(pr).getValue()));
+						}
+					}
+					sudo.setRanking(new RankingSudoku(params));
+					introduceSudoku(sudo, Integer.parseInt(idMakerGivensSudokus.get(a).get(2)));
+				}
+			}
+		}
+	}
 
 	/**
    	* Inicialitza el controlador de persistencia
