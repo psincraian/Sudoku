@@ -372,7 +372,7 @@ public class ControllerPresentation implements
 	/**
 	 * Mostra el perfil de l'usuari
 	 */
-	private void showProfile() {
+	public void showProfile() {
 		frame.getContentPane().removeAll();
 		frame.setLayout(new BorderLayout());
 		ViewProfile vp = new ViewProfile(cd.returnMatches(), cd.returnTime(), cd.returnBestTime(), this);

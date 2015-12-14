@@ -38,9 +38,6 @@ public class ViewProfile extends SetView implements
 	long[] matches;
 	long[] time;
 	long[] bestTime;
-	String name;
-	String pass1;
-	String pass2;
 	public JButton buttonReturn;
 	public JButton changeName;
 	public JButton changePass;
@@ -50,6 +47,7 @@ public class ViewProfile extends SetView implements
 		public void getBack();
 		public void changeUserName(String name);
 		public void changeUserPass(String pass1, String pass2);
+		public void showProfile();
 	}
 	
 	/**
@@ -159,17 +157,18 @@ public class ViewProfile extends SetView implements
 			}
 			else if (b.getText().equals("Cambiar nom Usuari")){
 				new DialogChangeUsername(this);
-				save(name);
 			}
 			else{
 				new DialogTwoPasswords(this);
-				save(pass1,pass2);
 			}
 		}
 	}
+	
+	@Override
 	public void save(String username){
 		listener.changeUserName(username);
 	}
+	@Override
 	public void save(String pass1, String pass2){
 		listener.changeUserPass(pass1, pass2);
 	}
@@ -191,7 +190,7 @@ public class ViewProfile extends SetView implements
 	}
 	@Override
 	public void cancel() {
-		
+		listener.showProfile();
 	}
 	
 }
