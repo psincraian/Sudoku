@@ -155,6 +155,14 @@ public class Sudoku implements java.io.Serializable {
 		ranking.modRanking(param);
 	}
 	
+	/**
+	* Permet substituir el ranking actual per un altre.
+	* @param newRanking el nou ranking.
+	*/
+	public void setRanking(RankingSudoku newRanking){
+		ranking = newRanking;
+	}
+	
 	/** Retorna el ranking d'aquest sudoku
 	 * 
 	 * @return Retorna el Ranking
