@@ -9,6 +9,8 @@ import java.util.List;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JComponent;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
@@ -25,7 +27,7 @@ import javax.swing.ScrollPaneConstants;
 public class ViewSelectSudoku extends SetView{
 	private JPanel panel;
 	protected JButton[] buttons;
-	List<String> id;
+	List<List<String>> id;
 	private selectSudoku ss;
 	private JScrollPane sp;
 	
@@ -48,7 +50,7 @@ public class ViewSelectSudoku extends SetView{
 	 * sudokus a ser mostrats
 	 * 
 	 */
-	public ViewSelectSudoku(List<String> id,Object container) {
+	public ViewSelectSudoku(List<List<String>> id,Object container) {
 		super();
 		this.ss = (selectSudoku) container;
 		this.id = id;
@@ -57,30 +59,33 @@ public class ViewSelectSudoku extends SetView{
 	
 	/**
 	 * 
-	 * Funcio que s'encarrega de configura la vista
+	 * Funcio que s'encarrega de afegir els elements a la vista.
 	 * 
 	 */
 	private void createView(){
 		iniNames();
 		
 		setTitle("Seleccio d'un sudoku de la base de dades");
+		Box horizontal = Box.createHorizontalBox();
 		Box vertical = Box.createVerticalBox();
 		vertical.add(Box.createVerticalGlue());
 		panel.setBackground(Color.WHITE);
-		Box horizontal = Box.createHorizontalBox();
+		panel.add(Box.createRigidArea(new Dimension(15,15)));
+		horizontal.add(new JLabel("ID sudoku"));
+		horizontal.add(Box.createHorizontalStrut(125));
+		horizontal.add(new JLabel("Creador"));
+		setSize(horizontal, new Dimension(250,100));
+		vertical.add(horizontal);
 		for(int i = 0; i < buttons.length; ++i){
-			if(i % 3 == 0){
-				panel.add(horizontal);
-				panel.add(Box.createRigidArea(new Dimension(15,15)));
-				horizontal = Box.createHorizontalBox();
-			}
+			horizontal = Box.createHorizontalBox();
+			horizontal.add(Box.createHorizontalStrut(15));
 			horizontal.add(buttons[i]);
+			horizontal.add(Box.createHorizontalGlue());
+			horizontal.add(new JLabel(id.get(i).get(1)));
 			horizontal.add(Box.createRigidArea(new Dimension(15,15)));
+			panel.add(horizontal);
 		}
-		panel.add(horizontal);
-		sp.setMaximumSize(new Dimension(300,200));
-		sp.setPreferredSize(new Dimension(300,200));
-		sp.setMinimumSize(new Dimension(300,200));
+		setSize(sp, new Dimension(300,100));
 		sp.getViewport().add(panel);
 		vertical.add(sp);
 		vertical.add(Box.createVerticalGlue());
@@ -98,9 +103,8 @@ public class ViewSelectSudoku extends SetView{
 		sp = new JScrollPane(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		panel.setLayout(new BoxLayout(panel,BoxLayout.Y_AXIS));
 		buttons = new JButton[id.size()];
-		for(int i = 0; i < id.size(); ++i){
-			buttons[i] = new JButton(id.get(i));
-		}
+		for(int i = 0; i < id.size(); ++i)
+			buttons[i] = new JButton(id.get(i).get(0));
 		buttonListener();
 	}
 	
@@ -116,6 +120,18 @@ public class ViewSelectSudoku extends SetView{
 	protected void buttonListener(){
 		for(int i  = 0; i < buttons.length; ++i)
 			buttons[i].addMouseListener(new MouseManage());
+	}
+	
+	/**
+	 * 
+	 * Funcio que s'encarrega de configura les dimensions donat 
+	 * un component qualsevol
+	 * 
+	 */
+	public void setSize(Object container,Dimension d){
+		((JComponent) container).setPreferredSize(d);
+		((JComponent) container).setMinimumSize(d);
+		((JComponent) container).setMaximumSize(d);
 	}
 	
 	/**
