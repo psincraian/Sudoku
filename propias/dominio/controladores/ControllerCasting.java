@@ -467,7 +467,6 @@ public class ControllerCasting {
 	* partides.
 	*/
 	private ListMatchInfo getMatchInfo() throws Exception {
-		System.out.println("patata");
 		byte[] bytes;
 		try {
 			bytes = DatatypeConverter.parseBase64Binary(cp.getMatchInfo());
@@ -524,5 +523,6 @@ public class ControllerCasting {
 	 	String serializedranking = new String(DatatypeConverter.printBase64Binary(bos.toByteArray()));    	
 	 	cp.setRankingGlobal(serializedranking);
 	}
+
 
 }
