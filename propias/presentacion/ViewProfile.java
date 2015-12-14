@@ -148,7 +148,11 @@ public class ViewProfile extends SetView implements
 			dataBestTime[i] = new JLabel(String.valueOf(bestTime[i]));
 		}
 	}
-	
+	/**
+	 * 
+	 * Controla els events del mouse
+	 *
+	 */
 	public class MouseManage extends MouseAdapter {
 		public void mouseClicked(MouseEvent e) {
 			JButton b = (JButton)e.getSource();
@@ -163,14 +167,26 @@ public class ViewProfile extends SetView implements
 			}
 		}
 	}
-	
+	/**
+	 * Canvia el nom d'usuari
+	 */
 	@Override
 	public void save(String username){
 		listener.changeUserName(username);
 	}
+	/**
+	 * Canvia la contrasenya de l'usuari
+	 */
 	@Override
 	public void save(String pass1, String pass2){
 		listener.changeUserPass(pass1, pass2);
+	}
+	/**
+	 * Torna a la vista perfil
+	 */
+	@Override
+	public void cancel() {
+		listener.showProfile();
 	}
 	/**
 	 * Controla el boto
@@ -187,10 +203,6 @@ public class ViewProfile extends SetView implements
 	 */
 	public void disableView(){
 		setVisible(false);
-	}
-	@Override
-	public void cancel() {
-		listener.showProfile();
 	}
 	
 }
