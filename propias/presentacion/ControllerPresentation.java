@@ -58,7 +58,6 @@ public class ControllerPresentation implements
      * Inicia el joc
      */
     public void start() {
-    	//createGUI();
         frame.getContentPane().removeAll();
         frame.getContentPane().setLayout(new BorderLayout());
         new ControllerStart(this,frame);
@@ -459,6 +458,10 @@ public class ControllerPresentation implements
 	public void getBack() {
 		showMainMenu();
 	}
+	/**
+	 * Canvia el nom d'usuari
+	 * @param name Nou nom a posar a l'usuari
+	 */
 	public void changeUserName(String name){
 		if(cd.checkChangeName(name))
 			cd.changeUserName(name);
@@ -467,6 +470,11 @@ public class ControllerPresentation implements
 			showProfile();
 		}
 	}
+	/**
+	 * Canvia la contrasenya de l'usuari
+	 * @param pass1 Nova contrasenya de l'usuari
+	 * @param pass2 Nova contrasenya de l'usuari
+	 */
 	public void changeUserPass(String pass1, String pass2){
 		if(cd.checkChangePass(pass1,pass2))
 			cd.changeUserPass(pass1);
