@@ -98,6 +98,31 @@ public class ControllerPersistance {
 	}
 
 	/**
+   	* Metode que retorna l'usuari
+   	* carregat a persistencia.
+  	* @param user nom de l'usuari.
+  	* @return String representant l'usuari.
+  	*/
+	public String getUser() throws Exception {
+		FileReader fr = new FileReader(autoPath + "/data/Users/" + user + "/user");
+		Scanner scn = new Scanner(fr);
+		String userObj = scn.next();
+		scn.close();
+		fr.close();
+		return userObj;
+	}
+
+	public void changePasswordUser(String serializedUser) throws Exception {
+		File f = new File(autoPath + "/data/Users/" + user + "/user");
+		f.delete();
+		f.createNewFile();
+		FileWriter fw = new FileWriter(f.getAbsolutePath());
+		PrintWriter pw = new PrintWriter(fw);
+		pw.print(serializedUser);
+		fw.close();
+	}
+
+	/**
    	* Inicialitza el controlador per a un usuari 
    	* concret.
   	* @param user identificador de l'usuari
@@ -228,16 +253,14 @@ public class ControllerPersistance {
 		fw.close();
 	}
 
-		/**
+	/**
 	* Metode per a obtenir la informacio guardada
 	* dels sudokus amb una certa dificultat i
 	* mida.
 	* @param dif dificultat dels sudokus representats 
 	* per la informacio.
 	* @param size nivell dels sudokus representats 
-	* per la informacio.	
-	* @param infoSudokuList informacio a guardada
-	* serialitzada.
+	* per la informacio.
 	*/
 	public String getSudokuInfo(int dif, int size) throws Exception {
 		String difSt;
@@ -371,7 +394,8 @@ public class ControllerPersistance {
 
 	/**
    	* Guarda una partida de l'usuari.
-   	* @param idSudoku id del sudoku a guardar.
+   	* @param idSudoku id del sudoku
+   	* de la partida a guardar.
    	* @param match partida.
   	*/
 	public void saveMatch(String idSudoku, String match) throws Exception {
@@ -382,6 +406,43 @@ public class ControllerPersistance {
 		PrintWriter pw = new PrintWriter(fw);
 		pw.print(match);
 		fw.close();
+	}
+
+	/**
+	* Borra una partida de l'usuari.
+	* @param idSudoku id del sudoku 
+	* de la partida a eliminar.
+	*/
+	public void deleteMatch(String idSudoku) throws Exception {
+		new File(autoPath + "/data/Users/" + user + "/Partidas/" + idSudoku).delete();
+	}
+
+	/**
+	* Metode per a modificar la informacio guardada
+	* sobre les partides de l'usuari.
+	* @param serializedInfo informacio a guardar
+	* serialitzada.
+	*/
+	public void introduceMatchInfo(String serializedInfo) throws Exception {
+		File f = new File(autoPath + "/data/Users/" + user + "/Partidas/infoMatches");
+		f.delete();
+		f.createNewFile();
+		FileWriter fw = new FileWriter(f.getAbsolutePath());
+		PrintWriter pw = new PrintWriter(fw);
+		pw.print(serializedInfo);
+		fw.close();
+	}
+
+	/**
+	* Metode per a obtenir la informacio guardada
+	* de les partides de l'usuari.
+	*/
+	public String getMatchInfo() throws Exception {
+		FileReader fr = new FileReader(autoPath + "/data/Users/" + user + "/Partidas/infoMatches");
+		Scanner scn = new Scanner(fr);
+		String info = scn.next();
+		fr.close();
+		return info;
 	}
 
 	/**
