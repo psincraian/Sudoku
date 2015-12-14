@@ -13,22 +13,30 @@ import propias.presentacion.*;
 
 public class Driver_ViewSelectSudoku {
 
+	public static List<String> setInfoSudoku(String id, String maker){
+		List<String> list = new ArrayList<String>();
+		list.add(id);
+		list.add(maker);
+		return list;
+	}
+	
 	public static void main(String[] args){
-		List<String> id = new ArrayList<String>();
-		id.add("e001");
-		id.add("e002");
-		id.add("e003");
-		id.add("e004");
-		id.add("e005");
-		id.add("e006");
-		id.add("e007");
-		id.add("e008");
-		id.add("e009");
-		id.add("e010");
-		id.add("e007");
-		id.add("e008");
-		id.add("e009");
-		id.add("e010");
+		List<List<String>> id = new ArrayList<List<String>>();
+		
+		id.add(setInfoSudoku("e001", "Daniel"));
+		id.add(setInfoSudoku("e002", "David"));
+		id.add(setInfoSudoku("e003", "Daniel"));
+		id.add(setInfoSudoku("e004", "Daniel"));
+		id.add(setInfoSudoku("e005", "David"));
+		id.add(setInfoSudoku("e006", "Maquina"));
+		id.add(setInfoSudoku("e007", "Daniel"));
+		id.add(setInfoSudoku("e008", "Maquina"));
+		id.add(setInfoSudoku("e009", "Daniel"));
+		id.add(setInfoSudoku("e010", "Daniel"));
+		id.add(setInfoSudoku("e011", "Maquina"));
+		id.add(setInfoSudoku("e012", "David"));
+		id.add(setInfoSudoku("e013", "Daniel"));
+		id.add(setInfoSudoku("e014", "Maquina"));
 
 		
 		
