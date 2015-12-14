@@ -115,16 +115,14 @@ public class ControllerCasting {
 	*/
 	public void changeNameObjects(String oldName, String newName) throws Exception {		
 		changeNameSudokus(oldName, newName);
-		/*
-		changeNameListInfoSudokus(newName);
-		changeNameListInfoMatches(newName);
-		changeNameRankingGlobal(newName);
-		*/
+		changeNameListInfoMatches(oldName, newName);
+		changeNameRankingGlobal(oldName, newName);
 	}
 
 	/**
 	* Metode per actualitzar tots els sudokus
 	* amb el nou nom d'usuari on sigui necessari.
+	* @param oldName l'antic nom de l'usuari.
 	* @param newName nou nom de l'usuari.
 	*/
 	public void changeNameSudokus(String oldName, String newName) throws Exception {
@@ -151,6 +149,34 @@ public class ControllerCasting {
 				}
 			}
 		}
+	}
+
+	/**
+	* Permet canviar el nom de l'usuari
+	* a les llistes d'informacio de
+	* partides guardades dels usuaris.
+	* @param oldName l'antic nom de l'usuari.
+	* @param newName nou nom de l'usuari.
+	*/
+	public void changeNameListInfoMatches(String oldName, String newName) throws Exception {
+		
+	}
+
+	/**
+	* Permet canviar el nom de l'usuari
+	* al ranking global.
+	* @param oldName l'antic nom de l'usuari.
+	* @param newName nou nom de l'usuari.
+	*/
+	public void changeNameRankingGlobal(String oldName, String newName) throws Exception {
+		RankingGlobal rank = getRankingGlobal();
+		List<ParamRanking> params = rank.getRanking();
+		for(int pr = 0; pr < params.size(); ++pr){
+			if(params.get(pr).getName().equals(oldName)){
+				params.set(pr, new ParamRanking(newName, params.get(pr).getValue()));
+			}
+		}
+		rank = new RankingGlobal(params);
 	}
 
 	/**
@@ -414,13 +440,29 @@ public class ControllerCasting {
 	}
 
 	/**
-	* Retorna la informacio dels
-	* sudokus d'una certa mida i
-	* nivell de dificultat.
-	* @param lvl nivell.
-	* @param size mida.
-	* @return List<List<String>>
-	* la informacio demanada.
+	* Metode per a modificar la informacio
+	* adicional de les partides guardades a
+	* les bases de dades.
+	* @param info la nova informacio a
+	* escriure al fitxer.
+	* @param user usuari a qui li actualitzem
+	* dades.
+	*/
+	private void introduceMatchInfo(ListMatchInfo info, String user) throws Exception {
+		ByteArrayOutputStream bos = new ByteArrayOutputStream();
+		ObjectOutputStream oos = new ObjectOutputStream(bos);
+		oos.writeObject(info);
+		oos.close();
+		String serializedInfo =  new String(DatatypeConverter.printBase64Binary(bos.toByteArray()));
+		cp.introduceMatchInfo(serializedInfo, user);
+	}
+
+	/**
+	* Metode per a obtenir la informacio
+	* adicional de les partides guardades a
+	* les bases de dades.
+	* @return ListMachInfo informacio de les
+	* partides.
 	*/
 	private ListMatchInfo getMatchInfo() throws Exception {
 		byte[] bytes;
@@ -436,12 +478,34 @@ public class ControllerCasting {
 	}
 
 	/**
+	* Metode per a obtenir la informacio
+	* adicional de les partides guardades a
+	* les bases de dades.
+	* @param user usuari a qui li actualitzem
+	* dades.
+	* @return ListMachInfo informacio de les
+	* partides.
+	*/
+	private ListMatchInfo getMatchInfo(String user) throws Exception {
+		byte[] bytes;
+		try {
+			bytes = DatatypeConverter.parseBase64Binary(cp.getMatchInfo(user));
+		} catch(FileNotFoundException fnfe) {
+			introduceMatchInfo(new ListMatchInfo());
+			bytes = DatatypeConverter.parseBase64Binary(cp.getMatchInfo(user));
+		}		
+		ByteArrayInputStream bis = new ByteArrayInputStream(bytes);
+    	ObjectInputStream ois = new ObjectInputStream(bis);
+    	return (ListMatchInfo) ois.readObject();
+	}
+
+	/**
 	* Retorna el Ranking Global.
 	*/
 	public RankingGlobal getRankingGlobal() throws Exception {		
 		byte[] bytes = DatatypeConverter.parseBase64Binary(cp.getRankingGlobal());
 		ByteArrayInputStream bis = new ByteArrayInputStream(bytes);
-    		ObjectInputStream ois = new ObjectInputStream(bis);
+    	ObjectInputStream ois = new ObjectInputStream(bis);
 	 	return (RankingGlobal) ois.readObject();
 	}
 
