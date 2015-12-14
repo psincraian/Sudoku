@@ -18,21 +18,49 @@ public class ControllerPersistance {
 	
 	public ControllerPersistance(){
 		autoPath = Paths.get("").toAbsolutePath().toString();
-		File d = new File(autoPath + "/data");
+		recoverCorruptData();
+		
+	}
+
+	/**
+	* Permet recuperar l'estructura que ha de tenir
+	* data en cas que falti algun directori necessari.
+	*/
+	private void recoverCorruptData(){
+		File d = new File(autoPath + "/data/Ranking/");
 		if(!d.exists()){
 			new File(autoPath + "/data/Ranking/").mkdirs();
-			new File(autoPath + "/data/Users/").mkdirs();
-			new File(autoPath + "/data/Sudokus/9x9/").mkdirs();
+		}
+		d = new File(autoPath + "/data/Users/");
+		if(!d.exists()){
+			new File(autoPath + "/data/Users/").mkdirs();			
+		}
+		d = new File(autoPath + "/data/Sudokus/9x9/Facil/");
+		if(!d.exists()){
 			new File(autoPath + "/data/Sudokus/9x9/Facil/").mkdirs();			
-			new File(autoPath + "/data/Sudokus/9x9/Medio/").mkdirs();
-			new File(autoPath + "/data/Sudokus/9x9/Dificil/").mkdirs();
-			new File(autoPath + "/data/Sudokus/16x16/").mkdirs();
-			new File(autoPath + "/data/Sudokus/16x16/Facil/").mkdirs();
-			new File(autoPath + "/data/Sudokus/16x16/Medio/").mkdirs();
-			new File(autoPath + "/data/Sudokus/16x16/Dificil/").mkdirs();
+		}
+		d = new File(autoPath + "/data/Sudokus/9x9/Medio/");
+		if(!d.exists()){
+			new File(autoPath + "/data/Sudokus/9x9/Medio/").mkdirs();			
+		}
+		d = new File(autoPath + "/data/Sudokus/9x9/Dificil/");
+		if(!d.exists()){
+			new File(autoPath + "/data/Sudokus/9x9/Dificil/").mkdirs();			
+		}
+		d = new File(autoPath + "/data/Sudokus/16x16/Facil/");
+		if(!d.exists()){
+			new File(autoPath + "/data/Sudokus/16x16/Facil/").mkdirs();			
+		}
+		d = new File(autoPath + "/data/Sudokus/16x16/Medio/");
+		if(!d.exists()){
+			new File(autoPath + "/data/Sudokus/16x16/Medio/").mkdirs();			
+		}
+		d = new File(autoPath + "/data/Sudokus/16x16/Dificil/");
+		if(!d.exists()){
+			new File(autoPath + "/data/Sudokus/16x16/Dificil/").mkdirs();			
 		}
 	}
-	
+
 	/**
 	*Creadora per a fer servir amb el drivers
 	*(ja que esta en una ubicacio diferent)
