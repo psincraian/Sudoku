@@ -137,6 +137,7 @@ public class ControllerDomain {
     	this.user.setNom(name);
     	try {
 			cc.setUser(this.user);
+			rg = cc.getRankingGlobal();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
