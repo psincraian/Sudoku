@@ -41,6 +41,7 @@ public class ControllerPresentation implements
      */
     public ControllerPresentation() {
         cd = new ControllerDomain();
+        createGUI();
     }
     /**
      * Crea la vista
@@ -57,7 +58,7 @@ public class ControllerPresentation implements
      * Inicia el joc
      */
     public void start() {
-    	createGUI();
+    	//createGUI();
         frame.getContentPane().removeAll();
         frame.getContentPane().setLayout(new BorderLayout());
         new ControllerStart(this,frame);
