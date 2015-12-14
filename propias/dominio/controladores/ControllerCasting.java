@@ -92,19 +92,10 @@ public class ControllerCasting {
 	}
 
 	/**
-	* Permet modificar el nom d'un usuari.
-	* @param newName nou nom de l'usuari.
-	*/
-	public void changeNameUser(String newName) throws Exception {
-		Usuari newUser = getUser();
-		//cp.changeNameUser();
-	}
-
-	/**
 	* Permet modificar l'usuari carregat a
 	* persistencia per un altre.
 	*/
-	public void setUser(Usuari user){
+	public void setUser(Usuari user) throws Exception {
 		ByteArrayOutputStream bos = new ByteArrayOutputStream();
 	 	ObjectOutputStream oos = new ObjectOutputStream(bos);
 	 	oos.writeObject(user);
@@ -112,8 +103,7 @@ public class ControllerCasting {
 	 	String serializeduser = new String(DatatypeConverter.printBase64Binary(bos.toByteArray()));	 	
 		cp.setUser(serializeduser);
 		if(!getUser().consultarNom().equals(user.consultarNom())){
-			cp.changeName(user.consultarNom);
-			changeNameUser(newName);
+			cp.changeName(user.consultarNom());
 		}
 	}
 
@@ -258,7 +248,7 @@ public class ControllerCasting {
 	*/
 	public List<List<String>> getIDSudokusAndMaker(int size, int dif, int givens) throws Exception {
 		ListSudokuInfo info = getSudokuInfo(dif, size);
-		return info.getInfoIdMaker(givens);
+		return info.getInfoIdMakerGivens(givens);
 	}
 
 	/**
@@ -344,7 +334,7 @@ public class ControllerCasting {
     	oos.close();
 	 	String serializedMatch = new String(DatatypeConverter.printBase64Binary(bos.toByteArray()));    	
 	 	cp.saveMatch(name, serializedMatch);
-	 	ListMatchInfo info = getMatchInfo();
+	 	ListInfo info = getMatchInfo();
 	 	info.addInfo(name, maker, givens);
 	 	introduceMatchInfo(info);
 	}
