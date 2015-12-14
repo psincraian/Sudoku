@@ -1,5 +1,8 @@
 package propias.dominio.clases;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /** La classe usuari guarda un nom i una contrasenya per aquest usuari.
  * 
  * @author Petru Rares Sincraian
@@ -16,7 +19,7 @@ public class Usuari extends UsuariGeneral {
 	 */
 	public Usuari(String nom) {
 		super(nom);
-		llistaSudokus = new ArrayList<Integer>();
+		llistaSudokus = new ArrayList<String>();
 	}
 	
 	/** Retorna la contrasenya del usuari
