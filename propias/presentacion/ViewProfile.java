@@ -130,8 +130,8 @@ public class ViewProfile extends SetView implements
 	    title.add(bht);
 		data.add(dataBestTime[2]);
 		buttonReturn = new JButton("Tornar");
-		changeName = new JButton("Cambiar nom Usuari");
-		changePass = new JButton("Cambiar Contrasenya");
+		changeName = new JButton("Canviar nom Usuari");
+		changePass = new JButton("Canviar Contrasenya");
 		buttonReturn.setToolTipText("Tornar al Menu Principal");
 		buttons = new JPanel();
 		buttons.add(buttonReturn);
@@ -159,7 +159,7 @@ public class ViewProfile extends SetView implements
 			if(b.getText().equals("Tornar")) {
 				listener.getBack();
 			}
-			else if (b.getText().equals("Cambiar nom Usuari")){
+			else if (b.getText().equals("Canviar nom Usuari")){
 				new DialogChangeUsername(this);
 			}
 			else{
