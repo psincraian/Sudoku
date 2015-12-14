@@ -82,4 +82,18 @@ public abstract class ListInfo implements java.io.Serializable {
 		}
 	}
 
+	/**
+	* Metode per obtenir el nom de
+	* tots els objectes de la ListInfo.
+	* @return List<String> amb els 
+	* noms.
+	*/
+	public List<String> getName(){
+		List<String> listName = new ArrayList<String>();
+		for(int a = 0; a < listInfo.size(); ++a){
+			listID.add(listInfo.get(a).name);
+		}
+		return listName;
+	}
+
 }
