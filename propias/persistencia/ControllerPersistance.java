@@ -137,12 +137,19 @@ public class ControllerPersistance {
 		recursiveDeleteFile(dir);
 	}
 
+	/**
+	* Esborra el fitxer i tot el
+	* seu contingut recursivament.
+	* @param file el fitxer en 
+	* questio.
+	*/
 	private void recursiveDeleteFile(File file){
 		if(file.isDirectory()){
-			if(file.list().length!=0){
-				String filesDelete[] = file.list();
-				for(int f = 0; f < filesDelete.length; ++f){
-					File fd = new File(file, filesDelete[f]);
+			File filesDelete[] = file.listFiles();
+			int numFiles = file.list().length;
+			if(numFiles != 0){				
+				for(int f = 0; f < numFiles; ++f){
+					File fd = new File(filesDelete[f].getAbsolutePath());
 					recursiveDeleteFile(fd);
 				}
 			}
@@ -163,8 +170,6 @@ public class ControllerPersistance {
 		File file2 = new File(autoPath + "/data/Users/" + newName);
 		user = newName;
 	}
-
-
 
 	/**
    	* Inicialitza el controlador per a un usuari 
@@ -478,11 +483,45 @@ public class ControllerPersistance {
 	}
 
 	/**
+	* Metode per a modificar la informacio guardada
+	* sobre les partides de l'usuari.
+	* @param serializedInfo informacio a guardar
+	* serialitzada.
+	* @param other usuari a qui li volem modificar
+	* el fitxer.
+	*/
+	public void introduceMatchInfo(String serializedInfo, String other) throws Exception {
+		File f = new File(autoPath + "/data/Users/" + other + "/Partidas/infoMatches");
+		f.delete();
+		f.createNewFile();
+		FileWriter fw = new FileWriter(f.getAbsolutePath());
+		PrintWriter pw = new PrintWriter(fw);
+		pw.print(serializedInfo);
+		fw.close();
+	}
+
+	/**
 	* Metode per a obtenir la informacio guardada
 	* de les partides de l'usuari.
 	*/
 	public String getMatchInfo() throws Exception {
 		FileReader fr = new FileReader(autoPath + "/data/Users/" + user + "/Partidas/infoMatches");
+		Scanner scn = new Scanner(fr);
+		String info = scn.next();
+		fr.close();
+		return info;
+	}
+
+	/**
+	* Metode per a obtenir la informacio guardada
+	* de les partides de l'usuari.
+	* @param other usuari de qui volem obtenir
+	* la informacio.
+	* @return la informacio adicional demanada
+	* de l'usuari other.
+	*/
+	public String getMatchInfo(String other) throws Exception {
+		FileReader fr = new FileReader(autoPath + "/data/Users/" + other + "/Partidas/infoMatches");
 		Scanner scn = new Scanner(fr);
 		String info = scn.next();
 		fr.close();
