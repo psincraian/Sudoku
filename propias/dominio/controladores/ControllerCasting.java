@@ -88,7 +88,7 @@ public class ControllerCasting {
 	* a esborrar.
 	*/
 	public void deleteUser() throws Exception {
-
+		cp.deleteUser();
 	}
 
 	/**
@@ -103,9 +103,11 @@ public class ControllerCasting {
 	 	String serializeduser = new String(DatatypeConverter.printBase64Binary(bos.toByteArray()));	 	
 		cp.setUser(serializeduser);
 		if(!getUser().consultarNom().equals(user.consultarNom())){
-			cp.changeName(user.consultarNom());
+			cp.changeName(user.consultarNom());			
 		}
 	}
+
+
 
 	/**
    	* Inicialitza el controlador de persistencia
