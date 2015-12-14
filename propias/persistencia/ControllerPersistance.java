@@ -135,6 +135,7 @@ public class ControllerPersistance {
 	public void deleteUser() throws Exception {
 		File dir = new File(autoPath + "/data/Users/" + user);
 		recursiveDeleteFile(dir);
+		user = null;
 	}
 
 	/**
@@ -178,6 +179,15 @@ public class ControllerPersistance {
   	*/
 	public void userDBInit(String user){
 		this.user = user;
+	}
+
+	/**
+	* Metode per a obtenir el nom de l'usuari
+	* carregat al controlador.
+	* @return String nom de l'usuari.
+	*/
+	public String getNameUserDB(){
+		return user;
 	}
 
 	/**
