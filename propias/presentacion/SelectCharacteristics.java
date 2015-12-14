@@ -1,5 +1,6 @@
 package propias.presentacion;
 
+import java.awt.Color;
 import java.awt.event.*;
 import javax.swing.*;
 
@@ -76,7 +77,6 @@ public class SelectCharacteristics extends SetView {
 		panelSize = new JPanel();
 		panelGivenNuber = new JPanel();
 		panelSudokuType = new JPanel();
-
 		createMatchGroup(panelMatch);
 		createDifficultyGroup(panelDifficulty);
 		createSizeGroup(panelSize);

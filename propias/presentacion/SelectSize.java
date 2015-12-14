@@ -1,5 +1,6 @@
 package propias.presentacion;
 
+import java.awt.Color;
 import java.awt.event.*;
 import javax.swing.*;
 
@@ -39,7 +40,6 @@ public class SelectSize extends SetView {
 
 	private void createView() {		
 		JPanel panelSize = new JPanel();
-
 		createSizeGroup(panelSize);
 
 		JButton saveButton = new JButton(SAVE_BUTTON);

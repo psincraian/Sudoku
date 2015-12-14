@@ -459,6 +459,29 @@ public class ControllerPresentation implements
 	public void getBack() {
 		showMainMenu();
 	}
+	public void changeUserName(String name){
+		if(cd.checkChangeName(name))
+			cd.changeUserName(name);
+		else {
+			JOptionPane.showMessageDialog(null, "Nom d'usuari no valid");
+			showProfile();
+		}
+	}
+	public void changeUserPass(String pass1, String pass2){
+		if(cd.checkChangePass(pass1,pass2))
+			cd.changeUserPass(pass1);
+		else {
+			JOptionPane.showMessageDialog(null, "Constrasenyes no valides");
+			showProfile();
+		}
+	}
+	/**
+	 * Elimina l'usuari
+	 */
+	public void deleteUser(){
+		cd.deleteUser();
+		start();
+	}
 	/**
 	 * Obte la mida del sudoku a crear
 	 */

@@ -98,6 +98,69 @@ public class ControllerDomain {
         }
     }
     /**
+     * Comproba si el nou username es valid per canviar
+     * @param name nou username
+     * @return si el nou username es valid
+     */
+    public boolean checkChangeName(String name){
+    	if (name.equals("") || name.equals(this.user.consultarNom()) || cc.existsUser(name)) return false;
+    	for(int i = 0; i < name.length(); ++i) {
+			Character c = name.charAt(i);
+            if (c < '1' || (c >'9' && c < 'A') || (c > 'Z' && c < 'a') || c > 'z')
+                return false;
+        }
+    	return true;
+    }
+    /**
+     * Comproba si la nova password es valida per canviar
+     * @param pass1 Contrasenya nova
+     * @param pass2 Contrasenya nova
+     * @return si la nova contrasenya es valida
+     */
+    public boolean checkChangePass(String pass1, String pass2){
+		if(pass1.equals("") || pass2.equals(""))
+			return false;
+		else if(!pass1.equals(pass2))
+			return false;
+		for(int i = 0; i < pass1.length(); ++i) {
+			Character c = pass1.charAt(i);
+            if (c < '1' || (c >'9' && c < 'A') || (c > 'Z' && c < 'a') || c > 'z')
+                return false;
+		}
+		return true;
+    }
+    /**
+     * Canvia el nom d'un usuari
+     * @param name Nou nom d'usuari
+     */
+    public void changeUserName(String name){
+    	this.user.setNom(name);
+    	try {
+			cc.setUser(this.user);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+    }
+    /**
+     * Canvia la password d'un usuari
+     * @param pass Nova password d'usuari
+     */
+    public void changeUserPass(String pass){
+    	this.user.setPassword(pass);
+    	try {
+			cc.setUser(this.user);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+    }
+    public void deleteUser(){
+    	try {
+			cc.deleteUser();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+    }
+    /**
      * Crea una partida a partir d'unes caracteristiques posades per l'usuari
      * @param c Contiene las caracteristicas de la nueva partia
      * @return Una nueva partida con caracteristicas c
@@ -372,6 +435,7 @@ public class ControllerDomain {
 				Sudoku s = new Sudoku(sudoku.getSudoku(), sudoku.getSolution(), dificultat, this.user.consultarNom());
 				String ident = cc.introduceSudoku(s,cont);
 				this.user.addSudoku(ident);
+				cc.setUser(this.user);
 			} catch (Exception e1) {
 				e1.printStackTrace();
 			}

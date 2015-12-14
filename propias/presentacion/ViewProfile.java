@@ -16,7 +16,7 @@ import javax.swing.JPanel;
  * 
  * @author Brian Martinez Alvarez
  */
-public class ViewProfile extends SetView{
+public class ViewProfile extends SetView implements DialogTwoPasswords.twoPasswordsInterface, DialogChangeUsername.changeUsername{
 	JPanel title;
 	JPanel data;
 	JPanel buttons;
@@ -36,11 +36,17 @@ public class ViewProfile extends SetView{
 	long[] matches;
 	long[] time;
 	long[] bestTime;
+	String name;
+	String pass;
 	public JButton buttonReturn;
+	public JButton changeName;
+	public JButton changePass;
 	private ProfileReturnListener listener;
 	
 	protected interface ProfileReturnListener {
 		public void getBack();
+		public void changeUserName(String name);
+		public void changeUserPass(String pass1, String pass2);
 	}
 	
 	/**
@@ -57,7 +63,6 @@ public class ViewProfile extends SetView{
 		this.bestTime = bestTime;
 		setTitle("Perfil d'usuari");
 		start_GUI();
-		//pack();
 		setVisible(true);
 	}
 	/**
@@ -124,9 +129,13 @@ public class ViewProfile extends SetView{
 	    title.add(bht);
 		data.add(dataBestTime[2]);
 		buttonReturn = new JButton("Tornar");
+		changeName = new JButton("Cambiar nom Usuari");
+		changePass = new JButton("Cambiar Contrasenya");
 		buttonReturn.setToolTipText("Tornar al Menu Principal");
 		buttons = new JPanel();
 		buttons.add(buttonReturn);
+		buttons.add(changeName);
+		buttons.add(changePass);
 	}
 	/**
 	 * Inicia les dades del jugador(partides, temps i millor temps)
@@ -142,11 +151,25 @@ public class ViewProfile extends SetView{
 	public class MouseManage extends MouseAdapter {
 		public void mouseClicked(MouseEvent e) {
 			JButton b = (JButton)e.getSource();
-			if(b.getText().equals("Tornar"))
+			if(b.getText().equals("Tornar")) {
 				listener.getBack();
+			}
+			else if (b.getText().equals("Cambiar nom Usuari")){
+				DialogChangeUsername du = new DialogChangeUsername(this);
+				save(name);
+			}
+			else{
+				DialogTwoPasswords dp = new DialogTwoPasswords(this);
+				save(pass);
+			}
 		}
 	}
-	
+	public void save(String username){
+		listener.changeUserName(username);
+	}
+	public void save(String pass1, String pass2){
+		listener.changeUserPass(pass1, pass2);
+	}
 	/**
 	 * Controla el boto
 	 * @param ma
@@ -154,12 +177,19 @@ public class ViewProfile extends SetView{
 	 */
 	public void listener(MouseAdapter ma){
 		buttonReturn.addMouseListener(ma);
+		changeName.addMouseListener(ma);
+		changePass.addMouseListener(ma);
 	}
 	/**
 	 * Amaga la vista
 	 */
 	public void disableView(){
 		setVisible(false);
+	}
+	@Override
+	public void cancel() {
+		
+		
 	}
 	
 }
