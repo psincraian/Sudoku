@@ -16,7 +16,9 @@ import javax.swing.JPanel;
  * 
  * @author Brian Martinez Alvarez
  */
-public class ViewProfile extends SetView implements DialogTwoPasswords.twoPasswordsInterface, DialogChangeUsername.changeUsername{
+public class ViewProfile extends SetView implements 
+										DialogTwoPasswords.twoPasswordsInterface, 
+										DialogChangeUsername.changeUsername {
 	JPanel title;
 	JPanel data;
 	JPanel buttons;
