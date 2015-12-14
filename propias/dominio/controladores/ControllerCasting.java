@@ -103,7 +103,8 @@ public class ControllerCasting {
 	 	String serializeduser = new String(DatatypeConverter.printBase64Binary(bos.toByteArray()));	 	
 		cp.setUser(serializeduser);
 		if(!getUser().consultarNom().equals(user.consultarNom())){
-			cp.changeName(user.consultarNom());			
+			
+			cp.changeName(user.consultarNom());	
 		}
 	}
 
@@ -336,7 +337,7 @@ public class ControllerCasting {
     	oos.close();
 	 	String serializedMatch = new String(DatatypeConverter.printBase64Binary(bos.toByteArray()));    	
 	 	cp.saveMatch(name, serializedMatch);
-	 	ListInfo info = getMatchInfo();
+	 	ListMatchInfo info = getMatchInfo();
 	 	info.addInfo(name, maker, givens);
 	 	introduceMatchInfo(info);
 	}
