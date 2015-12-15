@@ -1,0 +1,44 @@
+Funcionament de la base de dades:
+
+-Sistema de directoris i fitxers organitzats. Els fitxers representen classes serialitzades. La serialitzacio es fa a domini per fer la persistencia independent del contingut que es guarda en ella, el controlador de persistencia simplement rep dades en format String i les guarda on els toca, creant els fitxers i directoris que sigui necessari per fer-ho.
+
+-En cas de que falti algun directori necessari per al correcte funcionament de la base de dades el controlador de persistencia ho detecta i regenera els directoris necessaris.
+Apunt: ho fa de forma completament independent al contingut de les dades. Si hi hauria d'haver la representacio d'un usuari anomenat "Pep" i per la rao que sigui no hi es o hi ha arxius referents a classes que son corruptes o no presents aixo no ho regenerara.
+
+
+Estructura de la base de dades (NX on X es la profunditat a la que es troben respecte al directori principal data):
+
+N0. Directori principal: data
+
+N1. Subdirectoris de data:
+	-Ranking
+	-Sudokus
+	-Users
+N2. Contingut Ranking:
+	-Fitxer RankingGlobal, que representa el ranquing global 	dels usuaris del sistema.
+
+N2. Contingut Sudokus:
+	-Subdirectori "9x9"
+	-Subdirectori "16x16"
+
+N3. Contingut dels subdirectoris 9x9 i 16x16:
+	-Subdirectori "Facil"
+	-Subdirectori "Medio"
+	-Subdirectori "Dificil"
+
+N4. Contingut dels subdirectoris Facil, Medio i Dificil de 	9x9 i 16x16:
+	-Fitxers que representen els sudokus amb les caselles i 	dificultat que es pot deduir del directori on son.	Cada fitxer te de nom l'identificador del sudoku, que te 	el format "aX", on a es "e" en el cas de Facil (easy), 	"m" en el cas de mitja (medium) i "d" en el cas de 	dificil (difficult). La X es un nombre i es calcula com 	el nombre de sudokus 	amb la mateixa dificultat i 	caselles que el sudoku en questio quan es va crear mes 	un.
+	En 16x16 a demes la lletra esta en majuscules per tal 	d'aconseguir identificadors unics per 	a tot sudoku, per 	tant tindra "E", "M", "D" en comptes de "e", "m", "d".
+	-Fitxer "infoSudokus" amb la informacio adicional dels 	sudokus en el mateix directori (id, qui l'ha creat i	nombre de caselles inicials).
+
+N2. Contingut Users:
+	-Per a cada usuari del sistema, un directori anomenat amb 	el nom de l'usuari en qüestio.
+
+N3. Contingut carpeta usuari:
+	-Fitxer "user" que representa l'usuari en si i la seva 	informacio (nom i password).
+	-Fitxer "stadistics", amb les estadistiques de joc de 	l'usuari en qüestio (puntuacions i temps).
+	-Subdirectori "Partidas".
+
+N4. Contingut subdirectori Partidas:
+	-Fitxers que representan cada partida guardada per 	l'usuari i que tenen per nom l'identificador del sudoku 	jugat a la partida.
+	-Fitxer "infoMatches" amb la informacio adicional de les 	partides de l'usuari (id, qui ha creat el sudoku de la 	partida i quantes caselles queden per omplir en el 	sudoku).
