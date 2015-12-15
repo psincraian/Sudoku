@@ -37,7 +37,7 @@ public class VistaMenu extends SetView {
 	private MenuButtonClicked menuButtonClicked;
 
 	
-	public VistaMenu(Object object) {
+	private VistaMenu(Object object) {
 		super();
 		
 		try {
@@ -161,6 +161,21 @@ public class VistaMenu extends SetView {
 			
 			menuButtonClicked.getOption(option);
 		}
-		
 	}
+	
+	public static VistaMenu getInstance(Object object) {
+		if (instance != null) {
+			try {
+				instance.finalize();
+			} catch (Throwable e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		instance = new VistaMenu(object);
+		return instance;
+	}
+	
+	private static VistaMenu instance;
 }

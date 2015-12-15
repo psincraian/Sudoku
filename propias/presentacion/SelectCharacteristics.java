@@ -46,7 +46,7 @@ public class SelectCharacteristics extends SetView {
 	private JPanel panelGivenNuber;
 	private JPanel panelSudokuType;
 
-	public SelectCharacteristics(Object container) {
+	private SelectCharacteristics(Object container) {
 		super();
 		
 		try {
@@ -344,4 +344,21 @@ public class SelectCharacteristics extends SetView {
 		}
 		
 	}
+	
+	public static SelectCharacteristics getInstance(Object object) {
+		if (instance != null) {
+			try {
+				instance.finalize();
+			} catch (Throwable e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		instance = new SelectCharacteristics(object);
+		return instance;
+	}
+	
+	private static SelectCharacteristics instance;
+	
 }

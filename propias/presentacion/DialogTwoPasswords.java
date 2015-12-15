@@ -9,7 +9,7 @@ public class DialogTwoPasswords extends JDialog {
 		public void cancel();
 	}
 	
-    public DialogTwoPasswords(Object object) {
+    private DialogTwoPasswords(Object object) {
     	super();
     	listener = (twoPasswordsInterface) object;
         initComponents();
@@ -87,7 +87,19 @@ public class DialogTwoPasswords extends JDialog {
 
     private void SaveActionPerformed(java.awt.event.ActionEvent evt) {                                     
     	listener.save(password1.getText(), password2.getText());
-    }                                    
+    }    
+    
+    public static DialogTwoPasswords getInstance(Object object) {
+    	if (instance != null)
+			try {
+				instance.finalize();
+			} catch (Throwable e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+    	instance = new DialogTwoPasswords(object);
+    	return instance;
+    }
 
     private javax.swing.JButton Cancel;
     private javax.swing.JButton Save;
@@ -96,4 +108,5 @@ public class DialogTwoPasswords extends JDialog {
     private HintTextField password1;
     private HintTextField password2;
     private twoPasswordsInterface listener;
+    private static DialogTwoPasswords instance;
 }

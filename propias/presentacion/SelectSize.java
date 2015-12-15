@@ -24,7 +24,7 @@ public class SelectSize extends SetView {
 	private int size;
 	private GetParametersListener listener;
 
-	public SelectSize(Object container) {
+	private SelectSize(Object container) {
 		super();
 		
 		try {
@@ -136,4 +136,20 @@ public class SelectSize extends SetView {
 		}
 		
 	}
+	
+	public static SelectSize getInstance(Object object) {
+		if (instance != null) {
+			try {
+				instance.finalize();
+			} catch (Throwable e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		instance = new SelectSize(object);
+		return instance;
+	}
+	
+	private static SelectSize instance;
 }

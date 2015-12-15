@@ -151,9 +151,9 @@ public class ViewProfile extends SetView implements
 	
 	public void show(int i) {
 		if (i == 0)
-			new DialogChangeUsername(this);
+			DialogChangeUsername.getInstance(this);
 		else
-			new DialogTwoPasswords(this);
+			DialogTwoPasswords.getInstance(this);
 	}
 	
 	/**

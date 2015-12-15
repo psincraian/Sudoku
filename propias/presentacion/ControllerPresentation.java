@@ -106,7 +106,7 @@ public class ControllerPresentation implements
     public void showMainMenu() {
     	frame.getContentPane().removeAll();
         frame.setLayout(new java.awt.GridBagLayout());
-    	VistaMenu vm = new VistaMenu(this);
+    	VistaMenu vm = VistaMenu.getInstance(this);
         if (isGuest)
         	  vm.updateToGuestView();
         
@@ -336,7 +336,7 @@ public class ControllerPresentation implements
     private void showCreateSudoku() {
     	frame.getContentPane().removeAll();
     	frame.setLayout(new GridBagLayout());
-    	SelectSize sc = new SelectSize(this);
+    	SelectSize sc = SelectSize.getInstance(this);
     	frame.add(sc);
     	revalidateContentPane(frame);
     }
@@ -362,7 +362,7 @@ public class ControllerPresentation implements
 	 */
 	private void showSelectCharacteristics() {
         frame.getContentPane().removeAll();
-		SelectCharacteristics sc = new SelectCharacteristics(this);
+		SelectCharacteristics sc = SelectCharacteristics.getInstance(this);
 		if (isGuest)
 			sc.updateToGuest();
 		frame.add(sc);

@@ -3,7 +3,7 @@ package propias.presentacion;
 import javax.swing.JDialog;
 
 public class DialogChangeUsername extends JDialog {
-    public DialogChangeUsername(Object object) {
+    private DialogChangeUsername(Object object) {
     	super();
     	listener = (changeUsername) object;
         initComponents();
@@ -74,11 +74,23 @@ public class DialogChangeUsername extends JDialog {
 
     private void SaveActionPerformed(java.awt.event.ActionEvent evt) {   
     	listener.save(username.getText());
-    }                                    
+    }
+    
+    public static void getInstance(Object object) {
+    	if (instance != null)
+			try {
+				instance.finalize();
+			} catch (Throwable e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			};
+    	instance = new DialogChangeUsername(object);
+    }
 
     private javax.swing.JButton Cancel;
     private javax.swing.JButton Save;
     private HintTextField username;
     private javax.swing.JScrollPane usernamePane;
     private changeUsername listener;
+    private static DialogChangeUsername instance;
 }
