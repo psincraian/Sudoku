@@ -69,11 +69,11 @@ public class DialogChangeUsername extends JDialog {
     }                      
 
     private void CancelActionPerformed(java.awt.event.ActionEvent evt) {       
-    	listener.save(username.getText());
+    	listener.cancel();
     }                                      
 
     private void SaveActionPerformed(java.awt.event.ActionEvent evt) {   
-    	listener.cancel();
+    	listener.save(username.getText());
     }                                    
 
     private javax.swing.JButton Cancel;
