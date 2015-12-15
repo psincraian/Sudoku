@@ -31,6 +31,7 @@ public class ControllerDomain {
     boolean createSudoku; //indica si s'esta creant un nou sudoku o no
     int cont; //indica les caselles posades per l'usuari al jugar una partida
     int points; // punts de la partida
+    boolean isGuest = true;
     ErrorUserEntry errorUser;
     
     /**
@@ -88,6 +89,7 @@ public class ControllerDomain {
                     cc.userDBInit(user.consultarNom());
                     stad = cc.getStadistics();
                     rg = cc.getRankingGlobal();
+                    isGuest = false;
                     return "Login correcte";
                 }
                 else return "Contrasenya incorrecte";
@@ -178,7 +180,10 @@ public class ControllerDomain {
         	    cont = positionInList(false);
             	this.dificult = c.getDificultat();
             	this.type = c.getTipusPartida();
-            	if (isGuest) match = new MatchTraining("Convidat", s);
+            	if (isGuest) {
+            		this.isGuest = true;
+            		match = new MatchTraining("Convidat", s);
+            	}
             	else if(type == 0) match = new MatchTraining(this.user.consultarNom(), s);
                 else match = new MatchCompetition(this.user.consultarNom(), s);
             	int[][] matrix = convertToMatrix(s.getSudoku());
@@ -190,16 +195,18 @@ public class ControllerDomain {
         		CntrlSudokuGenerator csg = new CntrlSudokuGenerator(c.getMida());
         		Sudoku s = cs.createWithMinCells(c.getDificultat(), csg.generateBoard(),c.getGivenNumbers());
         		s.setMaker("creacion automatica");
-        	    String id = cc.introduceSudoku(s, c.getGivenNumbers());
-        	    cont = cs.getGivensLastSudoku();
-        	    this.id = id;
-        	    s = cc.getSudoku(c.getMida(), c.getDificultat(), id);
+        		cont = cs.getGivensLastSudoku();
+        		if(!isGuest){
+	        	    String id = cc.introduceSudoku(s, c.getGivenNumbers());
+	        	    this.id = id;
+	        	    s = cc.getSudoku(c.getMida(), c.getDificultat(), id);
+        		}
         	    this.size = c.getMida();
             	this.dificult = c.getDificultat();
             	this.type = c.getTipusPartida();
             	if (isGuest) match = new MatchTraining("Convidat", s);
-            	else if(type == 0) match = new MatchTraining(this.user.consultarNom(), s);
-                else if (type == 1) match = new MatchCompetition(this.user.consultarNom(), s);
+            	else if(type == 0 && !isGuest) match = new MatchTraining(this.user.consultarNom(), s);
+                else if (type == 1 && !isGuest) match = new MatchCompetition(this.user.consultarNom(), s);
             	int[][] matrix = convertToMatrix(s.getSudoku());
             	return matrix;
     		}	
@@ -306,6 +313,7 @@ public class ControllerDomain {
 					p.setRow(i);
 					p.setColumn(j);
 					sudoku.setCell(p, Character.getNumericValue(s.charAt(position)));
+					sudoku.getSudoku().setCellType(i, j, CellType.Locked);
 					++cont;
 					return String.valueOf(s.charAt(position));
 				} catch (Exception e) {
@@ -422,11 +430,6 @@ public class ControllerDomain {
 	        }
         }
         else { // es un nou sudoku
-        	for(int i=0; i< this.sudoku.getSudoku().getSize(); ++i){
-        		for(int j=0; j< sudoku.getSudoku().getSize(); ++j){
-        			if(sudoku.getSudoku().getCellValue(i, j) != 0) sudoku.getSudoku().setCellType(i, j, CellType.Locked);
-        		}
-        	}
 	        CntrlSearchLevel cs = new CntrlSearchLevel();
 	        try {
 				cs.init(sudoku.getSudoku());
@@ -521,7 +524,7 @@ public class ControllerDomain {
 			        	cc.deleteMatch(this.id);
 		        	}
 		        	else{
-		        		cc.deleteMatch(this.id);
+		        		if (!isGuest) cc.deleteMatch(this.id);
 		        		points = -1;
 		        	}
 		        	return true;
@@ -530,8 +533,14 @@ public class ControllerDomain {
 	        else {
 	        	boolean buit = ( sudoku.getSudoku().getCellValue(row, column) == 0);
 	        	sudoku.setCell(new Position(row, column), value);
-	        	if(value != 0 && buit) ++cont;
-	        	else if (value == 0 && !buit) --cont;
+	        	if(value != 0 && buit) {
+	        		sudoku.getSudoku().setCellType(row, column, CellType.Locked);
+	        		++cont;
+	        	}
+	        	else if (value == 0 && !buit) {
+	        		sudoku.getSudoku().setCellType(row, column, CellType.Empty);
+	        		--cont;
+	        	}
 	        	
 	        }
 	        return false;

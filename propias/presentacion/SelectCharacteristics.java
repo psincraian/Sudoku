@@ -15,26 +15,26 @@ public class SelectCharacteristics extends SetView {
 	private static final long serialVersionUID = -170046201841094501L;
 	
 	private final static String TITLE = "Select Characteristics";
-	private final static String SAVE_BUTTON = "Save";
+	private final static String SAVE_BUTTON = "Guardar";
 
-	private final static String MATCH_LABEL = "Match";
-	private final static String MATCH_TRAINING = "Training";
-	private final static String MATCH_COMPETITION = "Competition";
+	private final static String MATCH_LABEL = "Partida";
+	private final static String MATCH_TRAINING = "Entrenament";
+	private final static String MATCH_COMPETITION = "Competició";
 
-	private final static String DIFFICUlTY_LABEL = "Difficulty";
-	private final static String DIFFICUlTY_EASY = "Easy";
-	private final static String DIFFICUlTY_MEDIUM = "Medium";
-	private final static String DIFFICUlTY_HARD = "Hard";
+	private final static String DIFFICUlTY_LABEL = "Dificultat";
+	private final static String DIFFICUlTY_EASY = "Fàcil";
+	private final static String DIFFICUlTY_MEDIUM = "Mitjà";
+	private final static String DIFFICUlTY_HARD = "Difícil";
 
-	private final static String SIZE_LABEL = "Size";
+	private final static String SIZE_LABEL = "Mida";
 	private final static String SIZE_9 = "9x9";
 	private final static String SIZE_16 = "16x16";
 
-	private final static String GIVEN_NUMBERS_LABEL = "Given numbers";
+	private final static String GIVEN_NUMBERS_LABEL = "Numeros mínims donats";
 	
-	private final static String SUDOKU_BD_NEW_LABEL = "From BD or create new";
-	private final static String SUDOKU_NEW = "New sudoku";
-	private final static String SUDOKU_BD = "From BD";
+	private final static String SUDOKU_BD_NEW_LABEL = "Nou o de la Base de Dades";
+	private final static String SUDOKU_NEW = "Nou sudoku";
+	private final static String SUDOKU_BD = "De la BBDD";
 
 	private CaracteristiquesPartida characteristics;
 	private JTextField hiddenNumbersField;
@@ -71,7 +71,7 @@ public class SelectCharacteristics extends SetView {
 		panelMatch.remove(1);
 	}
 
-	private void createView() {		
+	private void createView() {
 		panelMatch = new JPanel();
 		panelDifficulty = new JPanel();
 		panelSize = new JPanel();

@@ -14,10 +14,10 @@ public class SelectSize extends SetView {
 	
 	private static final long serialVersionUID = -170046201841094501L;
 	
-	private final static String TITLE = "Select Size";
-	private final static String SAVE_BUTTON = "Save";
+	private final static String TITLE = "Seleciona la Mida";
+	private final static String SAVE_BUTTON = "Guardar";
 
-	private final static String SIZE_LABEL = "Size";
+	private final static String SIZE_LABEL = "Mida";
 	private final static String SIZE_9 = "9x9";
 	private final static String SIZE_16 = "16x16";
 

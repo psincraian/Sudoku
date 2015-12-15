@@ -440,6 +440,11 @@ public class ControllerPresentation implements
 			createSudoku = true;
 			showCreateSudoku();
 			break;
+		case EliminarUsuari:
+			deleteUser();
+			JOptionPane.showMessageDialog(null, "L'usuari s'ha eliminat correctament");
+			start();
+			break;
 		case Ranking:
 			showRanking();
 			break;
@@ -488,7 +493,6 @@ public class ControllerPresentation implements
 	 */
 	public void deleteUser(){
 		cd.deleteUser();
-		start();
 	}
 	/**
 	 * Obte la mida del sudoku a crear
