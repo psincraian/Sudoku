@@ -14,7 +14,6 @@ public class DialogTwoPasswords extends JDialog {
     	listener = (twoPasswordsInterface) object;
         initComponents();
         setModal(true);
-        setVisible(true);
     }
 
     @SuppressWarnings("unchecked")

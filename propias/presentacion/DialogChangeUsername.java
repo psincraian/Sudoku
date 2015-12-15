@@ -8,7 +8,6 @@ public class DialogChangeUsername extends JDialog {
     	listener = (changeUsername) object;
         initComponents();
         setModal(true);
-        setVisible(true);
     }
     
     public interface changeUsername {
@@ -76,7 +75,7 @@ public class DialogChangeUsername extends JDialog {
     	listener.save(username.getText());
     }
     
-    public static void getInstance(Object object) {
+    public static DialogChangeUsername getInstance(Object object) {
     	if (instance != null)
 			try {
 				instance.finalize();
@@ -85,6 +84,7 @@ public class DialogChangeUsername extends JDialog {
 				e.printStackTrace();
 			};
     	instance = new DialogChangeUsername(object);
+    	return instance;
     }
 
     private javax.swing.JButton Cancel;

@@ -10,9 +10,11 @@ import propias.presentacion.SelectCharacteristics;
 
 public class DialogTwoPasswordsTest implements DialogTwoPasswords.twoPasswordsInterface {
 
+	DialogTwoPasswords dialog;
 	private void createGUI() {
 		JFrame frame = new JFrame();
-	    new DialogTwoPasswords(this);
+	    dialog = DialogTwoPasswords.getInstance(this);
+	    dialog.setVisible(true);
 	}
 	
 
@@ -35,7 +37,6 @@ public class DialogTwoPasswordsTest implements DialogTwoPasswords.twoPasswordsIn
 
 	@Override
 	public void cancel() {
-		// TODO Auto-generated method stub
-		
+		dialog.dispose();
 	}
 }
