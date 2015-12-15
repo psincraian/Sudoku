@@ -58,6 +58,8 @@ public class ControllerDomain {
                 	return "Les contrasenyes no coincideixen"; 
                 else if(errorUser.equals(ErrorUserEntry.LOGIN_FAIL_ONLY_VALID_CHARS_AND_NUMBERS))  
                 	return "Les contrasenyes nomes poden tenir lletres i numeros";
+                else if(errorUser.equals(ErrorUserEntry.LOGIN_FAIL_ONLY_VALID_CHARS_AND_NUMBERS_NAME))
+                	return "L'usuari nomes pot tenir lletres i numeros";
                 else {
                 	user = cu.createUser();
                 	cc.createUser(user);

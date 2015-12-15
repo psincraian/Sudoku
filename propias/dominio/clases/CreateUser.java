@@ -52,6 +52,11 @@ public class CreateUser {
             if (c < '1' || (c >'9' && c < 'A') || (c > 'Z' && c < 'a') || c > 'z')
                 return ErrorUserEntry.LOGIN_FAIL_ONLY_VALID_CHARS_AND_NUMBERS;
         }
+		for(int i = 0; i < nom.length(); ++i) {
+			Character c = nom.charAt(i);
+            if (c < '1' || (c >'9' && c < 'A') || (c > 'Z' && c < 'a') || c > 'z')
+                return ErrorUserEntry.LOGIN_FAIL_ONLY_VALID_CHARS_AND_NUMBERS_NAME;
+        }
 		if(nom.equals(""))
 			return ErrorUserEntry.LOGIN_FAIL_USER_EMPTY;
 		else if(pass1.equals("") || pass2.equals(""))
