@@ -1,0 +1,11 @@
+PRESENTACIÓ:
+  - ControllerPresentation
+  - ViewProfile
+  - ViewLoadMatch
+  - ViewStart
+  
+DOMINI:
+  - ControllerDomain
+  - ControllerBoard
+  - Options
+  - Stadistics
