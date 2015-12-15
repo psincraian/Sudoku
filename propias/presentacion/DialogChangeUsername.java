@@ -19,7 +19,6 @@ public class DialogChangeUsername extends JDialog {
     @SuppressWarnings("unchecked")
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
         usernamePane = new javax.swing.JScrollPane();
         username = new HintTextField("New username");
         Save = new javax.swing.JButton();
@@ -41,8 +40,8 @@ public class DialogChangeUsername extends JDialog {
             }
         });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(getContentPane());
+        setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -79,7 +78,6 @@ public class DialogChangeUsername extends JDialog {
 
     private javax.swing.JButton Cancel;
     private javax.swing.JButton Save;
-    private javax.swing.JPanel jPanel1;
     private HintTextField username;
     private javax.swing.JScrollPane usernamePane;
     private changeUsername listener;
