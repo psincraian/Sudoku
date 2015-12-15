@@ -328,7 +328,7 @@ public class ControllerDomain {
 					p.setRow(i);
 					p.setColumn(j);
 					sudoku.setCell(p, Character.getNumericValue(s.charAt(position)));
-					sudoku.getSudoku().setCellType(i, j, CellType.Locked);
+					sudoku.setCellType(i, j, CellType.Locked);
 					++cont;
 					return String.valueOf(s.charAt(position));
 				} catch (Exception e) {
@@ -346,7 +346,7 @@ public class ControllerDomain {
 					p.setRow(i);
 					p.setColumn(j);
 					sudoku.setCell(p, Character.getNumericValue(s.charAt(position)));
-					sudoku.getSudoku().setCellType(i, j, CellType.Locked);
+					sudoku.setCellType(i, j, CellType.Locked);
 					++cont;
 					return value;
 				} catch (Exception e) {
@@ -574,7 +574,7 @@ public class ControllerDomain {
 			        	points = score;
 			        	cc.setStadistics(this.stad);
 			        	cc.setRankingGlobal(this.rg);
-			        	cc.introduceSudoku(s, this.numbersGiven);
+			        	cc.modifySudoku(this.id, s);
 		        	}
 		        	else{
 		        		if (!isGuest) cc.deleteMatch(this.id);
@@ -587,11 +587,11 @@ public class ControllerDomain {
 	        	boolean buit = ( sudoku.getSudoku().getCellValue(row, column) == 0);
 	        	sudoku.setCell(new Position(row, column), value);
 	        	if(value != 0 && buit) {
-	        		sudoku.getSudoku().setCellType(row, column, CellType.Locked);
+	        		sudoku.setCellType(row, column, CellType.Locked);
 	        		++cont;
 	        	}
 	        	else if (value == 0 && !buit) {
-	        		sudoku.getSudoku().setCellType(row, column, CellType.Unlocked);
+	        		sudoku.setCellType(row, column, CellType.Unlocked);
 	        		--cont;
 	        	}
 	        	

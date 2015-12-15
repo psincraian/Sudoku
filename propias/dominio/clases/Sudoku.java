@@ -121,6 +121,15 @@ public class Sudoku implements java.io.Serializable {
 	public void deleteCell(Position position) throws Exception {
 		sudoku.deleteCasella(position.getRow(), position.getColumn());
 	}
+	/**
+	 * Canvia el tipus d'una casella
+	 * @param i Fila
+	 * @param j Columna
+	 * @param c Tipus de casella
+	 */
+	public void setCellType(int i, int j, CellType c){
+		this.sudoku.getCell(i, j).setType(c);
+	}
 	
 	/** Retorna el nivell del Sudoku
 	 * 
