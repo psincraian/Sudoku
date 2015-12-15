@@ -104,7 +104,6 @@ public class ControllerCasting {
 	 	String serializeduser = new String(DatatypeConverter.printBase64Binary(bos.toByteArray()));	 	
 		cp.setUser(serializeduser);
 		if(!cp.getNameUserDB().equals(user.consultarNom())){
-			System.out.println("1"+cp.getNameUserDB() + " " + user.consultarNom());
 			changeNameObjects(cp.getNameUserDB(), user.consultarNom());
 			cp.changeName(user.consultarNom());
 		}
@@ -115,8 +114,7 @@ public class ControllerCasting {
 	* afectats al canviar el nom de l'usuari.
 	* @param newName nou nom de l'usuari.
 	*/
-	public void changeNameObjects(String oldName, String newName) throws Exception {
-		System.out.println("2"+oldName + " " + newName);
+	public void changeNameObjects(String oldName, String newName) throws Exception {		
 		changeNameSudokus(oldName, newName);
 		changeNameListInfoMatches(oldName, newName);
 		changeNameRankingGlobal(oldName, newName);
