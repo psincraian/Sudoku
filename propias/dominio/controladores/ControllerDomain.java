@@ -471,6 +471,9 @@ public class ControllerDomain {
         }
         
     }
+    /**
+     * Comença el temps de la partida competicio
+     */
     public void startTimer(){
     	((MatchCompetition) match).startTime();
     }
