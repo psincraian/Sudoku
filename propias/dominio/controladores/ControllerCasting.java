@@ -88,7 +88,7 @@ public class ControllerCasting {
 	* a esborrar.
 	*/
 	public void deleteUser() throws Exception {		
-		cp.changeName(cp.getNameUserDB() + "(eliminat)");
+		changeNameObjects(cp.getNameUserDB(), cp.getNameUserDB() + "(eliminat)");
 		cp.deleteUser();
 	}
 
@@ -96,16 +96,17 @@ public class ControllerCasting {
 	* Permet modificar l'usuari carregat a
 	* persistencia per un altre.
 	*/
-	public void setUser(Usuari user) throws Exception {
+	public void setUser(Usuari user) throws Exception {		
 		ByteArrayOutputStream bos = new ByteArrayOutputStream();
 	 	ObjectOutputStream oos = new ObjectOutputStream(bos);
 	 	oos.writeObject(user);
 	 	oos.close();
 	 	String serializeduser = new String(DatatypeConverter.printBase64Binary(bos.toByteArray()));	 	
 		cp.setUser(serializeduser);
-		if(!getUser().consultarNom().equals(user.consultarNom())){
-			changeNameObjects(getUser().consultarNom(), user.consultarNom());
-			cp.changeName(user.consultarNom());	
+		if(!cp.getNameUserDB().equals(user.consultarNom())){
+			System.out.println("1"+cp.getNameUserDB() + " " + user.consultarNom());
+			changeNameObjects(cp.getNameUserDB(), user.consultarNom());
+			cp.changeName(user.consultarNom());
 		}
 	}
 
@@ -114,7 +115,8 @@ public class ControllerCasting {
 	* afectats al canviar el nom de l'usuari.
 	* @param newName nou nom de l'usuari.
 	*/
-	public void changeNameObjects(String oldName, String newName) throws Exception {		
+	public void changeNameObjects(String oldName, String newName) throws Exception {
+		System.out.println("2"+oldName + " " + newName);
 		changeNameSudokus(oldName, newName);
 		changeNameListInfoMatches(oldName, newName);
 		changeNameRankingGlobal(oldName, newName);
@@ -135,9 +137,9 @@ public class ControllerCasting {
 				ListSudokuInfo sudoInfo = getSudokuInfo(dif, size);
 				sudoInfo.replaceMaker(oldName, newName);
 				List<List<String>> idMakerGivensSudokus = sudoInfo.getInfoIdMakerGivens(0);
-				introduceSudokuInfo(new ListSudokuInfo(), dif, s);
+				introduceSudokuInfo(new ListSudokuInfo(), dif, size);
 				for(int a = 0; a < idMakerGivensSudokus.size(); ++a){
-					Sudoku sudo = getSudoku(s, dif, idMakerGivensSudokus.get(a).get(0));
+					Sudoku sudo = getSudoku(size, dif, idMakerGivensSudokus.get(a).get(0));
 					RankingSudoku rank = sudo.getRanking();
 					List<ParamRanking> params = rank.getRanking();
 					for(int pr = 0; pr < params.size(); ++pr){
@@ -183,6 +185,7 @@ public class ControllerCasting {
 			}
 		}
 		rank = new RankingGlobal(params);
+		setRankingGlobal(rank);
 	}
 
 	/**
@@ -528,24 +531,5 @@ public class ControllerCasting {
 	 	String serializedranking = new String(DatatypeConverter.printBase64Binary(bos.toByteArray()));    	
 	 	cp.setRankingGlobal(serializedranking);
 	}
-
-	/*
-	public static Object deserialize(String fileName) throws IOException, ClassNotFoundException {
-	        FileInputStream fis = new FileInputStream(fileName);
-	        BufferedInputStream bis = new BufferedInputStream(fis);
-	        ObjectInputStream ois = new ObjectInputStream(bis);
-	        Object obj = ois.readObject();
-	        ois.close();
-	        return obj;
-    	}
-
-    	public static void serialize(Object obj, String fileName) throws IOException {
-	        FileOutputStream fos = new FileOutputStream(fileName);
-	        BufferedOutputStream bos = new BufferedOutputStream(fos);
-	        ObjectOutputStream oos = new ObjectOutputStream(bos);
-	        oos.writeObject(obj);
-	        oos.close();
-    	}
-	*/
 
 }
