@@ -175,6 +175,6 @@ public class Sudoku implements java.io.Serializable {
 	 * @return Retorna el Ranking
 	 */
 	public RankingSudoku getRanking() {
-		return ranking;
+		return this.ranking;
 	}
 }

@@ -29,7 +29,6 @@ public class Match implements java.io.Serializable {
 		this.username = username;
 		this.sudoku = new Sudoku(new Board(size),new Board(size));
 	}
-
 	/** Retorna el Sudoku de la partida
 	 * 
 	 * @return el Sudoku de la partida
@@ -51,6 +50,13 @@ public class Match implements java.io.Serializable {
 	 */
 	public String getMaker(){
 		return sudoku.getMaker();
+	}
+	/**
+	 * Ranking del sudoku
+	 * @return el ranking del sudoku
+	 */
+	public RankingSudoku getRanking(){
+		return this.sudoku.getRanking();
 	}
 	/** Canvia el usuari de la partida
 	 * 

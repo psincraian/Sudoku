@@ -31,6 +31,7 @@ public class ControllerDomain {
     Usuari user;
     boolean createSudoku; //indica si s'esta creant un nou sudoku o no
     int cont; //indica les caselles posades per l'usuari al jugar una partida
+    int hintsUsed;
     int points; // punts de la partida
     boolean isGuest = true;
     ErrorUserEntry errorUser;
@@ -183,10 +184,14 @@ public class ControllerDomain {
             	this.type = c.getTipusPartida();
             	if (isGuest) {
             		this.isGuest = true;
+            		this.hintsUsed = 0;
             		match = new MatchTraining("Convidat", s);
             	}
-            	else if(type == 0) match = new MatchTraining(this.user.consultarNom(), s);
-                else match = new MatchCompetition(this.user.consultarNom(), s);
+            	if(type == 0 && !isGuest) {
+            		this.hintsUsed = 0;
+            		match = new MatchTraining(this.user.consultarNom(), s);
+            	}
+                else if (type == 1 && !isGuest) match = new MatchCompetition(this.user.consultarNom(), s);
             	int[][] matrix = convertToMatrix(s.getSudoku());
             	return matrix;
         	}
@@ -205,6 +210,9 @@ public class ControllerDomain {
         	    this.size = c.getMida();
             	this.dificult = c.getDificultat();
             	this.type = c.getTipusPartida();
+            	if (type == 0) {
+            		this.hintsUsed = 0;
+            	}
             	if (isGuest) match = new MatchTraining("Convidat", s);
             	else if(type == 0 && !isGuest) match = new MatchTraining(this.user.consultarNom(), s);
                 else if (type == 1 && !isGuest) match = new MatchCompetition(this.user.consultarNom(), s);
@@ -405,6 +413,7 @@ public class ControllerDomain {
         try{
         	createSudoku = false;
             this.id = id;
+            this.hintsUsed = 0;
             cont = positionInList(true);
             match = cc.getSavedMatch(id);
             dificult = match.getSudokuLevel();
@@ -439,11 +448,6 @@ public class ControllerDomain {
 				CntrlSudokuSolver css = new CntrlSudokuSolver(sudoku.getSudoku());
 				css.needUnique();
 				Board sol = css.solve();
-				for(int i=0; i<sudoku.getSudoku().getSize(); ++i)
-					for(int j=0; j<sudoku.getSudoku().getSize(); ++j)
-						if(sudoku.getSudoku().getCellType(i, j) == CellType.Locked)
-							System.out.print(sudoku.getSudoku().getCellValue(i, j));
-					System.out.println();
 				Sudoku s = new Sudoku(sudoku.getSudoku(), sol, dificultat, this.user.consultarNom());
 				if(checkBoard()){
 					String ident = cc.introduceSudoku(s,cont);
@@ -489,14 +493,29 @@ public class ControllerDomain {
         } 
     }
     public void getRankingSudoku(List<String> username, List<Long> values){
-    	/*List<ParamRanking> l = ((MatchCompetition) match).get
+    	RankingSudoku rs = ((MatchCompetition) match).getRanking();
+    	List<ParamRanking> l = rs.getRanking();
         int mida = l.size();
         if (mida >10) mida = 10;
         for(int i=0; i<mida; ++i) {
             ParamRanking aux = l.get(i);
             username.add(aux.getName());
             values.add(aux.getValue());
-        } */
+        }
+    }
+    public void addtoRankingSudoku(List<String> info){
+    	RankingSudoku rs = ((MatchCompetition) match).getRanking();
+    	List<ParamRanking> l = rs.getRanking();
+    	boolean found = false;
+    	for (int i=10; !found && i<l.size(); ++i){
+    		ParamRanking aux = l.get(i);
+    		if (aux.getName().equals(this.user.consultarNom())){
+    			found = true;
+    			info.add(aux.getName());
+    			info.add(Long.toString(aux.getValue()));
+    			info.add(Integer.toString(i));
+    		}
+    	}
     }
     /**
      * Incorpora al ranking els usuaris fora dels 10 primers llocs
@@ -547,6 +566,8 @@ public class ControllerDomain {
 			        	stad.afegirNumPartides(1, dificult); //actualizo numer partidas de estadisticas
 			        	rg.modRanking(new ParamRanking(this.user.consultarNom(), ((MatchCompetition) match).getMatchTime())); //actualizo ranking global
 			        	points = score;
+			        	cc.setStadistics(this.stad);
+			        	cc.setRankingGlobal(this.rg);
 			        	cc.deleteMatch(this.id);
 		        	}
 		        	else{
@@ -640,6 +661,7 @@ public class ControllerDomain {
         try {
             p = new Position(row,column);
             int res = CntrlSudokuHelps.getCellSolution(match.getSolution(), p);
+            ++this.hintsUsed;
             return res;
         } catch (Exception e) {
         	e.printStackTrace();
@@ -647,7 +669,18 @@ public class ControllerDomain {
         }
         
     }
-
+    /**
+     * indica si hi ha ajudes de resoldre casella disponibles per usar
+     * nivell fàcil té 9 ajudes en 9x9 i 30 ajudes en 16x16
+     * nivell mitjà té 6 ajudes en 9x9 i 20 ajudes en 16x16
+     * nivell difícil no pot utilitzar lajuda de resoldre caselles
+     * @return si hi ha ajudes disponibles per usar
+     */
+    public boolean hintAvailable(){
+    	if (this.dificult == 0 && this.hintsUsed <= (int)(0.12*size*size)) return true;
+    	else if (this.dificult == 1 && this.hintsUsed <= (int)(0.08*size*size)) return true;
+    	return false;
+    }
     /**
      * 
      * @return Retorna el numero de partidas jugadas por el usuario

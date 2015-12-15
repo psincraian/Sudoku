@@ -71,7 +71,8 @@ public class ControllerPresentation implements
     	isGuest = false;
     	frame.getContentPane().removeAll();
         frame.setLayout(new BorderLayout());
-    	new ControllerUserEntry(ControllerUserEntry.LOGIN_VIEW ,frame,this);
+        ControllerUserEntry cu = ControllerUserEntry.getInstance();
+    	cu.launchView(ControllerUserEntry.LOGIN_VIEW ,frame,this);
     	revalidateContentPane(frame);
     }
     
@@ -88,7 +89,8 @@ public class ControllerPresentation implements
      */
     public void startNewUser(){
         frame.getContentPane().removeAll();
-    	new ControllerUserEntry(ControllerUserEntry.REGISTRATION_VIEW ,frame,this);
+        ControllerUserEntry cu = ControllerUserEntry.getInstance();
+    	cu.launchView(ControllerUserEntry.REGISTRATION_VIEW ,frame,this);
     	revalidateContentPane(frame);
     }
     
@@ -175,19 +177,6 @@ public class ControllerPresentation implements
     public boolean checkBoard(){
         return cd.checkBoard();
     }
-    
-    /**
-     * 
-     * @param position Coordenades d'una Cel·la
-     * @param value Valor a posar a la Cel·la
-     */
-    @Override
-    public void updateCell(String position, int value){
-    	Boolean check = cd.updateCell(position, value);
-    	if(check){
-	    	boardCompleted();
-    	}
-    }
     /**
      * Indica que s'ha completat el sudoku correctament
      */
@@ -195,7 +184,7 @@ public class ControllerPresentation implements
     	ControllerViewBoard c = ControllerViewBoard.getInstance();
         if(!createSudoku && cd.takePointsBoard() != 0 && this.caracteristiques.getTipusPartida() == 1){
         	c.sendMessage("Felicitats, has omplert el sudoku. Ranking del Sudoku: " + cd.takePointsBoard());
-        	showMainMenu();
+        	showRankingSudoku();
         }
         else if (this.caracteristiques.getTipusPartida() == 0 && !createSudoku && cd.takePointsBoard() != 0){
         	c.sendMessage("Felicitats, has omplert el sudoku.");
@@ -218,7 +207,8 @@ public class ControllerPresentation implements
     	if(competition) cd.startTimer();
 		frame.getContentPane().removeAll();
 		frame.setLayout(new BorderLayout());
-		new ControllerViewBoard(sudoku, ControllerViewBoard.VIEW_PLAY_SUDOKU,
+		ControllerViewBoard cb = ControllerViewBoard.getInstance();
+		cb.launchView(sudoku, ControllerViewBoard.VIEW_PLAY_SUDOKU,
 			isGuest, competition, frame, this);
     	revalidateContentPane(frame);
     }
@@ -270,11 +260,29 @@ public class ControllerPresentation implements
      */
     @Override
     public int getCellResolved(String s) {
-    	if(cd.updateCell(s,cd.getCellSol(s))) {
-    		boardCompleted();
+    	if (!cd.hintAvailable()) {
+    		ControllerViewBoard c = ControllerViewBoard.getInstance();
+    		c.sendMessage("No pots utilitzar aquesta ajuda");
+    		return 0;
     	}
-    	else return cd.getCellSol(s);
-		return 0;
+    	int number = cd.getCellSol(s);
+    	if(cd.updateCell(s,number)) {
+    		boardCompleted();
+    		return 0;
+    	}
+    	else return number;
+    }
+	/**
+     * 
+     * @param position Coordenades d'una Cel·la
+     * @param value Valor a posar a la Cel·la
+     */
+    @Override
+    public void updateCell(String position, int value){
+    	Boolean check = cd.updateCell(position, value);
+    	if(check){
+	    	boardCompleted();
+    	}
     }
     /**
      * Opcions del menu inicial
@@ -324,7 +332,8 @@ public class ControllerPresentation implements
          cd.getRanking(names,values);
          frame.getContentPane().removeAll();
          frame.setLayout(new BorderLayout());
-         ViewRanking vr = new ViewRanking(names, values, this);
+         ViewRanking vr = ViewRanking.getInstance();
+         vr.launchView(names, values, this);
          List<String> info = new ArrayList<String>(); // name, value, pos
          cd.addToRanking(info);
          if(info != null && info.size() != 0)vr.addPosUser(Integer.parseInt(info.get(2)), Long.parseLong(info.get(1)), info.get(0));
@@ -337,9 +346,10 @@ public class ControllerPresentation implements
         cd.getRankingSudoku(names,values);
         frame.getContentPane().removeAll();
         frame.setLayout(new BorderLayout());
-        ViewRanking vr = new ViewRanking(names, values, this);
+        ViewRanking vr = ViewRanking.getInstance(); 
+        vr.launchView(names, values, this);
         List<String> info = new ArrayList<String>(); // name, value, pos
-        cd.addToRanking(info);
+        cd.addtoRankingSudoku(info);
         if(info != null && info.size() != 0)vr.addPosUser(Integer.parseInt(info.get(2)), Long.parseLong(info.get(1)), info.get(0));
         frame.add(vr);
         revalidateContentPane(frame);
@@ -366,7 +376,8 @@ public class ControllerPresentation implements
 		else{
 			frame.getContentPane().removeAll();
 			frame.setLayout(new BorderLayout());
-			ViewSelectSudoku vl = new ViewSelectSudoku(id, this);
+			ViewSelectSudoku vl = ViewSelectSudoku.getInstance(); 
+			vl.launchView(id, this);
 			frame.add(vl, BorderLayout.CENTER);;
 			revalidateContentPane(frame);
 		}
@@ -405,7 +416,8 @@ public class ControllerPresentation implements
 		else {
 			frame.getContentPane().removeAll();
 			frame.setLayout(new BorderLayout());
-			ViewSelectSudoku vl = new ViewSelectSudoku(list, this);
+			ViewSelectSudoku vl = ViewSelectSudoku.getInstance(); 
+			vl.launchView(list, this);
 			frame.add(vl, BorderLayout.CENTER);;
 			revalidateContentPane(frame);
 		}
@@ -523,7 +535,8 @@ public class ControllerPresentation implements
         
         frame.getContentPane().removeAll();
         frame.setLayout(new BorderLayout());
-        new ControllerViewBoard(m, ControllerViewBoard.VIEW_CREATE_SUDOKU,
+        ControllerViewBoard cb = ControllerViewBoard.getInstance();
+        cb.launchView(m, ControllerViewBoard.VIEW_CREATE_SUDOKU,
     			isGuest, false, frame, this);;
         revalidateContentPane(frame);
 	}

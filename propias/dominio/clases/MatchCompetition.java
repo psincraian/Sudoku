@@ -27,7 +27,6 @@ public class MatchCompetition extends Match {
 	public MatchCompetition(String username, Sudoku sudoku) {
 		super(username, sudoku);
 	}
-	
 	/** Comença a comptar el temps.
 	 * 
 	 */
