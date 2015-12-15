@@ -38,6 +38,7 @@ public class ViewRanking extends SetView{
 	JTabbedPane difficulty;
 	JButton button;
 	private ranking r;
+	Box verticalBox;
 	
 	/**
 	 * 
@@ -76,7 +77,7 @@ public class ViewRanking extends SetView{
 		setRanking();
 		
 		/*Center*/
-		Box verticalBox = Box.createVerticalBox();
+		verticalBox = Box.createVerticalBox();
 		verticalBox.add(Box.createVerticalStrut(100));
 		setSize(175,25);
 		rank.setBorder(BorderFactory.createRaisedBevelBorder());
@@ -85,7 +86,6 @@ public class ViewRanking extends SetView{
 		rank.add(valueP);
 		rank.setBackground(Color.white);
 		verticalBox.add(rank);
-		verticalBox.add(Box.createVerticalGlue());
 		add(verticalBox, BorderLayout.CENTER);
 						
 		/*SOUTH*/
@@ -139,12 +139,13 @@ public class ViewRanking extends SetView{
 	 * 
 	 */
 	public void addPosUser(int pos, Long value, String name){
-		rank.add(Box.createVerticalStrut(10));
 		JPanel aux = new JPanel();
 		aux.setBackground(Color.WHITE);
 		aux.add(new JLabel(Integer.toString(pos)+". "+name));
 		aux.add(new JLabel(String.valueOf(value)));
-		rank.add(aux);
+		verticalBox.add(aux);
+		verticalBox.add(Box.createVerticalGlue());
+
 	}
 	
 	/**

@@ -24,22 +24,7 @@ public class Driver_VistaRanking {
         name.add("David");
         values.add((long)134);
         values.add((long)120);
-        name.add("Daniel");
-        name.add("David");
-        values.add((long)134);
-        values.add((long)120);
-        name.add("Daniel");
-        name.add("David");
-        values.add((long)134);
-        values.add((long)120);
-        name.add("Daniel");
-        name.add("David");
-        values.add((long)134);
-        values.add((long)120);
-        name.add("Daniel");
-        name.add("David");
-        values.add((long)134);
-        values.add((long)120);
+       
       
         
         JFrame frame = new JFrame("Sudoku");
