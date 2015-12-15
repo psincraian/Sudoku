@@ -160,7 +160,12 @@ public class ControllerCasting {
 	* @param newName nou nom de l'usuari.
 	*/
 	public void changeNameListInfoMatches(String oldName, String newName) throws Exception {
-
+		List<String> users = cp.getUsersList();
+		for(int a = 0; a < users.size(); ++a){
+			ListMatchInfo infoMatches = getMatchInfo(users.get(a));
+			infoMatches.replaceMaker(oldName, newName);
+			introduceMatchInfo(infoMatches, users.get(a));
+		}
 	}
 
 	/**
@@ -524,5 +529,23 @@ public class ControllerCasting {
 	 	cp.setRankingGlobal(serializedranking);
 	}
 
+	/*
+	public static Object deserialize(String fileName) throws IOException, ClassNotFoundException {
+	        FileInputStream fis = new FileInputStream(fileName);
+	        BufferedInputStream bis = new BufferedInputStream(fis);
+	        ObjectInputStream ois = new ObjectInputStream(bis);
+	        Object obj = ois.readObject();
+	        ois.close();
+	        return obj;
+    	}
+
+    	public static void serialize(Object obj, String fileName) throws IOException {
+	        FileOutputStream fos = new FileOutputStream(fileName);
+	        BufferedOutputStream bos = new BufferedOutputStream(fos);
+	        ObjectOutputStream oos = new ObjectOutputStream(bos);
+	        oos.writeObject(obj);
+	        oos.close();
+    	}
+	*/
 
 }
