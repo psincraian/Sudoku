@@ -234,12 +234,29 @@ public class ControllerCasting {
 		ObjectOutputStream oos = new ObjectOutputStream(bos);
 		oos.writeObject(sudo);
 		oos.close();
-		String serializedSudoku = new String(DatatypeConverter.printBase64Binary(bos.toByteArray()));  
+		String serializedSudoku = new String(DatatypeConverter.printBase64Binary(bos.toByteArray()));
 		String id = cp.introduceSudoku(serializedSudoku, sudo.returnLevel(), sudo.getSudoku().getSize());
 		ListSudokuInfo info = getSudokuInfo(sudo.returnLevel(), sudo.getSudoku().getSize());
 		info.addInfo(id, sudo.returnMaker(), givens);
 		introduceSudokuInfo(info, sudo.returnLevel(), sudo.getSudoku().getSize());
 		return id;
+	}
+
+	/**
+	* Permet modificar un sudoku existent.
+	* @param id identificador del sudoku a
+	* modificar.
+	* @param sudo el sudoku a introduir.
+	* @param givens nombre de caselles
+	* donades del sudoku.
+	*/
+	public void modifySudoku(String id, Sudoku sudo) throws Exception {
+		ByteArrayOutputStream bos = new ByteArrayOutputStream();
+		ObjectOutputStream oos = new ObjectOutputStream(bos);
+		oos.writeObject(sudo);
+		oos.close();
+		String serializedSudoku = new String(DatatypeConverter.printBase64Binary(bos.toByteArray()));
+		cp.modifySudoku(serializedSudoku, id, sudo.returnLevel(), sudo.getSudoku().getSize());
 	}
 
 	/**
