@@ -22,6 +22,7 @@ public class VistaMenu extends SetView {
 	private static final String NEW_MATCH_ACTION = "New game";
 	private static final String LOAD_GAME_ACTION = "Load game";
 	private static final String CREATE_SUDOKU_ACTION = "Create sudoku";
+	private static final String DELETE_USER_ACTION = "Eliminar Usuari";
 	private static final String VIEW_RANKING_ACTION = "Ranking";
 	private static final String VIEW_PROFILE_ACTION = "View profile";
 	private static final String EXIT_ACTION = "exit";
@@ -29,6 +30,7 @@ public class VistaMenu extends SetView {
 	private JButton newMatch;
 	private JButton loadGame;
 	private JButton createSudoku;
+	private JButton deleteUser;
 	private JButton viewRanking;
 	private JButton viewProfile;
 	private JButton exit;
@@ -62,6 +64,7 @@ public class VistaMenu extends SetView {
                     .addComponent(newMatch, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(loadGame, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(createSudoku, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(deleteUser, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(thisLayout.createSequentialGroup()
                         .addGroup(thisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(exit, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -81,6 +84,8 @@ public class VistaMenu extends SetView {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(createSudoku)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(deleteUser)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(viewRanking)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(viewProfile)
@@ -93,6 +98,7 @@ public class VistaMenu extends SetView {
         newMatch = new JButton(OptionsMenu.PartidaRapida.toString());
         loadGame = new JButton(OptionsMenu.CargarPartida.toString());
         createSudoku = new JButton(OptionsMenu.CrearSudoku.toString());
+        deleteUser = new JButton(OptionsMenu.EliminarUsuari.toString());
         viewRanking = new JButton(OptionsMenu.Ranking.toString());
         viewProfile = new JButton(OptionsMenu.Perfil.toString());
         exit = new JButton(OptionsMenu.Sortir.toString());
@@ -101,6 +107,7 @@ public class VistaMenu extends SetView {
         newMatch.addActionListener(listener);
         loadGame.addActionListener(listener);
         createSudoku.addActionListener(listener);
+        deleteUser.addActionListener(listener);
         viewRanking.addActionListener(listener);
         viewProfile.addActionListener(listener);
         exit.addActionListener(listener);
@@ -108,6 +115,7 @@ public class VistaMenu extends SetView {
         newMatch.setActionCommand(NEW_MATCH_ACTION);
         loadGame.setActionCommand(LOAD_GAME_ACTION);
         createSudoku.setActionCommand(CREATE_SUDOKU_ACTION);
+        deleteUser.setActionCommand(DELETE_USER_ACTION);
         viewRanking.setActionCommand(VIEW_RANKING_ACTION);
         viewProfile.setActionCommand(VIEW_PROFILE_ACTION);
         exit.setActionCommand(EXIT_ACTION);
@@ -116,6 +124,7 @@ public class VistaMenu extends SetView {
 	public void updateToGuestView() {
 		loadGame.setEnabled(false);
 		createSudoku.setEnabled(false);
+		deleteUser.setEnabled(false);
 		viewRanking.setEnabled(false);
 		viewProfile.setEnabled(false);
 	}
@@ -134,6 +143,9 @@ public class VistaMenu extends SetView {
 					break;
 				case CREATE_SUDOKU_ACTION:
 					option = OptionsMenu.CrearSudoku;
+					break;
+				case DELETE_USER_ACTION:
+					option = OptionsMenu.EliminarUsuari;
 					break;
 				case VIEW_RANKING_ACTION:
 					option = OptionsMenu.Ranking;
