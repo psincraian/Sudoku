@@ -148,6 +148,14 @@ public class ViewProfile extends SetView implements
 			dataBestTime[i] = new JLabel(String.valueOf(bestTime[i]));
 		}
 	}
+	
+	public void show(int i) {
+		if (i == 0)
+			new DialogChangeUsername(this);
+		else
+			new DialogTwoPasswords(this);
+	}
+	
 	/**
 	 * 
 	 * Controla els events del mouse
@@ -160,10 +168,10 @@ public class ViewProfile extends SetView implements
 				listener.getBack();
 			}
 			else if (b.getText().equals("Canviar nom Usuari")){
-				new DialogChangeUsername(this);
+				show(0);
 			}
 			else{
-				new DialogTwoPasswords(this);
+				show(1);
 			}
 		}
 	}
