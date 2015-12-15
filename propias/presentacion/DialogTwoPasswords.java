@@ -6,7 +6,7 @@ public class DialogTwoPasswords extends JDialog {
 
 	public interface twoPasswordsInterface {
 		public void save(String password1, String password2);
-		public void cancel();
+		public void cancelPass();
 	}
 	
     private DialogTwoPasswords(Object object) {
@@ -81,7 +81,7 @@ public class DialogTwoPasswords extends JDialog {
     }                     
 
     private void CancelActionPerformed(java.awt.event.ActionEvent evt) {  
-    	listener.cancel();
+    	listener.cancelPass();
     }                                      
 
     private void SaveActionPerformed(java.awt.event.ActionEvent evt) {                                     

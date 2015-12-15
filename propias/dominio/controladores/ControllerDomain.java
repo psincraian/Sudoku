@@ -407,7 +407,7 @@ public class ControllerDomain {
             this.id = id;
             cont = positionInList(true);
             match = cc.getSavedMatch(id);
-            dificult = match.getSudokuLevel()-1;
+            dificult = match.getSudokuLevel();
             size = match.getSudokuSize();
             type = 0;
             int [][] enunciat = convertToMatrix(match.getSudoku());
@@ -439,6 +439,11 @@ public class ControllerDomain {
 				CntrlSudokuSolver css = new CntrlSudokuSolver(sudoku.getSudoku());
 				css.needUnique();
 				Board sol = css.solve();
+				for(int i=0; i<sudoku.getSudoku().getSize(); ++i)
+					for(int j=0; j<sudoku.getSudoku().getSize(); ++j)
+						if(sudoku.getSudoku().getCellType(i, j) == CellType.Locked)
+							System.out.print(sudoku.getSudoku().getCellValue(i, j));
+					System.out.println();
 				Sudoku s = new Sudoku(sudoku.getSudoku(), sol, dificultat, this.user.consultarNom());
 				if(checkBoard()){
 					String ident = cc.introduceSudoku(s,cont);
@@ -450,6 +455,9 @@ public class ControllerDomain {
 			}
         }
         
+    }
+    public void startTimer(){
+    	((MatchCompetition) match).startTime();
     }
     /**
      * Modifica una casella d'un taulell amb progres per tal de retornar la partida
@@ -479,6 +487,16 @@ public class ControllerDomain {
             username.add(aux.getName());
             values.add(aux.getValue());
         } 
+    }
+    public void getRankingSudoku(List<String> username, List<Long> values){
+    	/*List<ParamRanking> l = ((MatchCompetition) match).get
+        int mida = l.size();
+        if (mida >10) mida = 10;
+        for(int i=0; i<mida; ++i) {
+            ParamRanking aux = l.get(i);
+            username.add(aux.getName());
+            values.add(aux.getValue());
+        } */
     }
     /**
      * Incorpora al ranking els usuaris fora dels 10 primers llocs
@@ -521,6 +539,7 @@ public class ControllerDomain {
 	        	else if (value == 0 && !buit) --cont;
 		        if(cont == (size*size)) { // ha completado la partida correctamente
 		        	if(type == 1){
+		        		((MatchCompetition) match).endTime();
 			        	Sudoku s = new Sudoku(match.getSudoku(), match.getSolution());
 			        	int score = ((MatchCompetition) match).score();
 			        	s.updateRanking(this.user.consultarNom(), score);

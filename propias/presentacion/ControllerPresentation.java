@@ -215,6 +215,7 @@ public class ControllerPresentation implements
      * @param competition Indica si es una partida de competicio
      */
     private void playMatch(int[][] sudoku, boolean competition) {
+    	if(competition) cd.startTimer();
 		frame.getContentPane().removeAll();
 		frame.setLayout(new BorderLayout());
 		new ControllerViewBoard(sudoku, ControllerViewBoard.VIEW_PLAY_SUDOKU,
@@ -330,6 +331,19 @@ public class ControllerPresentation implements
          frame.add(vr);
          revalidateContentPane(frame);
     }
+    private void showRankingSudoku() {
+   	 List<String> names = new ArrayList<String>();
+        List<Long> values = new ArrayList<Long>();
+        cd.getRankingSudoku(names,values);
+        frame.getContentPane().removeAll();
+        frame.setLayout(new BorderLayout());
+        ViewRanking vr = new ViewRanking(names, values, this);
+        List<String> info = new ArrayList<String>(); // name, value, pos
+        cd.addToRanking(info);
+        if(info != null && info.size() != 0)vr.addPosUser(Integer.parseInt(info.get(2)), Long.parseLong(info.get(1)), info.get(0));
+        frame.add(vr);
+        revalidateContentPane(frame);
+   }
     /**
      * Mostra la creacio d'un sudoku
      */

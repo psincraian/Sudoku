@@ -12,7 +12,7 @@ public class DialogChangeUsername extends JDialog {
     
     public interface changeUsername {
     	public void save(String username);
-    	public void cancel();
+    	public void cancelName();
     }
     
     @SuppressWarnings("unchecked")
@@ -68,7 +68,7 @@ public class DialogChangeUsername extends JDialog {
     }                      
 
     private void CancelActionPerformed(java.awt.event.ActionEvent evt) {       
-    	listener.cancel();
+    	listener.cancelName();
     }                                      
 
     private void SaveActionPerformed(java.awt.event.ActionEvent evt) {   

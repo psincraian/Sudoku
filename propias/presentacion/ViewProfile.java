@@ -38,6 +38,8 @@ public class ViewProfile extends SetView implements
 	long[] matches;
 	long[] time;
 	long[] bestTime;
+	DialogChangeUsername dialog1;
+	DialogTwoPasswords dialog2;
 	public JButton buttonReturn;
 	public JButton changeName;
 	public JButton changePass;
@@ -150,10 +152,14 @@ public class ViewProfile extends SetView implements
 	}
 	
 	public void show(int i) {
-		if (i == 0)
-			DialogChangeUsername.getInstance(this);
-		else
-			DialogTwoPasswords.getInstance(this);
+		if (i == 0){
+			dialog1 = DialogChangeUsername.getInstance(this);
+			dialog1.setVisible(true);
+		}
+		else{
+			dialog2 = DialogTwoPasswords.getInstance(this);
+			dialog2.setVisible(true);
+		}
 	}
 	
 	/**
@@ -181,6 +187,7 @@ public class ViewProfile extends SetView implements
 	@Override
 	public void save(String username){
 		listener.changeUserName(username);
+		dialog1.dispose();
 	}
 	/**
 	 * Canvia la contrasenya de l'usuari
@@ -188,12 +195,22 @@ public class ViewProfile extends SetView implements
 	@Override
 	public void save(String pass1, String pass2){
 		listener.changeUserPass(pass1, pass2);
+		dialog2.dispose();
 	}
 	/**
 	 * Torna a la vista perfil
 	 */
 	@Override
-	public void cancel() {
+	public void cancelName() {
+		dialog1.dispose();
+		listener.showMainMenu();
+	}
+	/**
+	 * Torna a la vista perfil
+	 */
+	@Override
+	public void cancelPass() {
+		dialog2.dispose();
 		listener.showMainMenu();
 	}
 	/**
