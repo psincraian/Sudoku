@@ -113,6 +113,22 @@ public class ControllerPersistance {
 	}
 
 	/**
+	* Metode que retorna una llista
+	* amb  el nom dels usuaris.
+	* @return List<String> llista
+	* de noms d'usuari.
+	*/
+	public List<String> getUsersList(){
+		File dir = new File(autoPath + "/data/Users/");
+		File[] usuaris = dir.listFiles();
+		List<String> listUsers = new ArrayList<String>();
+		for(int a = 0; a < usuaris.length; ++a){
+			listUsers.add(usuaris[a].getName());
+		}
+		return listUsers;
+	}
+
+	/**
    	* Metode que intercambia el fitxer
    	* d'usuari de l'usuari carregat
    	* a persistencia per un altre.
