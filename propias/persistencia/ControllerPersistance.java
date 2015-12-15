@@ -298,6 +298,32 @@ public class ControllerPersistance {
 	}
 
 	/**
+   	* Introdueix un nou sudoku als fitxers.
+  	* @param sudoku sudoku a guardar.
+  	* @param dif dificultat del sudoku.
+  	* @param size mida del sudoku.
+  	*/
+	public void modifySudoku(String sudoku, String id, int dif, int size) throws Exception {
+		String difSt;
+		if(dif == 0){
+			difSt = "Facil";
+		}
+		else if(dif == 1){
+			difSt = "Medio";
+		}
+		else{
+			difSt = "Dificil";
+		}
+		File f = new File(autoPath + "/data/Sudokus/" + size + "x" + size + "/" + difSt + "/" + id);
+		f.delete();
+		f.createNewFile();
+		FileWriter fw = new FileWriter(f.getAbsolutePath());
+		PrintWriter pw = new PrintWriter(fw);
+		pw.print(sudoku);
+		fw.close();
+	}
+
+	/**
 	* Metode per a modificar la informacio guardada
 	* sobre els sudokus amb una certa dificultat i
 	* mida.
