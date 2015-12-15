@@ -183,8 +183,9 @@ public class ControllerPersistance {
 	*/
 	public void changeName(String newName){
 		//Renombrar la carpeta:
-		File file = new File(autoPath + "/data/Users/" + user);
-		File file2 = new File(autoPath + "/data/Users/" + newName);
+		File dirUser = new File(autoPath + "/data/Users/" + user);
+		File dirUserNew = new File(autoPath + "/data/Users/" + newName);
+		dirUser.renameTo(dirUserNew);
 		user = newName;
 	}
 
@@ -215,7 +216,7 @@ public class ControllerPersistance {
   	* @param user l'usuari.
   	*/
 	public void newUser(String name, String user, String stadistics) throws Exception {
-		new File(autoPath + "/data/Users/" + name + "/Partidas/").mkdirs();
+		new File(autoPath + "/data/Users/" + name + "/Partidas/infoMatches").mkdirs();
 		File userObj = new File(autoPath + "/data/Users/" + name + "/user");
 		userObj.createNewFile();
 		FileWriter fw = new FileWriter(autoPath + "/data/Users/" + name + "/user");
