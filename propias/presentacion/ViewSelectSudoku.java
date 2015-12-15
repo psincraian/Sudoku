@@ -30,6 +30,7 @@ public class ViewSelectSudoku extends SetView{
 	List<List<String>> id;
 	private selectSudoku ss;
 	private JScrollPane sp;
+	private static ViewSelectSudoku instance;
 	
 	/**
 	 * 
@@ -46,17 +47,25 @@ public class ViewSelectSudoku extends SetView{
 	 * 
 	 * Constructor de la vista
 	 * 
-	 * @param id : llista que representa els id's dels 
-	 * sudokus a ser mostrats
-	 * 
 	 */
-	public ViewSelectSudoku(List<List<String>> id,Object container) {
+	public ViewSelectSudoku() {
 		super();
+	}
+	
+	/**
+	 * 
+	 * Funcio que s'encarrega de llençar la vista selectSudoku
+	 * 
+	 * @param id : llista que conte una llista amb id+creador
+	 * del sudoku
+	 * @param container : interface que s'encarrega de implementar
+	 * els metodes per tal de comunicar-se amb el controlador
+	 */
+	public void launchView(List<List<String>> id,Object container){
 		this.ss = (selectSudoku) container;
 		this.id = id;
 		createView();
 	}
-	
 	/**
 	 * 
 	 * Funcio que s'encarrega de afegir els elements a la vista.
@@ -132,6 +141,20 @@ public class ViewSelectSudoku extends SetView{
 		((JComponent) container).setPreferredSize(d);
 		((JComponent) container).setMinimumSize(d);
 		((JComponent) container).setMaximumSize(d);
+	}
+	
+	/**
+	 * 
+	 * Funcio que s'encarrega de retorna l'instancia d'aquesta vista
+	 * per tal existeixi un sola instancia(singleton)
+	 * 
+	 * @return instancia de ViewSelectSudoku
+	 * 
+	 */
+	public static ViewSelectSudoku getInstance() {
+		if (instance == null)
+			instance = new ViewSelectSudoku();
+		return instance;
 	}
 	
 	/**

@@ -24,16 +24,15 @@ public class Driver_VistaRanking {
         name.add("David");
         values.add((long)134);
         values.add((long)120);
-       
       
-        
+        ViewRanking vr = ViewRanking.getInstance();
         JFrame frame = new JFrame("Sudoku");
         frame.getContentPane().setLayout(new BorderLayout());
 		frame.setBackground(Color.WHITE);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setMaximumSize(new Dimension(1000, 750));
 		frame.setPreferredSize(new Dimension(1000, 750));	
-		ViewRanking vr = new ViewRanking(name,values,new ControllerPresentation());
+		vr.launchView(name, values, new ControllerPresentation());
 		vr.addPosUser(14, (long)150, "Donuts");
 		frame.add(vr, BorderLayout.CENTER);
 		frame.pack();

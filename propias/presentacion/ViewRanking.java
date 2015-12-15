@@ -39,6 +39,7 @@ public class ViewRanking extends SetView{
 	JButton button;
 	private ranking r;
 	Box verticalBox;
+	private static ViewRanking instance;
 	
 	/**
 	 * 
@@ -54,12 +55,24 @@ public class ViewRanking extends SetView{
 	 * 
 	 * Constructor
 	 * 
-	 * @param name : llista que conte els noms a ser mostrats
+	 * @param name : 
 	 * @param value : llsta que conte els punts/temps asociats a un usuari
 	 * 
 	 */
-	public ViewRanking(List<String> name, List<Long> value, Object container){
+	public ViewRanking(){
 		super();
+	}
+	/**
+	 * 
+	 * Funcio que s'encarrega de llençar la vista ranking
+	 * 
+	 * @param name : llista que conte els noms a ser mostrats
+	 * @param value : llista que conte els punts/temps asociats a un usuari
+	 * @param container : interface que s'encarrega de implementar
+	 * els metodes per tal de comunicar-se amb el controlador
+	 * 
+	 */
+	public void launchView(List<String> name, List<Long> value, Object container){
 		this.name=name;
 		this.value=value;
 		this.r = (ranking) container;
@@ -167,6 +180,20 @@ public class ViewRanking extends SetView{
 	 */
 	public void listener(){
 		button.addMouseListener(new MouseManage());
+	}
+	
+	/**
+	 * 
+	 * Funcio que s'encarrega de retorna l'instancia d'aquesta vista
+	 * per tal existeixi un sola instancia(singleton)
+	 * 
+	 * @return instancia de ViewRanking
+	 * 
+	 */
+	public static ViewRanking getInstance() {
+		if (instance == null)
+			instance = new ViewRanking();
+		return instance;
 	}
 	
 	/**

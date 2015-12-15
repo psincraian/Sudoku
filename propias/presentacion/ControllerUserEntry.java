@@ -42,7 +42,7 @@ public class ControllerUserEntry {
 	
 	/**
 	 * 
-	 * Constructor de ControllerUserEntry tal de gestionar la vista seleccionada.
+	 * S'encarrega de llançar tal de gestionar la vista seleccionada.
 	 * 
 	 * @param typeUser: Si typeUser(1) es generara la vista Login, en el cas contrari, es generara 
 	 * la vista de creacio d'un nou usuari. 
@@ -51,7 +51,7 @@ public class ControllerUserEntry {
 	 * ControllerPresentation per tal de poder comunicar-se amb la vista
 	 * 
 	 */
-	public ControllerUserEntry( boolean typeUser, JFrame frame, Object container){
+	public void launchView(boolean typeUser, JFrame frame, Object container){
 		if(typeUser == LOGIN_VIEW)
 			eu = new ViewLogin();
 		else 
@@ -63,7 +63,6 @@ public class ControllerUserEntry {
 		eu.buttonListener(new MouseManage(), eu.cancel);
 		addKeyBinding();
 	}
-	
 	/**
 	 * 
 	 * Genera un missatge per tal de ser mostrat a l'usuari.
@@ -84,6 +83,8 @@ public class ControllerUserEntry {
 	 * 
 	 */
 	public static ControllerUserEntry getInstance() {
+		if(instance == null)
+			instance = new ControllerUserEntry();
 		return instance;
 	}
 	

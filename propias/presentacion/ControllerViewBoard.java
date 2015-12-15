@@ -56,7 +56,7 @@ public class ControllerViewBoard {
 		public List<String> getDifferentCells();
 	}
 	/**
-	 * Constructor que s'encarrga de gestionar la vista seleccionada.
+	 * S'encarrga de llançar la vista seleccionada.
 	 * 
 	 * @param board : Es tracta del sudoku sense resoldre amb forats per tal
 	 * de que l'usuari el resolgui.
@@ -69,7 +69,7 @@ public class ControllerViewBoard {
 	 * ControllerPresentation per tal de poder comunicar-se amb la vista
 	 * 
 	 */
-	public ControllerViewBoard(int[][] board, int typeBoard, boolean guest,boolean competition, JFrame frame, Object container){
+	public void launchView(int[][] board, int typeBoard, boolean guest,boolean competition, JFrame frame, Object container){
 		this.size = board[0].length;
 		instance = this;
 		if(typeBoard == VIEW_PLAY_SUDOKU){
@@ -258,6 +258,8 @@ public class ControllerViewBoard {
 	 * 
 	 */
 	public static ControllerViewBoard getInstance() {
+		if (instance == null)
+			instance = new ControllerViewBoard();
 		return instance;
 	}
 }
