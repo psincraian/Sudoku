@@ -340,6 +340,9 @@ public class ControllerPresentation implements
          frame.add(vr);
          revalidateContentPane(frame);
     }
+    /**
+     * Mostra el Ranking sudoku
+     */
     private void showRankingSudoku() {
    	 List<String> names = new ArrayList<String>();
         List<Long> values = new ArrayList<Long>();
