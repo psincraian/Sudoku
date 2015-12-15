@@ -77,26 +77,24 @@ public class ViewRanking extends SetView{
 		
 		/*Center*/
 		Box verticalBox = Box.createVerticalBox();
-		verticalBox.add(Box.createGlue());
-		rank = new JPanel();
-		setSize(200,40);
+		verticalBox.add(Box.createVerticalStrut(100));
+		setSize(175,25);
 		rank.setBorder(BorderFactory.createRaisedBevelBorder());
 		rank.add(nameP);
 		rank.add(Box.createHorizontalStrut(20));
 		rank.add(valueP);
 		rank.setBackground(Color.white);
 		verticalBox.add(rank);
-		verticalBox.add(Box.createGlue());
+		verticalBox.add(Box.createVerticalGlue());
 		add(verticalBox, BorderLayout.CENTER);
 						
 		/*SOUTH*/
-		button = new JButton("Tornar");
 		listener();
 		JPanel panel = new JPanel();
 		Box south = Box.createVerticalBox();
 		south.setBackground(Color.white);
 		south.add(button);
-		south.add(Box.createVerticalStrut(50));
+		south.add(Box.createVerticalStrut(25));
 		panel.add(south);
 		panel.setBackground(Color.WHITE);
 		add(panel, BorderLayout.SOUTH);		
@@ -109,6 +107,7 @@ public class ViewRanking extends SetView{
 	 * 
 	 */
 	public void setRanking(){
+		rank = new JPanel();
 		nameL = new JLabel[name.size()];
 		valueL = new JLabel[name.size()];
 		nameP = new JPanel();
@@ -117,9 +116,10 @@ public class ViewRanking extends SetView{
 		valueP.setLayout(new BoxLayout(valueP,BoxLayout.Y_AXIS));
 		nameP.setBackground(Color.white);
 		valueP.setBackground(Color.white);
+		button = new JButton("Tornar");
 		
 		for(int i = 0; i < name.size(); ++i){
-			nameL[i] = new JLabel(name.get(i));
+			nameL[i] = new JLabel(Integer.toString(i+1)+". "+name.get(i));
 			valueL[i] = new JLabel(String.valueOf(value.get(i)));
 			nameP.add(nameL[i]);
 			valueP.add(valueL[i]);
@@ -139,8 +139,7 @@ public class ViewRanking extends SetView{
 	 * 
 	 */
 	public void addPosUser(int pos, Long value, String name){
-		setSize(200,45);
-		rank.add(Box.createVerticalStrut(20));
+		rank.add(Box.createVerticalStrut(10));
 		JPanel aux = new JPanel();
 		aux.setBackground(Color.WHITE);
 		aux.add(new JLabel(Integer.toString(pos)+". "+name));
