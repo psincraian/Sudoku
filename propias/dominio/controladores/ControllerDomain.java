@@ -538,7 +538,6 @@ public class ControllerDomain {
 		        }
 	        }
 	        else {
-	        	System.out.println("mec");
 	        	boolean buit = ( sudoku.getSudoku().getCellValue(row, column) == 0);
 	        	sudoku.setCell(new Position(row, column), value);
 	        	if(value != 0 && buit) {
