@@ -1,1 +1,13 @@
+Creacio d'un sudoku random de forma automatica:
+
+-Permet crear un sudoku de forma completament random (o pseudorandom, ja que s'utilitza la classe Random de java
+per a simular l'aleatorietat) a partir d'una plantilla de solucio de sudoku (amb tots els nombres col·locats i de
+forma que cumpleixin les normes del sudoku), amb una dificultat definida i, en cas de demanar-ho, un minim de 
+caselles plenes assegurades.
+
+
+Funcionament:
+
+1. En cas de demanar un minim de nombres col·locats, es comprova que aquest sigui com a minim el 22% de les caselles
+totals (ja que es el minim amb resolucio 
 
