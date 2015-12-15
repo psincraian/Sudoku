@@ -32,7 +32,6 @@ public class ControllerDomain {
     boolean createSudoku; //indica si s'esta creant un nou sudoku o no
     int cont; //indica les caselles posades per l'usuari al jugar una partida
     int hintsUsed;
-    int numbersGiven;
     int points; // punts de la partida
     boolean isGuest = true;
     ErrorUserEntry errorUser;
@@ -161,6 +160,9 @@ public class ControllerDomain {
 			e.printStackTrace();
 		}
     }
+    /**
+     * Elimina l'usuari actual
+     */
     public void deleteUser(){
     	try {
 			cc.deleteUser();
@@ -193,7 +195,6 @@ public class ControllerDomain {
             		match = new MatchTraining(this.user.consultarNom(), s);
             	}
                 else if (type == 1 && !isGuest) {
-                	this.numbersGiven = cont;
                 	match = new MatchCompetition(this.user.consultarNom(), s);
                 }
             	int[][] matrix = convertToMatrix(s.getSudoku());
@@ -219,7 +220,6 @@ public class ControllerDomain {
             	if (isGuest) match = new MatchTraining("Convidat", s);
             	else if(type == 0 && !isGuest) match = new MatchTraining(this.user.consultarNom(), s);
                 else if (type == 1 && !isGuest) {
-                	this.numbersGiven = cont;
                 	match = new MatchCompetition(this.user.consultarNom(), s);
                 }
             	int[][] matrix = convertToMatrix(s.getSudoku());
@@ -267,6 +267,11 @@ public class ControllerDomain {
     public void selectSudoku(String id){
     	this.id = id;
     }
+    /**
+     * Indica la posicio on esta la partida
+     * @param loadMatch Indica si es tracta d'una partida guardada
+     * @return posicio de la llista on es la partida
+     */
     public int positionInList(boolean loadMatch){
     	List<List<String>> res;
     	if (loadMatch) res = this.givenLoadMatch;
@@ -484,7 +489,7 @@ public class ControllerDomain {
     }
     
     /**
-     * 
+     * Obte el ranking Global
      * @param username Nombres de usuarios con ranking
      * @param values Valores de puntuacion por usuario
      */
@@ -498,6 +503,11 @@ public class ControllerDomain {
             values.add(aux.getValue());
         } 
     }
+    /**
+     * Obte el ranking del sudoku
+     * @param username Nombres de usuarios con ranking
+     * @param values Valores de puntuacion por usuario
+     */
     public void getRankingSudoku(List<String> username, List<Long> values){
     	RankingSudoku rs = ((MatchCompetition) match).getRanking();
     	List<ParamRanking> l = rs.getRanking();
@@ -509,6 +519,10 @@ public class ControllerDomain {
             values.add(aux.getValue());
         }
     }
+    /**
+     * Incorpora al ranking els usuaris fora dels 10 primers llocs
+     * @param info Info del usuari
+     */
     public void addtoRankingSudoku(List<String> info){
     	RankingSudoku rs = ((MatchCompetition) match).getRanking();
     	List<ParamRanking> l = rs.getRanking();
