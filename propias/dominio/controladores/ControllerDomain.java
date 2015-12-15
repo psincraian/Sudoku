@@ -32,6 +32,7 @@ public class ControllerDomain {
     boolean createSudoku; //indica si s'esta creant un nou sudoku o no
     int cont; //indica les caselles posades per l'usuari al jugar una partida
     int hintsUsed;
+    int numbersGiven;
     int points; // punts de la partida
     boolean isGuest = true;
     ErrorUserEntry errorUser;
@@ -191,7 +192,10 @@ public class ControllerDomain {
             		this.hintsUsed = 0;
             		match = new MatchTraining(this.user.consultarNom(), s);
             	}
-                else if (type == 1 && !isGuest) match = new MatchCompetition(this.user.consultarNom(), s);
+                else if (type == 1 && !isGuest) {
+                	this.numbersGiven = cont;
+                	match = new MatchCompetition(this.user.consultarNom(), s);
+                }
             	int[][] matrix = convertToMatrix(s.getSudoku());
             	return matrix;
         	}
@@ -205,7 +209,6 @@ public class ControllerDomain {
         		if(!isGuest){
 	        	    String id = cc.introduceSudoku(s, c.getGivenNumbers());
 	        	    this.id = id;
-	        	    s = cc.getSudoku(c.getMida(), c.getDificultat(), id);
         		}
         	    this.size = c.getMida();
             	this.dificult = c.getDificultat();
@@ -215,7 +218,10 @@ public class ControllerDomain {
             	}
             	if (isGuest) match = new MatchTraining("Convidat", s);
             	else if(type == 0 && !isGuest) match = new MatchTraining(this.user.consultarNom(), s);
-                else if (type == 1 && !isGuest) match = new MatchCompetition(this.user.consultarNom(), s);
+                else if (type == 1 && !isGuest) {
+                	this.numbersGiven = cont;
+                	match = new MatchCompetition(this.user.consultarNom(), s);
+                }
             	int[][] matrix = convertToMatrix(s.getSudoku());
             	return matrix;
     		}	
@@ -568,7 +574,7 @@ public class ControllerDomain {
 			        	points = score;
 			        	cc.setStadistics(this.stad);
 			        	cc.setRankingGlobal(this.rg);
-			        	cc.deleteMatch(this.id);
+			        	cc.introduceSudoku(s, this.numbersGiven);
 		        	}
 		        	else{
 		        		if (!isGuest) cc.deleteMatch(this.id);
