@@ -47,7 +47,7 @@ public class ViewProfile extends SetView implements
 		public void getBack();
 		public void changeUserName(String name);
 		public void changeUserPass(String pass1, String pass2);
-		public void showProfile();
+		public void showMainMenu();
 	}
 	
 	/**
@@ -194,7 +194,7 @@ public class ViewProfile extends SetView implements
 	 */
 	@Override
 	public void cancel() {
-		listener.showProfile();
+		listener.showMainMenu();
 	}
 	/**
 	 * Controla el boto

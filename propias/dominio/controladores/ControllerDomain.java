@@ -7,6 +7,7 @@ import propias.dominio.controladores.generator.CntrlSearchLevel;
 import propias.dominio.controladores.generator.CntrlSudokuCreator;
 import propias.dominio.controladores.generator.CntrlSudokuGenerator;
 import propias.dominio.controladores.generator.CntrlSudokuHelps;
+import propias.dominio.controladores.generator.CntrlSudokuSolver;
 
 /**
  * 
@@ -232,7 +233,7 @@ public class ControllerDomain {
 		}
     }
     /**
-     * 
+     * Id de partides que te l'usuari guardades
      * @return Los identificadores de cada partida
      */
     public List<List<String>> getIDMatchesAndMaker(){
@@ -331,6 +332,7 @@ public class ControllerDomain {
 					p.setRow(i);
 					p.setColumn(j);
 					sudoku.setCell(p, Character.getNumericValue(s.charAt(position)));
+					sudoku.getSudoku().setCellType(i, j, CellType.Locked);
 					++cont;
 					return value;
 				} catch (Exception e) {
@@ -434,10 +436,15 @@ public class ControllerDomain {
 	        try {
 				cs.init(sudoku.getSudoku());
 				int dificultat = cs.searchLevel();
-				Sudoku s = new Sudoku(sudoku.getSudoku(), sudoku.getSolution(), dificultat, this.user.consultarNom());
-				String ident = cc.introduceSudoku(s,cont);
-				this.user.addSudoku(ident);
-				cc.setUser(this.user);
+				CntrlSudokuSolver css = new CntrlSudokuSolver(sudoku.getSudoku());
+				css.needUnique();
+				Board sol = css.solve();
+				Sudoku s = new Sudoku(sudoku.getSudoku(), sol, dificultat, this.user.consultarNom());
+				if(checkBoard()){
+					String ident = cc.introduceSudoku(s,cont);
+					this.user.addSudoku(ident);
+					cc.setUser(this.user);
+				}
 			} catch (Exception e1) {
 				e1.printStackTrace();
 			}
@@ -538,7 +545,7 @@ public class ControllerDomain {
 	        		++cont;
 	        	}
 	        	else if (value == 0 && !buit) {
-	        		sudoku.getSudoku().setCellType(row, column, CellType.Empty);
+	        		sudoku.getSudoku().setCellType(row, column, CellType.Unlocked);
 	        		--cont;
 	        	}
 	        	

@@ -468,11 +468,14 @@ public class ControllerPresentation implements
 	 * @param name Nou nom a posar a l'usuari
 	 */
 	public void changeUserName(String name){
-		if(cd.checkChangeName(name))
+		if(cd.checkChangeName(name)) {
 			cd.changeUserName(name);
+			JOptionPane.showMessageDialog(null, "Nom d'usuari canviat");
+			showMainMenu();
+		}
 		else {
 			JOptionPane.showMessageDialog(null, "Nom d'usuari no valid");
-			showProfile();
+			showMainMenu();
 		}
 	}
 	/**
@@ -481,11 +484,14 @@ public class ControllerPresentation implements
 	 * @param pass2 Nova contrasenya de l'usuari
 	 */
 	public void changeUserPass(String pass1, String pass2){
-		if(cd.checkChangePass(pass1,pass2))
+		if(cd.checkChangePass(pass1,pass2)) {
 			cd.changeUserPass(pass1);
+			JOptionPane.showMessageDialog(null, "Constrasenya canviada");
+			showMainMenu();
+		}
 		else {
 			JOptionPane.showMessageDialog(null, "Constrasenyes no valides");
-			showProfile();
+			showMainMenu();
 		}
 	}
 	/**
