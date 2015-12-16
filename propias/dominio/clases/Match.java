@@ -37,6 +37,10 @@ public class Match implements java.io.Serializable {
 		return sudoku.getSudoku();
 	}
 	
+	public Sudoku getAllSudoku() {
+		return sudoku;
+	}
+	
 	/** Retorna la solució de la partida
 	 * 
 	 * @return retorna el Sudoku solució de la partida
