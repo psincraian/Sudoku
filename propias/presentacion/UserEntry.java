@@ -170,12 +170,4 @@ public abstract class UserEntry extends SetView {
 	 * 
 	 */
 	public abstract List<String> getInfoUser();
-	
-	/**
-	 * 
-	 * Funcio que s'encarrega de llençar 
-	 * la vista ViewLogin o ViewCreateUser
-	 * 
-	 */
-	public abstract void launchView();
 }

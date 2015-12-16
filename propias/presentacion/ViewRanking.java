@@ -40,6 +40,7 @@ public class ViewRanking extends SetView{
 	private ranking r;
 	Box verticalBox;
 	private static ViewRanking instance;
+	boolean global;
 	
 	/**
 	 * 
@@ -72,11 +73,15 @@ public class ViewRanking extends SetView{
 	 * els metodes per tal de comunicar-se amb el controlador
 	 * 
 	 */
-	public void launchView(List<String> name, List<Long> value, Object container){
+	public void launchView(List<String> name, List<Long> value, Object container, boolean global){
 		this.name=name;
 		this.value=value;
 		this.r = (ranking) container;
-		setTitle("Ranking");
+		this.global = global;
+		if(global)
+			setTitle("Ranking global");
+		else
+			setTitle("Ranking sudoku");
 		initialize();
 	}
 	
@@ -115,7 +120,7 @@ public class ViewRanking extends SetView{
 	
 	public String setToTime(Long value){
 		String data = String.valueOf(value);
-		if(data.length() < 4)
+		if(global)
 			return data;
 		String sequenceS = data.substring(data.length()-2);
 		String sequenceM = data.substring(data.length()-4,data.length()-2);

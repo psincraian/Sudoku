@@ -17,6 +17,7 @@ public class Driver_Ranking {
  
     public static void main(String[] args){
         /*-----> Pruebas con RankingGlobal <-----*/
+        System.out.print("Pruebas con rankingGLOBAL");
     	ParamRanking pr = new ParamRanking("Daniel", 10);
         List<ParamRanking> lista = new ArrayList<ParamRanking>();
         lista.add(pr);
@@ -40,6 +41,7 @@ public class Driver_Ranking {
             System.out.println("Usuario: "+ lista.get(i).getName() + " Valor: "+ lista.get(i).getValue());
         
         /*------>Pruebas con RankingSudoku<------*/
+        System.out.print("Pruebas con rankingSUDOKU");
         pr = new ParamRanking("Daniel", 002055);
         lista = new ArrayList<ParamRanking>();
         lista.add(pr);

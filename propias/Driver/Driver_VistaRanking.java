@@ -32,7 +32,8 @@ public class Driver_VistaRanking {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setMaximumSize(new Dimension(1000, 750));
 		frame.setPreferredSize(new Dimension(1000, 750));	
-		vr.launchView(name, values, new ControllerPresentation());
+		/*false --> sudoku    true -->global*/
+		vr.launchView(name, values, new ControllerPresentation(), false);
 		vr.addPosUser(14, (long)150, "Donuts");
 		frame.add(vr, BorderLayout.CENTER);
 		frame.pack();

@@ -33,7 +33,7 @@ public class ControllerDomain {
     boolean createSudoku; //indica si s'esta creant un nou sudoku o no
     int cont; //indica les caselles posades per l'usuari al jugar una partida
     int hintsUsed;
-    int points; // punts de la partida
+    long points; // punts de la partida
     boolean isGuest = true;
     ErrorUserEntry errorUser;
     
@@ -585,11 +585,11 @@ public class ControllerDomain {
 		        if(cont == (size*size)) { // ha completado la partida correctamente
 		        	if(type == 1){
 		        		((MatchCompetition) match).endTime();
-			        	int score = ((MatchCompetition) match).score();
-			        	match.getAllSudoku().updateRanking(this.user.consultarNom(), score);
+			        	long score = ((MatchCompetition) match).score();
+			        	match.getAllSudoku().updateRanking(this.user.consultarNom(), ((MatchCompetition) match).getMatchTime());
 			        	stad.addTime(((MatchCompetition) match).getMatchTime(), dificult); //actualizo tiempo estadisticas
 			        	stad.afegirNumPartides(1, dificult); //actualizo numer partidas de estadisticas
-			        	rg.modRanking(new ParamRanking(this.user.consultarNom(), ((MatchCompetition) match).getMatchTime())); //actualizo ranking global
+			        	rg.modRanking(new ParamRanking(this.user.consultarNom(), score)); //actualizo ranking global
 			        	points = score;
 			        	cc.setStadistics(this.stad);
 			        	cc.setRankingGlobal(this.rg);
@@ -626,7 +626,7 @@ public class ControllerDomain {
      * Obte els punts del sudoku 
      * @return puntuacio del sudoku
      */
-    public int takePointsBoard(){
+    public long takePointsBoard(){
     	return points;
     }
     /**
