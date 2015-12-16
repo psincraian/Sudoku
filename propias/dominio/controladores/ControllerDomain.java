@@ -593,7 +593,9 @@ public class ControllerDomain {
 			        	points = score;
 			        	cc.setStadistics(this.stad);
 			        	cc.setRankingGlobal(this.rg);
-			        	cc.modifySudoku(this.id, cc.getSudoku(car.getMida(), car.getDificultat(), this.id));
+			        	Sudoku sudoTmp = cc.getSudoku(car.getMida(), car.getDificultat(), this.id);
+			        	sudoTmp.updateRanking(this.user.consultarNom(), ((MatchCompetition) match).getMatchTime());
+			        	cc.modifySudoku(this.id, sudoTmp);
 		        	}
 		        	else{
 		        		if (!isGuest) cc.deleteMatch(this.id);
