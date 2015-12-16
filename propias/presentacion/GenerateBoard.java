@@ -238,8 +238,9 @@ public abstract class GenerateBoard extends SetView{
 	 * Habilida o deshabilita els botons per interactuar entre usuari
 	 * i taulell. Esta lligat amb els candidats.
 	 * 
-	 * @param cond : Condicio que fa que un boto sigui habilitat o
+	 * @param cond: Condicio que fa que un boto sigui habilitat o
 	 * deshabilitat
+	 * @param index:
 	 * 
 	 */
 	protected void setEnableButton(boolean cond, int index){
@@ -262,8 +263,8 @@ public abstract class GenerateBoard extends SetView{
 	 * Cambia el valor d'una casella. Relacionat quan un usuari vol
 	 * carregar una partida guardada.
 	 * 
-	 * @param l : panell en questio(casella)
-	 * @param text : valor a posar
+	 * @param p: panell en questio(casella)
+	 * @param text: valor a posar
 	 * 
 	 */
 	protected void setCell(JPanel p, String text){
@@ -284,7 +285,7 @@ public abstract class GenerateBoard extends SetView{
 	
 	/**
 	 * 
-	 * Funcio que s'encarrega de llençar 
+	 * Funcio que s'encarrega de llenÃ§ar 
 	 * la vista ViewMatch o ViewCreateBoard
 	 * 
 	 */

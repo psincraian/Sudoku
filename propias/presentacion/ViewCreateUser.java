@@ -27,7 +27,7 @@ public class ViewCreateUser extends UserEntry{
 	
 	/**
 	 * 
-	 * Funcio que s'encarrega de llençar 
+	 * Funcio que s'encarrega de llenÃ§ar 
 	 * la vista ViewCreateUser
 	 * 
 	 */

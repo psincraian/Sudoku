@@ -173,7 +173,7 @@ public abstract class UserEntry extends SetView {
 	
 	/**
 	 * 
-	 * Funcio que s'encarrega de llençar 
+	 * Funcio que s'encarrega de llenÃ§ar 
 	 * la vista ViewLogin o ViewCreateUser
 	 * 
 	 */

@@ -25,7 +25,7 @@ public class ViewLogin extends UserEntry{
 	
 	/**
 	 * 
-	 * Funcio que s'encarrega de llençar 
+	 * Funcio que s'encarrega de llenÃ§ar 
 	 * la vista ViewLogin
 	 * 
 	 */

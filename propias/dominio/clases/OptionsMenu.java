@@ -1,7 +1,7 @@
 package propias.dominio.clases;
 /**
  * 
- * @author Petru
+ * @author Petru Rares Sincraian
  *
  */
 public enum OptionsMenu {
