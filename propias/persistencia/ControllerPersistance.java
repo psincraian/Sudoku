@@ -216,7 +216,7 @@ public class ControllerPersistance {
   	* @param user l'usuari.
   	*/
 	public void newUser(String name, String user, String stadistics) throws Exception {
-		new File(autoPath + "/data/Users/" + name + "/Partidas/infoMatches").mkdirs();
+		new File(autoPath + "/data/Users/" + name + "/Partidas/").mkdirs();
 		File userObj = new File(autoPath + "/data/Users/" + name + "/user");
 		userObj.createNewFile();
 		FileWriter fw = new FileWriter(autoPath + "/data/Users/" + name + "/user");
