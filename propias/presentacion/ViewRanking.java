@@ -40,6 +40,7 @@ public class ViewRanking extends SetView{
 	private ranking r;
 	Box verticalBox;
 	private static ViewRanking instance;
+	boolean global;
 	
 	/**
 	 * 
@@ -72,10 +73,11 @@ public class ViewRanking extends SetView{
 	 * els metodes per tal de comunicar-se amb el controlador
 	 * 
 	 */
-	public void launchView(List<String> name, List<Long> value, Object container){
+	public void launchView(List<String> name, List<Long> value, Object container, boolean global){
 		this.name=name;
 		this.value=value;
 		this.r = (ranking) container;
+		this.global = global;
 		setTitle("Ranking");
 		initialize();
 	}
