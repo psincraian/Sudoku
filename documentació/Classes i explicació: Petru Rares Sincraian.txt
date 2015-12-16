@@ -1,0 +1,39 @@
+﻿Petru Rares Sincraian
+
+Classes
+Presentació:
+ViewMenu: vista que et mostra un menu amb les grans opcions del joc (jugar partida, carregar partida, veure perfil, etc.)
+DialogChangeUsername: dialog que et mostra un quadre per introduir el nou nom del usuari.
+DialogTwoPasswords: dialog que et mostra un quadre per introduir dues contrasenyes, serveix per cambiar la contrasenya del usuari.
+HintTextField: una subclasse de JTextField que permet afegir una petita ajuda al usuari sobre que ha de posar en aquella casella.
+SelectCharacteristics: vista que et permet seleccionar les caracteristiques del sudoku, com la mida, tipus de partida, etc.
+SelectSize: vista que et permet seleccionar la mida del sudoku.
+Domini:
+Cell: classe que ens encapsula una casella, amb un valor i el tipus de la casella.
+Board: es el Board on guardem les caselles.
+CaracteristiquesPartida: classe que encapsula les caracteristiques d'una partida, només serveix per encapsular.
+CellType: enumeració que ens diu el tipus d'una casella.
+Dificultat: enumeració que ens indica la dificultat d'una casella.
+Match: la classe partida, proveeix de la mínima funcionalitat de les subclasses.
+MatchCompetition: classe que ens indica que es una partida de competició, dona el temps, la puntuació i algunes ajudes.
+MatchTraining: classe que ens indica una partida d'entrenament.
+OptionsMenu: enumeració que ens indica les opcions disponibles
+Position: classe que ens indica la posició en fila, columna.
+Sudoku: classe que ens encapsula un sudoku, aquest te una solució, un ranking, un enunciat, un creador i un nivell.
+TipusPartida: enumeració que ens indica el tipus de la partida.
+Usuari: classe que proveeix de la funcionalitat bàsica.
+UsuariGeneral: classe que encapsula un usuari amb una contrasenya i una llista de sudokus.
+UsuariConvidat: classe que encapsula un usuari convidat, aquest només pot tenir un unic nom.
+Controladors
+CntrlSudokuGenerator: controlador que ens genera un sudoku complert i vàlid, sense caselles buides i de la mida especificada.
+CntrlSudokuHelps: classe que ens dona les ajudes disponibles en un sudoku, com per exemple les caselles que estan malament, els possibles valors d'una casella, etc.
+CntrlSudokuSolver: controlador que ens dona la solució d'un sudoku, s'encarrega d'utilitzar les classes que implementen l'algorisme Dancing Links.
+ColumnNode: un node columna de Dancing Links.
+Node: un node intern per utilitzar Dancing Links.
+DLXHandler: ens converteix un Board normal a una matriu que pugui interpretar Dancing Links, també donada una matriu solucionada de Dancing Links ens retorna la solució en forma de Board.
+dlx: Classe que implementa l'algorisme pur Dancing Links, utilitza les classes ColumnNode i Node per facilitar la implementació.
+Algorismes
+Generació d'un sudoku sencer
+Per generar un sudoku sencer utilitzem backtracking, es un algorisme molt senzill pero que genera un sudoku vàlid en un temps raonable. Tota generació es completament aleatoria.
+Resolució d'un sudoku
+Per resoldre un sudoku utilitzem Dancing Links. Aquest algorisme no es res més que backtracking només que es molt més ràpid per buscar un candidat el pròxim candidat d'una casella. 
