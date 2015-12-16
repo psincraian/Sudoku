@@ -136,7 +136,7 @@ public class ControllerCasting {
 				ListSudokuInfo sudoInfo = getSudokuInfo(dif, size);
 				sudoInfo.replaceMaker(oldName, newName);
 				List<List<String>> idMakerGivensSudokus = sudoInfo.getInfoIdMakerGivens(0);
-				introduceSudokuInfo(new ListSudokuInfo(), dif, size);
+				introduceSudokuInfo(sudoInfo, dif, size);
 				for(int a = 0; a < idMakerGivensSudokus.size(); ++a){
 					Sudoku sudo = getSudoku(size, dif, idMakerGivensSudokus.get(a).get(0));
 					RankingSudoku rank = sudo.getRanking();
