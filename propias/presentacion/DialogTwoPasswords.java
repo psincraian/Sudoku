@@ -2,13 +2,34 @@ package propias.presentacion;
 
 import javax.swing.JDialog;
 
+/**
+ * 
+ * @author Petru Rares Sincraian
+ * 
+ * Mostra un Dialog amb dos entrada de text i dos butons. Serveix per demanar la nova
+ * password del usuari.
+ *
+ */
 public class DialogTwoPasswords extends JDialog {
 
+    /** La interficie per comunicar-se amb l'usuari. Quan s'apreti el boto guardar
+     * es cridara a save(username) on username conté el text escrit en el textedit.
+     * Quan es premi cancelar es cridarà al metode cancelPass()
+     * 
+     * @author Petru Rares Sincraian 
+     *
+     */
 	public interface twoPasswordsInterface {
 		public void save(String password1, String password2);
 		public void cancelPass();
 	}
 	
+	
+	/** Creadora per defecte pero privada. Si es vol instanciar la classe utilitzar
+	 * {@link #getInstance(Object)}
+	 * 
+	 * @param object L'objecte que implementa la interficie
+	 */
     private DialogTwoPasswords(Object object) {
     	super();
     	listener = (twoPasswordsInterface) object;
@@ -16,6 +37,9 @@ public class DialogTwoPasswords extends JDialog {
         setModal(true);
     }
 
+    /** Crea la vista
+     * 
+     */
     @SuppressWarnings("unchecked")
     private void initComponents() {
 
@@ -80,14 +104,29 @@ public class DialogTwoPasswords extends JDialog {
         pack();
     }                     
 
+    /** Accio que es duu a terme quan es prem Cancel
+     * 
+     * @param evt
+     */
     private void CancelActionPerformed(java.awt.event.ActionEvent evt) {  
     	listener.cancelPass();
     }                                      
 
+    /** Accio que es duu a terme quan es prem Save
+     * 
+     * @param evt
+     */
     private void SaveActionPerformed(java.awt.event.ActionEvent evt) {                                     
     	listener.save(password1.getText(), password2.getText());
     }    
     
+    /** El metode getInstance es la constructora. Aquesta classe es singleton
+     * per tant en un moment donat només podrem tenir un objecte. Quan es crida
+     * l'objecte anterior es borra.
+     * 
+     * @param object
+     * @return Una referencia al objecte
+     */
     public static DialogTwoPasswords getInstance(Object object) {
     	if (instance != null)
 			try {

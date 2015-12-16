@@ -2,7 +2,21 @@ package propias.presentacion;
 
 import javax.swing.JDialog;
 
+/**
+ * 
+ * @author Petru Rares Sincraian
+ * 
+ * Mostra un Dialog amb una entrada de text i dos butons. Serveix per demanar el nou
+ * nom del usuari.
+ *
+ */
 public class DialogChangeUsername extends JDialog {
+	
+	/** Creadora per defecte pero privada. Si es vol instanciar la classe utilitzar
+	 * {@link #getInstance(Object)}
+	 * 
+	 * @param object L'objecte que implementa la interficie
+	 */
     private DialogChangeUsername(Object object) {
     	super();
     	listener = (changeUsername) object;
@@ -10,11 +24,21 @@ public class DialogChangeUsername extends JDialog {
         setModal(true);
     }
     
+    /** La interficie per comunicar-se amb l'usuari. Quan s'apreti el boto guardar
+     * es cridara a save(username) on username conté el text escrit en el textedit.
+     * Quan es premi cancelar es cridarà al metode cancelName()
+     * 
+     * @author Petru Rares Sincraian 
+     *
+     */
     public interface changeUsername {
     	public void save(String username);
     	public void cancelName();
     }
     
+    /** Crea la vista
+     * 
+     */
     @SuppressWarnings("unchecked")
     private void initComponents() {
 
@@ -67,14 +91,29 @@ public class DialogChangeUsername extends JDialog {
         pack();
     }                      
 
+    /** Accio que es duu a terme quan es prem Cancel
+     * 
+     * @param evt
+     */
     private void CancelActionPerformed(java.awt.event.ActionEvent evt) {       
     	listener.cancelName();
     }                                      
 
+    /** Accio que es duu a terme quan es prem Save
+     * 
+     * @param evt
+     */
     private void SaveActionPerformed(java.awt.event.ActionEvent evt) {   
     	listener.save(username.getText());
     }
     
+    /** El metode getInstance es la constructora. Aquesta classe es singleton
+     * per tant en un moment donat només podrem tenir un objecte. Quan es crida
+     * l'objecte anterior es borra.
+     * 
+     * @param object
+     * @return Una referencia al objecte
+     */
     public static DialogChangeUsername getInstance(Object object) {
     	if (instance != null)
 			try {
