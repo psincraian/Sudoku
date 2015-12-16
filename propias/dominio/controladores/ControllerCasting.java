@@ -147,7 +147,7 @@ public class ControllerCasting {
 						}
 					}
 					sudo.setRanking(new RankingSudoku(params));
-					introduceSudoku(sudo, Integer.parseInt(idMakerGivensSudokus.get(a).get(2)));
+					modifySudoku(idMakerGivensSudokus.get(a).get(0), sudo);
 				}
 			}
 		}
