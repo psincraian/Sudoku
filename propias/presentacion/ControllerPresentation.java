@@ -183,7 +183,7 @@ public class ControllerPresentation implements
     public void boardCompleted(){
     	ControllerViewBoard c = ControllerViewBoard.getInstance();
         if(!createSudoku && cd.takePointsBoard() != 0 && this.caracteristiques.getTipusPartida() == 1){
-        	c.sendMessage("Felicitats, has omplert el sudoku. Ranking del Sudoku: " + cd.takePointsBoard());
+        	c.sendMessage("Felicitats, has omplert el sudoku. Puntuació: " + cd.takePointsBoard());
         	showRankingSudoku();
         }
         else if (this.caracteristiques.getTipusPartida() == 0 && !createSudoku && cd.takePointsBoard() != 0){
