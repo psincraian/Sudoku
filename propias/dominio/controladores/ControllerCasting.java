@@ -5,7 +5,7 @@ import propias.persistencia.ControllerPersistance;
 import java.io.*;
 import java.util.List;
 import java.util.ArrayList;
-import javax.xml.bind.DatatypeConverter; 
+import javax.xml.bind.DatatypeConverter;
 
 public class ControllerCasting {
 
@@ -297,8 +297,8 @@ public class ControllerCasting {
 			bytes = DatatypeConverter.parseBase64Binary(cp.getSudokuInfo(lvl, size));
 		}		
 		ByteArrayInputStream bis = new ByteArrayInputStream(bytes);
-    	ObjectInputStream ois = new ObjectInputStream(bis);
-    	return (ListSudokuInfo) ois.readObject();
+    		ObjectInputStream ois = new ObjectInputStream(bis);
+    		return (ListSudokuInfo) ois.readObject();
 	}
 
 	/**
@@ -395,8 +395,8 @@ public class ControllerCasting {
 	public MatchTraining getSavedMatch(String id) throws Exception {
 		byte[] bytes = DatatypeConverter.parseBase64Binary(cp.getSavedMatch(id));
 		ByteArrayInputStream bis = new ByteArrayInputStream(bytes);
-    	ObjectInputStream ois = new ObjectInputStream(bis);
-    	return (MatchTraining) ois.readObject();
+    		ObjectInputStream ois = new ObjectInputStream(bis);
+    		return (MatchTraining) ois.readObject();
 	}
 
 	/**
@@ -406,9 +406,9 @@ public class ControllerCasting {
 	*/
 	public void saveMatch(MatchTraining m, String name) throws Exception {		
 		ByteArrayOutputStream bos = new ByteArrayOutputStream();
-    	ObjectOutputStream oos = new ObjectOutputStream(bos);
-    	oos.writeObject(m);
-    	oos.close();
+    		ObjectOutputStream oos = new ObjectOutputStream(bos);
+    		oos.writeObject(m);
+    		oos.close();
 	 	String serializedMatch = new String(DatatypeConverter.printBase64Binary(bos.toByteArray()));    	
 	 	cp.saveMatch(name, serializedMatch);
 	}
@@ -426,14 +426,14 @@ public class ControllerCasting {
 	*/
 	public void saveMatch(MatchTraining m, String name, String maker, int givens) throws Exception {		
 		ByteArrayOutputStream bos = new ByteArrayOutputStream();
-    	ObjectOutputStream oos = new ObjectOutputStream(bos);
-    	oos.writeObject(m);
-    	oos.close();
-	 	String serializedMatch = new String(DatatypeConverter.printBase64Binary(bos.toByteArray()));    	
-	 	cp.saveMatch(name, serializedMatch);
-	 	ListMatchInfo info = getMatchInfo();
-	 	info.addInfo(name, maker, givens);
-	 	introduceMatchInfo(info);
+    		ObjectOutputStream oos = new ObjectOutputStream(bos);
+    		oos.writeObject(m);
+    		oos.close();
+		String serializedMatch = new String(DatatypeConverter.printBase64Binary(bos.toByteArray()));
+		cp.saveMatch(name, serializedMatch);
+		ListMatchInfo info = getMatchInfo();
+		info.addInfo(name, maker, givens);
+		introduceMatchInfo(info);
 	}
 
 	/**
@@ -498,8 +498,8 @@ public class ControllerCasting {
 			bytes = DatatypeConverter.parseBase64Binary(cp.getMatchInfo());
 		}		
 		ByteArrayInputStream bis = new ByteArrayInputStream(bytes);
-    	ObjectInputStream ois = new ObjectInputStream(bis);
-    	return (ListMatchInfo) ois.readObject();
+    		ObjectInputStream ois = new ObjectInputStream(bis);
+    		return (ListMatchInfo) ois.readObject();
 	}
 
 	/**
@@ -520,8 +520,8 @@ public class ControllerCasting {
 			bytes = DatatypeConverter.parseBase64Binary(cp.getMatchInfo(user));
 		}		
 		ByteArrayInputStream bis = new ByteArrayInputStream(bytes);
-    	ObjectInputStream ois = new ObjectInputStream(bis);
-    	return (ListMatchInfo) ois.readObject();
+    		ObjectInputStream ois = new ObjectInputStream(bis);
+    		return (ListMatchInfo) ois.readObject();
 	}
 
 	/**
