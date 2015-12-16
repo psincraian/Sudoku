@@ -6,14 +6,25 @@ import javax.swing.*;
 
 import propias.dominio.clases.CaracteristiquesPartida;
 
+/** Vista que ens mostra i ens permet seleccionar un conjunt de caracteristiques
+ * del sudoku. Permet seleccionar el tipus de partida, la mida del sudoku, el 
+ * nombre minim de caselles, si es de la bd.
+ * 
+ * @author petrusqui
+ *
+ */
 public class SelectCharacteristics extends SetView {
 
+	/** La interficie per communicar-se amb els altres metodes. Quan s'apreta el
+	 * boto save es crida el metode getParameters amb les caracteristiques seleccionades.
+	 * 
+	 * @author Petru Rares Sincraian
+	 *
+	 */
 	public interface GetParametersListener {
 		public void getParameters(CaracteristiquesPartida caracteristiques);
 	}
-	
-	private static final long serialVersionUID = -170046201841094501L;
-	
+		
 	private final static String TITLE = "Select Characteristics";
 	private final static String SAVE_BUTTON = "Guardar";
 
@@ -46,6 +57,11 @@ public class SelectCharacteristics extends SetView {
 	private JPanel panelGivenNuber;
 	private JPanel panelSudokuType;
 
+	/** La creadora per defecte. Es privada per inicialitzar un objecte fer 
+	 * servir {@link #getInstance(Object)}
+	 * 
+	 * @param container L'objecte que implementa la interficie
+	 */
 	private SelectCharacteristics(Object container) {
 		super();
 		
@@ -67,10 +83,17 @@ public class SelectCharacteristics extends SetView {
 		createView();
 	}
 	
+	/** Actualitza la vista a convidat. El que fa es que esborra per seleccionar
+	 * competició del sudoku
+	 * 
+	 */
 	public void updateToGuest() {
 		panelMatch.remove(1);
 	}
 
+	/** Crea la vista
+	 * 
+	 */
 	private void createView() {
 		panelMatch = new JPanel();
 		panelDifficulty = new JPanel();
@@ -122,6 +145,9 @@ public class SelectCharacteristics extends SetView {
 		modifyPanelProperties();
 	}
 
+	/** Modifica les propietats del panell
+	 * 
+	 */
 	private void modifyPanelProperties() {
 		setBorder(null);
         setMinimumSize(getPreferredSize());
@@ -129,6 +155,10 @@ public class SelectCharacteristics extends SetView {
 		setName(TITLE);
 	}
 	
+	/** Crea el group del panell
+	 * 
+	 * @param panel
+	 */
 	private void createSudokuSelectionGroup(JPanel panel) {
 		JRadioButton newSudoku = new JRadioButton(SUDOKU_NEW);
 		newSudoku.setActionCommand(SUDOKU_NEW);
@@ -165,6 +195,10 @@ public class SelectCharacteristics extends SetView {
 		);
 	}
 
+	/** Crea l'apartat Match
+	 * 
+	 * @param panel
+	 */
 	private void createMatchGroup(JPanel panel) {
 		JRadioButton matchTraining = new JRadioButton(MATCH_TRAINING);
 		matchTraining.setActionCommand(MATCH_TRAINING);
@@ -201,6 +235,10 @@ public class SelectCharacteristics extends SetView {
 		);
 	}
 
+	/** Crea el panell de la dificultat
+	 * 
+	 * @param panel
+	 */
 	private void createDifficultyGroup(JPanel panel) {
 		JRadioButton difficultyEasy = new JRadioButton(DIFFICUlTY_EASY);
 		difficultyEasy.setActionCommand(DIFFICUlTY_EASY);
@@ -245,6 +283,10 @@ public class SelectCharacteristics extends SetView {
 		);
 	}
 
+	/** Crea el panell de la mida
+	 * 
+	 * @param panel
+	 */
 	private void createSizeGroup(JPanel panel) {
 		JRadioButton size9 = new JRadioButton(SIZE_9);
 		size9.setActionCommand(SIZE_9);
@@ -280,6 +322,10 @@ public class SelectCharacteristics extends SetView {
 		);
 	}
 
+	/** Crea el panell del nombre minim de nombres
+	 * 
+	 * @param panel
+	 */
 	private void createGivenNumbersPanel(JPanel panel) {
 		hiddenNumbersField = new JTextField("0");
 
@@ -300,6 +346,11 @@ public class SelectCharacteristics extends SetView {
 	}
 
 
+	/** El listener de cada vistas
+	 * 
+	 * @author petrusqui
+	 *
+	 */
 	private class RadiousActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			switch (e.getActionCommand()) {
@@ -335,6 +386,11 @@ public class SelectCharacteristics extends SetView {
 		}
 	}
 	
+	/** Quan s'apreta el boto save venim aqui
+	 * 
+	 * @author petrusqui
+	 *
+	 */
 	private class SaveActionListener implements ActionListener {
 
 		@Override
@@ -345,12 +401,18 @@ public class SelectCharacteristics extends SetView {
 		
 	}
 	
+    /** El metode getInstance es la constructora. Aquesta classe es singleton
+     * per tant en un moment donat només podrem tenir un objecte. Quan es crida
+     * l'objecte anterior es borra.
+     * 
+     * @param object
+     * @return Una referencia al objecte
+     */
 	public static SelectCharacteristics getInstance(Object object) {
 		if (instance != null) {
 			try {
 				instance.finalize();
 			} catch (Throwable e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}

@@ -6,8 +6,18 @@ import javax.swing.*;
 
 import propias.dominio.clases.CaracteristiquesPartida;
 
+/** Vista que ens mostra i ens permet seleccionar la mida del sudoku.
+ * 
+ * @author petrusqui
+ */
 public class SelectSize extends SetView {
 
+	/** La interficie per communicar-se amb els altres metodes. Quan s'apreta el
+	 * boto save es crida el metode getParameters amb les caracteristiques seleccionades.
+	 * 
+	 * @author Petru Rares Sincraian
+	 *
+	 */
 	public interface GetParametersListener {
 		public void getSize(int size);
 	}
@@ -24,6 +34,11 @@ public class SelectSize extends SetView {
 	private int size;
 	private GetParametersListener listener;
 
+	/** La creadora per defecte. Es privada per inicialitzar un objecte fer 
+	 * servir {@link #getInstance(Object)}
+	 * 
+	 * @param container L'objecte que implementa la interficie
+	 */
 	private SelectSize(Object container) {
 		super();
 		
@@ -38,6 +53,9 @@ public class SelectSize extends SetView {
 		createView();
 	}
 
+	/** Crea la vista
+	 * 
+	 */
 	private void createView() {		
 		JPanel panelSize = new JPanel();
 		createSizeGroup(panelSize);
@@ -72,6 +90,9 @@ public class SelectSize extends SetView {
 		modifyPanelProperties();
 	}
 
+	/** Modifica les propietats del panell
+	 * 
+	 */
 	private void modifyPanelProperties() {
 		setBorder(null);
         setMinimumSize(getPreferredSize());
@@ -79,6 +100,10 @@ public class SelectSize extends SetView {
 		setName(TITLE);
 	}
 
+	/** Crea la mida del grup
+	 * 
+	 * @param panel
+	 */
 	private void createSizeGroup(JPanel panel) {
 		JRadioButton size9 = new JRadioButton(SIZE_9);
 		size9.setActionCommand(SIZE_9);
@@ -114,6 +139,11 @@ public class SelectSize extends SetView {
 		);
 	}
 
+	/** El listener de la vista
+	 * 
+	 * @author Petru Rares Sincraian
+	 *
+	 */
 	private class RadiousActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			switch (e.getActionCommand()) {
@@ -128,6 +158,11 @@ public class SelectSize extends SetView {
 		}
 	}
 	
+	/** Quan s'apreta el boto save venim aqui.
+	 * 
+	 * @author petrusqui
+	 *
+	 */
 	private class SaveActionListener implements ActionListener {
 
 		@Override
@@ -137,12 +172,18 @@ public class SelectSize extends SetView {
 		
 	}
 	
+    /** El metode getInstance es la constructora. Aquesta classe es singleton
+     * per tant en un moment donat només podrem tenir un objecte. Quan es crida
+     * l'objecte anterior es borra.
+     * 
+     * @param object
+     * @return Una referencia al objecte
+     */
 	public static SelectSize getInstance(Object object) {
 		if (instance != null) {
 			try {
 				instance.finalize();
 			} catch (Throwable e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}

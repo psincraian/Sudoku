@@ -10,11 +10,17 @@ import propias.dominio.clases.OptionsMenu;
 
 /**
  * 
- * @author Petru Rares
+ * @author Petru Rares Sincraian
  *
  */
 public class VistaMenu extends SetView {
 	
+	/** getOption es crida quan es fa clic en algun botó. En option s'indica la opcio
+	 * que s'ha seleccionat.
+	 * 
+	 * @author Petru Rares Sincraian
+	 *
+	 */
 	public interface MenuButtonClicked {
 		public void getOption(OptionsMenu option);
 	}
@@ -37,6 +43,11 @@ public class VistaMenu extends SetView {
 	private MenuButtonClicked menuButtonClicked;
 
 	
+	/** La creadora per defecte. Es privada per inicialitzar un objecte fer 
+	 * servir {@link #getInstance(Object)}
+	 * 
+	 * @param container L'objecte que implementa la interficie
+	 */
 	private VistaMenu(Object object) {
 		super();
 		
@@ -50,6 +61,9 @@ public class VistaMenu extends SetView {
 		createUserView();
 	}
 	
+	/** Crea la vista del usuari
+	 * 
+	 */
 	private void createUserView() {
         setButtonsText();
         setMinimumSize(new Dimension(172, 210));
@@ -94,6 +108,9 @@ public class VistaMenu extends SetView {
         );
 	}
 	
+	/** Afegeix els texts a tots els butons
+	 * 
+	 */
 	private void setButtonsText() {
         newMatch = new JButton(OptionsMenu.PartidaRapida.toString());
         loadGame = new JButton(OptionsMenu.CargarPartida.toString());
@@ -121,6 +138,11 @@ public class VistaMenu extends SetView {
         exit.setActionCommand(EXIT_ACTION);
 	}
 	
+	/** Modifica la vista al mode convidat. Això el que fa es deshabilitat
+	 * els botons de "Carregar partida", "Crear sudoku", "Esborrar usuari"
+	 * "Veure ranking" i "Veure perfil"
+	 * 
+	 */
 	public void updateToGuestView() {
 		loadGame.setEnabled(false);
 		createSudoku.setEnabled(false);
@@ -129,6 +151,11 @@ public class VistaMenu extends SetView {
 		viewProfile.setEnabled(false);
 	}
 	
+	/** El listener de cada boto. Quan s'apreta un boto venim aqui.
+	 * 
+	 * @author Petru Rares Sincraian
+	 *
+	 */
 	private class ButtonListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -163,12 +190,18 @@ public class VistaMenu extends SetView {
 		}
 	}
 	
+    /** El metode getInstance es la constructora. Aquesta classe es singleton
+     * per tant en un moment donat només podrem tenir un objecte. Quan es crida
+     * l'objecte anterior es borra.
+     * 
+     * @param object
+     * @return Una referencia al objecte
+     */
 	public static VistaMenu getInstance(Object object) {
 		if (instance != null) {
 			try {
 				instance.finalize();
 			} catch (Throwable e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
