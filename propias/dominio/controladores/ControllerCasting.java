@@ -47,7 +47,7 @@ public class ControllerCasting {
 		ParamRanking pr = new ParamRanking(user.consultarNom(), 0L);
 		rank.modRanking(pr);
 		setRankingGlobal(rank);
-		getMatchInfo();
+		getMatchInfo(user.consultarNom());
 	}
 
 	/**
@@ -517,7 +517,7 @@ public class ControllerCasting {
 		try {
 			bytes = DatatypeConverter.parseBase64Binary(cp.getMatchInfo(user));
 		} catch(FileNotFoundException fnfe) {
-			introduceMatchInfo(new ListMatchInfo());
+			introduceMatchInfo(new ListMatchInfo(), user);
 			bytes = DatatypeConverter.parseBase64Binary(cp.getMatchInfo(user));
 		}		
 		ByteArrayInputStream bis = new ByteArrayInputStream(bytes);

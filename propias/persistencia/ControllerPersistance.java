@@ -528,7 +528,7 @@ public class ControllerPersistance {
 	public void introduceMatchInfo(String serializedInfo) throws Exception {
 		File f = new File(autoPath + "/data/Users/" + user + "/Partidas/infoMatches");
 		f.delete();
-		f.createNewFile();
+		f.mkdirs();//createNewFile();
 		FileWriter fw = new FileWriter(f.getAbsolutePath());
 		PrintWriter pw = new PrintWriter(fw);
 		pw.print(serializedInfo);
