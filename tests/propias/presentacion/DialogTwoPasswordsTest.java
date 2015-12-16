@@ -36,7 +36,8 @@ public class DialogTwoPasswordsTest implements DialogTwoPasswords.twoPasswordsIn
 
 
 	@Override
-	public void cancel() {
-		dialog.dispose();
+	public void cancelPass() {
+		// TODO Auto-generated method stub
+		
 	}
 }
