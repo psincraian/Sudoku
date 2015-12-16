@@ -14,18 +14,41 @@ import java.util.List;
 public class ViewCreateUser extends UserEntry{
 
 	private JPasswordField pass2;
-
+	private static ViewCreateUser instance;
 	/**
 	 * 
-	 * Constructora de la vista. Configura el titol i afegeix un nou element
-	 * pertanyent a la contrasenya de verificacio
+	 * Constructora de la vista ViewCreateUser. 
 	 * 
 	 */
 	public ViewCreateUser() {
 		super();
+		
+	}
+	
+	/**
+	 * 
+	 * Funcio que s'encarrega de llençar 
+	 * la vista ViewCreateUser
+	 * 
+	 */
+	public void launchView(){
 		setTitle("Creacio d'un nou usuari");
 		addPasswordField();
 		setPanelSize(300,3);
+	}
+	
+	/**
+	 * 
+	 * Funcio que s'encarrega de retorna l'instancia d'aquesta vista
+	 * per tal existeixi un sola instancia(singleton)
+	 * 
+	 * @return instancia de ViewCreateUser
+	 * 
+	 */
+	public static ViewCreateUser getInstance(){
+		if(instance == null)
+			instance = new ViewCreateUser();
+		return instance;
 	}
 	
 	/**

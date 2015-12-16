@@ -281,4 +281,12 @@ public abstract class GenerateBoard extends SetView{
 	 * 
 	 */
 	protected abstract void enableCustomProperties();
+	
+	/**
+	 * 
+	 * Funcio que s'encarrega de llençar 
+	 * la vista ViewMatch o ViewCreateBoard
+	 * 
+	 */
+	//public abstract void launchView(int[][] board, int size);
 }
