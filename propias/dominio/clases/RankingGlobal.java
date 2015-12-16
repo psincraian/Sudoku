@@ -11,7 +11,7 @@ import propias.dominio.clases.ParamRanking;
  * @author Daniel Sanchez Martinez
  * 
  */
-public class RankingGlobal extends Ranking{
+public class RankingGlobal extends Ranking implements java.io.Serializable {
 
 	/**
 	 * Constructor del ranking global
