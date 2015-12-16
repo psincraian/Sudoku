@@ -124,14 +124,18 @@ public class ViewRanking extends SetView{
 		String sequenceM = "00";
 		if(global)
 			return data;
-		if(data.length() >= 2)
+		if(data.length() >= 2){
 			sequenceS = data.substring(data.length()-2);
-		if(data.length() > 4){
-			sequenceM = data.substring(data.length()-4,data.length()-2);
-			sequenceS = data.substring(0, data.length()-4)+ ":" + sequenceM + ":" +sequenceS;
+			if(data.length() == 2)
+				sequenceS = "00:00:"+sequenceS;
 		}
-		else if(data.length() == 4)
-			sequenceS = "00:" + sequenceM + ":" + sequenceS;
+		if(data.length() >= 4){
+			sequenceM = data.substring(data.length()-4,data.length()-2);
+			if(data.length() == 4)
+				sequenceS = "00:" + sequenceM + ":" + sequenceS;
+			else
+				sequenceS = data.substring(0, data.length()-4)+ ":" + sequenceM + ":" +sequenceS;
+		}
 		
 		return sequenceS;
 	}
