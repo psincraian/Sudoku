@@ -85,7 +85,6 @@ public class Sudoku implements java.io.Serializable {
 	public Board getSudoku() {
 		return new Board(sudoku);
 	}
-	
 	/** Retorna la solució del sudoku
 	 * 
 	 * @return La solució del sudoku.

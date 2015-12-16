@@ -28,6 +28,7 @@ public class ControllerDomain {
     String id;
     Match match;
     Sudoku sudoku;
+    Sudoku copia;
     Usuari user;
     boolean createSudoku; //indica si s'esta creant un nou sudoku o no
     int cont; //indica les caselles posades per l'usuari al jugar una partida
@@ -196,6 +197,7 @@ public class ControllerDomain {
             	}
                 else if (type == 1 && !isGuest) {
                 	match = new MatchCompetition(this.user.consultarNom(), s);
+                	copia = match.getAllSudoku();
                 }
             	int[][] matrix = convertToMatrix(s.getSudoku());
             	return matrix;
@@ -221,6 +223,7 @@ public class ControllerDomain {
             	else if(type == 0 && !isGuest) match = new MatchTraining(this.user.consultarNom(), s);
                 else if (type == 1 && !isGuest) {
                 	match = new MatchCompetition(this.user.consultarNom(), s);
+                	copia = match.getAllSudoku();
                 }
             	int[][] matrix = convertToMatrix(s.getSudoku());
             	return matrix;
@@ -582,16 +585,15 @@ public class ControllerDomain {
 		        if(cont == (size*size)) { // ha completado la partida correctamente
 		        	if(type == 1){
 		        		((MatchCompetition) match).endTime();
-			        	Sudoku s = new Sudoku(match.getSudoku(), match.getSolution());
 			        	int score = ((MatchCompetition) match).score();
-			        	s.updateRanking(this.user.consultarNom(), score);
+			        	match.getAllSudoku().updateRanking(this.user.consultarNom(), score);
 			        	stad.addTime(((MatchCompetition) match).getMatchTime(), dificult); //actualizo tiempo estadisticas
 			        	stad.afegirNumPartides(1, dificult); //actualizo numer partidas de estadisticas
 			        	rg.modRanking(new ParamRanking(this.user.consultarNom(), ((MatchCompetition) match).getMatchTime())); //actualizo ranking global
 			        	points = score;
 			        	cc.setStadistics(this.stad);
 			        	cc.setRankingGlobal(this.rg);
-			        	cc.modifySudoku(this.id, s);
+			        	cc.modifySudoku(this.id, copia);
 		        	}
 		        	else{
 		        		if (!isGuest) cc.deleteMatch(this.id);
