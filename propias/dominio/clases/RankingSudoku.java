@@ -11,7 +11,7 @@ import java.util.*;
  * @author Daniel Sanchez Martinez
  * 
  */
-public class RankingSudoku extends Ranking{
+public class RankingSudoku extends Ranking implements java.io.Serializable {
 	
 	/**
 	 * 
