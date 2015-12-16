@@ -21,15 +21,6 @@ public class ViewLogin extends UserEntry{
 	 */
 	public ViewLogin(){
 		super();
-	}
-	
-	/**
-	 * 
-	 * Funcio que s'encarrega de llençar 
-	 * la vista ViewLogin
-	 * 
-	 */
-	public void launchView(){
 		setTitle("Login d'usuari registrat");
 		setPanelSize(250,2);
 	}

@@ -22,16 +22,6 @@ public class ViewCreateUser extends UserEntry{
 	 */
 	public ViewCreateUser() {
 		super();
-		
-	}
-	
-	/**
-	 * 
-	 * Funcio que s'encarrega de llençar 
-	 * la vista ViewCreateUser
-	 * 
-	 */
-	public void launchView(){
 		setTitle("Creacio d'un nou usuari");
 		addPasswordField();
 		setPanelSize(300,3);

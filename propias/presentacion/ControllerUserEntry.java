@@ -52,14 +52,10 @@ public class ControllerUserEntry {
 	 * 
 	 */
 	public void launchView(boolean typeUser, JFrame frame, Object container){
-		if(typeUser == LOGIN_VIEW){
+		if(typeUser == LOGIN_VIEW)
 			eu = ViewLogin.getInstance();
-			eu.launchView();
-		}
-		else {
+		else 
 			eu = ViewCreateUser.getInstance();
-			eu.launchView();
-		}
 		this.ue = (userEntry) container;
 		instance = this;
 		frame.getContentPane().add(eu);
