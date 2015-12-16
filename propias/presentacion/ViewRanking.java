@@ -128,6 +128,10 @@ public class ViewRanking extends SetView{
 			sequenceS = data.substring(data.length()-2);
 			if(data.length() == 2)
 				sequenceS = "00:00:"+sequenceS;
+			if(data.length() == 3){
+				sequenceM = data.substring(data.length()-3,data.length()-2);
+				sequenceS = "00:0"+sequenceM+":"+sequenceS;
+			}
 		}
 		if(data.length() >= 4){
 			sequenceM = data.substring(data.length()-4,data.length()-2);

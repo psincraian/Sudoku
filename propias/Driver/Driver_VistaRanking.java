@@ -22,7 +22,7 @@ public class Driver_VistaRanking {
         List<Long> values = new ArrayList<Long>();
         name.add("Daniel");
         name.add("David");
-        values.add((long)11);
+        values.add((long)111);
         values.add((long)2222);
       
         ViewRanking vr = ViewRanking.getInstance();
