@@ -51,7 +51,7 @@ public class ControllerDomain {
             try {
             	if(cc.existsUser(credentials.get(0))) 
             		return "El nom d'usuari ja existeix";
-                CreateUser cu = new CreateUser(credentials.get(0),credentials.get(1),credentials.get(2));
+                CntrlCreateUser cu = new CntrlCreateUser(credentials.get(0),credentials.get(1),credentials.get(2));
                 errorUser = cu.isEqual();
                 if (errorUser.equals(ErrorUserEntry.LOGIN_FAIL_USER_EMPTY)) 
                 	return "Usuari ha de tenir un nom";
