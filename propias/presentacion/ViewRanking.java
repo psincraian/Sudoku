@@ -78,7 +78,10 @@ public class ViewRanking extends SetView{
 		this.value=value;
 		this.r = (ranking) container;
 		this.global = global;
-		setTitle("Ranking");
+		if(global)
+			setTitle("Ranking global");
+		else
+			setTitle("Ranking sudoku");
 		initialize();
 	}
 	
@@ -117,7 +120,7 @@ public class ViewRanking extends SetView{
 	
 	public String setToTime(Long value){
 		String data = String.valueOf(value);
-		if(data.length() < 4)
+		if(global)
 			return data;
 		String sequenceS = data.substring(data.length()-2);
 		String sequenceM = data.substring(data.length()-4,data.length()-2);
