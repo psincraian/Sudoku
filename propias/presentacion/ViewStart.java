@@ -36,9 +36,9 @@ public class ViewStart extends SetView {
 		button = new JButton[4];
 		for(int i = 0; i < 4; ++i){
 			button[i] = new JButton(nom[i]);
-			button[i].setPreferredSize(new Dimension(125,50));
-			button[i].setMinimumSize(new Dimension(125,50));
-			button[i].setMaximumSize(new Dimension(125,50));
+			button[i].setPreferredSize(new Dimension(200,50));
+			button[i].setMinimumSize(new Dimension(200,50));
+			button[i].setMaximumSize(new Dimension(200,50));
 		}
 	}
 
