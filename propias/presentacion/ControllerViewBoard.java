@@ -245,7 +245,6 @@ public class ControllerViewBoard {
 			       		}
 			       		else{
 			       			bPressed.setEnabled(false);
-			       			vm.sendMessage("Ja has utilitzat el limit de cops el HINT1");
 			       		}
 			        }
 		        }

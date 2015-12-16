@@ -25,7 +25,7 @@ public class ControllerPresentation implements
 	ControllerUserEntry.userEntry,
 	ControllerViewBoard.viewBoard,
 	ViewRanking.ranking,
-	VistaMenu.MenuButtonClicked,
+	ViewMenu.MenuButtonClicked,
 	ViewSelectSudoku.selectSudoku,
 	ViewProfile.ProfileReturnListener {
 	
@@ -108,7 +108,7 @@ public class ControllerPresentation implements
     public void showMainMenu() {
     	frame.getContentPane().removeAll();
         frame.setLayout(new java.awt.GridBagLayout());
-    	VistaMenu vm = VistaMenu.getInstance(this);
+    	ViewMenu vm = ViewMenu.getInstance(this);
         if (isGuest)
         	  vm.updateToGuestView();
         
