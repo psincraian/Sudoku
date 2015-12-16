@@ -1,0 +1,58 @@
+Controlador de domini(classes):
+-ListInfo
+-ListSudokuInfo
+-ListMatchInfo
+*Classes que ajuden a obtenir
+l'informacio adicional de sudokus 
+i partides de forma eficient de 
+persistencia (id, creador i nombre 
+de caselles plenes).
+*Petita participacio en altres
+clases (una creadora a Sudoku, 
+un get a Match, etc).
+
+Controlador de domini(controladors):
+-CntrlSudokuCreator.java
+*Permet crear un sudoku de forma 
+completament random a partir d'una
+plantilla de solucio de sudoku (amb 
+tots els nombres colÂ·locats i de 
+forma que cumpleixin les normes del 
+sudoku), amb una dificultat definida 
+i, en cas de demanar-ho, un minim de 
+caselles plenes assegurades.
+La solucio del sudoku final normalment
+no sera la de la plantilla donada, 
+pero sera isomorfa.
+-CntrlSearchLevel.java
+*Permet obtenir el nivell d'un taulell
+de sudoku valid, saver si un taulell
+es d'un nivell concret o cumpleix els
+requisits per a ser d'un nivell o 
+inferior.
+-ControllerCasting.java
+*Classe que comunica la capa de
+domini amb la capa de persistencia
+per tal de guardar, obtenir i/o 
+borrar dades segons les necessitats
+de l'aplicacio.
+S'encarrega de tractar les dades de
+domini serialitzant-les abans d'enviar-les
+al controlador de persistencia per a que
+les gestioni i emmagatzemi i de 
+demanar-les a persistencia i 
+deserialitzar-les per poder utilitzar-les
+altra vegada a domini.
+
+Controlador de persistencia:
+-ControllerPersistance.java
+*Permet tant l'extraccio com
+l'emmagatzematge i l'eliminacio de les
+dades de forma sistematica i prou
+eficient. Es completament independent
+al tipus de dades que es vulgui guardar
+(treballa amb Strings sense que importi
+ni sapiga que contenen) i esta organitzada
+en una jerarquia de directoris i fitxers.
+Explicat mes detalladament al fitxer
+"Estructura simulacio base de dades.txt".
