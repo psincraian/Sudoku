@@ -46,8 +46,9 @@ public class Driver_ViewSelectSudoku {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setMaximumSize(new Dimension(1000, 750));
 		frame.setPreferredSize(new Dimension(1000, 750));	
-		JPanel panel =  new ViewSelectSudoku(id, new ControllerPresentation());
-		frame.add(panel, BorderLayout.CENTER);
+		ViewSelectSudoku ss = ViewSelectSudoku.getInstance();
+		ss.launchView(id, new ControllerPresentation());
+		frame.add(ss, BorderLayout.CENTER);
 		frame.pack();
 		frame.setVisible(true);
 	}

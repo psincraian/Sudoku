@@ -238,11 +238,17 @@ public class ControllerViewBoard {
 				        	lastCell = e;
 			        	}
 		        	}
-			        else if(bPressed.getText() == "Hint1"){
+			        else if(bPressed.getText() == "Hint1" & bPressed.isVisible()){
 			       		int value = vb.getCellResolved(cell.getName());
-				       	label.setText(Integer.toString(value));
-				       	String[] pos = cell.getName().split(" ");
-			        	vm.drawSquare(Integer.parseInt(pos[0]),Integer.parseInt(pos[1]));	
+			       		if(value != 0){
+					       	label.setText(Integer.toString(value));
+					       	String[] pos = cell.getName().split(" ");
+				        	vm.drawSquare(Integer.parseInt(pos[0]),Integer.parseInt(pos[1]));
+			       		}
+			       		else{
+			       			bPressed.setVisible(false);
+			       			vm.sendMessage("Ja has utilitzat 10 cops HINT1");
+			       		}
 			        }
 		        }
 			}
