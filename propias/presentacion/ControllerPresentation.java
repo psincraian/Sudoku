@@ -260,14 +260,14 @@ public class ControllerPresentation implements
      */
     @Override
     public int getCellResolved(String s) {
-    	if (!cd.hintAvailable()) {
-    		ControllerViewBoard c = ControllerViewBoard.getInstance();
-    		c.sendMessage("No pots utilitzar aquesta ajuda");
-    		return 0;
-    	}
     	int number = cd.getCellSol(s);
     	if(cd.updateCell(s,number)) {
     		boardCompleted();
+    		return 0;
+    	}
+    	if (!cd.hintAvailable()) {
+    		ControllerViewBoard c = ControllerViewBoard.getInstance();
+    		c.sendMessage("No pots utilitzar aquesta ajuda");
     		return 0;
     	}
     	else return number;
