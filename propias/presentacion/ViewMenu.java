@@ -13,7 +13,7 @@ import propias.dominio.clases.OptionsMenu;
  * @author Petru Rares Sincraian
  *
  */
-public class VistaMenu extends SetView {
+public class ViewMenu extends SetView {
 	
 	/** getOption es crida quan es fa clic en algun botó. En option s'indica la opcio
 	 * que s'ha seleccionat.
@@ -48,7 +48,7 @@ public class VistaMenu extends SetView {
 	 * 
 	 * @param container L'objecte que implementa la interficie
 	 */
-	private VistaMenu(Object object) {
+	private ViewMenu(Object object) {
 		super();
 		
 		try {
@@ -197,7 +197,7 @@ public class VistaMenu extends SetView {
      * @param object
      * @return Una referencia al objecte
      */
-	public static VistaMenu getInstance(Object object) {
+	public static ViewMenu getInstance(Object object) {
 		if (instance != null) {
 			try {
 				instance.finalize();
@@ -206,9 +206,9 @@ public class VistaMenu extends SetView {
 			}
 		}
 		
-		instance = new VistaMenu(object);
+		instance = new ViewMenu(object);
 		return instance;
 	}
 	
-	private static VistaMenu instance;
+	private static ViewMenu instance;
 }
