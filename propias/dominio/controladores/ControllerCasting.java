@@ -47,6 +47,7 @@ public class ControllerCasting {
 		ParamRanking pr = new ParamRanking(user.consultarNom(), 0L);
 		rank.modRanking(pr);
 		setRankingGlobal(rank);
+		getMatchInfo();
 	}
 
 	/**
