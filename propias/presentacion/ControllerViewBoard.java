@@ -72,23 +72,21 @@ public class ControllerViewBoard {
 	public void launchView(int[][] board, int typeBoard, boolean guest,boolean competition, JFrame frame, Object container){
 		this.size = board[0].length;
 		instance = this;
-		if(typeBoard == VIEW_PLAY_SUDOKU){
+		if(typeBoard == VIEW_PLAY_SUDOKU & competition == COMPETITION){
 			this.vm = new ViewMatch(board,size);
-			if(competition == COMPETITION){
-				vm.enableCustomProperties();
-				vm.buttonListener(new MouseManage(), vm.extraButton[1]);
-				vm.buttonListener(new MouseManage(), vm.extraButton[2]);
-			}
-			if(guest == USER_GUEST || competition == TRAINING)
-				vm.extraButton[0].setEnabled(false);
+			vm.enableCustomProperties();
+			vm.buttonListener(new MouseManage(), vm.extraButton[1]);
+			vm.buttonListener(new MouseManage(), vm.extraButton[2]);
 		}
 		else{
 			this.vm = new ViewCreateBoard(board,size);
 			vm.buttonListener(new MouseManage(), vm.actEntry);
 		}
+		vm.buttonListener(new MouseManage(), vm.extraButton[0]);
+		if(guest == USER_GUEST || competition == TRAINING)
+			vm.extraButton[0].setEnabled(false);
 		vb = (viewBoard)container;
 		frame.getContentPane().add(vm);
-		vm.buttonListener(new MouseManage(), vm.extraButton[0]);
 		vm.buttonListener(new MouseManage(), vm.extraButton[3]);
 		vm.buttonListener(new MouseManage(), vm.button[size]);
 
@@ -204,7 +202,7 @@ public class ControllerViewBoard {
 	        				vb.showMainMenu();
 	        			}
 	        			else{
-	        				vm.sendMessage("No s'ha pogut guardar, no te solución única");
+	        				vm.sendMessage("No s'ha pogut guardar, no te solucion unica");
 	        			}
 	        		}
 	        		else{
@@ -238,7 +236,7 @@ public class ControllerViewBoard {
 				        	lastCell = e;
 			        	}
 		        	}
-			        else if(bPressed.getText() == "Hint1" & bPressed.isVisible()){
+			        else if(bPressed.getText() == "Hint1" & bPressed.isEnabled()){
 			       		int value = vb.getCellResolved(cell.getName());
 			       		if(value != 0){
 					       	label.setText(Integer.toString(value));
@@ -246,8 +244,8 @@ public class ControllerViewBoard {
 				        	vm.drawSquare(Integer.parseInt(pos[0]),Integer.parseInt(pos[1]));
 			       		}
 			       		else{
-			       			bPressed.setVisible(false);
-			       			vm.sendMessage("Ja has utilitzat 10 cops HINT1");
+			       			bPressed.setEnabled(false);
+			       			vm.sendMessage("Ja has utilitzat el limit de cops el HINT1");
 			       		}
 			        }
 		        }

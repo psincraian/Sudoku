@@ -113,6 +113,21 @@ public class ViewRanking extends SetView{
 		add(panel, BorderLayout.SOUTH);		
 	}
 	
+	public String setToTime(Long value){
+		String data = String.valueOf(value);
+		if(data.length() < 4)
+			return data;
+		String sequenceS = data.substring(data.length()-2);
+		String sequenceM = data.substring(data.length()-4,data.length()-2);
+		if(data.length() == 4)
+			sequenceS = "00:" + sequenceM + ":" +sequenceS;
+		else
+			sequenceS = data.substring(0, data.length()-4)+ ":" + sequenceM + ":" +sequenceS;
+
+		
+		return sequenceS;
+	}
+	
 	/**
 	 * 
 	 * Funcio que s'encarrega de inicialitzar els components 
@@ -133,7 +148,7 @@ public class ViewRanking extends SetView{
 		
 		for(int i = 0; i < name.size(); ++i){
 			nameL[i] = new JLabel(Integer.toString(i+1)+". "+name.get(i));
-			valueL[i] = new JLabel(String.valueOf(value.get(i)));
+			valueL[i] = new JLabel(setToTime(value.get(i)));
 			nameP.add(nameL[i]);
 			valueP.add(valueL[i]);
 		}
@@ -155,7 +170,7 @@ public class ViewRanking extends SetView{
 		JPanel aux = new JPanel();
 		aux.setBackground(Color.WHITE);
 		aux.add(new JLabel(Integer.toString(pos)+". "+name));
-		aux.add(new JLabel(String.valueOf(value)));
+		aux.add(new JLabel(setToTime(value)));
 		verticalBox.add(aux);
 		verticalBox.add(Box.createVerticalGlue());
 
