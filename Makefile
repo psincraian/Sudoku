@@ -4,5 +4,9 @@ all:
 
 jar: all
 	jar cfe Sudoku.jar main ./common/*.class ./propias/dominio/clases/*.class ./propias/dominio/controladores/*.class ./propias/persistencia/*.class ./propias/presentacion/*.class main.class ./propias/dominio/controladores/generator/*.class ./propias/dominio/controladores/generator/dlx/*.class
+
+run:
+	java main
+	
 clean:
 	rm ./common/*.class ./propias/dominio/clases/*.class ./propias/dominio/controladores/*.class ./propias/persistencia/*.class ./propias/presentacion/*.class main.class ./propias/Driver/*.class ./propias/dominio/controladores/generator/*.class ./propias/dominio/controladores/generator/dlx/*.class
