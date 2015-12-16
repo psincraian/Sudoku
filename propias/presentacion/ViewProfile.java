@@ -229,6 +229,5 @@ public class ViewProfile extends SetView implements
 	public void disableView(){
 		setVisible(false);
 	}
-	
 }
 

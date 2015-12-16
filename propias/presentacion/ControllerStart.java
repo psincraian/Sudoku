@@ -8,6 +8,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 
 import propias.dominio.clases.Options;
+import propias.dominio.clases.OptionsMenu;
 /**
  * 
  * @author Brian Martinez Alvarez

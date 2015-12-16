@@ -1,13 +1,15 @@
 Busca de nivell d'un sudoku:
 
--Troba el nivell d'un sudoku segons la classificacio per estrategies feta a sudokuWiki.org amb les següents diferencies:
-	-La classificacio es de 3 nivells: facil, mitja i 	dificil.
+-Troba el nivell d'un sudoku segons la classificacio per estrategies feta a sudokuWiki.org 
+amb les següents diferencies:
+	-La classificacio es de 3 nivells: facil, mitja i dificil.
 	-El nivell mitja no inclou Simple colouring.
 
 
 Funcionament:
 
-1. Busca les caselles amb un sol nombre possible i, en cas de trobar-ne, actualitza els candidats de les demes caselles. Repeteix el process fins que no troba més canvis.
+1. Busca les caselles amb un sol nombre possible i, en cas de trobar-ne, actualitza els 
+candidats de les demes caselles. Repeteix el process fins que no troba més canvis.
 
 2. Intenta aplicar les estrategies facils en el següent ordre per a tot el taulell: 
 	-> single isolated cells
@@ -17,7 +19,8 @@ Funcionament:
 	-> intersection removal
 En cas de trobar canvis torna a començar per el pas 1. Altrament continua amb el pas 3.
 
-3. Comprova si s'ha solucionat el taulell. En cas afirmatiu el sudoku es de nivell facil i aixi ho retornem. Altrament segueix amb el pas 4.
+3. Comprova si s'ha solucionat el taulell. En cas afirmatiu el sudoku es de nivell facil i 
+aixi ho retornem. Altrament segueix amb el pas 4.
 
 4. Intenta aplicar les estrategies mitjanes en el següent ordre per a tot el taulell:
 	-> X-Wings
@@ -26,4 +29,8 @@ En cas de trobar canvis torna a començar per el pas 1. Altrament continua amb e
 	-> XYZ-Wings
 En cas de trobar canvis, torna al pas 2. Altrament segueix amb el pas 5.
 
-5. Comprova si s'ha solucionat el taulell. En cas afirmatiu el sudoku es de nivell mitja, altrament sera de nivell dificil. Retornem el resultat trobat.
+5. Comprova si s'ha solucionat el taulell. En cas afirmatiu el sudoku es de nivell mitja, 
+altrament sera de nivell dificil. Retornem el resultat trobat.
+
+
+	-Adrián Sánchez Albanell
