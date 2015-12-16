@@ -196,9 +196,11 @@ public class ControllerViewBoard {
 	        		}
 	        	}
 				else if(bPressed.getText() == "Tornar"){
+					lastCell = null;
     				vb.showMainMenu();
 	        	}
 				else if(bPressed.getText() == "Guardar" && vm.extraButton[0].isEnabled()){
+					lastCell = null;
 					if(vm instanceof ViewCreateBoard){
 	        			if(vb.checkBoard()){
 	        				vb.saveBoard();
