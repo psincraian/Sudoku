@@ -165,7 +165,7 @@ public class Sudoku implements java.io.Serializable {
 	 * @param username El nom d'usuari del nou score
 	 * @param score La puntuació aconseguida per l'usuari
 	 */
-	public void updateRanking(String username, int score) {
+	public void updateRanking(String username, long score) {
 		ParamRanking param = new ParamRanking(username, score);
 		ranking.modRanking(param);
 	}
