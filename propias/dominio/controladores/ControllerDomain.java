@@ -28,7 +28,7 @@ public class ControllerDomain {
     String id;
     Match match;
     Sudoku sudoku;
-    Sudoku copia;
+    CaracteristiquesPartida car;
     Usuari user;
     boolean createSudoku; //indica si s'esta creant un nou sudoku o no
     int cont; //indica les caselles posades per l'usuari al jugar una partida
@@ -197,7 +197,7 @@ public class ControllerDomain {
             	}
                 else if (type == 1 && !isGuest) {
                 	match = new MatchCompetition(this.user.consultarNom(), s);
-                	copia = match.getAllSudoku();
+                	this.car = c;
                 }
             	int[][] matrix = convertToMatrix(s.getSudoku());
             	return matrix;
@@ -223,7 +223,7 @@ public class ControllerDomain {
             	else if(type == 0 && !isGuest) match = new MatchTraining(this.user.consultarNom(), s);
                 else if (type == 1 && !isGuest) {
                 	match = new MatchCompetition(this.user.consultarNom(), s);
-                	copia = match.getAllSudoku();
+                	this.car = c;
                 }
             	int[][] matrix = convertToMatrix(s.getSudoku());
             	return matrix;
@@ -593,7 +593,7 @@ public class ControllerDomain {
 			        	points = score;
 			        	cc.setStadistics(this.stad);
 			        	cc.setRankingGlobal(this.rg);
-			        	cc.modifySudoku(this.id, copia);
+			        	cc.modifySudoku(this.id, cc.getSudoku(car.getMida(), car.getDificultat(), this.id));
 		        	}
 		        	else{
 		        		if (!isGuest) cc.deleteMatch(this.id);
