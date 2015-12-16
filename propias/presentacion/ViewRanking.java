@@ -74,14 +74,17 @@ public class ViewRanking extends SetView{
 	 * 
 	 */
 	public void launchView(List<String> name, List<Long> value, Object container, boolean global){
-		this.name=name;
-		this.value=value;
+		this.name = name;
+		this.value = value;
 		this.r = (ranking) container;
 		this.global = global;
+		removeAll();
 		if(global)
 			setTitle("Ranking global");
-		else
+		else{
+			System.out.print("hola");
 			setTitle("Ranking sudoku");
+		}
 		initialize();
 	}
 	

@@ -64,6 +64,8 @@ public class ViewSelectSudoku extends SetView{
 	public void launchView(List<List<String>> id,Object container){
 		this.ss = (selectSudoku) container;
 		this.id = id;
+		removeAll();
+		setTitle("Seleccio d'un sudoku de la base de dades");
 		createView();
 	}
 	/**
@@ -74,7 +76,6 @@ public class ViewSelectSudoku extends SetView{
 	private void createView(){
 		iniNames();
 		
-		setTitle("Seleccio d'un sudoku de la base de dades");
 		Box horizontal = Box.createHorizontalBox();
 		Box vertical = Box.createVerticalBox();
 		vertical.add(Box.createVerticalGlue());
