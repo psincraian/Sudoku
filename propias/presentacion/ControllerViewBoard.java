@@ -72,18 +72,22 @@ public class ControllerViewBoard {
 	public void launchView(int[][] board, int typeBoard, boolean guest,boolean competition, JFrame frame, Object container){
 		this.size = board[0].length;
 		instance = this;
-		if(typeBoard == VIEW_PLAY_SUDOKU & competition == COMPETITION){
+		if(typeBoard == VIEW_PLAY_SUDOKU){
 			this.vm = new ViewMatch(board,size);
-			vm.enableCustomProperties();
-			vm.buttonListener(new MouseManage(), vm.extraButton[1]);
-			vm.buttonListener(new MouseManage(), vm.extraButton[2]);
+			if(competition == COMPETITION){
+				vm.enableCustomProperties();
+				vm.buttonListener(new MouseManage(), vm.extraButton[1]);
+				vm.buttonListener(new MouseManage(), vm.extraButton[2]);
+			}
+			else
+				vm.extraButton[0].setEnabled(false);
 		}
 		else{
 			this.vm = new ViewCreateBoard(board,size);
 			vm.buttonListener(new MouseManage(), vm.actEntry);
 		}
 		vm.buttonListener(new MouseManage(), vm.extraButton[0]);
-		if(guest == USER_GUEST || competition == TRAINING)
+		if(guest == USER_GUEST)
 			vm.extraButton[0].setEnabled(false);
 		vb = (viewBoard)container;
 		frame.getContentPane().add(vm);
