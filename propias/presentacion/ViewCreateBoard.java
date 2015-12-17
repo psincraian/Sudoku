@@ -3,10 +3,14 @@ package propias.presentacion;
 import java.awt.Dimension;
 import java.awt.event.MouseAdapter;
 
+import javax.swing.Action;
 import javax.swing.Box;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JPopupMenu;
 import javax.swing.JTextField;
+import javax.swing.KeyStroke;
+import javax.swing.text.DefaultEditorKit;
 
 /**
  * 
@@ -42,6 +46,20 @@ public class ViewCreateBoard extends GenerateBoard{
 		entryFast = new JLabel("Entrada ràpida");
 		entryFast.setToolTipText("S'haurà d'introduir '.' i números de 1 al 9");
 		nums = new JTextField();
+		JPopupMenu menu = new JPopupMenu();
+        Action cut = new DefaultEditorKit.CutAction();
+        cut.putValue(Action.NAME, "Cut");
+        cut.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke("control X"));
+        menu.add( cut );
+        Action copy = new DefaultEditorKit.CopyAction();
+        copy.putValue(Action.NAME, "Copy");
+        copy.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke("control C"));
+        menu.add( copy );
+        Action paste = new DefaultEditorKit.PasteAction();
+        paste.putValue(Action.NAME, "Paste");
+        paste.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke("control V"));
+        menu.add( paste );
+        nums.setComponentPopupMenu( menu );
 		actEntry = new JButton("Actualitzar");
 		nums.setPreferredSize(new Dimension(100,20));
 		nums.setMaximumSize(new Dimension(100,20));
