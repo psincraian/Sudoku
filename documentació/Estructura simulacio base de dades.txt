@@ -61,5 +61,12 @@ N4. Contingut subdirectori Partidas:
 	(id, qui ha creat el sudoku de la 	partida i quantes caselles queden per omplir en el 
 	sudoku).
 
+-El sistema de persistencia conjuntament amb domini permet afegir usuaris, sudokus, partides d'usuari
+(una per sudoku i usuari, si es fa una partida nova amb un sudoku del que ja en te guardat una 
+l'usuari i es guarda es sobreescriura ja queno trobo gaire sentit a tenir diferents partides amb el 
+mateix sudoku, la solucio sera sempre la mateixa). Tambe permet modificar les dades d'usuaris, fent 
+les modificacions en tot el sistema que siguin necessaries, i eliminar usuaris, substituint el nom de
+l'usuari per "(eliminat)" alla on s'hagi de conservar un nom d'usuari i esborrant-lo de tots els rankings 
+i on sigui necessari, i consultar totes les dades necessaries.
 	
 	-Adrián Sánchez Albanell
