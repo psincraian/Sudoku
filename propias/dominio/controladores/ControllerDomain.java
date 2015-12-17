@@ -207,7 +207,7 @@ public class ControllerDomain {
         		CntrlSudokuCreator cs = new CntrlSudokuCreator();
         		CntrlSudokuGenerator csg = new CntrlSudokuGenerator(c.getMida());
         		Sudoku s = cs.createWithMinCells(c.getDificultat(), csg.generateBoard(),c.getGivenNumbers());
-        		s.setMaker("creacion automatica");
+        		//s.setMaker("creacion automatica");AIXO SOBRA COMPLETAMENT! Adrián
         		cont = cs.getGivensLastSudoku();
         		if(!isGuest){
 	        	    String id = cc.introduceSudoku(s, c.getGivenNumbers());

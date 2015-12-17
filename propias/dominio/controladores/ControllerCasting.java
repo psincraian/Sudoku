@@ -481,9 +481,9 @@ public class ControllerCasting {
 	*/
 	public void saveMatch(MatchTraining m, String name, String maker, int givens) throws Exception {		
 		ByteArrayOutputStream bos = new ByteArrayOutputStream();
-    		ObjectOutputStream oos = new ObjectOutputStream(bos);
-    		oos.writeObject(m);
-    		oos.close();
+    	ObjectOutputStream oos = new ObjectOutputStream(bos);
+    	oos.writeObject(m);
+    	oos.close();
 		String serializedMatch = new String(DatatypeConverter.printBase64Binary(bos.toByteArray()));
 		cp.saveMatch(name, serializedMatch);
 		ListMatchInfo info = getMatchInfo();
