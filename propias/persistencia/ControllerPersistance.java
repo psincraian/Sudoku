@@ -281,8 +281,7 @@ public class ControllerPersistance {
 			difID = "d";
 		}
 		String sizeStr = Integer.toString(size);
-		String dir = autoPath + "/data/Sudokus/" + size + "x" + size + "/" + difSt;
-		File fl = new File(dir);		
+		File fl = new File(autoPath + "/data/Sudokus/" + size + "x" + size + "/" + difSt);		
 		if(size == 16){
 			difID = difID.toUpperCase();
 		}
@@ -345,8 +344,7 @@ public class ControllerPersistance {
 		else{
 			difSt = "Dificil";
 		}
-		String dir = autoPath + "/data/Sudokus/" + size + "x" + size + "/" + difSt + "/infoSudokus";
-		File f = new File(dir);	
+		File f = new File(autoPath + "/data/Sudokus/" + size + "x" + size + "/" + difSt + "/infoSudokus");	
 		f.delete();
 		f.createNewFile();
 		FileWriter fw = new FileWriter(f.getAbsolutePath());
@@ -375,8 +373,7 @@ public class ControllerPersistance {
 		else{
 			difSt = "Dificil";
 		}
-		String dir = autoPath + "/data/Sudokus/" + size + "x" + size + "/" + difSt + "/infoSudokus";
-		FileReader fr = new FileReader(dir);
+		FileReader fr = new FileReader(autoPath + "/data/Sudokus/" + size + "x" + size + "/" + difSt + "/infoSudokus");
 		Scanner scn = new Scanner(fr);
 		String info = scn.next();
 		fr.close();
