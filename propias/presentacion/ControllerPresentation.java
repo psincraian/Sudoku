@@ -168,21 +168,16 @@ public class ControllerPresentation implements
 				++i;
 			}
     		String res = cd.setBoardFast(s, position, mida,i,j);
-    		if(res.equals("max")) {
-    			maximum = true;
-    			c.sendMessage("No pots posar més valors.");
-    		}
-    		else {
-    			posx = String.valueOf(i);
-				posy = String.valueOf(j);
-				pos = posx + " " + posy;
-				if (!res.equals(".") && !res.equals("max")) c.updateBoard(pos,res);
-	    		++j;
-    		}
+			posx = String.valueOf(i);
+			posy = String.valueOf(j);
+			pos = posx + " " + posy;
+			if (!res.equals(".")) c.updateBoard(pos,res);
+    		++j;
     	}
     }
     
     /**
+     * Comproba si es pot guardar el sudoku creat
      * @return si el taulell actual compleix les regles del joc i te solucio unica
      */
     @Override
@@ -196,6 +191,10 @@ public class ControllerPresentation implements
         	c.sendMessage("No s'ha pogut guardar, no té solució única.");
         	return false;
         }
+        else if (!cd.numbersAtCreate()){
+    		c.sendMessage("No pots posar tants valors.");
+    		return false;
+    	}
     	return true;
     }
     /**
@@ -217,7 +216,7 @@ public class ControllerPresentation implements
      */
     @Override
     public void saveBoard(){
-        cd.saveBoard(createSudoku);
+    	cd.saveBoard(createSudoku);
     }
     /**
      * Juga una partida
@@ -301,14 +300,8 @@ public class ControllerPresentation implements
     @Override
     public void updateCell(String position, int value){
     	Boolean check = cd.updateCell(position, value);
-    	if (createSudoku){
-    		if (!check) {
-    			ControllerViewBoard c = ControllerViewBoard.getInstance();
-        		c.sendMessage("No pots posar més valors.");
-    		}
-    	}
-    	else if(check){
-	    	boardCompleted();
+    	if(check){
+	    	if (!createSudoku) boardCompleted();
     	}
     }
     /**

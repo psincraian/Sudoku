@@ -337,14 +337,11 @@ public class ControllerDomain {
 					Position p = new Position();
 					p.setRow(i);
 					p.setColumn(j);
-					if(numbersAtCreate()){ 
-						if(s.charAt(position) != '.' && sudoku.getCell(p) == 0) ++this.numbersAtCreate;
-						sudoku.setCell(p, Character.getNumericValue(s.charAt(position)));
-						sudoku.setCellType(i, j, CellType.Locked);
-						++cont;
-						return String.valueOf(s.charAt(position));
-					}
-					else return "max";
+					if(s.charAt(position) != '.' && sudoku.getCell(p) == 0) ++this.numbersAtCreate;
+					sudoku.setCell(p, Character.getNumericValue(s.charAt(position)));
+					sudoku.setCellType(i, j, CellType.Locked);
+					++cont;
+					return String.valueOf(s.charAt(position));
 				} catch (Exception e) {
 					e.printStackTrace();
 		        	return null;
@@ -359,14 +356,11 @@ public class ControllerDomain {
 					Position p = new Position();
 					p.setRow(i);
 					p.setColumn(j);
-					if(numbersAtCreate()){
-						sudoku.setCell(p, Character.getNumericValue(s.charAt(position)));
-						sudoku.setCellType(i, j, CellType.Locked);
-						++cont;
-						if(s.charAt(position)!= '.') ++numbersAtCreate;
-						return value;
-					}
-					else return "max";
+					sudoku.setCell(p, Character.getNumericValue(s.charAt(position)));
+					sudoku.setCellType(i, j, CellType.Locked);
+					++cont;
+					if(s.charAt(position)!= '.') ++numbersAtCreate;
+					return value;
 				} catch (Exception e) {
 					e.printStackTrace();
 		        	return null;
@@ -633,14 +627,10 @@ public class ControllerDomain {
 	        else {
 	        	boolean buit = ( sudoku.getSudoku().getCellValue(row, column) == 0);
 	        	if(value != 0 && buit) {
-	        		if(!numbersAtCreate()) return false;
-	        		else {
-	        			
-	        			sudoku.setCell(new Position(row, column), value);
-	        			sudoku.setCellType(row, column, CellType.Locked);
-		        		++cont;
-		        		++this.numbersAtCreate;
-	        		}
+        			sudoku.setCell(new Position(row, column), value);
+        			sudoku.setCellType(row, column, CellType.Locked);
+	        		++cont;
+	        		++this.numbersAtCreate;
 	        		
 	        	}
 	        	else if (value == 0 && !buit) {
