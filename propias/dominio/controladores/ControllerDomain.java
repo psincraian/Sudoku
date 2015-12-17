@@ -342,7 +342,6 @@ public class ControllerDomain {
 						sudoku.setCell(p, Character.getNumericValue(s.charAt(position)));
 						sudoku.setCellType(i, j, CellType.Locked);
 						++cont;
-						
 						return String.valueOf(s.charAt(position));
 					}
 					else return "max";
@@ -635,10 +634,14 @@ public class ControllerDomain {
 	        	boolean buit = ( sudoku.getSudoku().getCellValue(row, column) == 0);
 	        	if(value != 0 && buit) {
 	        		if(!numbersAtCreate()) return false;
-	        		sudoku.setCell(new Position(row, column), value);
-	        		sudoku.setCellType(row, column, CellType.Locked);
-	        		++cont;
-	        		++this.numbersAtCreate;
+	        		else {
+	        			
+	        			sudoku.setCell(new Position(row, column), value);
+	        			sudoku.setCellType(row, column, CellType.Locked);
+		        		++cont;
+		        		++this.numbersAtCreate;
+	        		}
+	        		
 	        	}
 	        	else if (value == 0 && !buit) {
 	        		sudoku.setCell(new Position(row, column), value);
