@@ -4,11 +4,16 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagLayout;
+import java.lang.reflect.InvocationTargetException;
 import java.util.*;
+import java.util.concurrent.ExecutionException;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-
+import javax.swing.SwingUtilities;
+import javax.swing.SwingWorker;
 
 import propias.dominio.clases.*;
 import propias.dominio.controladores.*;
@@ -440,7 +445,7 @@ public class ControllerPresentation implements
     	else{
 	    	int sudoku[][];
 	    	if (caracteristiques.getNewSudoku()) {
-	    		sudoku = cd.createMatch(caracteristiques, isGuest);
+	    		sudoku = createMatch(caracteristiques);
 	    		this.caracteristiques = caracteristiques;
 	    		playMatch(sudoku, caracteristiques.getTipusPartida() == 1);
 	    	} 
@@ -450,6 +455,33 @@ public class ControllerPresentation implements
 	    	}
     	}
     }
+    
+    private int[][] createMatch(CaracteristiquesPartida caracteristiques) {
+    	frame.getContentPane().removeAll();
+    	LoadingView view = LoadingView.newInstance();
+		frame.add(view);
+		view.setVisible(true);
+		view.setOpaque(true);
+		revalidateContentPane(frame);
+		int[][] sudoku = null;
+		
+		SwingWorker<int[][],Void> worker = new SwingWorker<int[][], Void>() {
+		    @Override
+		    protected int[][] doInBackground() {
+		    	return cd.createMatch(caracteristiques, isGuest);
+		    }
+		};
+		worker.execute();
+		
+		try {
+			sudoku = worker.get();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return sudoku;
+    }
+    
     /**
      * Opcions del menu principal
      */
