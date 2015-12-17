@@ -180,7 +180,16 @@ public class ControllerPresentation implements
      */
     @Override
     public boolean checkBoard(){
-        return cd.checkBoard();
+    	ControllerViewBoard c = ControllerViewBoard.getInstance();
+        if(!cd.checkLaws()) {
+        	c.sendMessage("No s'ha pogut guardar, el teu Sudoku no compleix les regles del joc.");
+        	return false;
+        }
+        else if (!cd.checkBoard()) {
+        	c.sendMessage("No s'ha pogut guardar, no té solució única.");
+        	return false;
+        }
+    	return true;
     }
     /**
      * Indica que s'ha completat el sudoku correctament

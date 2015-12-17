@@ -37,18 +37,25 @@ public class ControllerBoard {
 	/**
 	 * 
 	 * @param m Matriu a comprobar
-	 * @return Si la matriu te solucio, aquesta es unica i compleix les regles del joc
+	 * @return Si la matriu compleix les regles del joc
 	 */
-	public boolean verify(int[][] m){
+	public boolean controlLaws(int[][]m){
 		Board b = convertMatrixToBoard(m);
 		CntrlSudokuVerification s = new CntrlSudokuVerification();
 		boolean solved = s.resolve(b);
-		if(solved){
-			CntrlSudokuSolver sol = new CntrlSudokuSolver(b);
-			sol.needUnique();
-			sol.solve();
-			return sol.isUnique();			
-		}	
-		return false;
+		return solved;
+	}
+	/**
+	 * 
+	 * @param m Matriu a comprobar
+	 * @return Si la matriu te solucio, aquesta es unica
+	 */
+	public boolean verify(int[][] m){
+		Board b = convertMatrixToBoard(m);
+		CntrlSudokuSolver sol = new CntrlSudokuSolver(b);
+		sol.needUnique();
+		sol.solve();
+		return sol.isUnique();			
+
 	}
 }

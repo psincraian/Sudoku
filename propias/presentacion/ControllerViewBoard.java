@@ -207,9 +207,6 @@ public class ControllerViewBoard {
 	        				vm.sendMessage("S'ha guardat el sudoku");
 	        				vb.showMainMenu();
 	        			}
-	        			else{
-	        				vm.sendMessage("No s'ha pogut guardar, no te solucion unica");
-	        			}
 	        		}
 	        		else{
 	        			vb.saveBoard();

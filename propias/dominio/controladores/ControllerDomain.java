@@ -207,7 +207,6 @@ public class ControllerDomain {
         		CntrlSudokuCreator cs = new CntrlSudokuCreator();
         		CntrlSudokuGenerator csg = new CntrlSudokuGenerator(c.getMida());
         		Sudoku s = cs.createWithMinCells(c.getDificultat(), csg.generateBoard(),c.getGivenNumbers());
-        		//s.setMaker("creacion automatica");AIXO SOBRA COMPLETAMENT! Adrián
         		cont = cs.getGivensLastSudoku();
         		if(!isGuest){
 	        	    String id = cc.introduceSudoku(s, c.getGivenNumbers());
@@ -419,6 +418,18 @@ public class ControllerDomain {
         return correct;
     }
     /**
+     * Comproba que es compleixen les normes del joc
+     * @return Si es compleixen les normes del joc
+     */
+    public boolean compareLaws(){
+    	ControllerBoard cb = new ControllerBoard();
+        int[][] m;
+        if(!createSudoku) m = convertToMatrix(match.getSudoku());
+        else m = convertToMatrix(sudoku.getSudoku());
+        Boolean correct = cb.controlLaws(m);
+        return correct;
+    }
+    /**
      * Retorna el taulell que l'usuari vol carregar
      * @param id Indica la partida a cargar
      * @return Las partida guardada per l'usuari
@@ -463,11 +474,9 @@ public class ControllerDomain {
 				css.needUnique();
 				Board sol = css.solve();
 				Sudoku s = new Sudoku(sudoku.getSudoku(), sol, dificultat, this.user.consultarNom());
-				if(checkBoard()){
-					String ident = cc.introduceSudoku(s,cont);
-					this.user.addSudoku(ident);
-					cc.setUser(this.user);
-				}
+				String ident = cc.introduceSudoku(s,cont);
+				this.user.addSudoku(ident);
+				cc.setUser(this.user);
 			} catch (Exception e1) {
 				e1.printStackTrace();
 			}
@@ -561,10 +570,17 @@ public class ControllerDomain {
     	}
     }
     /**
-     * Comprueba si el Tablero actual es correcto y con solucion unica
+     * Comprueba si el Tablero actual tiene solucion unica
      */
     public boolean checkBoard(){
         return compareSolution();
+    }
+    /**
+     * Comproba si es compleixen les normes del Sudoku
+     * @return Si es compleixen les regles del joc
+     */
+    public boolean checkLaws(){
+    	return compareLaws();
     }
     /**
      * Actualiza la celda con un nuevo valor
