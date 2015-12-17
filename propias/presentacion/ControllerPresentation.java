@@ -40,6 +40,7 @@ public class ControllerPresentation implements
     boolean createSudoku; // true: crear un sudoku, false: partidaRapida
     boolean loadMatch;
     CaracteristiquesPartida caracteristiques;
+    int mida;
     
     /**
      * Constructora
@@ -157,7 +158,7 @@ public class ControllerPresentation implements
     	ControllerViewBoard c = ControllerViewBoard.getInstance();
     	int mida = 0;
     	if (s.length() <= 81) mida = 81;
-    	else if (s.length()<=256) mida = 256;
+    	else if (this.mida == 256 && s.length()<=256) mida = 256;
     	else c.sendMessage("Has posat massa valors");
     	int i = 0, j = 0;
     	String posx, posy, pos;
@@ -582,7 +583,7 @@ public class ControllerPresentation implements
 	@Override
 	public void getSize(int size) {
         int[][] m = cd.newSudoku(size);
-        
+        this.mida = size * size;
         frame.getContentPane().removeAll();
         frame.setLayout(new BorderLayout());
         ControllerViewBoard cb = ControllerViewBoard.getInstance();
