@@ -110,6 +110,14 @@ public class Sudoku implements java.io.Serializable {
 	public void setCell(Position position, int value) throws Exception {
 		sudoku.setCasella(position.getRow(), position.getColumn(), value);
 	}
+	/**
+	 * Retorna el valor de la casella
+	 * @param position Posicio de la casella
+	 * @return El valor de la casella
+	 */
+	public int getCell(Position position){
+		return sudoku.getCellValue(position.getRow(), position.getColumn());
+	}
 	
 	/** Esborra la cesella de la posició especificada
 	 * 

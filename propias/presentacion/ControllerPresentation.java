@@ -161,17 +161,24 @@ public class ControllerPresentation implements
     	else c.sendMessage("Has posat massa valors");
     	int i = 0, j = 0;
     	String posx, posy, pos;
-    	for (int position=0; position < mida; ++position){
+    	boolean maximum = false;
+    	for (int position=0; position < mida && !maximum; ++position){
     		if ((mida == 81 && j == 9) ||(mida == 256 && j == 16)){
 				j = 0;
 				++i;
 			}
     		String res = cd.setBoardFast(s, position, mida,i,j);
-    		posx = String.valueOf(i);
-			posy = String.valueOf(j);
-			pos = posx + " " + posy;
-			if (res != ".") c.updateBoard(pos,res);
-    		++j;
+    		if(res.equals("max")) {
+    			maximum = true;
+    			c.sendMessage("No pots posar més valors.");
+    		}
+    		else {
+    			posx = String.valueOf(i);
+				posy = String.valueOf(j);
+				pos = posx + " " + posy;
+				if (!res.equals(".") && !res.equals("max")) c.updateBoard(pos,res);
+	    		++j;
+    		}
     	}
     }
     
@@ -281,7 +288,7 @@ public class ControllerPresentation implements
     	}
     	if (!cd.hintAvailable()) {
     		ControllerViewBoard c = ControllerViewBoard.getInstance();
-    		c.sendMessage("No pots utilitzar aquesta ajuda");
+    		c.sendMessage("No pots utilitzar aquesta ajuda.");
     		return 0;
     	}
     	else return number;
@@ -294,7 +301,13 @@ public class ControllerPresentation implements
     @Override
     public void updateCell(String position, int value){
     	Boolean check = cd.updateCell(position, value);
-    	if(check){
+    	if (createSudoku){
+    		if (!check) {
+    			ControllerViewBoard c = ControllerViewBoard.getInstance();
+        		c.sendMessage("No pots posar més valors.");
+    		}
+    	}
+    	else if(check){
 	    	boardCompleted();
     	}
     }

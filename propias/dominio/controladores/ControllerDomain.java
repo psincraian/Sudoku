@@ -33,6 +33,7 @@ public class ControllerDomain {
     boolean createSudoku; //indica si s'esta creant un nou sudoku o no
     int cont; //indica les caselles posades per l'usuari al jugar una partida
     int hintsUsed;
+    int numbersAtCreate;
     long points; // punts de la partida
     boolean isGuest = true;
     ErrorUserEntry errorUser;
@@ -316,6 +317,8 @@ public class ControllerDomain {
     	createSudoku = true;
     	cont = 0;
     	type = 0;
+    	this.size = size;
+    	this.numbersAtCreate = 0;
     	sudoku = new Sudoku(new Board(size),new Board(size), this.user.consultarNom());
     	return sudoku.getSudoku().getMatrix();
     }
@@ -334,10 +337,15 @@ public class ControllerDomain {
 					Position p = new Position();
 					p.setRow(i);
 					p.setColumn(j);
-					sudoku.setCell(p, Character.getNumericValue(s.charAt(position)));
-					sudoku.setCellType(i, j, CellType.Locked);
-					++cont;
-					return String.valueOf(s.charAt(position));
+					if(numbersAtCreate()){ 
+						if(s.charAt(position) != '.' && sudoku.getCell(p) == 0) ++this.numbersAtCreate;
+						sudoku.setCell(p, Character.getNumericValue(s.charAt(position)));
+						sudoku.setCellType(i, j, CellType.Locked);
+						++cont;
+						
+						return String.valueOf(s.charAt(position));
+					}
+					else return "max";
 				} catch (Exception e) {
 					e.printStackTrace();
 		        	return null;
@@ -352,10 +360,14 @@ public class ControllerDomain {
 					Position p = new Position();
 					p.setRow(i);
 					p.setColumn(j);
-					sudoku.setCell(p, Character.getNumericValue(s.charAt(position)));
-					sudoku.setCellType(i, j, CellType.Locked);
-					++cont;
-					return value;
+					if(numbersAtCreate()){
+						sudoku.setCell(p, Character.getNumericValue(s.charAt(position)));
+						sudoku.setCellType(i, j, CellType.Locked);
+						++cont;
+						if(s.charAt(position)!= '.') ++numbersAtCreate;
+						return value;
+					}
+					else return "max";
 				} catch (Exception e) {
 					e.printStackTrace();
 		        	return null;
@@ -592,7 +604,6 @@ public class ControllerDomain {
         int row = Integer.parseInt(nombres[0]);
         int column = Integer.parseInt(nombres[1]);
         try {
-	        
 	        if(!createSudoku){ //nomes es comproba si esta ben resolt si no s'esta creant un sudoku
 	        	boolean buit = ( match.getCellValue(new Position(row, column)) == 0);
 	        	match.setCell(new Position(row, column), value);
@@ -622,16 +633,20 @@ public class ControllerDomain {
 	        }
 	        else {
 	        	boolean buit = ( sudoku.getSudoku().getCellValue(row, column) == 0);
-	        	sudoku.setCell(new Position(row, column), value);
 	        	if(value != 0 && buit) {
+	        		if(!numbersAtCreate()) return false;
+	        		sudoku.setCell(new Position(row, column), value);
 	        		sudoku.setCellType(row, column, CellType.Locked);
 	        		++cont;
+	        		++this.numbersAtCreate;
 	        	}
 	        	else if (value == 0 && !buit) {
+	        		sudoku.setCell(new Position(row, column), value);
 	        		sudoku.setCellType(row, column, CellType.Unlocked);
 	        		--cont;
+	        		--this.numbersAtCreate;
 	        	}
-	        	
+	        	return true;
 	        }
 	        return false;
         } 
@@ -723,6 +738,14 @@ public class ControllerDomain {
     	if (this.dificult == 0 && this.hintsUsed <= (int)(0.12*size*size)) return true;
     	else if (this.dificult == 1 && this.hintsUsed <= (int)(0.08*size*size)) return true;
     	return false;
+    }
+    /**
+     * Comproba que el maxim de numeros posats al crear un sudoku
+     * @return el maxim de numeros posats al crear un sudoku
+     */
+    public boolean numbersAtCreate(){
+    	if(this.numbersAtCreate <= (int)(0.8*size*size)) return true;
+    	else return false;
     }
     /**
      * 
