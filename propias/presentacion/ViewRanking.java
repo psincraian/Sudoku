@@ -122,7 +122,7 @@ public class ViewRanking extends SetView{
 	}
 	
 	public String setToTime(Long value){
-		String data = String.valueOf(value);
+		/*String data = String.valueOf(value);
 		String sequenceS = "00";
 		String sequenceM = "00";
 		if(global)
@@ -144,7 +144,24 @@ public class ViewRanking extends SetView{
 				sequenceS = data.substring(0, data.length()-4)+ ":" + sequenceM + ":" +sequenceS;
 		}
 		
-		return sequenceS;
+		return sequenceS;*/
+		String data;
+		Long seconds = value % 60;
+		Long minute = value / 60;
+		minute %= 60;
+		Long hour =minute / 60;
+		hour %=24;
+		String min = String.valueOf(minute);
+		if(min.length() == 1)
+			min = "0"+min;
+		String h = String.valueOf(hour);
+		if(h.length() == 1)
+			h = "0"+h;
+		String s = String.valueOf(seconds);
+		if(s.length() == 1)
+			s = "0"+s;
+		data = h + ":" + min +":"+ s;
+		return data;
 	}
 	
 	/**
