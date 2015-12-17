@@ -83,17 +83,6 @@ public class ControllerCasting {
 	}
 
 	/**
-	* Permet esborrar l'usuari
-	* demanat.
-	* @param name nom de l'usuari
-	* a esborrar.
-	*/
-	public void deleteUser() throws Exception {		
-		changeNameObjects(cp.getNameUserDB(), cp.getNameUserDB() + "(eliminat)");
-		cp.deleteUser();
-	}
-
-	/**
 	* Permet modificar l'usuari carregat a
 	* persistencia per un altre.
 	*/
@@ -186,6 +175,71 @@ public class ControllerCasting {
 		rank = new RankingGlobal(params);
 		setRankingGlobal(rank);
 	}
+
+	/**
+	* Permet esborrar l'usuari
+	* demanat.
+	* @param name nom de l'usuari
+	* a esborrar.
+	*/
+	public void deleteUser() throws Exception {
+		deleteNameSudokus(cp.getNameUserDB());
+		changeNameListInfoMatches(cp.getNameUserDB(), "(eliminat)");
+		deleteNameRankingGlobal(cp.getNameUserDB());
+		cp.deleteUser();
+	}
+
+	/**
+	* Metode per actualitzar tots els sudokus
+	* esborrant l'usuari on sigui necessari.
+	* @param oldName l'antic nom de l'usuari.
+	*/
+	public void deleteNameSudokus(String oldName) throws Exception {
+		for(int s = 0; s < 2; ++s){
+			for(int dif = 0; dif < 3; ++dif){
+				int size;
+				if(s == 0) size = 9;
+				else size = 16;
+				ListSudokuInfo sudoInfo = getSudokuInfo(dif, size);
+				sudoInfo.replaceMaker(oldName, "(eliminat)");
+				List<List<String>> idMakerGivensSudokus = sudoInfo.getInfoIdMakerGivens(0);
+				introduceSudokuInfo(sudoInfo, dif, size);
+				for(int a = 0; a < idMakerGivensSudokus.size(); ++a){
+					Sudoku sudo = getSudoku(size, dif, idMakerGivensSudokus.get(a).get(0));
+					RankingSudoku rank = sudo.getRanking();
+					List<ParamRanking> params = rank.getRanking();
+					for(int pr = 0; pr < params.size(); ++pr){
+						if(params.get(pr).getName().equals(oldName)){
+							params.remove(pr);
+							break;
+						}
+					}
+					sudo.setRanking(new RankingSudoku(params));
+					modifySudoku(idMakerGivensSudokus.get(a).get(0), sudo);
+				}
+			}
+		}
+	}
+
+	/**
+	* Permet eliminar un usuari del Ranking
+	* Global.
+	* @param oldName l'antic nom de l'usuari.
+	* @param newName nou nom de l'usuari.
+	*/
+	public void deleteNameRankingGlobal(String oldName) throws Exception {
+		RankingGlobal rank = getRankingGlobal();
+		List<ParamRanking> params = rank.getRanking();
+		for(int pr = 0; pr < params.size(); ++pr){
+			if(params.get(pr).getName().equals(oldName)){
+				params.remove(pr);
+				break;
+			}
+		}
+		rank = new RankingGlobal(params);
+		setRankingGlobal(rank);
+	}
+
 
 	/**
    	* Inicialitza el controlador de persistencia
