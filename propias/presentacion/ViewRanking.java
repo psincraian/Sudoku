@@ -100,10 +100,10 @@ public class ViewRanking extends SetView{
 		/*Center*/
 		verticalBox = Box.createVerticalBox();
 		verticalBox.add(Box.createVerticalStrut(100));
-		setSize(175,25);
+		setSize(200,25);
 		rank.setBorder(BorderFactory.createRaisedBevelBorder());
 		rank.add(nameP);
-		rank.add(Box.createHorizontalStrut(20));
+		rank.add(Box.createHorizontalStrut(15));
 		rank.add(valueP);
 		rank.setBackground(Color.white);
 		verticalBox.add(rank);
@@ -162,7 +162,12 @@ public class ViewRanking extends SetView{
 		button = new JButton("Tornar");
 		
 		for(int i = 0; i < name.size(); ++i){
-			nameL[i] = new JLabel(Integer.toString(i+1)+". "+name.get(i));
+			String na = name.get(i);
+			if(na.length() >= 8){
+				na.substring(0, 6);
+				na = na+"...";
+			}
+			nameL[i] = new JLabel(Integer.toString(i+1)+". "+na);
 			valueL[i] = new JLabel(setToTime(value.get(i)));
 			nameP.add(nameL[i]);
 			valueP.add(valueL[i]);
