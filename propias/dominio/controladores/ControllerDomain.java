@@ -332,7 +332,7 @@ public class ControllerDomain {
      */
     public String setBoardFast(String s, int position, int mida,int i,int j){
     	if (mida == 81){
-			if (position < s.length() && s.charAt(position) >= '0' && s.charAt(position) <= '9') {
+			if (position < s.length() && s.charAt(position) > '0' && s.charAt(position) <= '9') {
 				try {
 					Position p = new Position();
 					p.setRow(i);
@@ -349,7 +349,7 @@ public class ControllerDomain {
 			}
     	}
     	else if (mida == 256){
-			if ( position < s.length() && ((s.charAt(position) >= '0' && s.charAt(position) <= '9') || (s.charAt(position) >= 'A' &&
+			if ( position < s.length() && ((s.charAt(position) > '0' && s.charAt(position) <= '9') || (s.charAt(position) >= 'A' &&
 					s.charAt(position) <= 'G')) ) {
 				String value = charHexa(s.charAt(position));
 				try {

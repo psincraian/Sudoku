@@ -1,0 +1,22 @@
+Per tal de crear un sudoku de manera rapida, la cadena de caracters ha de tenir el següent format:
+- Tots els caracters seguits sense espais
+- Cualsevol cosa que no sigui un numero s'interpreta com 0 i per tant deixara la casella corresponent
+  buida
+- En els taulells de 16x16, els numeros del 10 al 16 s'han de posar en hexadecimal: A, B, C, D, E, F, G.
+- En el cas de posar més numeros dels que pot permetre el taulell, s'avisarà a l'usuari.
+- Com a maxim es pot posar un 80% de les caselles totals.
+
+Exemples:
+
+9x9:
+
+...1.5...14....67..8...24...63.7..1.9.......3.1..9.52...72...8..26....35...4.9...
+
+ckl09..1..2.1.684..67..3...4.2.....1...9.7...9.....2.5...5..46..382.1.7..5..3....
+
+
+16x16:
+
+....9..1..2.1.684..67..3...4.2.....1...9.7...9.....2.5...5..46..382.1.7..5..3....ABCDEFG
+
+8457923163291568471674839524823657915139276849G6814235291578F63638241D7975C639128A5291578F63638241D7975C639128A
