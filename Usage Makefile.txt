@@ -1,0 +1,4 @@
+-Remover archivos .class: make clean
+-Compilar: make all
+-Compilar y ejecutar programa: make run
+-Generar .jar: make jar
