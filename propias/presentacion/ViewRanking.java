@@ -82,7 +82,6 @@ public class ViewRanking extends SetView{
 		if(global)
 			setTitle("Ranking global");
 		else{
-			System.out.print("hola");
 			setTitle("Ranking sudoku");
 		}
 		initialize();
