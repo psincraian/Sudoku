@@ -27,7 +27,7 @@ import javax.swing.JTextField;
 public abstract class UserEntry extends SetView {
 	private String[] names = {"Nom: ","Contrasenya: "};
 	private JLabel[] label;
-	private JTextField name;
+	protected JTextField name;
 	protected JPasswordField pf;
 	protected JButton accept;
 	protected JButton cancel;
