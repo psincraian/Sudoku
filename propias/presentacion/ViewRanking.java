@@ -122,7 +122,8 @@ public class ViewRanking extends SetView{
 	}
 	
 	public String setToTime(Long value){
-
+		if(global)
+-			return String.valueOf(value);
 		String data;
 		Long seconds = value % 60;
 		Long minute = value / 60;
