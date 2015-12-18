@@ -82,7 +82,6 @@ public class ViewRanking extends SetView{
 		if(global)
 			setTitle("Ranking global");
 		else{
-			System.out.print("hola");
 			setTitle("Ranking sudoku");
 		}
 		initialize();
@@ -164,8 +163,7 @@ public class ViewRanking extends SetView{
 		for(int i = 0; i < name.size(); ++i){
 			String na = name.get(i);
 			if(na.length() >= 8){
-				na.substring(0, 6);
-				na = na+"...";
+				na = na.substring(0, 6)+"...";
 			}
 			nameL[i] = new JLabel(Integer.toString(i+1)+". "+na);
 			valueL[i] = new JLabel(setToTime(value.get(i)));
